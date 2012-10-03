@@ -11,29 +11,29 @@ class FilesController extends UploaderAppController {
 		$this->Security->unlockedActions = 'upload';
 	}
 
-	/**
-	 * Affiche le contenu d'un dossier. Permet de naviguer dans l'arborescence
-	 */
-	public function browse($folder_id) {
+/**
+ * Affiche le contenu d'un dossier. Permet de naviguer dans l'arborescence
+ */
+	public function browse($folderId) {
 		$data = $this->UploadedFile->generateTreeList(null, null, '{n}.UploadedFile.filename', '_');
         debug($data);
-		$files = $this->UploadedFile->findById($folder_id);
+		$files = $this->UploadedFile->findById($folderId);
 		debug($files);
 		$this->set('files', $files);
 	}
 
-	/**
-	 * Affiche la liste des versions d'un fichier
-	 */
+/**
+ * Affiche la liste des versions d'un fichier
+ */
 	public function view($id) {
 		$this->UploadedFile->recursive = 3;
 		$file = $this->UploadedFile->findById($id);
 		$this->set('file', $file);
 	}
 
-	/**
-	 * Créer un dossier
-	 */
+/**
+ * Créer un dossier
+ */
 	public function createFolder($parentId) {
 		if ($this->Auth->user('id') != null) {
 			if ($this->request->data) {
@@ -51,8 +51,8 @@ class FilesController extends UploaderAppController {
  * Pour le moment sert juste à vérifier que l'on peut bien reconstruire
  * l'arborescence d'un dossier.
  */
-	public function downloadZipFolder($folder_id) {
-		debug($this->UploadedFile->getFoldersPath($folder_id));
+	public function downloadZipFolder($folderId) {
+		debug($this->UploadedFile->getFoldersPath($folderId));
 	}
 
 /**
@@ -78,5 +78,9 @@ class FilesController extends UploaderAppController {
 		} else {
 			$this->redirect(array('plugin' => 'users', 'controller' => 'users', 'action' => 'login'));
 		}
+	}
+
+	public function download($FileStorageId = null) {
+
 	}
 }

@@ -53,11 +53,11 @@ class UploadedFile extends UploaderAppModel {
 /**
  * Ajoute un dossier dans la db
  */
-	public function addFolder($data, $parent_id, $user_id) {
+	public function addFolder($data, $parentId, $userId) {
 		$this->create();
-		$data['UploadedFile']['parent_id'] = $parent_id;
+		$data['UploadedFile']['parent_id'] = $parentId;
 		$data['UploadedFile']['is_folder'] = 1;
-		$data['UploadedFile']['user_id'] = $user_id;
+		$data['UploadedFile']['user_id'] = $userId;
 		return $this->save($data);
 	}
 
@@ -65,11 +65,11 @@ class UploadedFile extends UploaderAppModel {
  * A refaire. L'objectif était juste de montrer qu'il est possible de recréer l'arborescence d'un
  * dossier
  */
-	public function getFoldersPath($folder_id) {
-		$parentFolder = $this->findById($folder_id);
-		$subFolders = $this->children($folder_id, false, null, null, null, 1, 1);
+	public function getFoldersPath($folderId) {
+		$parentFolder = $this->findById($folderId);
+		$subFolders = $this->children($folderId, false, null, null, null, 1, 1);
 		$allFoldersPath = array(
-			$folder_id => array(
+			$folderId => array(
 				'real_path' => $parentFolder['UploadedFile']['filename'] . DS,
 				'remote_path' => null
 			)
@@ -94,7 +94,7 @@ class UploadedFile extends UploaderAppModel {
 	}
 
 
-	public function createZip($folder_id) {
+	public function createZip($folderId) {
 		// fixme ;)
 	}
 
@@ -102,69 +102,72 @@ class UploadedFile extends UploaderAppModel {
 /// Methods for files ///
 /////////////////////////
 
-	protected function _findByFilenameParent_id($filename, $parent_id) {
+	protected function _findByFilenameParent_id($filename, $parentId) {
 		return $this->find('first', array(
 			'conditions' => array(
 				'UploadedFile.filename' => $filename,
-				'UploadedFile.parent_id' => $parent_id
+				'UploadedFile.parent_id' => $parentId
 			)
 		));
 	}
 
-	protected function _saveUploadedFile($fileInfos, $user_id, $parent_id) {
+	protected function _saveUploadedFile($fileInfos, $userId, $parentId) {
 		$this->create();
 		$data['UploadedFile']['filename'] = $fileInfos['name'];
 		$data['UploadedFile']['size'] = $fileInfos['size'];
-		$data['UploadedFile']['user_id'] = $user_id;
-		$data['UploadedFile']['parent_id'] = $parent_id;
+		$data['UploadedFile']['user_id'] = $userId;
+		$data['UploadedFile']['parent_id'] = $parentId;
 		$data['UploadedFile']['current_version'] = 1; // Fixme : directly in MySQL
 		return $this->save($data);
 	}
 
-	protected function _saveFileStorage($path, $user_id) {
+	protected function _saveFileStorage($path, $userId) {
 		$data['FileStorage']['foreign_key'] = $this->id;
 		$data['FileStorage']['model'] = get_class($this);
 		$data['FileStorage']['path'] = $path;
-		$data['FileStorage']['user_id'] = $user_id;
+		$data['FileStorage']['user_id'] = $userId;
 		$data['FileStorage']['adapter'] = Configure::read('FileStorage.adapter');
 		return $this->FileStorage->save($data);
 	}
 
-	protected function _getPathFile($user_id, $file_id, $version, $filename) {
+	protected function _getPathFile($userId, $fileId, $version, $filename) {
 		$path = Configure::read('FileStorage.filePattern');
-		$path = str_replace('{user_id}', $user_id, $path);
-		$path = str_replace('{file_id}', $file_id, $path);
+		$path = str_replace('{user_id}', $userId, $path);
+		$path = str_replace('{file_id}', $fileId, $path);
 		$path = str_replace('{version}', $version, $path);
 		$path = str_replace('{filename}', $filename, $path);
 		return $path;
 	}
 
-	protected function _sendFileOnRemote($user_id, $version, $fileInfos) {
+	protected function _sendFileOnRemote($userId, $version, $fileInfos) {
 		$content = file_get_contents($fileInfos['tmp_name']);
-		$path = $this->_getPathFile($user_id, $this->id, $version, $fileInfos['name']);
+		$path = $this->_getPathFile($userId, $this->id, $version, $fileInfos['name']);
 		StorageManager::adapter(Configure::read('FileStorage.adapter'))->write($path, $content);
 		return $path;	
 	}
 
-	public function upload($data, $user_id, $parent_id) {
+	public function upload($data, $userId, $parentId) {
 		$fileInfos = $data['FileStorage']['file'];
 		$version = 1;
 
-		$data = $this->_findByFilenameParent_id($fileInfos['name'], $parent_id);
+		$data = $this->_findByFilenameParent_id($fileInfos['name'], $parentId);
 		if (empty($data)) {
-			if (!$this->_saveUploadedFile($fileInfos, $user_id, $parent_id)) {
+			if (!$this->_saveUploadedFile($fileInfos, $userId, $parentId)) {
 				throw new Exception(__('Impossible d\'enregistrer les infos dans la base de données UploadedFile'));
 			}
 		} else {
 			$this->id = $data['UploadedFile']['id'];
-			$user_id = $data['UploadedFile']['user_id'];
+			$userId = $data['UploadedFile']['user_id'];
 			$version = $data['UploadedFile']['current_version'] + 1;
 			// Fixme faire l'update après l'upload sur le service distant
 			$this->saveField('current_version', $version);
 		}
-
-		$path = $this->_sendFileOnRemote($user_id, $version, $fileInfos);
-		if (!$this->_saveFileStorage($path, $user_id)) {
+		try {
+			$path = $this->_sendFileOnRemote($userId, $version, $fileInfos);
+		} catch (Exception $e) {
+			echo 'An error <br>' . $e;
+		}
+		if (!$this->_saveFileStorage($path, $userId)) {
 			throw new Exception(__('Impossible d\'enregistrer les infos dans la base de données FileStorage'));
 		}
 	}
@@ -176,11 +179,11 @@ class UploadedFile extends UploaderAppModel {
 	/**
 	 * @todo Move on User model ?
 	 */
-	public function userHasRight($user_id, $file_id, $what) {
+	public function userHasRight($userId, $fileId, $what) {
 		$right = $this->UploadedFilesUser->find('first', array(
 			'conditions' => array(
-				'user_id' => $user_id,
-				'uploaded_file_id' => $file_id
+				'user_id' => $userId,
+				'uploaded_file_id' => $fileId
 			)
 		));
 
