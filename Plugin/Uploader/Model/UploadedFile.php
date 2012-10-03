@@ -172,6 +172,19 @@ class UploadedFile extends UploaderAppModel {
 		}
 	}
 
+
+	protected function _receiveFileFromRemote($remotePath, $adapter) {
+		$content = StorageManager::adapter($adapter)->read($remotePath);
+		return $content;
+	}
+
+	public function download($fileStorageId) {
+		$fileStorage = $this->FileStorage->findById($fileStorageId);
+		$fileInfos = $this->findById($fileStorage['FileStorage']['foreign_key']); // Fixme : wtf ?
+		$content = $this->_receiveFileFromRemote($fileStorage['FileStorage']['path'], $fileStorage['FileStorage']['adapter']);
+		return array($content, $fileInfos['UploadedFile']['filename']);
+	}
+
 ////////////////////////////////////////
 /// Methods for user right on a file ///
 ////////////////////////////////////////
@@ -190,7 +203,6 @@ class UploadedFile extends UploaderAppModel {
 		if (empty($right)) {
 			return false;
 		}
-
 	}
 
 }

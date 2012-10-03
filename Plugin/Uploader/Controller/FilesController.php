@@ -80,7 +80,10 @@ class FilesController extends UploaderAppController {
 		}
 	}
 
-	public function download($FileStorageId = null) {
-
+	public function download($fileStorageId = null) {
+		list($content, $filename) = $this->UploadedFile->download($fileStorageId);
+		$this->response->download($filename);
+		$this->response->body($content);
+		$this->response->send();
 	}
 }
