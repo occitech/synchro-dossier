@@ -1,0 +1,10 @@
+{
+	"name": "Uploader",
+	"description": "",
+
+	"dependencies": {
+		"plugins": [
+			"FileStorage"
+		]
+	}
+}
