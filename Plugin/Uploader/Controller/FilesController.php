@@ -56,18 +56,15 @@ class FilesController extends UploaderAppController {
 /**
  * Upload d'un fichier
  *
- * $filename : For special case where the the uploaded file can hasn't the same name that on 
- * 	           the remote server. In that case $filename contains the real name of the file
+ * @param $originalFilename : For special case where the the uploaded file can hasn't the same name that on 
+ * 	           the remote server. In that case $originalFilename contains the real name of the file
  *
  */
-	public function upload($folderId, $filename = null) {
+	public function upload($folderId, $originalFilename = null) {
 		if ($this->Auth->user('id') != null) {
 			if ($this->request->data) {
-				if (!is_null($filename)) {
-					$this->request->data['FileStorage']['file']['name'] = $filename;
-				}
 				try {
-					$this->UploadedFile->upload($this->request->data, $this->Auth->user('id'), $folderId);					
+					$this->UploadedFile->upload($this->request->data, $this->Auth->user('id'), $folderId, $originalFilename);					
 				} catch (Exception $e) {
 					echo $e;
 				}
