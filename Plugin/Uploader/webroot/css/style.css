@@ -1,0 +1,15 @@
+.uploader a {
+	text-decoration: none;
+}
+
+.uploader-actions {
+	border-bottom: 1px black solid; margin-bottom: 10px;
+}
+
+.uploader-infos {
+	border-bottom: 1px #C0C0C0 solid; solid;margin-bottom: 10px; padding-bottom: 5px;
+}
+
+.uploader-version {
+	color: gray; margin-left: 25px;
+}
