@@ -32,6 +32,17 @@
 				<span class="uploader-version">
 					nombres versions : <?php echo $file['current_version'] ?>
 				</span>
+				<span>
+					<?php echo $this->Html->link(
+						__('Ajouter une version'),
+						array(
+							'controller' => 'files',
+							'action' => 'upload',
+							$file['parent_id'],
+							$file['filename']
+						)
+					); ?>
+				</span>
 			<?php endif ?>
 		</div>
 	<?php endforeach ?>
