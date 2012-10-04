@@ -55,6 +55,11 @@ class UploadedFile extends UploaderAppModel {
  * Ajoute un dossier dans la db
  */
 	public function addFolder($data, $parentId, $userId) {
+		$parent = $this->findById($parentId);
+		if (!$parent['UploadedFile']['is_folder']) {
+			return false;
+		}
+
 		$this->create();
 		$data['UploadedFile']['parent_id'] = $parentId;
 		$data['UploadedFile']['is_folder'] = 1;
@@ -94,10 +99,6 @@ class UploadedFile extends UploaderAppModel {
 		return $allFoldersPath;
 	}
 
-
-	public function createZip($folderId) {
-		// fixme ;)
-	}
 
 /////////////////////////
 /// Methods for files ///
@@ -153,6 +154,7 @@ class UploadedFile extends UploaderAppModel {
 		$version = 1;
 
 		$data = $this->_findByFilenameParent_id($fileInfos['name'], $parentId);
+
 		if (empty($data)) {
 			if (!$this->_saveUploadedFile($fileInfos, $userId, $parentId)) {
 				throw new Exception(__('Impossible d\'enregistrer les infos dans la base de données UploadedFile'));
@@ -161,14 +163,16 @@ class UploadedFile extends UploaderAppModel {
 			$this->id = $data['UploadedFile']['id'];
 			$userId = $data['UploadedFile']['user_id'];
 			$version = $data['UploadedFile']['current_version'] + 1;
-			// Fixme faire l'update après l'upload sur le service distant
-			$this->saveField('current_version', $version);
 		}
+
 		try {
 			$path = $this->_sendFileOnRemote($userId, $version, $fileInfos);
 		} catch (Exception $e) {
 			echo 'An error <br>' . $e;
 		}
+
+		$this->saveField('current_version', $version);
+		
 		if (!$this->_saveFileStorage($path, $userId)) {
 			throw new Exception(__('Impossible d\'enregistrer les infos dans la base de données FileStorage'));
 		}

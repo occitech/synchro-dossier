@@ -16,9 +16,7 @@ class FilesController extends UploaderAppController {
  */
 	public function browse($folderId) {
 		$data = $this->UploadedFile->generateTreeList(null, null, '{n}.UploadedFile.filename', '_');
-        debug($data);
 		$files = $this->UploadedFile->findById($folderId);
-		debug($files);
 		$this->set('files', $files);
 	}
 

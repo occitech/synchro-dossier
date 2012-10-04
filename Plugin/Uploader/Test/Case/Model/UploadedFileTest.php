@@ -62,6 +62,30 @@ class UploadedFileTest extends CakeTestCase {
 		parent::tearDown();
 	}
 
+	public function testAddFolderParentNotExist() {
+		$parentId = 32;
+		$userId = 1;
+		$data = array('UploadedFile' => array('filename' => 'MyBadFolder'));
+		$result = $this->UploadedFile->addFolder($data, $parentId, $userId);
+		$this->assertEqual($result, false);
+	}
+
+	public function testAddFolderParentIsFile() {
+		$parentId = 7;
+		$userId = 1;
+		$data = array('UploadedFile' => array('filename' => 'MyBadFolder'));
+		$result = $this->UploadedFile->addFolder($data, $parentId, $userId);
+		$this->assertEqual($result, false);
+	}
+
+	public function testAddFolderOk() {
+		$parentId = 1;
+		$userId = 1;
+		$data = array('UploadedFile' => array('filename' => 'MygreatFile'));
+		$result = $this->UploadedFile->addFolder($data, $parentId, $userId);
+		$this->assertEqual($result['UploadedFile']['filename'], 'MygreatFile');	
+	}
+
 	public function testGetPathFile() {
 		Configure::write('FileStorage.filePattern', '{user_id}/{file_id}-{version}-{filename}');
 		$result = $this->_runProtectedMethod('_getPathFile', array(5, 2, 3, 'MygreatFile'));
@@ -130,9 +154,7 @@ class UploadedFileTest extends CakeTestCase {
 		$user_id = 5845;
 		$file_id = 155144;
 		$result = $this->UploadedFile->userHasRight($user_id, $file_id, 'notImportant');
-		$this->assertEqual($result, false);
-		
-		
+		$this->assertEqual($result, false);	
 	}
 
 	protected function _runProtectedMethod($name, $args = array()) {

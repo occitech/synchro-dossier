@@ -113,7 +113,7 @@ class UploadedFileFixture extends CakeTestFixture {
 			'current_version' => 7,
 			'available' => 7,
 			'parent_id' => 7,
-			'is_folder' => 7,
+			'is_folder' => 0,
 			'lft' => 7,
 			'rght' => 7
 		),
