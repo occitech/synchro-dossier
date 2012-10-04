@@ -1,5 +1,6 @@
 <?php
 App::uses('UploaderAppModel', 'Uploader.Model');
+App::uses('Security', 'Utility');
 
 class UploadedFile extends UploaderAppModel {
 
@@ -141,7 +142,8 @@ class UploadedFile extends UploaderAppModel {
 
 	protected function _sendFileOnRemote($userId, $version, $fileInfos) {
 		$content = file_get_contents($fileInfos['tmp_name']);
-		$path = $this->_getPathFile($userId, $this->id, $version, $fileInfos['name']);
+		$hashFilename = Security::hash($fileInfos['name']);
+		$path = $this->_getPathFile($userId, $this->id, $version, $hashFilename);
 		StorageManager::adapter(Configure::read('FileStorage.adapter'))->write($path, $content);
 		return $path;	
 	}
@@ -171,7 +173,6 @@ class UploadedFile extends UploaderAppModel {
 			throw new Exception(__('Impossible d\'enregistrer les infos dans la base de données FileStorage'));
 		}
 	}
-
 
 	protected function _receiveFileFromRemote($remotePath, $adapter) {
 		$content = StorageManager::adapter($adapter)->read($remotePath);

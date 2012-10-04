@@ -79,8 +79,10 @@ class UploadedFileTest extends CakeTestCase {
 	}
 
 	public function testUploadFileNotExist() {
+		Configure::write('FileStorage.filePattern', '{user_id}/{file_id}-{version}-{filename}');
 		$user_id = 1;
 		$this->data['FileStorage']['file']['name'] = 'Newfile.jpg';
+		$filename = Security::hash('Newfile.jpg');
 		$this->UploadedFile->upload($this->data, $user_id, 1);
 		
 		$result = $this->UploadedFile->find('first', array('order' => 'UploadedFile.id desc'));
@@ -90,7 +92,7 @@ class UploadedFileTest extends CakeTestCase {
 
 		$result = $this->UploadedFile->FileStorage->find('first', array('order' => 'id desc'));
 		$this->assertEqual($result['FileStorage']['foreign_key'], 14);
-		$this->assertEqual($result['FileStorage']['path'], '1/14-1-Newfile.jpg');
+		$this->assertEqual($result['FileStorage']['path'], '1/14-1-' . $filename);
 		$this->assertEqual($result['FileStorage']['user_id'], $user_id);
 	}
 
@@ -112,8 +114,12 @@ class UploadedFileTest extends CakeTestCase {
 		$uploader_id = 1;
 		$owner_id = 2;
 		$parent_id = 1;
+		Configure::write('FileStorage.filePattern', '{user_id}/{file_id}-{version}-{filename}');
+		$filename = Security::hash('monfichier.jpg');
+
 		$this->UploadedFile->upload($this->data, $uploader_id, $parent_id);
-		$result = file_exists(Configure::read('FileStorage.testFolder') . DS . $owner_id . DS . '2-2-monfichier.jpg');
+		
+		$result = file_exists(Configure::read('FileStorage.testFolder') . DS . $owner_id . DS . '2-2-' . $filename);
 		$this->assertEqual($result, true);
 	}
 
