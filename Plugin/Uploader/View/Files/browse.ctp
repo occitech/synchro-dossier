@@ -1,4 +1,5 @@
 <?php echo $this->Html->css('Uploader.style'); ?>
+<?php echo $this->Html->script('Uploader.app'); ?>
 <div class="uploader">
 	<div class="uploader-actions">
 		<?php echo $this->Html->link(
@@ -11,6 +12,7 @@
 			array('controller' => 'files', 'action' => 'createFolder', $files['UploadedFile']['id'])
 		); ?>
 	</div>
+
 	<?php if ($files['ParentUploadedFile']['id'] != null): ?>
 		<div class="uploader-infos">
 			<?php echo $this->Html->link('..', array($files['ParentUploadedFile']['id'])) ?>
@@ -25,24 +27,45 @@
 					array('controller' => 'files', 'action' => 'browse', $file['id'])
 				); ?>		
 			<?php else: ?>
-				<?php echo $this->Html->link(
-					$file['filename'],
-					array('controller' => 'files', 'action' => 'view', $file['id'])
-				); ?>
-				<span class="uploader-version">
-					nombres versions : <?php echo $file['current_version'] ?>
-				</span>
-				<span>
+				<div>
+					V<?php echo $file['current_version']; ?>
+					<?php if ($file['current_version'] > 1): ?>
+						<?php echo $this->Html->link('+', '#', array('class' => 'show-versions')); ?>
+					<?php endif; ?>
 					<?php echo $this->Html->link(
-						__('Ajouter une version'),
-						array(
-							'controller' => 'files',
-							'action' => 'upload',
-							$file['parent_id'],
-							$file['filename']
-						)
+						$file['filename'],
+						array('controller' => 'files', 'action' => 'view', $file['id'])
 					); ?>
-				</span>
+					<span>
+						nombres versions : <?php echo $file['current_version'] ?>
+					</span>
+					<span>
+						<?php echo $this->Html->link(
+							__('Ajouter une version'),
+							array(
+								'controller' => 'files',
+								'action' => 'upload',
+								$file['parent_id'],
+								$file['filename']
+							)
+						); ?>
+					</span>
+				</div>
+				
+				<?php if ($file['current_version'] > 1): ?>
+					<div class="uploader-versions" style="display: none;">
+					<?php $version = $file['current_version']; ?>
+					<?php $fileVersions = array_reverse($file['FileStorage']); ?>
+						<?php foreach ($fileVersions as $k => $v): ?>					
+							<div class="uploader-version">
+								V<?php echo $version--; ?>
+								<span>
+									<?php echo $file['filename']; ?>
+								</span>
+							</div>
+						<?php endforeach ?>
+					</div>
+				<?php endif ?>
 			<?php endif ?>
 		</div>
 	<?php endforeach ?>
