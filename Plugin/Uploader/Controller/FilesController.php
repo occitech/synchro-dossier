@@ -64,7 +64,7 @@ class FilesController extends UploaderAppController {
  * l'arborescence d'un dossier.
  */
 	public function downloadZipFolder($folderId) {
-		debug($this->UploadedFile->getFoldersPath($folderId));
+		
 	}
 
 /**

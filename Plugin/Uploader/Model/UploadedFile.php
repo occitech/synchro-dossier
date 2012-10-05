@@ -94,10 +94,9 @@ class UploadedFile extends UploaderAppModel {
 	}
 
 /**
- * A refaire. L'objectif était juste de montrer qu'il est possible de recréer l'arborescence d'un
- * dossier
+ * @todo How to test that easily ?
  */
-	public function getFoldersPath($folderId) {
+	protected function _getFoldersPath($folderId) {
 		$parentFolder = $this->findById($folderId);
 		$subFolders = $this->children($folderId, false, null, null, null, 1, 1);
 		$allFoldersPath = array(
@@ -124,6 +123,7 @@ class UploadedFile extends UploaderAppModel {
 		}
 		return $allFoldersPath;
 	}
+
 
 	public function rename($fileId, $data) {
 		$fileInfos = $this->findById($fileId);
