@@ -202,6 +202,10 @@ class UploadedFile extends UploaderAppModel {
 		$fileInfos = $data['FileStorage']['file'];
 		$result = false;
 
+		if ($fileInfos['error'] != UPLOAD_ERR_OK) {
+			return false;
+		}
+
 		if (is_null($originalFilename) && !$this->_isANewVersion($fileInfos['name'], $parentId)) {
 			$result = $this->_uploadNewFile($data, $userId, $parentId);
 		} else {
