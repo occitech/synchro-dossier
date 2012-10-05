@@ -47,6 +47,32 @@ class UploadedFile extends UploaderAppModel {
 		'Users.User'
 	);
 
+	public $validate = array(
+		'filename' => array(
+			'notEmpty' => array(
+				'rule' => 'notEmpty',
+				'message' => 'Ce champs ne peut être laissé vide'
+			),
+			'isUniqueName' => array(
+				'rule' => 'isUniqueName',
+				'message' => 'Ce nom est déjà utilisé par un autre dossier'
+			)
+		)
+	);
+
+    public function isUniqueName($check) {
+    	$parentId = $this->data['UploadedFile']['parent_id'];
+    	$result = $this->_findByFilenameParent_id($check['filename'], $parentId);
+    	if (!empty($result)) {
+    		if (isset($this->data['UploadedFile']['id'])
+    			&& $result['UploadedFile']['id'] == $this->data['UploadedFile']['id']) {
+    			return true;
+    		}
+    		return false;
+    	}
+		return true;
+    }
+
 ///////////////////////////
 /// Methods for folders ///
 ///////////////////////////
@@ -99,6 +125,17 @@ class UploadedFile extends UploaderAppModel {
 		return $allFoldersPath;
 	}
 
+	public function rename($fileId, $data) {
+		$fileInfos = $this->findById($fileId);
+
+		if (!$fileInfos['UploadedFile']['is_folder']) {
+			return false;
+		}
+
+		$data['UploadedFile'] = array_merge($fileInfos['UploadedFile'], $data['UploadedFile']);
+
+		return $this->save($data);
+	}
 
 /////////////////////////
 /// Methods for files ///
