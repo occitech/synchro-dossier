@@ -14,6 +14,10 @@
 	color: gray; margin-left: 25px;
 }
 
+.uploader .version a {
+	color: gray;
+}
+
 .uploader .add-version {
 	float: right;
 }

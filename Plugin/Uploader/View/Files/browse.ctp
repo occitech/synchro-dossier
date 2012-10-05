@@ -57,7 +57,14 @@
 							<div class="version">
 								V<?php echo $version--; ?>
 								<span>
-									<?php echo $file['filename']; ?>
+									<?php echo $this->Html->link(
+										$file['filename'],
+										array(
+											'controller' => 'files',
+											'action' => 'download',
+											$v['id']
+										)
+									); ?>
 								</span>
 							</div>
 						<?php endforeach ?>
