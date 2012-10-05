@@ -149,33 +149,69 @@ class UploadedFile extends UploaderAppModel {
 		return $path;	
 	}
 
-	public function upload($data, $userId, $parentId) {
+	protected function _isANewVersion($filename, $parentId) {
+		$result = $this->_findByFilenameParent_id($filename, $parentId);
+		return !empty($result);
+	}
+
+	protected function _isNewVersionValidFile($lastFilename, $newFilename) {
+		$lastFilename = explode('.', $lastFilename);
+		$lastExt = $lastFilename[sizeof($lastFilename) - 1];
+		$newFilename = explode('.', $newFilename);
+		$newExt = $newFilename[sizeof($newFilename) - 1];
+		return $newExt === $lastExt;
+	}
+
+	protected function _uploadNewFileVersion($data, $userId, $parentId, $originalFilename) {
+		$fileInfos = $data['FileStorage']['file'];
+		$isValid = true;
+		
+		if (!is_null($originalFilename)) {
+			$isValid = $this->_isNewVersionValidFile($data['FileStorage']['file']['name'], $originalFilename);
+			$fileInfos['name'] = $originalFilename;
+		}
+
+		if ($isValid) {
+			
+			$originalFileInfos = $this->_findByFilenameParent_id($fileInfos['name'], $parentId);
+			$this->id = $originalFileInfos['UploadedFile']['id'];
+			$userId = $originalFileInfos['UploadedFile']['user_id'];
+			$version = $originalFileInfos['UploadedFile']['current_version'] + 1;
+
+			$path = $this->_sendFileOnRemote($userId, $version, $fileInfos);
+
+			$this->saveField('current_version', $version);
+
+			return $this->_saveFileStorage($path, $userId);
+		}
+		return false;
+	}
+
+	protected function _uploadNewFile($data, $userId, $parentId) {
 		$fileInfos = $data['FileStorage']['file'];
 		$version = 1;
 
-		$data = $this->_findByFilenameParent_id($fileInfos['name'], $parentId);
-
-		if (empty($data)) {
-			if (!$this->_saveUploadedFile($fileInfos, $userId, $parentId)) {
-				throw new Exception(__('Impossible d\'enregistrer les infos dans la base de données UploadedFile'));
-			}
-		} else {
-			$this->id = $data['UploadedFile']['id'];
-			$userId = $data['UploadedFile']['user_id'];
-			$version = $data['UploadedFile']['current_version'] + 1;
-		}
-
-		try {
+		if ($this->_saveUploadedFile($fileInfos, $userId, $parentId)) {
 			$path = $this->_sendFileOnRemote($userId, $version, $fileInfos);
-		} catch (Exception $e) {
-			echo 'An error <br>' . $e;
+			return $this->_saveFileStorage($path, $userId);
+		}
+		return false;
+	}
+
+	public function upload($data, $userId, $parentId, $originalFilename = null) {
+		$fileInfos = $data['FileStorage']['file'];
+		$result = false;
+
+		if ($fileInfos['error'] != UPLOAD_ERR_OK) {
+			return false;
 		}
 
-		$this->saveField('current_version', $version);
-		
-		if (!$this->_saveFileStorage($path, $userId)) {
-			throw new Exception(__('Impossible d\'enregistrer les infos dans la base de données FileStorage'));
+		if (is_null($originalFilename) && !$this->_isANewVersion($fileInfos['name'], $parentId)) {
+			$result = $this->_uploadNewFile($data, $userId, $parentId);
+		} else {
+			$result = $this->_uploadNewFileVersion($data, $userId, $parentId, $originalFilename);
 		}
+		return $result;
 	}
 
 	protected function _receiveFileFromRemote($remotePath, $adapter) {
