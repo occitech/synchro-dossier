@@ -103,7 +103,7 @@ class UploadedFileTest extends CakeTestCase {
 		$check = array('filename' => 'name1.jpg');
 		$this->UploadedFile->data = array(
 			'UploadedFile' => array(
-				'parent_id' => 5,
+				'parent_id' => 8,
 				'is_folder' => 1,
 				'user_id' => 1
 			)

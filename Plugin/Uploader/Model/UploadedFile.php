@@ -62,10 +62,10 @@ class UploadedFile extends UploaderAppModel {
 
     public function isUniqueName($check) {
     	$parentId = $this->data['UploadedFile']['parent_id'];
-    	$id = $this->data['UploadedFile']['parent_id'];
     	$result = $this->_findByFilenameParent_id($check['filename'], $parentId);
     	if (!empty($result)) {
-    		if ($result['UploadedFile']['id'] == $id) {
+    		if (isset($this->data['UploadedFile']['id'])
+    			&& $result['UploadedFile']['id'] == $this->data['UploadedFile']['id']) {
     			return true;
     		}
     		return false;
@@ -125,12 +125,18 @@ class UploadedFile extends UploaderAppModel {
 		return $allFoldersPath;
 	}
 
-	public function rename($data, $fileId) {
+	public function rename($fileId, $data) {
 		$fileInfos = $this->findById($fileId);
-		if (!$fileInfos['UploadedFile']['is_folder']) {
 
+		if (!$fileInfos['UploadedFile']['is_folder']) {
+			return false;
 		}
+
+		$data['UploadedFile'] = array_merge($fileInfos['UploadedFile'], $data['UploadedFile']);
+
+		return $this->save($data);
 	}
+
 /////////////////////////
 /// Methods for files ///
 /////////////////////////
