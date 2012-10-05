@@ -25,7 +25,13 @@
 				<?php echo $this->Html->link(
 					$file['filename'],
 					array('controller' => 'files', 'action' => 'browse', $file['id'])
-				); ?>		
+				); ?>
+				<span class="rename-folder">
+					<?php echo $this->Html->link(
+						__('Renommer le dossier'),
+						array('controller' => 'files', 'action' => 'rename', $file['parent_id'], $file['id'])
+					); ?>
+				</span>		
 			<?php else: ?>
 				<div>
 					V<?php echo $file['current_version']; ?>

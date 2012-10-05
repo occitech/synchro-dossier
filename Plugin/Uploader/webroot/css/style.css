@@ -18,6 +18,6 @@
 	color: gray;
 }
 
-.uploader .add-version {
+.uploader .add-version, .rename-folder {
 	float: right;
 }

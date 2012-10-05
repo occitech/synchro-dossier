@@ -36,11 +36,23 @@ class FilesController extends UploaderAppController {
 	public function createFolder($parentId) {
 		if ($this->Auth->user('id') != null) {
 			if ($this->request->data) {
-				if (!$this->UploadedFile->addFolder($this->request->data, $parentId, $this->Auth->user('id'))) {
-					//$this->Session->setFlash(__('Impossible to create this folder. Contact the administrator'));
-				} else {
+				if ($this->UploadedFile->addFolder($this->request->data, $parentId, $this->Auth->user('id'))) {
 					$this->redirect(array('action' => 'browse', $parentId));
 				}
+			}
+		} else {
+			$this->redirect(array('plugin' => 'users', 'controller' => 'users', 'action' => 'login'));
+		}
+	}
+
+	public function rename($parentId, $id) {
+		if ($this->Auth->user('id') != null) {	
+			if ($this->request->data) {
+				if ($this->UploadedFile->rename($id, $this->request->data)) {
+					$this->redirect(array('action' => 'browse', $parentId));
+				}
+			} else {
+				$this->request->data = $this->UploadedFile->findById($id);
 			}
 		} else {
 			$this->redirect(array('plugin' => 'users', 'controller' => 'users', 'action' => 'login'));
