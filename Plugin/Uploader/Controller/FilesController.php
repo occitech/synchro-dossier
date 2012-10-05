@@ -37,9 +37,10 @@ class FilesController extends UploaderAppController {
 		if ($this->Auth->user('id') != null) {
 			if ($this->request->data) {
 				if (!$this->UploadedFile->addFolder($this->request->data, $parentId, $this->Auth->user('id'))) {
-					$this->Session->setFlash(__('Impossible to create this folder. Contact the administrator'));
+					//$this->Session->setFlash(__('Impossible to create this folder. Contact the administrator'));
+				} else {
+					$this->redirect(array('action' => 'browse', $parentId));
 				}
-				$this->redirect(array('action' => 'browse', $parentId));
 			}
 		} else {
 			$this->redirect(array('plugin' => 'users', 'controller' => 'users', 'action' => 'login'));

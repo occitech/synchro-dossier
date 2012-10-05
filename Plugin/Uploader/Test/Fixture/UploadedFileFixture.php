@@ -71,24 +71,24 @@ class UploadedFileFixture extends CakeTestFixture {
 		),
 		array(
 			'id' => 4,
-			'filename' => 'Lorem ipsum dolor sit amet',
+			'filename' => 'name2.jpg',
 			'size' => 4,
 			'user_id' => 4,
 			'current_version' => 4,
 			'available' => 4,
-			'parent_id' => 4,
+			'parent_id' => 1,
 			'is_folder' => 4,
 			'lft' => 4,
 			'rght' => 4
 		),
 		array(
 			'id' => 5,
-			'filename' => 'Lorem ipsum dolor sit amet',
+			'filename' => 'name1.jpg',
 			'size' => 5,
 			'user_id' => 5,
 			'current_version' => 5,
 			'available' => 5,
-			'parent_id' => 5,
+			'parent_id' => 1,
 			'is_folder' => 5,
 			'lft' => 5,
 			'rght' => 5
