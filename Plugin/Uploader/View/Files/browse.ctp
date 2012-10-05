@@ -51,8 +51,9 @@
 				
 				<?php if ($file['current_version'] > 1): ?>
 					<div class="versions" style="display: none;">
-					<?php $version = $file['current_version']; ?>
+					<?php $version = $file['current_version'] - 1; ?>
 					<?php $fileVersions = array_reverse($file['FileStorage']); ?>
+					<?php array_shift($fileVersions); ?>
 						<?php foreach ($fileVersions as $k => $v): ?>					
 							<div class="version">
 								V<?php echo $version--; ?>
