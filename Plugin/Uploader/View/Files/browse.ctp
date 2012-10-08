@@ -47,7 +47,7 @@
 					<?php endif; ?>
 					<?php echo $this->Html->link(
 						$file['filename'],
-						array('controller' => 'files', 'action' => 'view', $file['id'])
+						array('controller' => 'files', 'action' => 'download', $file['FileStorage'][sizeof($file['FileStorage']) - 1]['id'])
 					); ?>
 					<span class="add-version">
 						<?php echo $this->Html->link(
