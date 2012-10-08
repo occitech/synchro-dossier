@@ -93,17 +93,17 @@ class UploadedFile extends UploaderAppModel {
 		return $this->save($data);
 	}
 
-/**
- * A refaire. L'objectif était juste de montrer qu'il est possible de recréer l'arborescence d'un
- * dossier
- */
-	public function getFoldersPath($folderId) {
+	protected function _getFoldersPath($folderId) {
 		$parentFolder = $this->findById($folderId);
+		if (empty($parentFolder) || !$parentFolder['UploadedFile']['is_folder']) {
+			return false;
+		}
 		$subFolders = $this->children($folderId, false, null, null, null, 1, 1);
 		$allFoldersPath = array(
 			$folderId => array(
 				'real_path' => $parentFolder['UploadedFile']['filename'] . DS,
-				'remote_path' => null
+				'remote_path' => null,
+				'adapter' => null
 			)
 		);
 		foreach ($subFolders as $v) {
@@ -111,12 +111,15 @@ class UploadedFile extends UploaderAppModel {
 			$fileStorage = $v['FileStorage'];
 			if ($uploadedFile['is_folder']) {
 				$remotePath = null;
+				$adapter = null;
 			} else {
 				$remotePath = $fileStorage[sizeof($fileStorage) - 1]['path'];
+				$adapter = $fileStorage[sizeof($fileStorage) - 1]['adapter'];
 			}
 			$allFoldersPath[$uploadedFile['id']] = array(
 				'real_path' => $allFoldersPath[$uploadedFile['parent_id']]['real_path'] . $uploadedFile['filename'],
-				'remote_path' => $remotePath
+				'remote_path' => $remotePath,
+				'adapter' => $adapter
 			);
 			if ($uploadedFile['is_folder']) {
 				$allFoldersPath[$uploadedFile['id']]['real_path'] .= DS;
@@ -124,6 +127,26 @@ class UploadedFile extends UploaderAppModel {
 		}
 		return $allFoldersPath;
 	}
+
+	public function createZip($folderId) {
+		$zipfile = tempnam(null, 'Uploader');
+		StorageManager::config('Zip', array(
+				'adapterOptions' => array($zipfile),
+				'adapterClass' => '\Gaufrette\Adapter\Zip',
+				'class' => '\Gaufrette\Filesystem'
+		));
+		$files = $this->_getFoldersPath($folderId);
+		foreach ($files as $f) {
+			if ($f['remote_path'] != null) {
+				$content = StorageManager::adapter($f['adapter'])->read($f['remote_path']);
+				StorageManager::adapter('Zip')->write($f['real_path'], $content);	
+			}
+		}
+		$content = file_get_contents($zipfile);
+		unlink($zipfile);
+		return $content;
+	}
+
 
 	public function rename($fileId, $data) {
 		$fileInfos = $this->findById($fileId);

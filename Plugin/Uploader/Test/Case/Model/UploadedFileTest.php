@@ -51,7 +51,7 @@ class UploadedFileTest extends CakeTestCase {
 		$this->data = array(
 			'FileStorage' => array(
 				'file' => array(
-					'name' => 'monfichier.jpg',
+					'name' => 'Fraise.jpg',
 					'type' => 'text/x-gettext-translation',
 					'tmp_name' => '/tmp/phpTmnlQd',
 					'error' => (int) 0,
@@ -87,11 +87,11 @@ class UploadedFileTest extends CakeTestCase {
 	}
 
 	public function testIsUniqueNameAlreadyUsed() {
-		$check = array('filename' => 'name1.jpg');
+		$check = array('filename' => 'toto.zip');
 		$this->UploadedFile->data = array(
 			'UploadedFile' => array(
-				'parent_id' => 1,
-				'is_folder' => 1,
+				'parent_id' => 3,
+				'is_folder' => 0,
 				'user_id' => 1
 			)
 		);
@@ -140,6 +140,33 @@ class UploadedFileTest extends CakeTestCase {
 		$this->assertEqual($result['UploadedFile']['filename'], 'MygreatFile');	
 	}
 
+	public function testGetFoldersPathLittleFolder() {
+		$result = $this->_runProtectedMethod('_getFoldersPath', array(5));
+		$expected = array(
+			5 => array(
+				'real_path' => 'ssdossier1/',
+				'remote_path' => null,
+				'adapter' => null
+			),
+			6 => array(
+				'real_path' => 'ssdossier1/Fraise.jpg',
+				'remote_path' => '1/6/1-1c082be57dd2a8b40831e1258ab2187f4eee044a',
+				'adapter' => 'Local'
+			)
+		);
+		$this->assertEqual($result, $expected);
+	}
+
+	public function testGetFoldersPathFolderNotExist() {
+		$result = $this->_runProtectedMethod('_getFoldersPath', array(18));
+		$this->assertEqual($result, false);		
+	}
+
+	public function testGetFoldersPathFileGiven() {
+		$result = $this->_runProtectedMethod('_getFoldersPath', array(7));
+		$this->assertEqual($result, false);		
+	}
+
 /////////////////////////
 /// Methods for files ///
 /////////////////////////
@@ -152,11 +179,11 @@ class UploadedFileTest extends CakeTestCase {
 
 	public function testUploadAlreadyExist() {
 		$user_id = 1;
-		$this->UploadedFile->upload($this->data, $user_id, 1);
-		$result = $this->UploadedFile->find('first', array('conditions' => array('UploadedFile.filename' => 'monfichier.jpg')));
-		$this->assertEqual($result['UploadedFile']['id'], 2);
+		$this->UploadedFile->upload($this->data, $user_id, 5);
+		$result = $this->UploadedFile->find('first', array('conditions' => array('UploadedFile.filename' => 'Fraise.jpg')));
+		$this->assertEqual($result['UploadedFile']['id'], 6);
 		$this->assertEqual($result['UploadedFile']['current_version'], 2);
-		$this->assertEqual($result['UploadedFile']['user_id'], 2);		
+		$this->assertEqual($result['UploadedFile']['user_id'], 1);		
 	}
 
 	public function testUploadFileNotExist() {
@@ -167,13 +194,13 @@ class UploadedFileTest extends CakeTestCase {
 		$this->UploadedFile->upload($this->data, $user_id, 1);
 		
 		$result = $this->UploadedFile->find('first', array('order' => 'UploadedFile.id desc'));
-		$this->assertEqual($result['UploadedFile']['id'], 14);
+		$this->assertEqual($result['UploadedFile']['id'], 10);
 		$this->assertEqual($result['UploadedFile']['filename'], 'Newfile.jpg');
 		$this->assertEqual($result['UploadedFile']['current_version'], 1);
 
 		$result = $this->UploadedFile->FileStorage->find('first', array('order' => 'id desc'));
-		$this->assertEqual($result['FileStorage']['foreign_key'], 14);
-		$this->assertEqual($result['FileStorage']['path'], '1/14-1-' . $filename);
+		$this->assertEqual($result['FileStorage']['foreign_key'], 10);
+		$this->assertEqual($result['FileStorage']['path'], '1/10-1-' . $filename);
 		$this->assertEqual($result['FileStorage']['user_id'], $user_id);
 	}
 
@@ -182,25 +209,25 @@ class UploadedFileTest extends CakeTestCase {
 		$folder_id = 2;
 		$this->UploadedFile->upload($this->data, $user_id, $folder_id);
 		$result = $this->UploadedFile->find('first', array('order' => 'UploadedFile.id desc'));
-		$this->assertEqual($result['UploadedFile']['id'], 14);
-		$this->assertEqual($result['UploadedFile']['filename'], 'monfichier.jpg');
+		$this->assertEqual($result['UploadedFile']['id'], 10);
+		$this->assertEqual($result['UploadedFile']['filename'], 'Fraise.jpg');
 		$this->assertEqual($result['UploadedFile']['current_version'], 1);
 	}
 
-	/**
-	 * Vérifie que le fichier est corrextement copier dans le dossier du
-	 * propriétaire du dossier parent
-	 */
+/**
+ * Vérifie que le fichier est corrextement copier dans le dossier du
+ * propriétaire du dossier parent
+ */
 	public function testUploadAlreadyExistVerifyFileIsCreated() {
 		$uploader_id = 1;
-		$owner_id = 2;
-		$parent_id = 1;
+		$owner_id = 1;
+		$parent_id = 5;
 		Configure::write('FileStorage.filePattern', '{user_id}/{file_id}-{version}-{filename}');
-		$filename = Security::hash('monfichier.jpg');
+		$filename = Security::hash('Fraise.jpg');
 
 		$this->UploadedFile->upload($this->data, $uploader_id, $parent_id);
 		
-		$result = file_exists(Configure::read('FileStorage.testFolder') . DS . $owner_id . DS . '2-2-' . $filename);
+		$result = file_exists(Configure::read('FileStorage.testFolder') . DS . $owner_id . DS . '6-2-' . $filename);
 		$this->assertEqual($result, true);
 	}
 

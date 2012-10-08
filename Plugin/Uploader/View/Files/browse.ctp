@@ -31,7 +31,14 @@
 						__('Renommer le dossier'),
 						array('controller' => 'files', 'action' => 'rename', $file['parent_id'], $file['id'])
 					); ?>
-				</span>		
+					<?php if (isset($file['ChildUploadedFile'])): ?>
+						 - 
+						<?php echo $this->Html->link(
+							__('Télécharger le dossier'),
+							array('controller' => 'files', 'action' => 'downloadZipFolder', $file['id'])
+						); ?>
+					<?php endif ?>
+				</span>
 			<?php else: ?>
 				<div>
 					V<?php echo $file['current_version']; ?>
