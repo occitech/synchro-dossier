@@ -63,9 +63,12 @@ class FilesController extends UploaderAppController {
  * l'arborescence d'un dossier.
  */
 	public function downloadZipFolder($folderId) {
-		$this->response->download('toto.zip');
-		$this->response->body($this->UploadedFile->createZip($folderId));
-		$this->response->send();
+		$folder = $this->UploadedFile->findById($folderId);
+		if (!empty($folder)) {		
+			$this->response->download($folder['UploadedFile']['filename'] . '.zip');
+			$this->response->body($this->UploadedFile->createZip($folderId));
+			$this->response->send();
+		}
 	}
 
 /**
