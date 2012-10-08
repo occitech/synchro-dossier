@@ -140,8 +140,31 @@ class UploadedFileTest extends CakeTestCase {
 		$this->assertEqual($result['UploadedFile']['filename'], 'MygreatFile');	
 	}
 
-	public function testCreateZip() {
+	public function testGetFoldersPathLittleFolder() {
+		$result = $this->_runProtectedMethod('_getFoldersPath', array(5));
+		$expected = array(
+			5 => array(
+				'real_path' => 'ssdossier1/',
+				'remote_path' => null,
+				'adapter' => null
+			),
+			6 => array(
+				'real_path' => 'ssdossier1/Fraise.jpg',
+				'remote_path' => '1/6/1-1c082be57dd2a8b40831e1258ab2187f4eee044a',
+				'adapter' => 'Local'
+			)
+		);
+		$this->assertEqual($result, $expected);
+	}
 
+	public function testGetFoldersPathFolderNotExist() {
+		$result = $this->_runProtectedMethod('_getFoldersPath', array(18));
+		$this->assertEqual($result, false);		
+	}
+
+	public function testGetFoldersPathFileGiven() {
+		$result = $this->_runProtectedMethod('_getFoldersPath', array(7));
+		$this->assertEqual($result, false);		
 	}
 
 /////////////////////////
@@ -191,10 +214,10 @@ class UploadedFileTest extends CakeTestCase {
 		$this->assertEqual($result['UploadedFile']['current_version'], 1);
 	}
 
-	/**
-	 * Vérifie que le fichier est corrextement copier dans le dossier du
-	 * propriétaire du dossier parent
-	 */
+/**
+ * Vérifie que le fichier est corrextement copier dans le dossier du
+ * propriétaire du dossier parent
+ */
 	public function testUploadAlreadyExistVerifyFileIsCreated() {
 		$uploader_id = 1;
 		$owner_id = 1;

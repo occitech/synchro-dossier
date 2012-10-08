@@ -16,7 +16,6 @@ class FilesController extends UploaderAppController {
  */
 	public function browse($folderId) {
 		$this->UploadedFile->recursive = 2;
-		$data = $this->UploadedFile->generateTreeList(null, null, '{n}.UploadedFile.filename', '_');
 		$files = $this->UploadedFile->findById($folderId);
 		$this->set('files', $files);
 	}
@@ -64,7 +63,9 @@ class FilesController extends UploaderAppController {
  * l'arborescence d'un dossier.
  */
 	public function downloadZipFolder($folderId) {
-		
+		$this->response->download('toto.zip');
+		$this->response->body($this->UploadedFile->createZip($folderId));
+		$this->response->send();
 	}
 
 /**
