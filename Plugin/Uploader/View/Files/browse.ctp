@@ -31,6 +31,7 @@
 						__('Renommer le dossier'),
 						array('controller' => 'files', 'action' => 'rename', $file['parent_id'], $file['id'])
 					); ?>
+
 					<?php if (isset($file['ChildUploadedFile'])): ?>
 						 - 
 						<?php echo $this->Html->link(
@@ -39,7 +40,9 @@
 						); ?>
 					<?php endif ?>
 				</span>
+
 			<?php else: ?>
+
 				<div>
 					V<?php echo $file['current_version']; ?>
 					<?php if ($file['current_version'] > 1): ?>
@@ -49,16 +52,26 @@
 						$file['filename'],
 						array('controller' => 'files', 'action' => 'download', $file['FileStorage'][sizeof($file['FileStorage']) - 1]['id'])
 					); ?>
-					<span class="add-version">
-						<?php echo $this->Html->link(
-							__('Ajouter une version'),
-							array(
-								'controller' => 'files',
-								'action' => 'upload',
-								$file['parent_id'],
-								$file['filename']
-							)
-						); ?>
+					<span class="file-actions">
+						<span class="info">
+							<?php 
+							$size = $file['FileStorage'][sizeof($file['FileStorage']) - 1]['filesize']; ?>
+							<?php echo $this->File->size($size); ?>
+						</span>
+						<span class="info">
+							<?php echo $file['mime_type']; ?>
+						</span>
+						<span class="info">
+							<?php echo $this->Html->link(
+								__('Ajouter une version'),
+								array(
+									'controller' => 'files',
+									'action' => 'upload',
+									$file['parent_id'],
+									$file['filename']
+								)
+							); ?>
+						</span>
 					</span>
 				</div>
 				

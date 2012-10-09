@@ -18,6 +18,10 @@
 	color: gray;
 }
 
-.uploader .add-version, .rename-folder {
+.uploader .file-actions, .add-version, .rename-folder {
 	float: right;
 }
+ .uploader .file-actions .info {
+ 	color: gray;
+ 	padding: 0px 10px;
+ }

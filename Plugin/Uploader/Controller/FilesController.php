@@ -15,6 +15,7 @@ class FilesController extends UploaderAppController {
  * Affiche le contenu d'un dossier. Permet de naviguer dans l'arborescence
  */
 	public function browse($folderId) {
+		$this->helpers[] = 'Uploader.File';
 		$this->UploadedFile->recursive = 2;
 		$files = $this->UploadedFile->findById($folderId);
 		$this->set('files', $files);
