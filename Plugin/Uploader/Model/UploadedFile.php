@@ -7,6 +7,7 @@ class UploadedFile extends UploaderAppModel {
 	public $actsAs = array('Tree');
 
 	public $belongsTo = array(
+		'Users.User',
 		'ParentUploadedFile' => array(
 			'className' => 'UploadedFile',
 			'foreignKey' => 'parent_id',
@@ -37,7 +38,7 @@ class UploadedFile extends UploaderAppModel {
 	);
 
 	public $hasAndBelongsToMany = array(
-		'Users.User'
+		//'Users.User'
 	);
 
 	public $validate = array(
@@ -172,7 +173,7 @@ class UploadedFile extends UploaderAppModel {
 		$data['UploadedFile']['size'] = $fileInfos['size'];
 		$data['UploadedFile']['user_id'] = $userId;
 		$data['UploadedFile']['parent_id'] = $parentId;
-		$data['UploadedFile']['current_version'] = 1; // Fixme : directly in MySQL
+		$data['UploadedFile']['current_version'] = 1;
 		$data['UploadedFile']['mime_type'] = $fileInfos['type'];
 		$data['UploadedFile']['size'] = $fileInfos['size'];
 		return $this->save($data);

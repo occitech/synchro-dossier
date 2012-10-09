@@ -22,27 +22,31 @@
 	<?php foreach ($files['ChildUploadedFile'] as $file): ?>
 		<div class="infos">
 			<?php if ($file['is_folder']): ?>
+				<div>
+					<span class="file-actions">
+						<span class="info">
+							<?php echo $this->Html->link(
+								__('Renommer le dossier'),
+								array('controller' => 'files', 'action' => 'rename', $file['parent_id'], $file['id'])
+							); ?>
+						</span>
+
+						<?php if (isset($file['ChildUploadedFile'])): ?>
+						<span class="info">
+							<?php echo $this->Html->link(
+								__('Télécharger le dossier'),
+								array('controller' => 'files', 'action' => 'downloadZipFolder', $file['id'])
+							); ?>
+						</span>
+						<?php endif ?>
+					</span>
+				</div>
 				<?php echo $this->Html->link(
 					$file['filename'],
 					array('controller' => 'files', 'action' => 'browse', $file['id'])
 				); ?>
-				<span class="rename-folder">
-					<?php echo $this->Html->link(
-						__('Renommer le dossier'),
-						array('controller' => 'files', 'action' => 'rename', $file['parent_id'], $file['id'])
-					); ?>
-
-					<?php if (isset($file['ChildUploadedFile'])): ?>
-						 - 
-						<?php echo $this->Html->link(
-							__('Télécharger le dossier'),
-							array('controller' => 'files', 'action' => 'downloadZipFolder', $file['id'])
-						); ?>
-					<?php endif ?>
-				</span>
 
 			<?php else: ?>
-
 				<div>
 					V<?php echo $file['current_version']; ?>
 					<?php if ($file['current_version'] > 1): ?>
@@ -54,12 +58,15 @@
 					); ?>
 					<span class="file-actions">
 						<span class="info">
+							<?php echo __('Par ') . $file['User']['name']; ?>
+						</span>
+						<span class="info">
 							<?php 
 							$size = $file['FileStorage'][sizeof($file['FileStorage']) - 1]['filesize']; ?>
 							<?php echo $this->File->size($size); ?>
 						</span>
 						<span class="info">
-							<?php echo $file['mime_type']; ?>
+							<?php echo $file['mime_type']; ?>q
 						</span>
 						<span class="info">
 							<?php echo $this->Html->link(
@@ -77,9 +84,9 @@
 				
 				<?php if ($file['current_version'] > 1): ?>
 					<div class="versions" style="display: none;">
-					<?php $version = $file['current_version'] - 1; ?>
-					<?php $fileVersions = array_reverse($file['FileStorage']); ?>
-					<?php array_shift($fileVersions); ?>
+						<?php $version = $file['current_version'] - 1; ?>
+						<?php $fileVersions = array_reverse($file['FileStorage']); ?>
+						<?php array_shift($fileVersions); ?>
 						<?php foreach ($fileVersions as $k => $v): ?>					
 							<div class="version">
 								V<?php echo $version--; ?>
