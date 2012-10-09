@@ -47,6 +47,7 @@
 				); ?>
 
 			<?php else: ?>
+				<?php $lastVersion = $file['FileStorage'][sizeof($file['FileStorage']) - 1]; ?>
 				<div>
 					V<?php echo $file['current_version']; ?>
 					<?php if ($file['current_version'] > 1): ?>
@@ -54,19 +55,22 @@
 					<?php endif; ?>
 					<?php echo $this->Html->link(
 						$file['filename'],
-						array('controller' => 'files', 'action' => 'download', $file['FileStorage'][sizeof($file['FileStorage']) - 1]['id'])
+						array('controller' => 'files', 'action' => 'download', $lastVersion['id'])
 					); ?>
 					<span class="file-actions">
 						<span class="info">
 							<?php echo __('Par ') . $file['User']['name']; ?>
 						</span>
 						<span class="info">
+							<?php echo  $this->Time->format('j/m/Y H:i', $lastVersion['created']); ?>
+						</span>
+						<span class="info">
 							<?php 
-							$size = $file['FileStorage'][sizeof($file['FileStorage']) - 1]['filesize']; ?>
+							$size = $lastVersion['filesize']; ?>
 							<?php echo $this->File->size($size); ?>
 						</span>
 						<span class="info">
-							<?php echo $file['mime_type']; ?>q
+							<?php echo $file['mime_type']; ?>
 						</span>
 						<span class="info">
 							<?php echo $this->Html->link(

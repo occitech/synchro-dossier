@@ -16,6 +16,7 @@ class FilesController extends UploaderAppController {
  */
 	public function browse($folderId) {
 		$this->helpers[] = 'Uploader.File';
+		$this->helpers[] = 'Time';
 		$this->UploadedFile->recursive = 2;
 		$files = $this->UploadedFile->findById($folderId);
 		$this->set('files', $files);
