@@ -70,7 +70,7 @@
 							<?php echo $this->File->size($size); ?>
 						</span>
 						<span class="info">
-							<?php echo $file['mime_type']; ?>
+							<?php echo $this->File->mimeType($file['mime_type']); ?>
 						</span>
 						<span class="info">
 							<?php echo $this->Html->link(

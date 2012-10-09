@@ -22,4 +22,9 @@ class FileHelper extends AppHelper {
 		}
 		return round($size, $unit - 1) . ' ' . $this->_unit[$unit];
 	}
+
+	public function mimeType($mimeType) {
+		$type = explode('/', $mimeType);
+		return $type[sizeof($type) - 1];
+	}
 }

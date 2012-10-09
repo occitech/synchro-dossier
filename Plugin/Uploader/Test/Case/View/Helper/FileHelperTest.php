@@ -20,22 +20,32 @@ class FileHelperTest extends CroogoTestCase {
 
 	public function testSizeLittle() {
 		$result = $this->File->size(841, 'o');
-		debug($result);
 		$this->assertEqual('1 Ko', $result);
 	}
+	
 	public function testSizeOctectToKo() {
 		$result = $this->File->size(8000, 'o');
-		debug($result);
 		$this->assertEqual('8 Ko', $result);
 	}
+	
 	public function testSizeOctectToMo() {
 		$result = $this->File->size(8000000, 'o');
-		debug($result);
 		$this->assertEqual('7.6 Mo', $result);
 	}
+	
 	public function testSizeOctectToGo() {
 		$result = $this->File->size(8000000000, 'o');
-		debug($result);
 		$this->assertEqual('7.45 Go', $result);
 	}
+
+	public function testMimeTypeZip() {
+		$result = $this->File->mimeType('application/zip');
+		$this->assertEqual('zip', $result);
+	}
+
+	public function testMimeTypeRar() {
+		$result = $this->File->mimeType('application/x-rar');
+		$this->assertEqual('x-rar', $result);
+	}
+
 }
