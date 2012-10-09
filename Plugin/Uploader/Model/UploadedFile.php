@@ -7,13 +7,6 @@ class UploadedFile extends UploaderAppModel {
 	public $actsAs = array('Tree');
 
 	public $belongsTo = array(
-		// 'User' => array(
-		// 	'className' => 'User',
-		// 	'foreignKey' => 'user_id',
-		// 	'conditions' => '',
-		// 	'fields' => '',
-		// 	'order' => ''
-		// ),
 		'ParentUploadedFile' => array(
 			'className' => 'UploadedFile',
 			'foreignKey' => 'parent_id',
@@ -180,15 +173,19 @@ class UploadedFile extends UploaderAppModel {
 		$data['UploadedFile']['user_id'] = $userId;
 		$data['UploadedFile']['parent_id'] = $parentId;
 		$data['UploadedFile']['current_version'] = 1; // Fixme : directly in MySQL
+		$data['UploadedFile']['mime_type'] = $fileInfos['type'];
+		$data['UploadedFile']['size'] = $fileInfos['size'];
 		return $this->save($data);
 	}
 
-	protected function _saveFileStorage($path, $userId) {
+	protected function _saveFileStorage($path, $userId, $fileInfos) {
 		$data['FileStorage']['foreign_key'] = $this->id;
 		$data['FileStorage']['model'] = get_class($this);
 		$data['FileStorage']['path'] = $path;
 		$data['FileStorage']['user_id'] = $userId;
 		$data['FileStorage']['adapter'] = Configure::read('FileStorage.adapter');
+		$data['FileStorage']['mime_type'] = $fileInfos['type'];
+		$data['FileStorage']['filesize'] = $fileInfos['size'];
 		return $this->FileStorage->save($data);
 	}
 
@@ -242,7 +239,7 @@ class UploadedFile extends UploaderAppModel {
 
 			$this->saveField('current_version', $version);
 
-			return $this->_saveFileStorage($path, $userId);
+			return $this->_saveFileStorage($path, $userId, $fileInfos);
 		}
 		return false;
 	}
@@ -253,7 +250,7 @@ class UploadedFile extends UploaderAppModel {
 
 		if ($this->_saveUploadedFile($fileInfos, $userId, $parentId)) {
 			$path = $this->_sendFileOnRemote($userId, $version, $fileInfos);
-			return $this->_saveFileStorage($path, $userId);
+			return $this->_saveFileStorage($path, $userId, $fileInfos);
 		}
 		return false;
 	}
