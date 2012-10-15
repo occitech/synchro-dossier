@@ -37,10 +37,6 @@ class UploadedFile extends UploaderAppModel {
 		)
 	);
 
-	public $hasAndBelongsToMany = array(
-		//'Users.User'
-	);
-
 	public $validate = array(
 		'filename' => array(
 			'notEmpty' => array(

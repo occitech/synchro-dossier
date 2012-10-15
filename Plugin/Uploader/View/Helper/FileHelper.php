@@ -24,7 +24,11 @@ class FileHelper extends AppHelper {
 	}
 
 	public function mimeType($mimeType) {
-		$type = explode('/', $mimeType);
-		return $type[sizeof($type) - 1];
+		$type = $this->_View->response->getMimeType($mimeType);
+		if ($type === false) {
+			$type = explode('/', $mimeType);
+			$type = $type[sizeof($type) - 1];
+		}
+		return $type;
 	}
 }
