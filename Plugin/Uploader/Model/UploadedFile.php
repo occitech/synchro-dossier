@@ -258,11 +258,30 @@ class UploadedFile extends UploaderAppModel {
 		return false;
 	}
 
+	protected function _hasUploadErrors ($errorCode) {
+		$hasError = true;
+		switch ($errorCode) {
+			case UPLOAD_ERR_OK:
+				$hasError = false;
+				break;
+			case UPLOAD_ERR_INI_SIZE:
+				$this->FileStorage->invalidate('file', __('La taille du fichier dépasse la limite autorisée'));
+				break;
+			case UPLOAD_ERR_NO_FILE:
+				$this->FileStorage->invalidate('file', __('Aucun fichier n\'a été uploadé'));
+				break;
+			default:
+				$this->FileStorage->invalidate('file', __('Il y a eu une erreur pendant l\'upload de votre fichier'));
+				break;
+		}
+		return $hasError;
+	}
+
 	public function upload($data, $userId, $parentId, $originalFilename = null) {
 		$fileInfos = $data['FileStorage']['file'];
 		$result = false;
 
-		if ($fileInfos['error'] != UPLOAD_ERR_OK) {
+		if ($this->_hasUploadErrors($fileInfos['error'])) {
 			return false;
 		}
 
