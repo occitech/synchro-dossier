@@ -2,22 +2,17 @@
 	text-decoration: none;
 }
 
-.uploader .actions {
-	border-bottom: 1px black solid; margin-bottom: 10px;
+.uploader table {
+	width: 100%;
+	border-collapse: collapse;
 }
 
-.uploader .infos {
-	border-bottom: 1px #C0C0C0 solid; solid;margin-bottom: 10px; padding-bottom: 5px;
+.uploader td {
+	padding: 8px 2px;
+	border-bottom: 1px gray solid; margin-bottom: 10px;
+	border-top: 1px gray solid; margin-bottom: 10px;
 }
 
-.uploader .version {
-	color: gray; margin-left: 25px;
-}
-
-.uploader .version a {
+.uploader .sub-version, .uploader .sub-version a {
 	color: gray;
-}
-
-.uploader .add-version, .rename-folder {
-	float: right;
 }

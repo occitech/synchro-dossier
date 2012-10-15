@@ -7,13 +7,7 @@ class UploadedFile extends UploaderAppModel {
 	public $actsAs = array('Tree');
 
 	public $belongsTo = array(
-		// 'User' => array(
-		// 	'className' => 'User',
-		// 	'foreignKey' => 'user_id',
-		// 	'conditions' => '',
-		// 	'fields' => '',
-		// 	'order' => ''
-		// ),
+		'Users.User',
 		'ParentUploadedFile' => array(
 			'className' => 'UploadedFile',
 			'foreignKey' => 'parent_id',
@@ -41,10 +35,6 @@ class UploadedFile extends UploaderAppModel {
 			'className' => 'FileStorage.FileStorage',
 			'foreignKey' => 'foreign_key'
 		)
-	);
-
-	public $hasAndBelongsToMany = array(
-		'Users.User'
 	);
 
 	public $validate = array(
@@ -179,16 +169,20 @@ class UploadedFile extends UploaderAppModel {
 		$data['UploadedFile']['size'] = $fileInfos['size'];
 		$data['UploadedFile']['user_id'] = $userId;
 		$data['UploadedFile']['parent_id'] = $parentId;
-		$data['UploadedFile']['current_version'] = 1; // Fixme : directly in MySQL
+		$data['UploadedFile']['current_version'] = 1;
+		$data['UploadedFile']['mime_type'] = $fileInfos['type'];
+		$data['UploadedFile']['size'] = $fileInfos['size'];
 		return $this->save($data);
 	}
 
-	protected function _saveFileStorage($path, $userId) {
+	protected function _saveFileStorage($path, $userId, $fileInfos) {
 		$data['FileStorage']['foreign_key'] = $this->id;
 		$data['FileStorage']['model'] = get_class($this);
 		$data['FileStorage']['path'] = $path;
 		$data['FileStorage']['user_id'] = $userId;
 		$data['FileStorage']['adapter'] = Configure::read('FileStorage.adapter');
+		$data['FileStorage']['mime_type'] = $fileInfos['type'];
+		$data['FileStorage']['filesize'] = $fileInfos['size'];
 		return $this->FileStorage->save($data);
 	}
 
@@ -228,11 +222,13 @@ class UploadedFile extends UploaderAppModel {
 		
 		if (!is_null($originalFilename)) {
 			$isValid = $this->_isNewVersionValidFile($data['FileStorage']['file']['name'], $originalFilename);
+			if (!$isValid) {
+				$this->FileStorage->invalidate('file', __('Le fichier doit avoir la même extension que le fichier d\'origine'));
+			}
 			$fileInfos['name'] = $originalFilename;
 		}
 
 		if ($isValid) {
-			
 			$originalFileInfos = $this->_findByFilenameParent_id($fileInfos['name'], $parentId);
 			$this->id = $originalFileInfos['UploadedFile']['id'];
 			$userId = $originalFileInfos['UploadedFile']['user_id'];
@@ -242,7 +238,7 @@ class UploadedFile extends UploaderAppModel {
 
 			$this->saveField('current_version', $version);
 
-			return $this->_saveFileStorage($path, $userId);
+			return $this->_saveFileStorage($path, $userId, $fileInfos);
 		}
 		return false;
 	}
@@ -253,16 +249,35 @@ class UploadedFile extends UploaderAppModel {
 
 		if ($this->_saveUploadedFile($fileInfos, $userId, $parentId)) {
 			$path = $this->_sendFileOnRemote($userId, $version, $fileInfos);
-			return $this->_saveFileStorage($path, $userId);
+			return $this->_saveFileStorage($path, $userId, $fileInfos);
 		}
 		return false;
+	}
+
+	protected function _hasUploadErrors ($errorCode) {
+		$hasError = true;
+		switch ($errorCode) {
+			case UPLOAD_ERR_OK:
+				$hasError = false;
+				break;
+			case UPLOAD_ERR_INI_SIZE:
+				$this->FileStorage->invalidate('file', __('La taille du fichier dépasse la limite autorisée'));
+				break;
+			case UPLOAD_ERR_NO_FILE:
+				$this->FileStorage->invalidate('file', __('Aucun fichier n\'a été uploadé'));
+				break;
+			default:
+				$this->FileStorage->invalidate('file', __('Il y a eu une erreur pendant l\'upload de votre fichier'));
+				break;
+		}
+		return $hasError;
 	}
 
 	public function upload($data, $userId, $parentId, $originalFilename = null) {
 		$fileInfos = $data['FileStorage']['file'];
 		$result = false;
 
-		if ($fileInfos['error'] != UPLOAD_ERR_OK) {
+		if ($this->_hasUploadErrors($fileInfos['error'])) {
 			return false;
 		}
 
