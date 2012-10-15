@@ -83,12 +83,15 @@ class FilesController extends UploaderAppController {
 	public function upload($folderId, $originalFilename = null) {
 		if ($this->Auth->user('id') != null) {
 			if ($this->request->data) {
-				try {
-					$this->UploadedFile->upload($this->request->data, $this->Auth->user('id'), $folderId, $originalFilename);					
-				} catch (Exception $e) {
-					echo $e;
+				$uploadOk = $this->UploadedFile->upload(
+					$this->request->data,
+					$this->Auth->user('id'),
+					$folderId,
+					$originalFilename
+				);
+				if ($uploadOk) {
+					$this->redirect(array('controller' => 'files', 'action' => 'browse', $folderId));
 				}
-				$this->redirect(array('controller' => 'files', 'action' => 'browse', $folderId));
 			}
 		} else {
 			$this->redirect(array('plugin' => 'users', 'controller' => 'users', 'action' => 'login'));

@@ -226,11 +226,13 @@ class UploadedFile extends UploaderAppModel {
 		
 		if (!is_null($originalFilename)) {
 			$isValid = $this->_isNewVersionValidFile($data['FileStorage']['file']['name'], $originalFilename);
+			if (!$isValid) {
+				$this->FileStorage->invalidate('file', __('Le fichier doit avoir la même extension que le fichier d\'origine'));
+			}
 			$fileInfos['name'] = $originalFilename;
 		}
 
 		if ($isValid) {
-			
 			$originalFileInfos = $this->_findByFilenameParent_id($fileInfos['name'], $parentId);
 			$this->id = $originalFileInfos['UploadedFile']['id'];
 			$userId = $originalFileInfos['UploadedFile']['user_id'];
