@@ -1,0 +1,10 @@
+{
+	"name": "SdUsers",
+	"description": "",
+
+	"dependencies": {
+		"plugins": [
+			"Users"
+		]
+	}
+}
