@@ -300,25 +300,4 @@ class UploadedFile extends UploaderAppModel {
 		$content = $this->_receiveFileFromRemote($fileStorage['FileStorage']['path'], $fileStorage['FileStorage']['adapter']);
 		return array($content, $fileInfos['UploadedFile']['filename']);
 	}
-
-////////////////////////////////////////
-/// Methods for user right on a file ///
-////////////////////////////////////////
-
-	/**
-	 * @todo Move on User model ?
-	 */
-	public function userHasRight($userId, $fileId, $what) {
-		$right = $this->UploadedFilesUser->find('first', array(
-			'conditions' => array(
-				'user_id' => $userId,
-				'uploaded_file_id' => $fileId
-			)
-		));
-
-		if (empty($right)) {
-			return false;
-		}
-	}
-
 }
