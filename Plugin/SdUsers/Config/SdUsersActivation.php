@@ -12,6 +12,7 @@ class SdUsersActivation {
 		$CroogoPlugin->migrate('SdUsers');
 
 		$controller->Croogo->addAco('Users/Users/admin_add', array('SdSuperAdmin'));
+		$controller->Croogo->addAco('Users/Users/admin_index', array('SdSuperAdmin'));
 	}
 
 	public function beforeDeactivation(&$controller) {
@@ -23,5 +24,6 @@ class SdUsersActivation {
 		$CroogoPlugin->unmigrate('SdUsers');
 
 		$controller->Croogo->removeAco('Users/Users/admin_add', array('SdSuperAdmin'));
+		$controller->Croogo->removeAco('Users/Users/admin_index', array('SdSuperAdmin'));
 	}
 }

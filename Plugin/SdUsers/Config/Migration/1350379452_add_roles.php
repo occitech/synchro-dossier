@@ -52,7 +52,8 @@ class AddRoles extends CakeMigration {
 
 	protected function _afterUp() {
 		$roleModel = ClassRegistry::init('Users.Role');
-
+		$linkModel = ClassRegistry::init('Menus.Link');
+		
 		// Change Admin by Occitech
 		$roleModel->updateAll(
 			array('Role.title' => "'Occitech'"),
@@ -61,20 +62,40 @@ class AddRoles extends CakeMigration {
 
 		// Add 3 new roles 
 		$roles = array(
-			array('title' => 'SuperAdmin', 'alias' => 'sdSuperAdmin'),
-			array('title' => 'Admin', 'alias' => 'sdAdmin'),
-			array('title' => 'Utilisateurs', 'alias' => 'sdUtilisateurs')
+			array('id' => '4', 'title' => 'SuperAdmin', 'alias' => 'sdSuperAdmin'),
+			array('id' => '5', 'title' => 'Admin', 'alias' => 'sdAdmin'),
+			array('id' => '6', 'title' => 'Utilisateurs', 'alias' => 'sdUtilisateurs')
 		);
 		$roleModel->saveMany($roles, array('deep' => true));
+
+		// Add link to add user in menu
+		$linkModel->deleteAll(array('menu_id' => 3));
+		$links = array(
+			array(
+				'menu_id' => 3,
+				'title' => 'Accueil',
+				'class' => 'accueil',
+				'link' => '/',
+				'visibility_roles' => '["1","4","5","6"]'
+			),
+			array(
+				'menu_id' => 3,
+				'title' => 'Ajouter un utilisateur',
+				'class' => 'add-user',
+				'link' => 'admin:true/plugin:users/controller:users/action:add',
+				'visibility_roles' => '["1","4"]'
+			)
+		);
+		$linkModel->saveMany($links, array('deep' => true));
 	}
 
 	protected function _afterDown() {
 		$roleModel = ClassRegistry::init('Users.Role');
 
 		// Remove 3 roles
-		$roleModel->deleteAll(array('alias' => 'sdSuperAdmin'), false, true);
-		$roleModel->deleteAll(array('alias' => 'sdAdmin'), false, true);
-		$roleModel->deleteAll(array('alias' => 'sdUtilisateurs'), false, true);
+		$roleModel->deleteAll(array('alias' => 'sdSuperAdmin'), true, true);
+		$roleModel->deleteAll(array('alias' => 'sdAdmin'), true, true);
+		$roleModel->deleteAll(array('alias' => 'sdUtilisateurs'), true, true);
 
 		// Change Occitech by Admin
 		$roleModel->updateAll(
