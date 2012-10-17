@@ -11,7 +11,7 @@ class SdUsersActivation {
 		$CroogoPlugin = new CroogoPlugin();
 		$CroogoPlugin->migrate('SdUsers');
 
-		$controller->Croogo->addAco('SdUsers/SdUsers/add', array('sdsuperadmin'));
+		$controller->Croogo->addAco('Users/Users/add', array('sdsuperadmin'));
 
 	}
 
@@ -22,8 +22,7 @@ class SdUsersActivation {
 		App::uses('CroogoPlugin', 'Extensions.Lib');
 		$CroogoPlugin = new CroogoPlugin();
 		$CroogoPlugin->unmigrate('SdUsers');
-		
-		$controller->Croogo->addAco('SdUsers/SdUsers/add');
-		$controller->Croogo->addAco('SdUsers/Users/add');
+
+		$controller->Croogo->removeAco('Users/Users/add', array('sdsuperadmin'));
 	}
 }
