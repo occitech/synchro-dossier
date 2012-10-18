@@ -107,7 +107,7 @@ class UsersController extends UsersAppController {
 		if (!empty($this->request->data)) {
 			$this->User->create();
 			$this->request->data['User']['activation_key'] = md5(uniqid());
-			if ($this->User->save($this->request->data)) {
+			if ($this->User->saveAssociated($this->request->data)) {
 				$this->Session->setFlash(__('The User has been saved'), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -130,7 +130,7 @@ class UsersController extends UsersAppController {
  */
 	public function admin_edit($id = null) {
 		if (!empty($this->request->data)) {
-			if ($this->User->save($this->request->data)) {
+			if ($this->User->saveAssociated($this->request->data)) {
 				$this->Session->setFlash(__('The User has been saved'), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			} else {
