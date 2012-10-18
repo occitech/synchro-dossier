@@ -10,4 +10,19 @@ class Profile extends SdUsersAppModel {
 	public $belongsTo = array(
 		'User' => array('className' => 'Users.User')
 	);
+
+	public $validate = array(
+		'name' => array(
+			'rule' => 'notEmpty',
+			'message' => 'Ce champs ne peut pas être laissé vide'
+		),
+		'firstname' => array(
+			'rule' => 'notEmpty',
+			'message' => 'Ce champs ne peut pas être laissé vide'
+		),
+		'society' => array(
+			'rule' => 'notEmpty',
+			'message' => 'Ce champs ne peut pas être laissé vide'
+		)
+	);
 }
