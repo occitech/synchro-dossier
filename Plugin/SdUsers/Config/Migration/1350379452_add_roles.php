@@ -64,7 +64,7 @@ class AddRoles extends CakeMigration {
 		$roles = array(
 			array('id' => '4', 'title' => 'SuperAdmin', 'alias' => 'sdSuperAdmin'),
 			array('id' => '5', 'title' => 'Admin', 'alias' => 'sdAdmin'),
-			array('id' => '6', 'title' => 'Utilisateurs', 'alias' => 'sdUtilisateurs')
+			array('id' => '6', 'title' => 'Utilisateur', 'alias' => 'sdUtilisateur')
 		);
 		$roleModel->saveMany($roles, array('deep' => true));
 
@@ -95,7 +95,7 @@ class AddRoles extends CakeMigration {
 		// Remove 3 roles
 		$roleModel->deleteAll(array('alias' => 'sdSuperAdmin'), true, true);
 		$roleModel->deleteAll(array('alias' => 'sdAdmin'), true, true);
-		$roleModel->deleteAll(array('alias' => 'sdUtilisateurs'), true, true);
+		$roleModel->deleteAll(array('alias' => 'sdUtilisateur'), true, true);
 
 		// Change Occitech by Admin
 		$roleModel->updateAll(
