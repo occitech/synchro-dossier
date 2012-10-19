@@ -14,15 +14,15 @@ class Profile extends SdUsersAppModel {
 	public $validate = array(
 		'name' => array(
 			'rule' => 'notEmpty',
-			'message' => 'Ce champs ne peut pas être laissé vide'
+			'message' => 'Ce champ ne peut pas être laissé vide'
 		),
 		'firstname' => array(
 			'rule' => 'notEmpty',
-			'message' => 'Ce champs ne peut pas être laissé vide'
+			'message' => 'Ce champ ne peut pas être laissé vide'
 		),
 		'society' => array(
 			'rule' => 'notEmpty',
-			'message' => 'Ce champs ne peut pas être laissé vide'
+			'message' => 'Ce champ ne peut pas être laissé vide'
 		)
 	);
 }
