@@ -2,6 +2,22 @@
 
 class SdUsersActivation {
 
+	private $__usersAcos = array(
+		'Users/Users/admin_add',
+		'Users/Users/admin_index'
+	);
+
+	private $__filesAcos = array(
+		'Uploader/Files/browse',
+		'Uploader/Files/upload',
+		'Uploader/Files/download',
+		'Uploader/Files/rename',
+		'Uploader/Files/createFolder',
+		'Uploader/Files/downloadZipFolder'
+	);
+
+	private $__sdRoles = array('sdSuperAdmin', 'sdUtilisateur', 'sdAdmin');
+
 	public function beforeActivation(&$controller) {
 		return true;
 	}
@@ -11,35 +27,28 @@ class SdUsersActivation {
 		$CroogoPlugin = new CroogoPlugin();
 		$CroogoPlugin->migrate('SdUsers');
 
-		$controller->Croogo->removeAco('Users/Users/admin_add');
-		$controller->Croogo->removeAco('Users/Users/admin_index');
-		$controller->Croogo->addAco('Users/Users/admin_add', array('SdSuperAdmin'));
-		$controller->Croogo->addAco('Users/Users/admin_index', array('SdSuperAdmin'));
+		foreach ($this->__usersAcos as $aco) {
+			$controller->Croogo->removeAco($aco);
+			$controller->Croogo->addAco($aco, array('sdSuperAdmin'));
+		}
 
-		$controller->Croogo->addAco('Uploader/Files/browse', array('SdSuperAdmin', 'sdUtilisateur', 'sdAdmin'));
-		$controller->Croogo->addAco('Uploader/Files/upload', array('SdSuperAdmin', 'sdUtilisateur', 'sdAdmin'));
-		$controller->Croogo->addAco('Uploader/Files/download', array('SdSuperAdmin', 'sdUtilisateur', 'sdAdmin'));
-		$controller->Croogo->addAco('Uploader/Files/rename', array('SdSuperAdmin', 'sdUtilisateur', 'sdAdmin'));
-		$controller->Croogo->addAco('Uploader/Files/createFolder', array('SdSuperAdmin', 'sdUtilisateur', 'sdAdmin'));
-		$controller->Croogo->addAco('Uploader/Files/downloadZipFolder', array('SdSuperAdmin', 'sdUtilisateur', 'sdAdmin'));
+		foreach ($this->__filesAcos as $aco) {
+			$controller->Croogo->addAco($aco, $this->__sdRoles);
+		}
 	}
 
 	public function beforeDeactivation(&$controller) {
 		return true;
 	}
+
 	public function onDeactivation(&$controller) {
 		App::uses('CroogoPlugin', 'Extensions.Lib');
 		$CroogoPlugin = new CroogoPlugin();
 		$CroogoPlugin->unmigrate('SdUsers');
 
-		$controller->Croogo->removeAco('Users/Users/admin_add');
-		$controller->Croogo->removeAco('Users/Users/admin_index');
-
-		$controller->Croogo->removeAco('Uploader/Files/browse');
-		$controller->Croogo->removeAco('Uploader/Files/upload');
-		$controller->Croogo->removeAco('Uploader/Files/download');
-		$controller->Croogo->removeAco('Uploader/Files/rename');
-		$controller->Croogo->removeAco('Uploader/Files/createFolder');
-		$controller->Croogo->removeAco('Uploader/Files/downloadZipFolder');
+		$allAcos = array_merge($this->__usersAcos, $this->__filesAcos);
+		foreach ($allAcos as $aco) {
+			$controller->Croogo->removeAco($aco);
+		}
 	}
 }
