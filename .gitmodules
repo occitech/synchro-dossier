@@ -7,6 +7,3 @@
 [submodule "Plugin/FileStorage"]
 	path = Plugin/FileStorage
 	url = git://github.com/burzum/FileStorage.git
-[submodule "Locale"]
-	path = Locale
-	url = https://github.com/croogo/locale

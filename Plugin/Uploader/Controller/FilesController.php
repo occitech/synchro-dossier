@@ -35,28 +35,20 @@ class FilesController extends UploaderAppController {
  * Créer un dossier
  */
 	public function createFolder($parentId) {
-		if ($this->Auth->user('id') != null) {
-			if ($this->request->data) {
-				if ($this->UploadedFile->addFolder($this->request->data, $parentId, $this->Auth->user('id'))) {
-					$this->redirect(array('action' => 'browse', $parentId));
-				}
+		if ($this->request->is('post')) {
+			if ($this->UploadedFile->addFolder($this->request->data, $parentId, $this->Auth->user('id'))) {
+				$this->redirect(array('action' => 'browse', $parentId));
 			}
-		} else {
-			$this->redirect(array('plugin' => 'users', 'controller' => 'users', 'action' => 'login'));
 		}
 	}
 
 	public function rename($parentId, $id) {
-		if ($this->Auth->user('id') != null) {	
-			if ($this->request->data) {
-				if ($this->UploadedFile->rename($id, $this->request->data)) {
-					$this->redirect(array('action' => 'browse', $parentId));
-				}
-			} else {
-				$this->request->data = $this->UploadedFile->findById($id);
+		if ($this->request->is('post')) {
+			if ($this->UploadedFile->rename($id, $this->request->data)) {
+				$this->redirect(array('action' => 'browse', $parentId));
 			}
 		} else {
-			$this->redirect(array('plugin' => 'users', 'controller' => 'users', 'action' => 'login'));
+			$this->request->data = $this->UploadedFile->findById($id);
 		}
 	}
 
@@ -81,20 +73,16 @@ class FilesController extends UploaderAppController {
  *
  */
 	public function upload($folderId, $originalFilename = null) {
-		if ($this->Auth->user('id') != null) {
-			if ($this->request->data) {
-				$uploadOk = $this->UploadedFile->upload(
-					$this->request->data,
-					$this->Auth->user('id'),
-					$folderId,
-					$originalFilename
-				);
-				if ($uploadOk) {
-					$this->redirect(array('controller' => 'files', 'action' => 'browse', $folderId));
-				}
+		if ($this->request->is('post')) {
+			$uploadOk = $this->UploadedFile->upload(
+				$this->request->data,
+				$this->Auth->user('id'),
+				$folderId,
+				$originalFilename
+			);
+			if ($uploadOk) {
+				$this->redirect(array('controller' => 'files', 'action' => 'browse', $folderId));
 			}
-		} else {
-			$this->redirect(array('plugin' => 'users', 'controller' => 'users', 'action' => 'login'));
 		}
 	}
 
