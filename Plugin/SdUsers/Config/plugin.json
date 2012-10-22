@@ -1,6 +1,6 @@
 {
 	"name": "SdUsers",
-	"description": "",
+	"description": "A plugin to extend the functionalities of users",
 
 	"dependencies": {
 		"plugins": [
