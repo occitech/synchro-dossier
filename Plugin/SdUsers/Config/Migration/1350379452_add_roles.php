@@ -50,7 +50,7 @@ class AddRoles extends CakeMigration {
 	}
 
 	private function __addNewMainMenuLink() {
-		return $this->Link->saveMany($links, array('deep' => true));
+		return $this->Link->saveMany($this->__links, array('deep' => true));
 	}
 
 	private function __removeSynchroRoles() {
