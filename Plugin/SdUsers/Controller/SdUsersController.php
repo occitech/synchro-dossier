@@ -41,4 +41,17 @@ class SdUsersController extends SdUsersAppController {
 		}
 		$this->set('roles', $this->SdUser->Role->find('list'));
 	}
+
+	public function admin_delete($id = null) {
+		if (is_null($id)) {
+			$this->redirect(array('action' => 'index'));
+		}
+		if ($this->SdUser->delete($id)) {
+			$this->Session->setFlash(__('User deleted'), 'default', array('class' => 'success'));
+			$this->redirect(array('action' => 'index'));
+		} else {
+			$this->Session->setFlash(__('User cannot be deleted'), 'default', array('class' => 'error'));
+			$this->redirect(array('action' => 'index'));
+		}
+	}
 }
