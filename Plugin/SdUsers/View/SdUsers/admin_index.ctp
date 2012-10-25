@@ -8,10 +8,10 @@
 		$this->Paginator->sort('name'),
 		$this->Paginator->sort('firstname'),
 		$this->Paginator->sort('email'),
+		$this->Paginator->sort('role'),
 		__('Actions'),
 	));
 	echo $tableHeaders;
-
 	$rows = array();
 	foreach ($users as $user) {
 		$actions  = $this->Html->link(__('Edit'), array('action' => 'edit', $user['SdUser']['id']));
@@ -26,6 +26,7 @@
 			$user['Profile']['name'],
 			$user['Profile']['firstname'],
 			$user['SdUser']['email'],
+			$user['Role']['title'],
 			$actions,
 		);
 	}
