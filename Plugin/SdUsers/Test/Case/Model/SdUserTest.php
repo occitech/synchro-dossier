@@ -13,7 +13,9 @@ class SdUserTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.sd_users.user'
+		'plugin.sd_users.user',
+		'plugin.sd_users.profile',
+		'plugin.sd_users.role'
 	);
 
 /**
@@ -50,6 +52,46 @@ class SdUserTest extends CakeTestCase {
 		);
 
 		$this->assertEqual($expected, $result);
+	}
+
+	public function testAddOk() {
+		$creatorId = 3;
+		$data = array(
+			'SdUser' => array(
+				'role_id' => '4',
+				'username' => 'coucou',
+				'email' => 'coucou@coucou.com',
+				'status' => '1'
+			),
+			'Profile' => array(
+				'name' => 'sdfsqfsdf',
+				'firstname' => 'sdf',
+				'society' => 'qsqssdf'
+			)
+		);
+		$this->SdUser->add($data, $creatorId);
+		$lastUserAdded = $this->SdUser->find('first', array('order' => 'SdUser.id DESC'));
+
+		$this->assertEqual(4, $this->SdUser->find('count'));
+		$this->assertEqual($creatorId, $lastUserAdded['SdUser']['creator_id']);
+	}
+
+	public function testAddNoUsername() {
+		$creatorId = 3;
+		$data = array(
+			'SdUser' => array(
+				'role_id' => '4',
+				'email' => 'coucou@coucou.com',
+				'status' => '1'
+			),
+			'Profile' => array(
+				'name' => 'sdfsqfsdf',
+				'firstname' => 'sdf',
+				'society' => 'qsqssdf'
+			)
+		);
+		$result = $this->SdUser->add($data, $creatorId);
+		$this->assertFalse($result);
 	}
 
 }

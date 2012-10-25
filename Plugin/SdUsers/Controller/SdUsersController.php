@@ -12,8 +12,20 @@ class SdUsersController extends SdUsersAppController {
 		} else {
 			$this->paginate = $this->SdUser->getPaginateAll();
 		}
-		// debug($this->paginate('SdUser'));
 		$this->set('users', $this->paginate('SdUser'));
+	}
+
+	public function admin_add() {
+		if (!empty($this->request->data)) {
+			if ($this->SdUser->add($this->request->data, $this->Auth->user('id'))) {
+				$this->Session->setFlash(__('The User has been saved'), 'default', array('class' => 'success'));
+				$this->redirect(array('action' => 'index'));
+			} else {
+				$this->Session->setFlash(__('The User could not be saved. Please, try again.'), 'default', array('class' => 'error'));
+				unset($this->request->data['SdUser']['password']);
+			}
+		}
+		$this->set('roles', $this->SdUser->Role->find('list'));
 	}
 
 	public function admin_edit($userId) {
