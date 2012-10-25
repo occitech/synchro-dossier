@@ -67,10 +67,25 @@ class SdUser extends SdUsersAppModel {
 		),
 	);
 
-	public function add($data, $creatorId) {
+	protected function _addValidateRuleAboutRole($creatorRoleId) {
+		$this->validator()->add('role_id', array(
+			'rule' => array('inList', Configure::read('sd.' .  $creatorRoleId . '.authorizeRoleCreation')),
+			'message' => __('Vous ne pouvez pas créer d\'utilisateur de ce groupe')
+		));
+	}
+
+	public function add($data, $creatorId, $creatorRoleId) {
+		$this->_addValidateRuleAboutRole($creatorRoleId);
 		$this->create();
+		$data['SdUser']['role_id'] = intval($data['SdUser']['role_id']);
 		$data['SdUser']['activation_key'] = md5(uniqid());
 		$data['SdUser']['creator_id'] = $creatorId;
+		return $this->saveAssociated($data);
+	}
+
+	public function edit($data, $creatorRoleId) {
+		$this->_addValidateRuleAboutRole($creatorRoleId);
+		$data['SdUser']['role_id'] = intval($data['SdUser']['role_id']);
 		return $this->saveAssociated($data);
 	}
 

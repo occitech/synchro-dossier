@@ -18,7 +18,9 @@ class SdUsersController extends SdUsersAppController {
 
 	public function admin_add() {
 		if (!empty($this->request->data)) {
-			if ($this->SdUser->add($this->request->data, $this->Auth->user('id'))) {
+			$userId = $this->Auth->user('id');
+			$roleId = $this->Auth->user('role_id');
+			if ($this->SdUser->add($this->request->data, $userId, $roleId)) {
 				$this->Session->setFlash(__('The User has been saved'), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			} else {
@@ -31,7 +33,8 @@ class SdUsersController extends SdUsersAppController {
 
 	public function admin_edit($userId) {
 		if ($this->request->data) {
-			if ($this->SdUser->saveAssociated($this->request->data)) {
+			$roleId = $this->Auth->user('role_id');
+			if ($this->SdUser->edit($this->request->data, $roleId)) {
 				$this->Session->setFlash(__('The User has been saved'), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			} else {

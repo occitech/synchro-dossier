@@ -56,9 +56,10 @@ class SdUserTest extends CakeTestCase {
 
 	public function testAddOk() {
 		$creatorId = 3;
+		$roleId = 1;
 		$data = array(
 			'SdUser' => array(
-				'role_id' => '4',
+				'role_id' => '6',
 				'username' => 'coucou',
 				'email' => 'coucou@coucou.com',
 				'status' => '1'
@@ -69,15 +70,16 @@ class SdUserTest extends CakeTestCase {
 				'society' => 'qsqssdf'
 			)
 		);
-		$this->SdUser->add($data, $creatorId);
+		$this->SdUser->add($data, $creatorId, $roleId);
 		$lastUserAdded = $this->SdUser->find('first', array('order' => 'SdUser.id DESC'));
 
-		$this->assertEqual(4, $this->SdUser->find('count'));
+		$this->assertEqual($this->SdUser->find('count'), 4);
 		$this->assertEqual($creatorId, $lastUserAdded['SdUser']['creator_id']);
 	}
 
 	public function testAddNoUsername() {
 		$creatorId = 3;
+		$roleId = 4;
 		$data = array(
 			'SdUser' => array(
 				'role_id' => '4',
@@ -90,8 +92,29 @@ class SdUserTest extends CakeTestCase {
 				'society' => 'qsqssdf'
 			)
 		);
-		$result = $this->SdUser->add($data, $creatorId);
+		$result = $this->SdUser->add($data, $creatorId, $roleId);
 		$this->assertFalse($result);
+	}
+
+	public function testEditOk() {
+		$creatorId = 3;
+		$roleId = 1;
+		$data = array(
+			'SdUser' => array(
+				'id' => '1',
+				'role_id' => '5',
+				'username' => 'coucou',
+				'email' => 'coucou@coucou.com',
+				'status' => '1'
+			),
+			'Profile' => array(
+				'name' => 'sdfsqfsdf',
+				'firstname' => 'sdf',
+				'society' => 'qsqssdf'
+			)
+		);
+		$this->assertTrue($this->SdUser->edit($data, $roleId));
+		$this->assertEqual($this->SdUser->find('count'), 3);
 	}
 
 }
