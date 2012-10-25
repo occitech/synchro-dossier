@@ -13,6 +13,7 @@
 				$this->Form->input('SdUser.role_id').
 				$this->Form->input('SdUser.username').
 				$this->Form->input('SdUser.email').
+				$this->Form->input('SdUser.password').
 				$this->Form->input('SdUser.status');
 			?>
 			</div>
