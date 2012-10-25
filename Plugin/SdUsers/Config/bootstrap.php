@@ -17,8 +17,8 @@ Configure::write('sd.Utilisateur.roleId', 6);
 Configure::write('sd.Utilisateur.roleAlias', 'sdUtilisateur');
 
 // Admin menu
-CroogoNav::add('users.children.synchro-dossier', array(
-	'title' => __('Synchro Dossier'),
+CroogoNav::add('sdUsers', array(
+	'title' => __('Users'),
 	'url' => array(
 		'admin' => true,
 		'plugin' => 'sd_users',
