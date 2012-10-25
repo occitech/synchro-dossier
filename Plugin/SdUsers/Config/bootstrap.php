@@ -4,14 +4,32 @@ Croogo::hookAdminTab('Users/admin_add', 'Profil', 'sdUsers.admin_tab_user');
 Croogo::hookAdminTab('Users/admin_edit', 'Profil', 'sdUsers.admin_tab_user');
 
 // Information about Sd roles
-Configure::write('sd.SuperAdmin.roleId', 4);
-Configure::write('sd.SuperAdmin.roleAlias', 'sdSuperAdmin');
+$OccitechId = 1;
+$SuperAdminRoleId = 4;
+$AdminRoleId = 5;
+$UtilisateurRoleId = 6;
 
-Configure::write('sd.Admin.roleId', 5);
-Configure::write('sd.Admin.roleAlias', 'sdAdmin');
+Configure::write('sd.Occitech.roleId', $OccitechId);
+Configure::write('sd.' . $OccitechId . '.roleAlias', 'sdSuperAdmin');
+Configure::write(
+	'sd.' . $OccitechId . '.authorizeRoleCreation',
+	array($OccitechId, $SuperAdminRoleId, $AdminRoleId, $UtilisateurRoleId)
+);
 
-Configure::write('sd.Utilisateur.roleId', 6);
-Configure::write('sd.Utilisateur.roleAlias', 'sdUtilisateur');
+Configure::write('sd.SuperAdmin.roleId', $SuperAdminRoleId);
+Configure::write('sd.' . $SuperAdminRoleId . '.roleAlias', 'sdSuperAdmin');
+Configure::write(
+	'sd.' . $SuperAdminRoleId . '.authorizeRoleCreation',
+	array($SuperAdminRoleId, $AdminRoleId, $UtilisateurRoleId)
+);
+
+Configure::write('sd.Admin.roleId', $AdminRoleId);
+Configure::write('sd.' . $AdminRoleId . '.roleAlias', 'sdAdmin');
+Configure::write('sd.' . $AdminRoleId . '.authorizeRoleCreation', array($AdminRoleId, $UtilisateurRoleId));
+
+Configure::write('sd.Utilisateur.roleId', $UtilisateurRoleId);
+Configure::write('sd.' . $UtilisateurRoleId . '.roleAlias', 'sdUtilisateur');
+Configure::write('sd.' . $UtilisateurRoleId . '.authorizeRoleCreation', array());
 
 // Admin menu
 CroogoNav::add('sdUsers', array(
