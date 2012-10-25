@@ -5,6 +5,7 @@ App::uses('SdUser', 'SdUsers.Model');
 class SdUsersController extends SdUsersAppController {
 
 	public $uses = array('SdUsers.SdUser');
+	public $components = array('SdUsers.Roles');
 
 	public function admin_index() {
 		if ($this->Auth->user('role_id') == Configure::read('sd.Admin.roleId')) {
