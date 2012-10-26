@@ -1,8 +1,5 @@
 <?php
 
-Croogo::hookAdminTab('Users/admin_add', 'Profil', 'sdUsers.admin_tab_user');
-Croogo::hookAdminTab('Users/admin_edit', 'Profil', 'sdUsers.admin_tab_user');
-
 // Information about Sd roles
 $OccitechId = 1;
 $SuperAdminRoleId = 4;

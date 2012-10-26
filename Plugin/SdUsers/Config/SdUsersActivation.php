@@ -6,7 +6,9 @@ class SdUsersActivation {
 		'SdUsers/SdUsers/admin_index',
 		'SdUsers/SdUsers/admin_edit',
 		'SdUsers/SdUsers/admin_add',
-		'SdUsers/SdUsers/admin_delete'
+		'SdUsers/SdUsers/admin_delete',
+		'Users/Users/admin_logout'
+
 	);
 
 	private $__filesAcos = array(
@@ -38,6 +40,8 @@ class SdUsersActivation {
 		foreach ($this->__filesAcos as $aco) {
 			$controller->Croogo->addAco($aco, $this->__sdRoles);
 		}
+
+		$controller->Croogo->addAco('Users/Users/logout', $this->__sdRoles);		
 	}
 
 	public function beforeDeactivation(&$controller) {
