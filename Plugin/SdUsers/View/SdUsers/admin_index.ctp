@@ -14,7 +14,8 @@
 	echo $tableHeaders;
 	$rows = array();
 	foreach ($users as $user) {
-		$actions  = $this->Html->link(__('Edit'), array('action' => 'edit', $user['SdUser']['id']));
+		$actions  = $this->Html->link(__('Mail'), 'mailto:' . $user['SdUser']['email']);
+		$actions .= ' ' . $this->Html->link(__('Edit'), array('action' => 'edit', $user['SdUser']['id']));
 		$actions .= ' ' . $this->Croogo->adminRowActions($user['SdUser']['id']);
 		$actions .= ' ' . $this->Form->postLink(__('Delete'), array(
 			'action' => 'delete',
