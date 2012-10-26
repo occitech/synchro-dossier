@@ -67,13 +67,12 @@ class UploadedFile extends UploaderAppModel {
 /// Methods for folders ///
 ///////////////////////////
 
-/**
- * Ajoute un dossier dans la db
- */
 	public function addFolder($data, $parentId, $userId) {
-		$parent = $this->findById($parentId);
-		if (!$parent['UploadedFile']['is_folder']) {
-			return false;
+		if (!is_null($parentId)) {
+			$parent = $this->findById($parentId);
+			if (!$parent['UploadedFile']['is_folder']) {
+				return false;
+			}
 		}
 
 		$this->create();
@@ -81,6 +80,10 @@ class UploadedFile extends UploaderAppModel {
 		$data['UploadedFile']['is_folder'] = 1;
 		$data['UploadedFile']['user_id'] = $userId;
 		return $this->save($data);
+	}
+
+	public function addSharing($data, $userId) {
+		return $this->addFolder($data, null, $userId);
 	}
 
 	protected function _getFoldersPath($folderId) {
