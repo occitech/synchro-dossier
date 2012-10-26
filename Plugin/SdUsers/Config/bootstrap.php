@@ -6,27 +6,34 @@ $SuperAdminRoleId = 4;
 $AdminRoleId = 5;
 $UtilisateurRoleId = 6;
 
-Configure::write('sd.Occitech.roleId', $OccitechId);
-Configure::write('sd.' . $OccitechId . '.roleAlias', 'sdSuperAdmin');
-Configure::write(
-	'sd.' . $OccitechId . '.authorizeRoleCreation',
-	array($OccitechId, $SuperAdminRoleId, $AdminRoleId, $UtilisateurRoleId)
+$rolesInfos = array(
+	'Occitech' => array(
+		'roleId' => $OccitechId,
+		'roleAlias' => 'admin',
+		'authorizeRoleCreation' => array($OccitechId, $SuperAdminRoleId, $AdminRoleId, $UtilisateurRoleId)
+	),
+	'SuperAdmin' => array(
+		'roleId' => $SuperAdminRoleId,
+		'roleAlias' => 'sdSuperAdmin',
+		'authorizeRoleCreation' => array($SuperAdminRoleId, $AdminRoleId, $UtilisateurRoleId)
+	),
+	'Admin' => array(
+		'roleId' => $AdminRoleId,
+		'roleAlias' => 'sdAdmin',
+		'authorizeRoleCreation' => array($AdminRoleId, $UtilisateurRoleId)
+	),
+	'Utilisateur' => array(
+		'roleId' => $UtilisateurRoleId,
+		'roleAlias' => 'sdUtilisateur',
+		'authorizeRoleCreation' => array()
+	),
 );
 
-Configure::write('sd.SuperAdmin.roleId', $SuperAdminRoleId);
-Configure::write('sd.' . $SuperAdminRoleId . '.roleAlias', 'sdSuperAdmin');
-Configure::write(
-	'sd.' . $SuperAdminRoleId . '.authorizeRoleCreation',
-	array($SuperAdminRoleId, $AdminRoleId, $UtilisateurRoleId)
-);
-
-Configure::write('sd.Admin.roleId', $AdminRoleId);
-Configure::write('sd.' . $AdminRoleId . '.roleAlias', 'sdAdmin');
-Configure::write('sd.' . $AdminRoleId . '.authorizeRoleCreation', array($AdminRoleId, $UtilisateurRoleId));
-
-Configure::write('sd.Utilisateur.roleId', $UtilisateurRoleId);
-Configure::write('sd.' . $UtilisateurRoleId . '.roleAlias', 'sdUtilisateur');
-Configure::write('sd.' . $UtilisateurRoleId . '.authorizeRoleCreation', array());
+foreach ($rolesInfos as $roleName => $infos) {
+	Configure::write('sd.' . $roleName . '.roleId', $infos['roleId']);
+	Configure::write('sd.' . $infos['roleId'] . '.roleAlias', $infos['roleAlias']);
+	Configure::write('sd.' . $infos['roleId'] . '.authorizeRoleCreation', $infos['authorizeRoleCreation']);
+}
 
 // Admin menu
 CroogoNav::add('sdUsers', array(
