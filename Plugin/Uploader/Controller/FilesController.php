@@ -11,12 +11,22 @@ class FilesController extends UploaderAppController {
 		$this->Security->unlockedActions = 'upload';
 	}
 
-	public function browse($folderId) {
+	public function browse($folderId = null) {
 		$this->helpers[] = 'Uploader.File';
 		$this->helpers[] = 'Time';
+
+
 		$this->UploadedFile->recursive = 2;
-		$files = $this->UploadedFile->findById($folderId);
+		if (is_null($folderId)) {
+			$files = $this->UploadedFile->find('all', array('conditions' => array('UploadedFile.parent_id IS NULL'))); 
+		} else {
+			$files = $this->UploadedFile->findAllByParent_id($folderId);
+		}
+		$parent = $this->UploadedFile->findById($folderId);
+		$parentId = ($parent) ? $parent['ParentUploadedFile']['id'] : null;
 		$this->set('files', $files);
+		$this->set(compact('folderId'));
+		$this->set(compact('parentId'));
 	}
 
 	public function view($id) {
@@ -25,9 +35,19 @@ class FilesController extends UploaderAppController {
 		$this->set('file', $file);
 	}
 
+	public function createSharing() {
+		if ($this->request->is('post')) {
+			if ($this->UploadedFile->addSharing($this->request->data, $this->Auth->user('id'))) {
+				$this->Session->flash(__('Folder correctly created'));
+				$this->redirect(array('action' => 'browse', $parentId));
+			}
+		}
+	}
+
 	public function createFolder($parentId) {
 		if ($this->request->is('post')) {
 			if ($this->UploadedFile->addFolder($this->request->data, $parentId, $this->Auth->user('id'))) {
+				$this->Session->flash(__('Sub-folder correctly created'));
 				$this->redirect(array('action' => 'browse', $parentId));
 			}
 		}
