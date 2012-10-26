@@ -11,9 +11,6 @@ class FilesController extends UploaderAppController {
 		$this->Security->unlockedActions = 'upload';
 	}
 
-/**
- * Affiche le contenu d'un dossier. Permet de naviguer dans l'arborescence
- */
 	public function browse($folderId) {
 		$this->helpers[] = 'Uploader.File';
 		$this->helpers[] = 'Time';
@@ -22,18 +19,12 @@ class FilesController extends UploaderAppController {
 		$this->set('files', $files);
 	}
 
-/**
- * Affiche la liste des versions d'un fichier
- */
 	public function view($id) {
 		$this->UploadedFile->recursive = 3;
 		$file = $this->UploadedFile->findById($id);
 		$this->set('file', $file);
 	}
 
-/**
- * Créer un dossier
- */
 	public function createFolder($parentId) {
 		if ($this->request->is('post')) {
 			if ($this->UploadedFile->addFolder($this->request->data, $parentId, $this->Auth->user('id'))) {
@@ -52,10 +43,6 @@ class FilesController extends UploaderAppController {
 		}
 	}
 
-/**
- * Pour le moment sert juste à vérifier que l'on peut bien reconstruire
- * l'arborescence d'un dossier.
- */
 	public function downloadZipFolder($folderId) {
 		$folder = $this->UploadedFile->findById($folderId);
 		if (!empty($folder)) {		
@@ -68,8 +55,8 @@ class FilesController extends UploaderAppController {
 /**
  * Upload d'un fichier
  *
- * @param $originalFilename : For special case where the the uploaded file can hasn't the same name that on 
- * 	           the remote server. In that case $originalFilename contains the real name of the file
+ * @param $originalFilename : Correspond au nom original du fichier pour le cas ou
+ * l'utilisateur upload une nouvelle version du fichier en passant par "Uploader une nouvelle version"
  *
  */
 	public function upload($folderId, $originalFilename = null) {
