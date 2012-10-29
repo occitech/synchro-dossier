@@ -4,11 +4,11 @@
 <table cellpadding="0" cellspacing="0">
 <?php
 	$tableHeaders =  $this->Html->tableHeaders(array(
-		$this->Paginator->sort('username'),
-		$this->Paginator->sort('name'),
-		$this->Paginator->sort('firstname'),
-		$this->Paginator->sort('email'),
-		$this->Paginator->sort('role'),
+		$this->Paginator->sort('username', __('Username')),
+		$this->Paginator->sort('name', __('Name')),
+		$this->Paginator->sort('firstname', __('Firstname')),
+		$this->Paginator->sort('email', __('Email')),
+		$this->Paginator->sort('role', __('Role')),
 		__('Actions'),
 	));
 	echo $tableHeaders;

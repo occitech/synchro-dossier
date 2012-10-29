@@ -11,10 +11,10 @@
 			<div id="node-main">
 			<?=
 				$this->Form->input('SdUser.id').
-				$this->Form->input('SdUser.role_id').
-				$this->Form->input('SdUser.username').
-				$this->Form->input('SdUser.email').
-				$this->Form->input('SdUser.status');
+				$this->Form->input('SdUser.role_id', array('label' => __('Role'))).
+				$this->Form->input('SdUser.username', array('label' => __('Username'))).
+				$this->Form->input('SdUser.email', array('label' => __('Email'))).
+				$this->Form->input('SdUser.status', array('label' => __('Status')));
 			?>
 			</div>
 
@@ -32,8 +32,8 @@
 	</fieldset>
 	<div class="buttons">
 	<?php
-		echo $this->Form->submit(__('Apply'), array('name' => 'apply'));
-		echo $this->Form->submit(__('Save'));
+		echo $this->Form->submit(__('Apply'), array('name' => 'apply', 'label' => __('Apply')));
+		echo $this->Form->submit(__('Save'), , array('label' => __('Save')));
 		echo $this->Html->link(__('Cancel'), array(
 			'action' => 'index',
 		), array(
