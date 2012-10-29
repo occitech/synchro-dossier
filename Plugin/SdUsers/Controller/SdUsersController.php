@@ -47,15 +47,16 @@ class SdUsersController extends SdUsersAppController {
 	}
 
 	public function admin_delete($id = null) {
+		$httpCode = null;
 		if (is_null($id)) {
-			$this->redirect(array('action' => 'index'));
-		}
-		if ($this->SdUser->delete($id)) {
-			$this->Session->setFlash(__('User deleted'), 'default', array('class' => 'success'));
-			$this->redirect(array('action' => 'index'));
+			$httpCode = 404;
 		} else {
-			$this->Session->setFlash(__('User cannot be deleted'), 'default', array('class' => 'error'));
-			$this->redirect(array('action' => 'index'));
+			if ($this->SdUser->delete($id)) {
+				$this->Session->setFlash(__('User deleted'), 'default', array('class' => 'success'));
+			} else {
+				$this->Session->setFlash(__('User cannot be deleted'), 'default', array('class' => 'error'));
+			}
 		}
+		$this->redirect(array('action' => 'index'), $httpCode);
 	}
 }
