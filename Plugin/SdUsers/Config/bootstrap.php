@@ -35,8 +35,7 @@ foreach ($rolesInfos as $roleName => $infos) {
 	Configure::write('sd.' . $infos['roleId'] . '.authorizeRoleCreation', $infos['authorizeRoleCreation']);
 }
 
-// Admin menu
-CroogoNav::add('sdUsers', array(
+$adminMenu = array(
 	'title' => __('Users'),
 	'url' => array(
 		'admin' => true,
@@ -64,4 +63,5 @@ CroogoNav::add('sdUsers', array(
 			),
 		),
 	),
-));
+);
+CroogoNav::add('sdUsers', $adminMenu);

@@ -2,13 +2,12 @@
 
 class SdUsersActivation {
 
-	private $__usersAcos = array(
+	private $__usersCRUDAcos = array(
 		'SdUsers/SdUsers/admin_index',
 		'SdUsers/SdUsers/admin_edit',
 		'SdUsers/SdUsers/admin_add',
 		'SdUsers/SdUsers/admin_delete',
 		'Users/Users/admin_logout'
-
 	);
 
 	private $__filesAcos = array(
@@ -31,8 +30,7 @@ class SdUsersActivation {
 		$CroogoPlugin = new CroogoPlugin();
 		$CroogoPlugin->migrate('SdUsers');
 
-		// SuperAdmin and Admin can view, create, edit and delete user
-		foreach ($this->__usersAcos as $aco) {
+		foreach ($this->__usersCRUDAcos as $aco) {
 			$controller->Croogo->removeAco($aco);
 			$controller->Croogo->addAco($aco, array('sdSuperAdmin', 'sdAdmin'));
 		}
@@ -53,7 +51,7 @@ class SdUsersActivation {
 		$CroogoPlugin = new CroogoPlugin();
 		$CroogoPlugin->unmigrate('SdUsers');
 
-		$allAcos = array_merge($this->__usersAcos, $this->__filesAcos);
+		$allAcos = array_merge($this->__usersCRUDAcos, $this->__filesAcos);
 		foreach ($allAcos as $aco) {
 			$controller->Croogo->removeAco($aco);
 		}
