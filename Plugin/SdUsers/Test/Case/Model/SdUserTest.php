@@ -39,21 +39,6 @@ class SdUserTest extends CakeTestCase {
 		parent::tearDown();
 	}
 
-	public function testGetPaginateAll() {
-		$result = $this->SdUser->getPaginateAll();
-
-		$this->assertEqual(array(), $result);
-	}
-
-	public function testGetPaginateByCreatorId() {
-		$result = $this->SdUser->getPaginateByCreatorId(1);
-		$expected = array(
-			'conditions' => array('SdUser.creator_id' => 1)
-		);
-
-		$this->assertEqual($expected, $result);
-	}
-
 	public function testAddOk() {
 		$creatorId = 3;
 		$roleId = 1;
@@ -115,6 +100,16 @@ class SdUserTest extends CakeTestCase {
 		);
 		$this->assertTrue($this->SdUser->edit($data, $roleId));
 		$this->assertEqual($this->SdUser->find('count'), 3);
+	}
+
+	public function testFindCreatedByTwoResult() {
+		$result = $this->SdUser->find('createdBy', array('creatorId' => 1));
+		$this->assertEqual(count($result), 2);
+	}
+
+	public function testFindCreatedByNoResult() {
+		$result = $this->SdUser->find('createdBy', array('creatorId' => 1));
+		$this->assertEqual(count($result), 2);
 	}
 
 }

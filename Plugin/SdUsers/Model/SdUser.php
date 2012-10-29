@@ -7,6 +7,8 @@ class SdUser extends SdUsersAppModel {
 
 	public $useTable = 'users';
 
+	public $findMethods = array('createdBy' =>  true);
+
 	public $belongsTo = array(
 		'Role' => array(
 			'className' => 'Role',
@@ -67,6 +69,8 @@ class SdUser extends SdUsersAppModel {
 		),
 	);
 
+
+
 	protected function _addValidateRuleAboutRole($creatorRoleId) {
 		$this->validator()->add('role_id', array(
 			'rule' => array('inList', Configure::read('sd.' .  $creatorRoleId . '.authorizeRoleCreation')),
@@ -89,13 +93,15 @@ class SdUser extends SdUsersAppModel {
 		return $this->saveAssociated($data);
 	}
 
-	public function getPaginateAll() {
-		return array();
-	}
+	protected function _findCreatedBy($state, $query, $results = array()) {
+		if (empty($query['creatorId'])) {
+			trigger_error(('The key "creatorId" is obligatory'));
+		}
 
-	public function getPaginateByCreatorId($creatorId) {
-		return array(
-			'conditions' => array('SdUser.creator_id' => $creatorId)
-		);
+		if ($state == 'before') {
+			$query['conditions']['SdUser.creator_id'] = $query['creatorId'];
+			return $query;
+		}
+		return $results;
 	}
 }
