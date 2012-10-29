@@ -38,7 +38,7 @@ class FilesController extends UploaderAppController {
 	public function createSharing() {
 		if ($this->request->is('post')) {
 			if ($this->UploadedFile->addSharing($this->request->data, $this->Auth->user('id'))) {
-				$this->Session->flash(__('Folder correctly created'));
+				$this->Session->setFlash(__('Folder correctly created'));
 				$this->redirect(array('action' => 'browse', $parentId));
 			}
 		}
@@ -47,7 +47,7 @@ class FilesController extends UploaderAppController {
 	public function createFolder($parentId) {
 		if ($this->request->is('post')) {
 			if ($this->UploadedFile->addFolder($this->request->data, $parentId, $this->Auth->user('id'))) {
-				$this->Session->flash(__('Sub-folder correctly created'));
+				$this->Session->setFlash(__('Sub-folder correctly created'));
 				$this->redirect(array('action' => 'browse', $parentId));
 			}
 		}
