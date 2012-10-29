@@ -43,7 +43,7 @@ class FilesController extends UploaderAppController {
 	}
 
 	public function rename($parentId, $id) {
-		if ($this->request->is('post')) {
+		if ($this->request->is('put')) {
 			if ($this->UploadedFile->rename($id, $this->request->data)) {
 				$this->redirect(array('action' => 'browse', $parentId));
 			}
