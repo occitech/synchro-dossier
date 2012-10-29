@@ -55,9 +55,10 @@ class SdUserTest extends CakeTestCase {
 				'society' => 'qsqssdf'
 			)
 		);
-		$this->SdUser->add($data, $creatorId, $roleId);
+		$result = $this->SdUser->add($data, $creatorId, $roleId);
 		$lastUserAdded = $this->SdUser->find('first', array('order' => 'SdUser.id DESC'));
 
+		$this->assertTrue($result);
 		$this->assertEqual($this->SdUser->find('count'), 4);
 		$this->assertEqual($creatorId, $lastUserAdded['SdUser']['creator_id']);
 	}
@@ -108,8 +109,8 @@ class SdUserTest extends CakeTestCase {
 	}
 
 	public function testFindCreatedByNoResult() {
-		$result = $this->SdUser->find('createdBy', array('creatorId' => 1));
-		$this->assertEqual(count($result), 2);
+		$result = $this->SdUser->find('createdBy', array('creatorId' => 2));
+		$this->assertEqual(count($result), 0);
 	}
 
 }
