@@ -79,7 +79,7 @@
 
 				<td>
 					<?php if ($file['UploadedFile']['is_folder']): ?>
-						<?php if (isset($file['ChildUploadedFile'])): ?>
+						<?php if (!empty($file['ChildUploadedFile'])): ?>
 							<?php echo $this->Html->link(
 								__('Télécharger'),
 								array('controller' => 'files', 'action' => 'downloadZipFolder', $file['UploadedFile']['id'])
