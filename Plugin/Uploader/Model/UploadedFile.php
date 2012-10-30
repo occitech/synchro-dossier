@@ -37,6 +37,8 @@ class UploadedFile extends UploaderAppModel {
 		)
 	);
 
+	public $findMethods = array('rootDirectories' =>  true);
+
 	public $validate = array(
 		'filename' => array(
 			'notEmpty' => array(
@@ -50,30 +52,29 @@ class UploadedFile extends UploaderAppModel {
 		)
 	);
 
-    public function isUniqueName($check) {
-    	$parentId = $this->data['UploadedFile']['parent_id'];
-    	$result = $this->_findByFilenameParent_id($check['filename'], $parentId);
-    	if (!empty($result)) {
-    		if (isset($this->data['UploadedFile']['id'])
-    			&& $result['UploadedFile']['id'] == $this->data['UploadedFile']['id']) {
-    			return true;
-    		}
-    		return false;
-    	}
+	public function isUniqueName($check) {
+		$parentId = $this->data['UploadedFile']['parent_id'];
+		$result = $this->_findByFilenameParent_id($check['filename'], $parentId);
+		if (!empty($result)) {
+			if (isset($this->data['UploadedFile']['id'])
+				&& $result['UploadedFile']['id'] == $this->data['UploadedFile']['id']) {
+				return true;
+			}
+			return false;
+		}
 		return true;
-    }
+	}
 
 ///////////////////////////
 /// Methods for folders ///
 ///////////////////////////
 
-/**
- * Ajoute un dossier dans la db
- */
 	public function addFolder($data, $parentId, $userId) {
-		$parent = $this->findById($parentId);
-		if (!$parent['UploadedFile']['is_folder']) {
-			return false;
+		if (!is_null($parentId)) {
+			$parent = $this->findById($parentId);
+			if (!$parent['UploadedFile']['is_folder']) {
+				return false;
+			}
 		}
 
 		$this->create();
@@ -81,6 +82,10 @@ class UploadedFile extends UploaderAppModel {
 		$data['UploadedFile']['is_folder'] = 1;
 		$data['UploadedFile']['user_id'] = $userId;
 		return $this->save($data);
+	}
+
+	public function addSharing($data, $userId) {
+		return $this->addFolder($data, null, $userId);
 	}
 
 	protected function _getFoldersPath($folderId) {
@@ -153,6 +158,14 @@ class UploadedFile extends UploaderAppModel {
 /////////////////////////
 /// Methods for files ///
 /////////////////////////
+
+	protected function _findRootDirectories($state, $query, $results = array()) {
+		if ($state == 'before') {
+			$query['conditions'][$this->alias . '.parent_id'] = null;
+			return $query;
+		}
+		return $results;
+	}
 
 	protected function _findByFilenameParent_id($filename, $parentId) {
 		return $this->find('first', array(

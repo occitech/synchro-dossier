@@ -68,11 +68,9 @@ class UploadedFileTest extends CakeTestCase {
 		parent::tearDown();
 	}
 
-
-///////////////////////////
-/// Methods Validate    ///
-///////////////////////////
-
+/**
+ * Test isUniqueName validation
+ */
 	public function testIsUniqueNameOk() {
 		$check = array('filename' => 'yesthisnameisreallyunique');
 		$this->UploadedFile->data = array(
@@ -112,10 +110,10 @@ class UploadedFileTest extends CakeTestCase {
 		$this->assertTrue($result);
 	}
 
-///////////////////////////
-/// Methods for folders ///
-///////////////////////////
 
+/**
+ * Test addFolder
+ */
 	public function testAddFolderParentNotExist() {
 		$parentId = 32;
 		$userId = 1;
@@ -140,6 +138,35 @@ class UploadedFileTest extends CakeTestCase {
 		$this->assertEqual($result['UploadedFile']['filename'], 'MygreatFile');	
 	}
 
+	public function testAddFolderFilenameError() {
+		$parentId = 1;
+		$userId = 1;
+		$data = array('UploadedFile' => array('filename' => ''));
+		$result = $this->UploadedFile->addFolder($data, $parentId, $userId);
+		$this->assertFalse($result);
+	}
+
+/**
+ * Test addSharing
+ */
+	public function testAddSharingOk() {
+		$userId = 1;
+		$data = array('UploadedFile' => array('filename' => 'MygreatSharing'));
+		$result = $this->UploadedFile->addSharing($data, $userId);
+		$this->assertEqual($result['UploadedFile']['filename'], 'MygreatSharing');
+		$this->assertEqual($result['UploadedFile']['parent_id'], null);
+	}
+
+	public function testAddSharingFilenameError() {
+		$userId = 1;
+		$data = array('UploadedFile' => array('filename' => ''));
+		$result = $this->UploadedFile->addSharing($data, $userId);
+		$this->assertFalse($result);
+	}
+
+/**
+ * Test getFoldersPath
+ */
 	public function testGetFoldersPathLittleFolder() {
 		$result = $this->_runProtectedMethod('_getFoldersPath', array(5));
 		$expected = array(
@@ -167,16 +194,26 @@ class UploadedFileTest extends CakeTestCase {
 		$this->assertEqual($result, false);		
 	}
 
-/////////////////////////
-/// Methods for files ///
-/////////////////////////
+/**
+ * Test _findRootDirectories()
+ */
+	public function testFindRootDirectories() {
+		$result = $this->UploadedFile->find('rootDirectories');
+		$this->assertEqual(count($result), 1);
+	}
 
+/**
+ * Test getPathFile
+ */
 	public function testGetPathFile() {
 		Configure::write('FileStorage.filePattern', '{user_id}/{file_id}-{version}-{filename}');
 		$result = $this->_runProtectedMethod('_getPathFile', array(5, 2, 3, 'MygreatFile'));
 		$this->assertEqual($result, '5/2-3-MygreatFile');
 	}
 
+/**
+ * Test upload
+ */
 	public function testUploadAlreadyExist() {
 		$user_id = 1;
 		$this->UploadedFile->upload($this->data, $user_id, 5);
@@ -229,16 +266,5 @@ class UploadedFileTest extends CakeTestCase {
 		
 		$result = file_exists(Configure::read('FileStorage.testFolder') . DS . $owner_id . DS . '6-2-' . $filename);
 		$this->assertEqual($result, true);
-	}
-
-/////////////////////////////
-/// Methods for userRight ///
-/////////////////////////////
-
-	public function testUserHasRightNoRulesFound() {
-		$user_id = 5845;
-		$file_id = 155144;
-		$result = $this->UploadedFile->userHasRight($user_id, $file_id, 'notImportant');
-		$this->assertEqual($result, false);	
 	}
 }

@@ -10,7 +10,7 @@ CroogoRouter::connect('/browse/*', array(
 ));
 
 CroogoRouter::connect('/', array(
-	'plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse', 1
+	'plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse'
 ));
 
 Router::promote();
