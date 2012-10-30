@@ -9,7 +9,7 @@ Configure::write('FileStorage.filePattern', '{user_id}/{file_id}/{version}-{file
 StorageManager::config(
 	'Local',
 	array(
-		'adapterOptions' => array(APP . DS . WEBROOT_DIR . DS . 'uploads', true),
+		'adapterOptions' => array(APP . DS . 'uploads', true),
 		'adapterClass' => '\Gaufrette\Adapter\Local',
 		'class' => '\Gaufrette\Filesystem'
 	)
@@ -19,10 +19,10 @@ StorageManager::config(
 	'RemoteFtp',
 	array(
 		'adapterOptions' => array(
-			'/home/email/synchrodossier',
-			'37.59.122.142',
-			'email',
-			's4fHfO4kDks'
+			'/home/synchrodossier',
+			'localhost',
+			'synchrodossier',
+			'synchrodossier'
 		),
 		'adapterClass' => '\Gaufrette\Adapter\Ftp',
 		'class' => '\Gaufrette\Filesystem'
