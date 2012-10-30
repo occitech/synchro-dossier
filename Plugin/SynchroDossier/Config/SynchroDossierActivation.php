@@ -39,6 +39,20 @@ class SynchroDossierActivation {
 			'class' => 'add-user',
 			'link' => 'admin:true/plugin:sd_users/controller:sd_users/action:add',
 			'visibility_roles' => '["1","4"]'
+		),
+		array(
+			'menu_id' => 3,
+			'title' => 'Ajouter un partage',
+			'class' => 'add-partage',
+			'link' => 'plugin:uploader/controller:files/action:createSharing',
+			'visibility_roles' => '["1","4"]'
+		),
+		array(
+			'menu_id' => 3,
+			'title' => 'Logout',
+			'class' => 'add-partage',
+			'link' => 'plugin:users/controller:users/action:logout',
+			'visibility_roles' => '["1","4","5","6"]'
 		)
 	);
 
