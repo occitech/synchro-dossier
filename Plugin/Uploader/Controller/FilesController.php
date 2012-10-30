@@ -15,10 +15,9 @@ class FilesController extends UploaderAppController {
 		$this->helpers[] = 'Uploader.File';
 		$this->helpers[] = 'Time';
 
-
 		$this->UploadedFile->recursive = 2;
 		if (is_null($folderId)) {
-			$files = $this->UploadedFile->find('all', array('conditions' => array('UploadedFile.parent_id IS NULL'))); 
+			$files = $this->UploadedFile->find('rootDirectories'); 
 		} else {
 			$files = $this->UploadedFile->findAllByParent_id($folderId);
 		}

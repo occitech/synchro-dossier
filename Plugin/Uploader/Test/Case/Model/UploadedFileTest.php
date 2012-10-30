@@ -190,6 +190,14 @@ class UploadedFileTest extends CakeTestCase {
 		$this->assertEqual($result, false);		
 	}
 
+/**
+ * Test _findRootDirectories()
+ */
+	public function testFindRootDirectories() {
+		$result = $this->UploadedFile->find('rootDirectories');
+		$this->assertEqual(count($result), 1);
+	}
+
 /////////////////////////
 /// Methods for files ///
 /////////////////////////

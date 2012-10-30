@@ -37,6 +37,8 @@ class UploadedFile extends UploaderAppModel {
 		)
 	);
 
+	public $findMethods = array('rootDirectories' =>  true);
+
 	public $validate = array(
 		'filename' => array(
 			'notEmpty' => array(
@@ -50,18 +52,18 @@ class UploadedFile extends UploaderAppModel {
 		)
 	);
 
-    public function isUniqueName($check) {
-    	$parentId = $this->data['UploadedFile']['parent_id'];
-    	$result = $this->_findByFilenameParent_id($check['filename'], $parentId);
-    	if (!empty($result)) {
-    		if (isset($this->data['UploadedFile']['id'])
-    			&& $result['UploadedFile']['id'] == $this->data['UploadedFile']['id']) {
-    			return true;
-    		}
-    		return false;
-    	}
+	public function isUniqueName($check) {
+		$parentId = $this->data['UploadedFile']['parent_id'];
+		$result = $this->_findByFilenameParent_id($check['filename'], $parentId);
+		if (!empty($result)) {
+			if (isset($this->data['UploadedFile']['id'])
+				&& $result['UploadedFile']['id'] == $this->data['UploadedFile']['id']) {
+				return true;
+			}
+			return false;
+		}
 		return true;
-    }
+	}
 
 ///////////////////////////
 /// Methods for folders ///
@@ -156,6 +158,14 @@ class UploadedFile extends UploaderAppModel {
 /////////////////////////
 /// Methods for files ///
 /////////////////////////
+
+	protected function _findRootDirectories($state, $query, $results = array()) {
+		if ($state == 'before') {
+			$query['conditions'][$this->alias . '.parent_id'] = null;
+			return $query;
+		}
+		return $results;
+	}
 
 	protected function _findByFilenameParent_id($filename, $parentId) {
 		return $this->find('first', array(
