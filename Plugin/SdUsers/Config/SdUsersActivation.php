@@ -2,9 +2,12 @@
 
 class SdUsersActivation {
 
-	private $__usersAcos = array(
-		'Users/Users/admin_add',
-		'Users/Users/admin_index'
+	private $__usersCRUDAcos = array(
+		'SdUsers/SdUsers/admin_index',
+		'SdUsers/SdUsers/admin_edit',
+		'SdUsers/SdUsers/admin_add',
+		'SdUsers/SdUsers/admin_delete',
+		'Users/Users/admin_logout'
 	);
 
 	private $__filesAcos = array(
@@ -27,14 +30,16 @@ class SdUsersActivation {
 		$CroogoPlugin = new CroogoPlugin();
 		$CroogoPlugin->migrate('SdUsers');
 
-		foreach ($this->__usersAcos as $aco) {
+		foreach ($this->__usersCRUDAcos as $aco) {
 			$controller->Croogo->removeAco($aco);
-			$controller->Croogo->addAco($aco, array('sdSuperAdmin'));
+			$controller->Croogo->addAco($aco, array('sdSuperAdmin', 'sdAdmin'));
 		}
 
 		foreach ($this->__filesAcos as $aco) {
 			$controller->Croogo->addAco($aco, $this->__sdRoles);
 		}
+
+		$controller->Croogo->addAco('Users/Users/logout', $this->__sdRoles);		
 	}
 
 	public function beforeDeactivation(&$controller) {
@@ -46,7 +51,7 @@ class SdUsersActivation {
 		$CroogoPlugin = new CroogoPlugin();
 		$CroogoPlugin->unmigrate('SdUsers');
 
-		$allAcos = array_merge($this->__usersAcos, $this->__filesAcos);
+		$allAcos = array_merge($this->__usersCRUDAcos, $this->__filesAcos);
 		foreach ($allAcos as $aco) {
 			$controller->Croogo->removeAco($aco);
 		}

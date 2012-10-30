@@ -29,7 +29,7 @@ class AddRoles extends CakeMigration {
 			'menu_id' => 3,
 			'title' => 'Ajouter un utilisateur',
 			'class' => 'add-user',
-			'link' => 'admin:true/plugin:users/controller:users/action:add',
+			'link' => 'admin:true/plugin:sd_users/controller:sd_users/action:add',
 			'visibility_roles' => '["1","4"]'
 		)
 	);
