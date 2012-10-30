@@ -4,27 +4,28 @@ App::uses('CroogoPlugin', 'Extensions.Lib');
 
 class UploaderActivation {
 
+	private $__CroogoPlugin;
+
 	public function __construct() {
-		$this->CroogoPlugin = new CroogoPlugin();
-		
+		$this->__CroogoPlugin = new CroogoPlugin();
 	}
 
 	public function onActivation(&$controller) {
-		$this->CroogoPlugin->migrate('Uploader');
-		$this->CroogoPlugin->migrate('FileStorage');
+		$this->__CroogoPlugin->migrate('Uploader');
+		$this->__CroogoPlugin->migrate('FileStorage');
 	}
 
 
 	public function onDeactivation(&$controller) {
-		$this->CroogoPlugin->unmigrate('Uploader');
-		$this->CroogoPlugin->unmigrate('FileStorage');
+		$this->__CroogoPlugin->unmigrate('Uploader');
+		$this->__CroogoPlugin->unmigrate('FileStorage');
 	}
 
 	public function beforeActivation(&$controller) {
-		return $this->CroogoPlugin->activate('FileStorage');
+		return $this->__CroogoPlugin->activate('FileStorage');
 	}
 
 	public function beforeDeactivation(&$controller) {
-		return $this->CroogoPlugin->deactivate('FileStorage');
+		return $this->__CroogoPlugin->deactivate('FileStorage');
 	}
 }

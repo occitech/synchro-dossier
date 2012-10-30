@@ -58,6 +58,36 @@ class SynchroDossierActivation {
 
 	private $__sdRoles = array('sdSuperAdmin', 'sdUtilisateur', 'sdAdmin');
 
+	public function onActivation(&$controller) {
+		$this->Role = ClassRegistry::init('Users.Role');
+		$this->Link = ClassRegistry::init('Menus.Link');
+
+		$success =
+				$this->__renameAdminRole('Occitech') &&
+				$this->__addSynchroRoles() &&
+				$this->__removeAllMainMenuLink() &&
+				$this->__addNewMainMenuLink() &&
+				$this->__addUsersCRUDArcos($controller) &&
+				$this->__addFilesAcos($controller);
+
+		return $success;
+	}
+
+	public function onDeactivation(&$controller) {
+		$success =
+			$this->__removeAllAcos($controller) &&
+			$this->__removeSynchroRoles() &&
+			$this->__renameAdminRole('Admin');
+	}
+
+	public function beforeActivation(&$controller) {
+		return true;
+	}
+
+	public function beforeDeactivation(&$controller) {
+		return true;
+	}
+
 	private function __renameAdminRole($name) {
 		return $this->Role->updateAll(
 			array('Role.title' => "'$name'"),
@@ -101,36 +131,5 @@ class SynchroDossierActivation {
 		foreach ($allAcos as $aco) {
 			$controller->Croogo->removeAco($aco);
 		}		
-	}
-
-	public function onActivation(&$controller) {
-		$this->Role = ClassRegistry::init('Users.Role');
-		$this->Link = ClassRegistry::init('Menus.Link');
-
-		$success =
-				$this->__renameAdminRole('Occitech') &&
-				$this->__addSynchroRoles() &&
-				$this->__removeAllMainMenuLink() &&
-				$this->__addNewMainMenuLink() &&
-				$this->__addUsersCRUDArcos($controller) &&
-				$this->__addFilesAcos($controller);
-
-		return $success;
-	}
-
-
-	public function onDeactivation(&$controller) {
-		$success =
-			$this->__removeAllAcos($controller) &&
-			$this->__removeSynchroRoles() &&
-			$this->__renameAdminRole('Admin');
-	}
-
-	public function beforeActivation(&$controller) {
-		return true;
-	}
-
-	public function beforeDeactivation(&$controller) {
-		return true;
 	}
 }
