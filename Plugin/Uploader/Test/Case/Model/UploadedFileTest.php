@@ -68,11 +68,9 @@ class UploadedFileTest extends CakeTestCase {
 		parent::tearDown();
 	}
 
-
-///////////////////////////
-/// Methods Validate    ///
-///////////////////////////
-
+/**
+ * Test isUniqueName validation
+ */
 	public function testIsUniqueNameOk() {
 		$check = array('filename' => 'yesthisnameisreallyunique');
 		$this->UploadedFile->data = array(
@@ -112,10 +110,10 @@ class UploadedFileTest extends CakeTestCase {
 		$this->assertTrue($result);
 	}
 
-///////////////////////////
-/// Methods for folders ///
-///////////////////////////
 
+/**
+ * Test addFolder
+ */
 	public function testAddFolderParentNotExist() {
 		$parentId = 32;
 		$userId = 1;
@@ -148,6 +146,9 @@ class UploadedFileTest extends CakeTestCase {
 		$this->assertFalse($result);
 	}
 
+/**
+ * Test addSharing
+ */
 	public function testAddSharingOk() {
 		$userId = 1;
 		$data = array('UploadedFile' => array('filename' => 'MygreatSharing'));
@@ -163,6 +164,9 @@ class UploadedFileTest extends CakeTestCase {
 		$this->assertFalse($result);
 	}
 
+/**
+ * Test getFoldersPath
+ */
 	public function testGetFoldersPathLittleFolder() {
 		$result = $this->_runProtectedMethod('_getFoldersPath', array(5));
 		$expected = array(
@@ -198,16 +202,18 @@ class UploadedFileTest extends CakeTestCase {
 		$this->assertEqual(count($result), 1);
 	}
 
-/////////////////////////
-/// Methods for files ///
-/////////////////////////
-
+/**
+ * Test getPathFile
+ */
 	public function testGetPathFile() {
 		Configure::write('FileStorage.filePattern', '{user_id}/{file_id}-{version}-{filename}');
 		$result = $this->_runProtectedMethod('_getPathFile', array(5, 2, 3, 'MygreatFile'));
 		$this->assertEqual($result, '5/2-3-MygreatFile');
 	}
 
+/**
+ * Test upload
+ */
 	public function testUploadAlreadyExist() {
 		$user_id = 1;
 		$this->UploadedFile->upload($this->data, $user_id, 5);
