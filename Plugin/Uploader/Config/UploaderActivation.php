@@ -1,39 +1,30 @@
 <?php
 
+App::uses('CroogoPlugin', 'Extensions.Lib');
+
 class UploaderActivation {
 
-	public function onActivation(&$controller) {
-		App::uses('CroogoPlugin', 'Extensions.Lib');
-		$CroogoPlugin = new CroogoPlugin();
-		$CroogoPlugin->migrate('Uploader');
+	public function __construct() {
+		$this->CroogoPlugin = new CroogoPlugin();
+		
+	}
 
-		if (!CakePlugin::loaded('FileStorage')){
-			CakePlugin::load('FileStorage');
-		}
-		App::uses('CroogoPlugin', 'Extensions.Lib');
-		$CroogoPlugin = new CroogoPlugin();
-		$CroogoPlugin->migrate('FileStorage');
+	public function onActivation(&$controller) {
+		$this->CroogoPlugin->migrate('Uploader');
+		$this->CroogoPlugin->migrate('FileStorage');
 	}
 
 
 	public function onDeactivation(&$controller) {
-		App::uses('CroogoPlugin', 'Extensions.Lib');
-		$CroogoPlugin = new CroogoPlugin();
-		$CroogoPlugin->unmigrate('Uploader');
-
-		if (!CakePlugin::loaded('FileStorage')){
-			CakePlugin::load('FileStorage');
-		}
-		App::uses('CroogoPlugin', 'Extensions.Lib');
-		$CroogoPlugin = new CroogoPlugin();
-		$CroogoPlugin->unmigrate('FileStorage');
+		$this->CroogoPlugin->unmigrate('Uploader');
+		$this->CroogoPlugin->unmigrate('FileStorage');
 	}
 
 	public function beforeActivation(&$controller) {
-		return true;
+		return $this->CroogoPlugin->activate('FileStorage');
 	}
 
 	public function beforeDeactivation(&$controller) {
-		return true;
+		return $this->CroogoPlugin->deactivate('FileStorage');
 	}
 }
