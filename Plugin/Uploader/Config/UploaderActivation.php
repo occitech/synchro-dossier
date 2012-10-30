@@ -3,6 +3,10 @@
 class UploaderActivation {
 
 	public function onActivation(&$controller) {
+		App::uses('CroogoPlugin', 'Extensions.Lib');
+		$CroogoPlugin = new CroogoPlugin();
+		$CroogoPlugin->migrate('Uploader');
+
 		if (!CakePlugin::loaded('FileStorage')){
 			CakePlugin::load('FileStorage');
 		}
@@ -13,6 +17,10 @@ class UploaderActivation {
 
 
 	public function onDeactivation(&$controller) {
+		App::uses('CroogoPlugin', 'Extensions.Lib');
+		$CroogoPlugin = new CroogoPlugin();
+		$CroogoPlugin->unmigrate('Uploader');
+
 		if (!CakePlugin::loaded('FileStorage')){
 			CakePlugin::load('FileStorage');
 		}
