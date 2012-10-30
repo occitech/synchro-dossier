@@ -4,7 +4,10 @@ App::uses('Security', 'Utility');
 
 class UploadedFile extends UploaderAppModel {
 
-	public $actsAs = array('Tree');
+	public $actsAs = array(
+		'Tree',
+		 'Acl' => array('type' => 'controlled')
+	);
 
 	public $belongsTo = array(
 		'Users.User',
@@ -63,6 +66,10 @@ class UploadedFile extends UploaderAppModel {
 			return false;
 		}
 		return true;
+	}
+
+	function parentNode() {
+		return null;
 	}
 
 ///////////////////////////
@@ -141,7 +148,6 @@ class UploadedFile extends UploaderAppModel {
 		unlink($zipfile);
 		return $content;
 	}
-
 
 	public function rename($fileId, $data) {
 		$fileInfos = $this->findById($fileId);
