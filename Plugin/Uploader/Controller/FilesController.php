@@ -23,9 +23,7 @@ class FilesController extends UploaderAppController {
 		}
 		$parent = $this->UploadedFile->findById($folderId);
 		$parentId = ($parent) ? $parent['ParentUploadedFile']['id'] : null;
-		$this->set('files', $files);
-		$this->set(compact('folderId'));
-		$this->set(compact('parentId'));
+		$this->set(compact('files', 'folderId', 'parentId'));
 	}
 
 	public function view($id) {
@@ -39,6 +37,8 @@ class FilesController extends UploaderAppController {
 			if ($this->UploadedFile->addSharing($this->request->data, $this->Auth->user('id'))) {
 				$this->Session->setFlash(__('Folder correctly created'));
 				$this->redirect(array('action' => 'browse', $parentId));
+			} else {
+				$this->Session->setFlash(__('There are errors in the data sent by the form'));
 			}
 		}
 	}
@@ -48,6 +48,8 @@ class FilesController extends UploaderAppController {
 			if ($this->UploadedFile->addFolder($this->request->data, $parentId, $this->Auth->user('id'))) {
 				$this->Session->setFlash(__('Sub-folder correctly created'));
 				$this->redirect(array('action' => 'browse', $parentId));
+			} else {
+				$this->Session->setFlash(__('There are errors in the data sent by the form'));
 			}
 		}
 	}
