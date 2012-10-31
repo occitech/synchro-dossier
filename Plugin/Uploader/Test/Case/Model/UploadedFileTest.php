@@ -281,10 +281,58 @@ class UploadedFileTest extends CakeTestCase {
  * Test ACOs
  */
 	public function testAcoAfterAddSharing() {
+		$Aco = ClassRegistry::init('Aco');
+
 		$userId = 1;
 		$data = array('UploadedFile' => array('filename' => 'MygreatSharing'));
-		$result = $this->UploadedFile->addSharing($data, $userId);
+		$nbAcoBeforeInsert = $Aco->find('count');
+		$this->UploadedFile->addSharing($data, $userId);
+		$nbAcoAfterInsert = $Aco->find('count');
+		$this->assertEqual($nbAcoAfterInsert - $nbAcoBeforeInsert, 1);
 	}
 
+	public function testAcoAfterAddSharingAlreadyExist() {
+		$Aco = ClassRegistry::init('Aco');
 
+		$userId = 1;
+		$data = array('UploadedFile' => array('filename' => 'Photos'));
+		$nbAcoBeforeInsert = $Aco->find('count');
+		$this->UploadedFile->addSharing($data, $userId);
+		$nbAcoAfterInsert = $Aco->find('count');
+		$this->assertEqual($nbAcoAfterInsert, $nbAcoBeforeInsert);
+	}
+
+	public function testAcoAfterAddFolder() {
+		$Aco = ClassRegistry::init('Aco');
+
+		$folderId = 3;
+		$userId = 1;
+		$data = array('UploadedFile' => array('filename' => 'Photos'));
+		$nbAcoBeforeInsert = $Aco->find('count');
+		$this->UploadedFile->addFolder($data, $folderId, $userId);
+		$nbAcoAfterInsert = $Aco->find('count');
+		$this->assertEqual($nbAcoAfterInsert - $nbAcoBeforeInsert, 1);
+	}
+
+	public function testUploadNewFile() {
+		$Aco = ClassRegistry::init('Aco');
+
+		$folderId = 1;
+		$userId = 1;
+		$nbAcoBeforeInsert = $Aco->find('count');
+		$this->UploadedFile->upload($this->data, $userId, $folderId);
+		$nbAcoAfterInsert = $Aco->find('count');
+		$this->assertEqual($nbAcoAfterInsert - $nbAcoBeforeInsert, 1);
+	}
+
+	public function testUploadNewVersion() {
+		$Aco = ClassRegistry::init('Aco');
+
+		$folderId = 3;
+		$userId = 1;
+		$nbAcoBeforeInsert = $Aco->find('count');
+		$this->UploadedFile->upload($this->data, $userId, $folderId);
+		$nbAcoAfterInsert = $Aco->find('count');
+		$this->assertEqual($nbAcoAfterInsert, $nbAcoBeforeInsert);
+	}
 }
