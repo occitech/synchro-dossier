@@ -12,17 +12,6 @@ class FilesController extends UploaderAppController {
 		$this->Security->unlockedActions = 'upload';
 	}
 
-	protected function _addRight($acoId, $action = '*', $aroId = null) {
-		if (is_null($aro)) {
-			$aroId = $this->Auth->user('id');
-		}
-		$this->Acl->allow(
-			array('model' => 'UploadedFile', 'foreign_key' => $acoId),
-			array('model' => 'User', 'foreign_key' => $aroId),
-			$action
-		);
-	}
-
 	public function rights($folderId) {
 		if ($this->UploadedFile->isRootFolder($folderId)) {
 			$acos = $this->AclAco->getRights('UploadedFile', $folderId);
@@ -31,6 +20,47 @@ class FilesController extends UploaderAppController {
 			$this->Session->setFlash(__('Vous ne pouvez pas donner de droit à ce dossier'));
 		}
 	} 
+
+	public function removeRight($acoId, $aroId) {
+		$result = $this->AclAco->ArosAco->deleteAll(array(
+			'aco_id' => $acoId,
+			'aro_id' => $aroId
+		));
+		if (!$result) {
+			$this->Session->setFlash(__('There was an error while deleting the right. Thank you try again or contact an administrator'));
+		}
+		$this->redirect($this->referer());
+	}
+
+	public function toggleRight($uploadedFileId, $userId, $action = '*') {
+		if ($this->UploadedFile->exists($uploadedFileId) &&
+			$this->UploadedFile->User->exists($userId)) {
+			
+			$isRightActive = $this->Acl->check(
+				array('model' => 'User', 'foreign_key' => $userId),
+				array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
+				$action
+			);
+
+			if ($isRightActive) {
+				$this->Acl->deny(
+					array('model' => 'User', 'foreign_key' => $userId),
+					array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
+					$action
+				);
+			} else {
+				$this->Acl->allow(
+					array('model' => 'User', 'foreign_key' => $userId),
+					array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
+					$action
+				);
+			}
+
+		} else {
+			$this->Session->setFlash(__('Informations given aren\'t good')); 
+		}
+		$this->redirect($this->referer());
+	}
 
 	public function browse($folderId = null) {
 		$this->helpers[] = 'Uploader.File';
