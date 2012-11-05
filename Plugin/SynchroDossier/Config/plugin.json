@@ -1,0 +1,10 @@
+{
+	"name": "SynchroDossier",
+	"description": "Main plugin of SynchroDossier",
+
+	"dependencies": {
+		"plugins": [
+			"SdUsers", "Uploader"
+		]
+	}
+}

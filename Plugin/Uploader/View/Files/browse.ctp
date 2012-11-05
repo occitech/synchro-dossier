@@ -111,7 +111,7 @@
 							<td>
 								V<?php echo $version--; ?>
 								<?php echo $this->Html->link(
-									$file['filename'],
+									$file['UploadedFile']['filename'],
 									array(
 										'controller' => 'files',
 										'action' => 'download',
