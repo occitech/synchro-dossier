@@ -13,10 +13,13 @@ class UploadedFileTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.uploader.uploaded_files_user',
 		'plugin.uploader.uploaded_file',
+		'plugin.uploader.file_storage',
 		'plugin.uploader.user',
-		'plugin.uploader.file_storage'
+		'plugin.uploader.role',
+		'plugin.uploader.aros_aco',
+		'plugin.uploader.aco',
+		'plugin.uploader.aro'
 	);
 
 
@@ -334,5 +337,31 @@ class UploadedFileTest extends CakeTestCase {
 		$this->UploadedFile->upload($this->data, $userId, $folderId);
 		$nbAcoAfterInsert = $Aco->find('count');
 		$this->assertEqual($nbAcoAfterInsert, $nbAcoBeforeInsert);
+	}
+
+	public function testIsRootFolderOk() {
+		$result = $this->UploadedFile->isRootFolder(1);
+
+		$this->assertTrue($result);
+	}
+
+	public function testIsRootFolderNotOk() {
+		$result = $this->UploadedFile->isRootFolder(5);
+
+		$this->assertFalse($result);
+	}
+
+/**
+ * Test afterSave
+ */
+	public function testAfterSaveNewRootFolder () {
+		$AcosAro = ClassRegistry::init('ArosAco');
+
+		$userId = 3;
+		$data = array('UploadedFile' => array('filename' => 'Photos'));
+		$nbAcosAroBeforeInsert = $AcosAro->find('count');
+		$this->UploadedFile->addSharing($data, $userId);
+		$nbAcosAroAfterInsert = $AcosAro->find('count');
+		$this->assertEqual($nbAcosAroAfterInsert - $nbAcosAroBeforeInsert, 1);
 	}
 }
