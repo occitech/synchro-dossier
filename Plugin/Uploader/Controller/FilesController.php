@@ -1,15 +1,36 @@
 <?php
 
 App::uses('UploadedFile', 'Uploader.Model');
+App::uses('Aco', 'Uploader.Model');
 
 class FilesController extends UploaderAppController {
 
-	public $uses = array('Uploader.UploadedFile');
+	public $uses = array('Uploader.UploadedFile', 'Uploader.AclAco');
 
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Security->unlockedActions = 'upload';
 	}
+
+	protected function _addRight($acoId, $action = '*', $aroId = null) {
+		if (is_null($aro)) {
+			$aroId = $this->Auth->user('id');
+		}
+		$this->Acl->allow(
+			array('model' => 'UploadedFile', 'foreign_key' => $acoId),
+			array('model' => 'User', 'foreign_key' => $aroId),
+			$action
+		);
+	}
+
+	public function rights($folderId) {
+		if ($this->UploadedFile->isRootFolder($folderId)) {
+			$acos = $this->AclAco->getRights('UploadedFile', $folderId);
+			$this->set(compact('acos'));
+		} else {
+			$this->Session->setFlash(__('Vous ne pouvez pas donner de droit à ce dossier'));
+		}
+	} 
 
 	public function browse($folderId = null) {
 		$this->helpers[] = 'Uploader.File';
@@ -35,6 +56,10 @@ class FilesController extends UploaderAppController {
 	public function createSharing() {
 		if ($this->request->is('post')) {
 			if ($this->UploadedFile->addSharing($this->request->data, $this->Auth->user('id'))) {
+				$this->Acl->allow(
+					array('model' => 'User', 'foreign_key' => Configure::write('sd.SuperAdmin.roleId')),
+					array('model' => 'UploadedFile', 'foreign_key' => $this->UploadedFile->id)
+				);
 				$this->Session->setFlash(__('Folder correctly created'));
 				$this->redirect(array('action' => 'browse', $parentId));
 			} else {
@@ -79,7 +104,7 @@ class FilesController extends UploaderAppController {
  * @param $originalFilename : Correspond au nom original du fichier pour le cas ou
  * l'utilisateur upload une nouvelle version du fichier en passant par "Uploader une nouvelle version"
  *
- */
+ */	
 	public function upload($folderId, $originalFilename = null) {
 		if ($this->request->is('post')) {
 			$uploadOk = $this->UploadedFile->upload(
