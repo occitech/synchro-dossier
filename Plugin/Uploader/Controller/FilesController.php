@@ -15,45 +15,68 @@ class FilesController extends UploaderAppController {
 	public function rights($folderId) {
 		if ($this->UploadedFile->isRootFolder($folderId)) {
 			$acos = $this->AclAco->getRights('UploadedFile', $folderId);
-			$this->set(compact('acos'));
+			$users = $this->UploadedFile->User->find('list');
+			$this->set(compact('acos', 'users'));
 		} else {
 			$this->Session->setFlash(__('Vous ne pouvez pas donner de droit à ce dossier'));
 		}
 	} 
 
-	public function removeRight($acoId, $aroId) {
-		$result = $this->AclAco->ArosAco->deleteAll(array(
+	protected function _removeRight($acoId, $aroId) {
+		return $this->AclAco->ArosAco->deleteAll(array(
 			'aco_id' => $acoId,
 			'aro_id' => $aroId
 		));
+	}
+
+	protected function _checkRight($uploadedFileId, $userId, $action) {
+		return $this->Acl->check(
+			array('model' => 'User', 'foreign_key' => $userId),
+			array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
+			$action
+		);
+	}
+
+	protected function _allowRight($uploadedFileId, $userId, $action) {
+		$this->Acl->allow(
+			array('model' => 'User', 'foreign_key' => $userId),
+			array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
+			$action
+		);		
+	}
+
+	protected function _denyRight($uploadedFileId, $userId, $action) {
+		$this->Acl->deny(
+			array('model' => 'User', 'foreign_key' => $userId),
+			array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
+			$action
+		);		
+	}
+
+	public function removeRight($acoId, $aroId) {
+		$result = $this->_removeRight($acoId, $aroId);
 		if (!$result) {
 			$this->Session->setFlash(__('There was an error while deleting the right. Thank you try again or contact an administrator'));
 		}
 		$this->redirect($this->referer());
 	}
 
-	public function toggleRight($uploadedFileId, $userId, $action = '*') {
+	public function toggleRight($uploadedFileId, $userId = null, $action = 'read') {
+		$isNewUserRight = false;
+		if (isset($this->request->data['User']['user_id'])) {
+			$userId = $this->request->data['User']['user_id'];
+			$isNewUserRight = true;
+		}
+
 		if ($this->UploadedFile->exists($uploadedFileId) &&
 			$this->UploadedFile->User->exists($userId)) {
-			
-			$isRightActive = $this->Acl->check(
-				array('model' => 'User', 'foreign_key' => $userId),
-				array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
-				$action
-			);
 
-			if ($isRightActive) {
-				$this->Acl->deny(
-					array('model' => 'User', 'foreign_key' => $userId),
-					array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
-					$action
-				);
-			} else {
-				$this->Acl->allow(
-					array('model' => 'User', 'foreign_key' => $userId),
-					array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
-					$action
-				);
+			$isRightActive = $this->_checkRight($uploadedFileId, $userId, $action);
+
+			$method = ($isRightActive) ? '_denyRight' : '_allowRight';
+
+			if (!($isNewUserRight && $isRightActive)) {
+				$this->{$method}($uploadedFileId, $userId, $action);
 			}
 
 		} else {

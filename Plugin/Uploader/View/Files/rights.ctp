@@ -2,6 +2,17 @@
 <?php echo $this->Html->script('Uploader.app'); ?>
 
 <div class="rights uploader">
+	<div class="add-right">
+		<?= 
+			$this->Form->create('User', array('url' => array(
+				'controller' => 'Files',
+				'action' => 'toggleRight',
+				$acos['Aco']['foreign_key']
+			))) .
+			$this->Form->input('user_id') .
+			$this->Form->end(__('Add user'));
+		?>
+	</div>
 	<table>
 		<tr>
 			<td><?= __('Name') ?></td>
