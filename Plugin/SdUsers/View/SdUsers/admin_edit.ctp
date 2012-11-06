@@ -1,5 +1,5 @@
 <?php $this->extend('/Common/admin_edit'); ?>
-<?php echo $this->Form->create('SdUser', array('url' => array('action' => 'edit')));?>
+<?php echo $this->Form->create('User', array('url' => array('action' => 'edit')));?>
 	<fieldset>
 		<div class="tabs">
 			<ul>
@@ -10,11 +10,11 @@
 
 			<div id="node-main">
 			<?=
-				$this->Form->input('SdUser.id').
-				$this->Form->input('SdUser.role_id', array('label' => __('Role'))).
-				$this->Form->input('SdUser.username', array('label' => __('Username'))).
-				$this->Form->input('SdUser.email', array('label' => __('Email'))).
-				$this->Form->input('SdUser.status', array('label' => __('Status')));
+				$this->Form->input('User.id').
+				$this->Form->input('User.role_id', array('label' => __('Role'))).
+				$this->Form->input('User.username', array('label' => __('Username'))).
+				$this->Form->input('User.email', array('label' => __('Email'))).
+				$this->Form->input('User.status', array('label' => __('Status')));
 			?>
 			</div>
 
@@ -33,7 +33,7 @@
 	<div class="buttons">
 	<?php
 		echo $this->Form->submit(__('Apply'), array('name' => 'apply', 'label' => __('Apply')));
-		echo $this->Form->submit(__('Save'), , array('label' => __('Save')));
+		echo $this->Form->submit(__('Save'), array('label' => __('Save')));
 		echo $this->Html->link(__('Cancel'), array(
 			'action' => 'index',
 		), array(
