@@ -7,6 +7,22 @@ class FilesController extends UploaderAppController {
 
 	public $uses = array('Uploader.UploadedFile', 'Uploader.AclAco');
 
+	public $components = array(
+		'RowLevelAcl' => array(
+			'className' => 'Acl.RowLevelAcl',
+			'settings' => array(
+				'actionMap' => array(
+					'browse' 			=> 'read',
+					'createFolder' 		=> 'create',
+					'rename' 			=> 'create',
+					'downloadZipFolder' => 'read',
+					'upload' 			=> 'create',
+					'download' 			=> 'read',
+				),
+			)
+		)
+	);
+
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Security->unlockedActions = 'upload';
@@ -98,12 +114,6 @@ class FilesController extends UploaderAppController {
 		$parent = $this->UploadedFile->findById($folderId);
 		$parentId = ($parent) ? $parent['ParentUploadedFile']['id'] : null;
 		$this->set(compact('files', 'folderId', 'parentId'));
-	}
-
-	public function view($id) {
-		$this->UploadedFile->recursive = 3;
-		$file = $this->UploadedFile->findById($id);
-		$this->set('file', $file);
 	}
 
 	public function createSharing() {
