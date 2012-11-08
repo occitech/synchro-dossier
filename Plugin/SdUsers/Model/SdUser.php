@@ -1,5 +1,5 @@
 <?php
-App::uses('SdUsersAppModel', 'SdUsers.Model');
+
 App::uses('User', 'Users.Model');
 
 class SdUser extends User {
