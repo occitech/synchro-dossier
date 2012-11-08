@@ -317,6 +317,18 @@ class UploadedFileTest extends CakeTestCase {
 		$this->assertEqual($nbAcoAfterInsert - $nbAcoBeforeInsert, 1);
 	}
 
+	public function testAco_AfterAddFolder_ParentIdIsCorrect() {
+		$Aco = ClassRegistry::init('Aco');
+
+		$folderId = 3;
+		$userId = 1;
+		$data = array('UploadedFile' => array('filename' => 'Photos'));
+		$this->UploadedFile->addFolder($data, $folderId, $userId);
+		$acoAfterInsert = $Aco->find('first', array('order' => 'id DESC'));
+		$parentIdExpected = 209;
+		$this->assertEqual($acoAfterInsert['Aco']['parent_id'], $parentIdExpected);
+	}
+
 	public function testUploadNewFile() {
 		$Aco = ClassRegistry::init('Aco');
 
@@ -349,19 +361,5 @@ class UploadedFileTest extends CakeTestCase {
 		$result = $this->UploadedFile->isRootFolder(5);
 
 		$this->assertFalse($result);
-	}
-
-/**
- * Test afterSave
- */
-	public function testAfterSaveNewRootFolder () {
-		$AcosAro = ClassRegistry::init('ArosAco');
-
-		$userId = 3;
-		$data = array('UploadedFile' => array('filename' => 'Photos'));
-		$nbAcosAroBeforeInsert = $AcosAro->find('count');
-		$this->UploadedFile->addSharing($data, $userId);
-		$nbAcosAroAfterInsert = $AcosAro->find('count');
-		$this->assertEqual($nbAcosAroAfterInsert - $nbAcosAroBeforeInsert, 1);
 	}
 }
