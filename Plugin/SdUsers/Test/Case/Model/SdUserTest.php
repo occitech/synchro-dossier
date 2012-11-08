@@ -36,11 +36,12 @@ class SdUserTest extends CroogoTestCase {
 	public function setUp() {
 		parent::setUp();
 		$this->SdUser = ClassRegistry::init('SdUsers.SdUser');
+		$this->Aro = ClassRegistry::init('Aro');
 	}
 
 	public function tearDown() {
 		unset($this->SdUser);
-
+		unset($this->Aro);
 		parent::tearDown();
 	}
 
@@ -68,7 +69,9 @@ class SdUserTest extends CroogoTestCase {
 		$this->assertEqual($creatorId, $lastUserAdded['User']['creator_id']);
 	}
 
-	public function testAddOkAcl() {
+	public function testAddAroCorrectlyAdded() {
+		$creatorId = 3;
+		$roleId = 1;
 		$data = array(
 			'User' => array(
 				'role_id' => '4',
@@ -82,9 +85,41 @@ class SdUserTest extends CroogoTestCase {
 				'society' => 'qsqssdf'
 			)
 		);
-		$this->SdUser = ClassRegistry::init('SdUsers.SdUser');
 
-		$this->SdUser->save($data);
+		$this->SdUser->add($data, $creatorId, $roleId);
+
+		$result = $this->Aro->find('first', array('order' => 'id DESC'));		
+
+		$expected = array(
+			'id' => '10',
+			'parent_id' => '5',
+			'model' => 'User',
+			'foreign_key' => '4',
+			'alias' => 'coucou',
+			'lft' => '12',
+			'rght' => '13'
+		);
+		$this->assertEqual($result['Aro'], $expected);
+	}
+
+	public function testAddOkAcl() {
+		$creatorId = 3;
+		$roleId = 1;
+		$data = array(
+			'User' => array(
+				'role_id' => '4',
+				'username' => 'coucou',
+				'email' => 'coucou@coucou.com',
+				'status' => '1'
+			),
+			'Profile' => array(
+				'name' => 'sdfsqfsdf',
+				'firstname' => 'sdf',
+				'society' => 'qsqssdf'
+			)
+		);
+
+		$result = $this->SdUser->add($data, $creatorId, $roleId);
 		
 		$request = new CakeRequest('/admin/sd_users/sd_users/index');
 		$request->addParams(array(
