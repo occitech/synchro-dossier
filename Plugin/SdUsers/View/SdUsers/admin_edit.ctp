@@ -1,5 +1,5 @@
 <?php $this->extend('/Common/admin_edit'); ?>
-<?php echo $this->Form->create('User', array('url' => array('action' => 'edit')));?>
+<?php echo $this->Form->create('SdUser', array('url' => array('action' => 'edit')));?>
 	<fieldset>
 		<div class="tabs">
 			<ul>
