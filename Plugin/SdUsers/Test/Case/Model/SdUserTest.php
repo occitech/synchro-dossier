@@ -1,38 +1,43 @@
 <?php
+
+App::uses('Controller', 'Controller');
+App::uses('CroogoTestCase', 'TestSuite');
 App::uses('SdUser', 'SdUsers.Model');
+App::uses('User', 'Users.Model');
+App::uses('AclCachedAuthorize', 'Acl.Controller/Component/Auth');
+App::uses('CroogoTestCase', 'TestSuite');
+App::uses('Model', 'Model');
+App::uses('AppModel', 'Model');
+App::uses('User', 'Users.Model');
+App::uses('AuthComponent', 'Controller/Component');
+App::uses('CroogoTestCase', 'TestSuite');
 
-/**
- * SdUser Test Case
- *
- */
-class SdUserTest extends CakeTestCase {
+class SdUserTestController extends Controller {
 
-/**
- * Fixtures
- *
- * @var array
- */
+	public $components = array(
+		'Auth',
+		'Acl',
+		'Session',
+		'Acl.AclFilter',
+		);
+}
+
+class SdUserTest extends CroogoTestCase {
+
 	public $fixtures = array(
 		'plugin.sd_users.user',
 		'plugin.sd_users.profile',
-		'plugin.sd_users.role'
+		'plugin.sd_users.role',
+		'plugin.sd_users.aros_aco',
+		'plugin.sd_users.aro',
+		'plugin.sd_users.aco'
 	);
 
-/**
- * setUp method
- *
- * @return void
- */
 	public function setUp() {
 		parent::setUp();
 		$this->SdUser = ClassRegistry::init('SdUsers.SdUser');
 	}
 
-/**
- * tearDown method
- *
- * @return void
- */
 	public function tearDown() {
 		unset($this->SdUser);
 
@@ -43,7 +48,7 @@ class SdUserTest extends CakeTestCase {
 		$creatorId = 3;
 		$roleId = 1;
 		$data = array(
-			'SdUser' => array(
+			'User' => array(
 				'role_id' => '6',
 				'username' => 'coucou',
 				'email' => 'coucou@coucou.com',
@@ -56,18 +61,49 @@ class SdUserTest extends CakeTestCase {
 			)
 		);
 		$result = $this->SdUser->add($data, $creatorId, $roleId);
-		$lastUserAdded = $this->SdUser->find('first', array('order' => 'SdUser.id DESC'));
+		$lastUserAdded = $this->SdUser->find('first', array('order' => 'User.id DESC'));
 
 		$this->assertTrue($result);
 		$this->assertEqual($this->SdUser->find('count'), 4);
-		$this->assertEqual($creatorId, $lastUserAdded['SdUser']['creator_id']);
+		$this->assertEqual($creatorId, $lastUserAdded['User']['creator_id']);
+	}
+
+	public function testAddOkAcl() {
+		$data = array(
+			'User' => array(
+				'role_id' => '4',
+				'username' => 'coucou',
+				'email' => 'coucou@coucou.com',
+				'status' => '1'
+			),
+			'Profile' => array(
+				'name' => 'sdfsqfsdf',
+				'firstname' => 'sdf',
+				'society' => 'qsqssdf'
+			)
+		);
+		$this->SdUser = ClassRegistry::init('SdUsers.SdUser');
+
+		$this->SdUser->save($data);
+		
+		$request = new CakeRequest('/admin/sd_users/sd_users/index');
+		$request->addParams(array(
+			'controller' => 'sd_users',
+			'action' => 'admin_index',
+		));
+		$user = $this->SdUser->find('first', array('order' => 'User.id desc'));
+		$user = $user['User'];
+		$AclCachedAuthorize = new AclCachedAuthorize(new ComponentCollection());
+
+		$result = $AclCachedAuthorize->authorize($user, $request);
+		$this->assertTrue($result);
 	}
 
 	public function testAddNoUsername() {
 		$creatorId = 3;
 		$roleId = 4;
 		$data = array(
-			'SdUser' => array(
+			'User' => array(
 				'role_id' => '4',
 				'email' => 'coucou@coucou.com',
 				'status' => '1'
@@ -86,7 +122,7 @@ class SdUserTest extends CakeTestCase {
 		$creatorId = 3;
 		$roleId = 1;
 		$data = array(
-			'SdUser' => array(
+			'User' => array(
 				'id' => '1',
 				'role_id' => '5',
 				'username' => 'coucou',
