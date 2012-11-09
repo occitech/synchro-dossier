@@ -13,7 +13,7 @@ class SdUserTestController extends Controller {
 		'Acl',
 		'Session',
 		'Acl.AclFilter',
-		);
+	);
 }
 
 class SdUserTest extends CroogoTestCase {
