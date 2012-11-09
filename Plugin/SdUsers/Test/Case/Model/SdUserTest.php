@@ -1,16 +1,10 @@
 <?php
 
+App::uses('SdUser', 'SdUsers.Model');
 App::uses('Controller', 'Controller');
 App::uses('CroogoTestCase', 'TestSuite');
-App::uses('SdUser', 'SdUsers.Model');
-App::uses('User', 'Users.Model');
 App::uses('AclCachedAuthorize', 'Acl.Controller/Component/Auth');
-App::uses('CroogoTestCase', 'TestSuite');
-App::uses('Model', 'Model');
-App::uses('AppModel', 'Model');
-App::uses('User', 'Users.Model');
 App::uses('AuthComponent', 'Controller/Component');
-App::uses('CroogoTestCase', 'TestSuite');
 
 class SdUserTestController extends Controller {
 
@@ -45,7 +39,7 @@ class SdUserTest extends CroogoTestCase {
 		parent::tearDown();
 	}
 
-	public function testAddOk() {
+	public function testAdd_Ok() {
 		$creatorId = 3;
 		$roleId = 1;
 		$data = array(
@@ -69,7 +63,7 @@ class SdUserTest extends CroogoTestCase {
 		$this->assertEqual($creatorId, $lastUserAdded['User']['creator_id']);
 	}
 
-	public function testAddAroCorrectlyAdded() {
+	public function testAdd_AroCorrectlyAdded() {
 		$creatorId = 3;
 		$roleId = 1;
 		$data = array(
@@ -102,7 +96,7 @@ class SdUserTest extends CroogoTestCase {
 		$this->assertEqual($result['Aro'], $expected);
 	}
 
-	public function testAddOkAcl() {
+	public function testAdd_NewUserCanAccesToAPrivatePage() {
 		$creatorId = 3;
 		$roleId = 1;
 		$data = array(
@@ -134,7 +128,7 @@ class SdUserTest extends CroogoTestCase {
 		$this->assertTrue($result);
 	}
 
-	public function testAddNoUsername() {
+	public function testAdd_NoUsernameGiven() {
 		$creatorId = 3;
 		$roleId = 4;
 		$data = array(
@@ -153,7 +147,7 @@ class SdUserTest extends CroogoTestCase {
 		$this->assertFalse($result);
 	}
 
-	public function testEditOk() {
+	public function testEdit_Ok() {
 		$creatorId = 3;
 		$roleId = 1;
 		$data = array(
@@ -174,12 +168,12 @@ class SdUserTest extends CroogoTestCase {
 		$this->assertEqual($this->SdUser->find('count'), 3);
 	}
 
-	public function testFindCreatedByTwoResult() {
+	public function testFindCreatedBy_TwoResultNedded() {
 		$result = $this->SdUser->find('createdBy', array('creatorId' => 1));
 		$this->assertEqual(count($result), 2);
 	}
 
-	public function testFindCreatedByNoResult() {
+	public function testFindCreatedBy_NoResult() {
 		$result = $this->SdUser->find('createdBy', array('creatorId' => 2));
 		$this->assertEqual(count($result), 0);
 	}
