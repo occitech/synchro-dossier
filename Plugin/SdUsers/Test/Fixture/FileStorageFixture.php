@@ -44,7 +44,7 @@ class FileStorageFixture extends CakeTestFixture {
  */
 	public $records = array(
 		array(
-			'id' => '509116b6-4d00-4737-8527-2a9ad4b04a59',
+			'id' => 'file-1',
 			'user_id' => '1',
 			'foreign_key' => '4',
 			'model' => 'UploadedFile',
@@ -59,7 +59,7 @@ class FileStorageFixture extends CakeTestFixture {
 			'modified' => '2012-10-31 13:16:54'
 		),
 		array(
-			'id' => '509116da-0008-4958-909a-1c21d4b04a59',
+			'id' => 'file-2',
 			'user_id' => '1',
 			'foreign_key' => '5',
 			'model' => 'UploadedFile',
@@ -74,7 +74,7 @@ class FileStorageFixture extends CakeTestFixture {
 			'modified' => '2012-10-31 13:17:30'
 		),
 		array(
-			'id' => '509116eb-5c70-45e1-98ac-1c21d4b04a59',
+			'id' => 'file-3',
 			'user_id' => '1',
 			'foreign_key' => '6',
 			'model' => 'UploadedFile',
