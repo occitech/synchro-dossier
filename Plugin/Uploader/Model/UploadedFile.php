@@ -68,7 +68,7 @@ class UploadedFile extends UploaderAppModel {
 		return true;
 	}
 
-	function parentNode() {
+	public function parentNode() {
 		$parentId = null;
 		if (isset($this->data['UploadedFile']['parent_id'])) {
 			$parentId = array('UploadedFile' => array(
@@ -83,12 +83,12 @@ class UploadedFile extends UploaderAppModel {
 ///////////////////////////
 
 	public function isRootFolder($folderId) {
-		$count = $this->find('count', array('conditions' => array(
+		$result = $this->hasAny(array(
 			$this->alias . '.id' => $folderId,
 			$this->alias . '.parent_id' => null
-		)));
+		));
 
-		return $count != 0;
+		return $result;
 	}
 
 	public function addFolder($data, $parentId, $userId) {
@@ -109,9 +109,11 @@ class UploadedFile extends UploaderAppModel {
 	public function addSharing($data, $userId) {
 		$result = $this->addFolder($data, null, $userId);
 
-		$this->getEventManager()->dispatch(
-			new CakeEvent('Model.UploadedFile.AfterSharingCreation', $this, array())
-		);
+		$this->getEventManager()->dispatch(new CakeEvent(
+				'Model.UploadedFile.AfterSharingCreation',
+				$this,
+				$data
+		));
 
 		return $result;
 	}

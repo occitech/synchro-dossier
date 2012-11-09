@@ -1,11 +1,14 @@
 <?php
+
+ $result = App::import('Vendor', 'OccitechCakeTestCase');
 App::uses('UploadedFile', 'Uploader.Model');
+App::uses('CakeEventManager', 'Event');
 
 /**
  * UploadedFile Test Case
  *
  */
-class UploadedFileTest extends CakeTestCase {
+class UploadedFileTest extends OccitechCakeTestCase {
 
 /**
  * Fixtures
@@ -158,6 +161,19 @@ class UploadedFileTest extends CakeTestCase {
 		$result = $this->UploadedFile->addSharing($data, $userId);
 		$this->assertEqual($result['UploadedFile']['filename'], 'MygreatSharing');
 		$this->assertEqual($result['UploadedFile']['parent_id'], null);
+	}
+
+	public function testAddSharing_EventCorrectlyLaunched() {
+		$data = array('UploadedFile' => array('filename' => 'MygreatSharing'));
+
+		$callbackForNewMessage = $this->expectEventDispatched(
+			'Model.UploadedFile.AfterSharingCreation',
+			$this->isInstanceOf($this->UploadedFile),
+			$this->logicalAnd($this->equalTo($data))
+		);
+
+		$userId = 1;
+		$result = $this->UploadedFile->addSharing($data, $userId);
 	}
 
 	public function testAddSharingFilenameError() {
