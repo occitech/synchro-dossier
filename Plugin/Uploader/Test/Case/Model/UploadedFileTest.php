@@ -1,6 +1,6 @@
 <?php
 
- $result = App::import('Vendor', 'OccitechCakeTestCase');
+App::import('Vendor', 'OccitechCakeTestCase');
 App::uses('UploadedFile', 'Uploader.Model');
 App::uses('CakeEventManager', 'Event');
 
