@@ -38,10 +38,12 @@ class AclAco extends AclNode {
 	public function getRights($model, $foreignKey) {
 		$this->contain(array('Aro.model = "User"'));
 		$result = $this->find(
-			'first', array('conditions' => array(
+			'first',
+			array('conditions' => array(
 				$this->alias . '.model' => $model,
 				$this->alias . '.foreign_key' => $foreignKey,
-		)));
+			))
+		);
 
 		return $result;
 	}

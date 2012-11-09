@@ -89,14 +89,13 @@ class FilesController extends UploaderAppController {
 
 			$isRightActive = $this->_checkRight($uploadedFileId, $userId, $action);
 
-			$method = ($isRightActive) ? '_denyRight' : '_allowRight';
-
 			if (!($isNewUserRight && $isRightActive)) {
+				$method = ($isRightActive) ? '_denyRight' : '_allowRight';
 				$this->{$method}($uploadedFileId, $userId, $action);
 			}
 
 		} else {
-			$this->Session->setFlash(__('Informations given aren\'t good')); 
+			$this->Session->setFlash(__('Given information are incorrect')); 
 		}
 		$this->redirect($this->referer());
 	}
