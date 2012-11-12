@@ -1,6 +1,6 @@
 <?php $this->extend('/Common/admin_index'); ?>
 
-<?php echo $this->Form->create('SdUser', array('url' => array('controller' => 'sd_users', 'action' => 'process'))); ?>
+<?php echo $this->Form->create('User', array('url' => array('controller' => 'sd_users', 'action' => 'process'))); ?>
 <table cellpadding="0" cellspacing="0">
 <?php
 	$tableHeaders =  $this->Html->tableHeaders(array(
@@ -14,19 +14,19 @@
 	echo $tableHeaders;
 	$rows = array();
 	foreach ($users as $user) {
-		$actions  = $this->Html->link(__('Mail'), 'mailto:' . $user['SdUser']['email']);
-		$actions .= ' ' . $this->Html->link(__('Edit'), array('action' => 'edit', $user['SdUser']['id']));
-		$actions .= ' ' . $this->Croogo->adminRowActions($user['SdUser']['id']);
+		$actions  = $this->Html->link(__('Mail'), 'mailto:' . $user['User']['email']);
+		$actions .= ' ' . $this->Html->link(__('Edit'), array('action' => 'edit', $user['User']['id']));
+		$actions .= ' ' . $this->Croogo->adminRowActions($user['User']['id']);
 		$actions .= ' ' . $this->Form->postLink(__('Delete'), array(
 			'action' => 'delete',
-			$user['SdUser']['id'],
+			$user['User']['id'],
 		), null, __('Are you sure?'));
 
 		$rows[] = array(
-			$user['SdUser']['username'],
+			$user['User']['username'],
 			$user['Profile']['name'],
 			$user['Profile']['firstname'],
-			$user['SdUser']['email'],
+			$user['User']['email'],
 			$user['Role']['title'],
 			$actions,
 		);

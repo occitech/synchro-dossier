@@ -1,11 +1,16 @@
 <?php
-App::uses('SdUsersAppModel', 'SdUsers.Model');
 
-class SdUser extends SdUsersAppModel {
+App::uses('User', 'Users.Model');
+
+class SdUser extends User {
 
 	public $displayField = 'name';
 
 	public $useTable = 'users';
+	
+	public $order = 'User.name ASC';
+	
+	public $alias = 'User';
 
 	public $findMethods = array('createdBy' =>  true);
 
@@ -79,15 +84,15 @@ class SdUser extends SdUsersAppModel {
 	public function add($data, $creatorId, $creatorRoleId) {
 		$this->_addValidateRuleAboutRole($creatorRoleId);
 		$this->create();
-		$data['SdUser']['role_id'] = intval($data['SdUser']['role_id']);
-		$data['SdUser']['activation_key'] = md5(uniqid());
-		$data['SdUser']['creator_id'] = $creatorId;
+		$data[$this->alias]['role_id'] = intval($data[$this->alias]['role_id']);
+		$data[$this->alias]['activation_key'] = md5(uniqid());
+		$data[$this->alias]['creator_id'] = $creatorId;
 		return $this->saveAssociated($data);
 	}
 
 	public function edit($data, $creatorRoleId) {
 		$this->_addValidateRuleAboutRole($creatorRoleId);
-		$data['SdUser']['role_id'] = intval($data['SdUser']['role_id']);
+		$data[$this->alias]['role_id'] = intval($data[$this->alias]['role_id']);
 		return $this->saveAssociated($data);
 	}
 

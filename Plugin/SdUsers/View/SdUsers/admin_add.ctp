@@ -10,11 +10,11 @@
 
 			<div id="node-main">
 			<?=
-				$this->Form->input('SdUser.role_id', array('label' => __('Role'))).
-				$this->Form->input('SdUser.username', array('label' => __('Username'))).
-				$this->Form->input('SdUser.email', array('label' => __('Email'))).
-				$this->Form->input('SdUser.password', array('label' => __('Password'))).
-				$this->Form->input('SdUser.status', array('label' => __('Status')));
+				$this->Form->input('User.role_id', array('label' => __('Role'))).
+				$this->Form->input('User.username', array('label' => __('Username'))).
+				$this->Form->input('User.email', array('label' => __('Email'))).
+				$this->Form->input('User.password', array('label' => __('Password'))).
+				$this->Form->input('User.status', array('label' => __('Status')));
 			?>
 			</div>
 

@@ -1,14 +1,103 @@
 <?php
 
 App::uses('UploadedFile', 'Uploader.Model');
+App::uses('Aco', 'Uploader.Model');
 
 class FilesController extends UploaderAppController {
 
-	public $uses = array('Uploader.UploadedFile');
+	public $uses = array('Uploader.UploadedFile', 'Uploader.AclAco');
+
+	public $components = array(
+		'RowLevelAcl' => array(
+			'className' => 'Acl.RowLevelAcl',
+			'settings' => array(
+				'actionMap' => array(
+					'browse' 			=> 'read',
+					'createFolder' 		=> 'create',
+					'rename' 			=> 'create',
+					'downloadZipFolder' => 'read',
+					'upload' 			=> 'create',
+					'download' 			=> 'read',
+				),
+			)
+		)
+	);
 
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Security->unlockedActions = 'upload';
+	}
+
+	public function rights($folderId) {
+		if ($this->UploadedFile->isRootFolder($folderId)) {
+			$acos = $this->AclAco->getRights('UploadedFile', $folderId);
+			$users = $this->UploadedFile->User->find('list');
+			$this->set(compact('acos', 'users'));
+		} else {
+			$this->Session->setFlash(__('Vous ne pouvez pas donner de droit à ce dossier'));
+		}
+	} 
+
+	protected function _removeRight($acoId, $aroId) {
+		return $this->AclAco->ArosAco->deleteAll(array(
+			'aco_id' => $acoId,
+			'aro_id' => $aroId
+		));
+	}
+
+	protected function _checkRight($uploadedFileId, $userId, $action) {
+		return $this->Acl->check(
+			array('model' => 'User', 'foreign_key' => $userId),
+			array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
+			$action
+		);
+	}
+
+	protected function _allowRight($uploadedFileId, $userId, $action) {
+		$this->Acl->allow(
+			array('model' => 'User', 'foreign_key' => $userId),
+			array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
+			$action
+		);		
+	}
+
+	protected function _denyRight($uploadedFileId, $userId, $action) {
+		$this->Acl->deny(
+			array('model' => 'User', 'foreign_key' => $userId),
+			array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
+			$action
+		);		
+	}
+
+	public function removeRight($acoId, $aroId) {
+		$result = $this->_removeRight($acoId, $aroId);
+		if (!$result) {
+			$this->Session->setFlash(__('There was an error while deleting the right. Thank you try again or contact an administrator'));
+		}
+		$this->redirect($this->referer());
+	}
+
+	public function toggleRight($uploadedFileId, $userId = null, $action = 'read') {
+		$isNewUserRight = false;
+		if (isset($this->request->data['User']['user_id'])) {
+			$userId = $this->request->data['User']['user_id'];
+			$isNewUserRight = true;
+		}
+
+		if ($this->UploadedFile->exists($uploadedFileId) &&
+			$this->UploadedFile->User->exists($userId)) {
+
+			$isRightActive = $this->_checkRight($uploadedFileId, $userId, $action);
+
+			if (!($isNewUserRight && $isRightActive)) {
+				$method = ($isRightActive) ? '_denyRight' : '_allowRight';
+				$this->{$method}($uploadedFileId, $userId, $action);
+			}
+
+		} else {
+			$this->Session->setFlash(__('Given information are incorrect')); 
+		}
+		$this->redirect($this->referer());
 	}
 
 	public function browse($folderId = null) {
@@ -26,15 +115,13 @@ class FilesController extends UploaderAppController {
 		$this->set(compact('files', 'folderId', 'parentId'));
 	}
 
-	public function view($id) {
-		$this->UploadedFile->recursive = 3;
-		$file = $this->UploadedFile->findById($id);
-		$this->set('file', $file);
-	}
-
 	public function createSharing() {
 		if ($this->request->is('post')) {
 			if ($this->UploadedFile->addSharing($this->request->data, $this->Auth->user('id'))) {
+				$this->Acl->allow(
+					array('model' => 'User', 'foreign_key' => Configure::write('sd.SuperAdmin.roleId')),
+					array('model' => 'UploadedFile', 'foreign_key' => $this->UploadedFile->id)
+				);
 				$this->Session->setFlash(__('Folder correctly created'));
 				$this->redirect(array('action' => 'browse', $parentId));
 			} else {
@@ -79,7 +166,7 @@ class FilesController extends UploaderAppController {
  * @param $originalFilename : Correspond au nom original du fichier pour le cas ou
  * l'utilisateur upload une nouvelle version du fichier en passant par "Uploader une nouvelle version"
  *
- */
+ */	
 	public function upload($folderId, $originalFilename = null) {
 		if ($this->request->is('post')) {
 			$uploadOk = $this->UploadedFile->upload(

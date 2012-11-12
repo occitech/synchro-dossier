@@ -4,7 +4,10 @@ App::uses('Security', 'Utility');
 
 class UploadedFile extends UploaderAppModel {
 
-	public $actsAs = array('Tree');
+	public $actsAs = array(
+		'Tree',
+		 'Acl' => array('type' => 'controlled')
+	);
 
 	public $belongsTo = array(
 		'Users.User',
@@ -65,9 +68,28 @@ class UploadedFile extends UploaderAppModel {
 		return true;
 	}
 
+	public function parentNode() {
+		$parentId = null;
+		if (isset($this->data['UploadedFile']['parent_id'])) {
+			$parentId = array('UploadedFile' => array(
+				'id' => $this->data['UploadedFile']['parent_id']
+			));
+		}
+		return $parentId;
+	}
+
 ///////////////////////////
 /// Methods for folders ///
 ///////////////////////////
+
+	public function isRootFolder($folderId) {
+		$result = $this->hasAny(array(
+			$this->alias . '.id' => $folderId,
+			$this->alias . '.parent_id' => null
+		));
+
+		return $result;
+	}
 
 	public function addFolder($data, $parentId, $userId) {
 		if (!is_null($parentId)) {
@@ -85,7 +107,15 @@ class UploadedFile extends UploaderAppModel {
 	}
 
 	public function addSharing($data, $userId) {
-		return $this->addFolder($data, null, $userId);
+		$result = $this->addFolder($data, null, $userId);
+
+		$this->getEventManager()->dispatch(new CakeEvent(
+				'Model.UploadedFile.AfterSharingCreation',
+				$this,
+				$data
+		));
+
+		return $result;
 	}
 
 	protected function _getFoldersPath($folderId) {
@@ -141,7 +171,6 @@ class UploadedFile extends UploaderAppModel {
 		unlink($zipfile);
 		return $content;
 	}
-
 
 	public function rename($fileId, $data) {
 		$fileInfos = $this->findById($fileId);

@@ -1,11 +1,14 @@
 <?php
+
+App::import('Vendor', 'OccitechCakeTestCase');
 App::uses('UploadedFile', 'Uploader.Model');
+App::uses('CakeEventManager', 'Event');
 
 /**
  * UploadedFile Test Case
  *
  */
-class UploadedFileTest extends CakeTestCase {
+class UploadedFileTest extends OccitechCakeTestCase {
 
 /**
  * Fixtures
@@ -13,10 +16,13 @@ class UploadedFileTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.uploader.uploaded_files_user',
 		'plugin.uploader.uploaded_file',
+		'plugin.uploader.file_storage',
 		'plugin.uploader.user',
-		'plugin.uploader.file_storage'
+		'plugin.uploader.role',
+		'plugin.uploader.aros_aco',
+		'plugin.uploader.aco',
+		'plugin.uploader.aro'
 	);
 
 
@@ -85,7 +91,7 @@ class UploadedFileTest extends CakeTestCase {
 	}
 
 	public function testIsUniqueNameAlreadyUsed() {
-		$check = array('filename' => 'toto.zip');
+		$check = array('filename' => 'Fraise.jpg');
 		$this->UploadedFile->data = array(
 			'UploadedFile' => array(
 				'parent_id' => 3,
@@ -157,6 +163,19 @@ class UploadedFileTest extends CakeTestCase {
 		$this->assertEqual($result['UploadedFile']['parent_id'], null);
 	}
 
+	public function testAddSharing_EventCorrectlyLaunched() {
+		$data = array('UploadedFile' => array('filename' => 'MygreatSharing'));
+
+		$callbackForNewMessage = $this->expectEventDispatched(
+			'Model.UploadedFile.AfterSharingCreation',
+			$this->isInstanceOf($this->UploadedFile),
+			$this->logicalAnd($this->equalTo($data))
+		);
+
+		$userId = 1;
+		$result = $this->UploadedFile->addSharing($data, $userId);
+	}
+
 	public function testAddSharingFilenameError() {
 		$userId = 1;
 		$data = array('UploadedFile' => array('filename' => ''));
@@ -168,16 +187,26 @@ class UploadedFileTest extends CakeTestCase {
  * Test getFoldersPath
  */
 	public function testGetFoldersPathLittleFolder() {
-		$result = $this->_runProtectedMethod('_getFoldersPath', array(5));
+		$result = $this->_runProtectedMethod('_getFoldersPath', array(1));
 		$expected = array(
-			5 => array(
-				'real_path' => 'ssdossier1/',
+			1 => array(
+				'real_path' => 'Photos/',
 				'remote_path' => null,
 				'adapter' => null
 			),
-			6 => array(
-				'real_path' => 'ssdossier1/Fraise.jpg',
-				'remote_path' => '1/6/1-1c082be57dd2a8b40831e1258ab2187f4eee044a',
+			3 => array(
+				'real_path' => 'Photos/Fruits/',
+				'remote_path' => null,
+				'adapter' => null
+			),
+			4 => array(
+				'real_path' => 'Photos/Fruits/Fraise.jpg',
+				'remote_path' => '1/4/1-1c082be57dd2a8b40831e1258ab2187f4eee044a',
+				'adapter' => 'Local'
+			),
+			5 => array(
+				'real_path' => 'Photos/Fruits/pommes.jpg',
+				'remote_path' => '1/5/1-fc13ddddf3f37ecb451d76665f2f4b29d8dd0220',
 				'adapter' => 'Local'
 			)
 		);
@@ -199,7 +228,7 @@ class UploadedFileTest extends CakeTestCase {
  */
 	public function testFindRootDirectories() {
 		$result = $this->UploadedFile->find('rootDirectories');
-		$this->assertEqual(count($result), 1);
+		$this->assertEqual(count($result), 2);
 	}
 
 /**
@@ -218,8 +247,8 @@ class UploadedFileTest extends CakeTestCase {
 		$user_id = 1;
 		$this->UploadedFile->upload($this->data, $user_id, 5);
 		$result = $this->UploadedFile->find('first', array('conditions' => array('UploadedFile.filename' => 'Fraise.jpg')));
-		$this->assertEqual($result['UploadedFile']['id'], 6);
-		$this->assertEqual($result['UploadedFile']['current_version'], 2);
+		$this->assertEqual($result['UploadedFile']['id'], 4);
+		$this->assertEqual($result['UploadedFile']['current_version'], 1);
 		$this->assertEqual($result['UploadedFile']['user_id'], 1);		
 	}
 
@@ -231,13 +260,13 @@ class UploadedFileTest extends CakeTestCase {
 		$this->UploadedFile->upload($this->data, $user_id, 1);
 		
 		$result = $this->UploadedFile->find('first', array('order' => 'UploadedFile.id desc'));
-		$this->assertEqual($result['UploadedFile']['id'], 10);
+		$this->assertEqual($result['UploadedFile']['id'], 7);
 		$this->assertEqual($result['UploadedFile']['filename'], 'Newfile.jpg');
 		$this->assertEqual($result['UploadedFile']['current_version'], 1);
 
 		$result = $this->UploadedFile->FileStorage->find('first', array('order' => 'id desc'));
-		$this->assertEqual($result['FileStorage']['foreign_key'], 10);
-		$this->assertEqual($result['FileStorage']['path'], '1/10-1-' . $filename);
+		$this->assertEqual($result['FileStorage']['foreign_key'], 7);
+		$this->assertEqual($result['FileStorage']['path'], '1/7-1-' . $filename);
 		$this->assertEqual($result['FileStorage']['user_id'], $user_id);
 	}
 
@@ -246,25 +275,107 @@ class UploadedFileTest extends CakeTestCase {
 		$folder_id = 2;
 		$this->UploadedFile->upload($this->data, $user_id, $folder_id);
 		$result = $this->UploadedFile->find('first', array('order' => 'UploadedFile.id desc'));
-		$this->assertEqual($result['UploadedFile']['id'], 10);
+		$this->assertEqual($result['UploadedFile']['id'], 7);
 		$this->assertEqual($result['UploadedFile']['filename'], 'Fraise.jpg');
 		$this->assertEqual($result['UploadedFile']['current_version'], 1);
 	}
 
-/**
- * Vérifie que le fichier est corrextement copier dans le dossier du
- * propriétaire du dossier parent
- */
+	/**
+	 * Vérifie que le fichier est correctement copier dans le dossier du
+	 * propriétaire du dossier parent
+	 */
 	public function testUploadAlreadyExistVerifyFileIsCreated() {
 		$uploader_id = 1;
 		$owner_id = 1;
-		$parent_id = 5;
+		$parent_id = 3;
 		Configure::write('FileStorage.filePattern', '{user_id}/{file_id}-{version}-{filename}');
 		$filename = Security::hash('Fraise.jpg');
 
 		$this->UploadedFile->upload($this->data, $uploader_id, $parent_id);
-		
-		$result = file_exists(Configure::read('FileStorage.testFolder') . DS . $owner_id . DS . '6-2-' . $filename);
+		$result = file_exists(Configure::read('FileStorage.testFolder') . DS . $owner_id . DS . '4-2-' . $filename);
 		$this->assertEqual($result, true);
+	}
+
+/**
+ * Test ACOs
+ */
+	public function testAcoAfterAddSharing() {
+		$Aco = ClassRegistry::init('Aco');
+
+		$userId = 1;
+		$data = array('UploadedFile' => array('filename' => 'MygreatSharing'));
+		$nbAcoBeforeInsert = $Aco->find('count');
+		$this->UploadedFile->addSharing($data, $userId);
+		$nbAcoAfterInsert = $Aco->find('count');
+		$this->assertEqual($nbAcoAfterInsert - $nbAcoBeforeInsert, 1);
+	}
+
+	public function testAcoAfterAddSharingAlreadyExist() {
+		$Aco = ClassRegistry::init('Aco');
+
+		$userId = 1;
+		$data = array('UploadedFile' => array('filename' => 'Photos'));
+		$nbAcoBeforeInsert = $Aco->find('count');
+		$this->UploadedFile->addSharing($data, $userId);
+		$nbAcoAfterInsert = $Aco->find('count');
+		$this->assertEqual($nbAcoAfterInsert, $nbAcoBeforeInsert);
+	}
+
+	public function testAcoAfterAddFolder() {
+		$Aco = ClassRegistry::init('Aco');
+
+		$folderId = 3;
+		$userId = 1;
+		$data = array('UploadedFile' => array('filename' => 'Photos'));
+		$nbAcoBeforeInsert = $Aco->find('count');
+		$this->UploadedFile->addFolder($data, $folderId, $userId);
+		$nbAcoAfterInsert = $Aco->find('count');
+		$this->assertEqual($nbAcoAfterInsert - $nbAcoBeforeInsert, 1);
+	}
+
+	public function testAco_AfterAddFolder_ParentIdIsCorrect() {
+		$Aco = ClassRegistry::init('Aco');
+
+		$folderId = 3;
+		$userId = 1;
+		$data = array('UploadedFile' => array('filename' => 'Photos'));
+		$this->UploadedFile->addFolder($data, $folderId, $userId);
+		$acoAfterInsert = $Aco->find('first', array('order' => 'id DESC'));
+		$parentIdExpected = 209;
+		$this->assertEqual($acoAfterInsert['Aco']['parent_id'], $parentIdExpected);
+	}
+
+	public function testUploadNewFile() {
+		$Aco = ClassRegistry::init('Aco');
+
+		$folderId = 1;
+		$userId = 1;
+		$nbAcoBeforeInsert = $Aco->find('count');
+		$this->UploadedFile->upload($this->data, $userId, $folderId);
+		$nbAcoAfterInsert = $Aco->find('count');
+		$this->assertEqual($nbAcoAfterInsert - $nbAcoBeforeInsert, 1);
+	}
+
+	public function testUploadNewVersion() {
+		$Aco = ClassRegistry::init('Aco');
+
+		$folderId = 3;
+		$userId = 1;
+		$nbAcoBeforeInsert = $Aco->find('count');
+		$this->UploadedFile->upload($this->data, $userId, $folderId);
+		$nbAcoAfterInsert = $Aco->find('count');
+		$this->assertEqual($nbAcoAfterInsert, $nbAcoBeforeInsert);
+	}
+
+	public function testIsRootFolderOk() {
+		$result = $this->UploadedFile->isRootFolder(1);
+
+		$this->assertTrue($result);
+	}
+
+	public function testIsRootFolderNotOk() {
+		$result = $this->UploadedFile->isRootFolder(5);
+
+		$this->assertFalse($result);
 	}
 }
