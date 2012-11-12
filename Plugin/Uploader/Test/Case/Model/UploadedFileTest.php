@@ -281,7 +281,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 	}
 
 	/**
-	 * Vérifie que le fichier est corrextement copier dans le dossier du
+	 * Vérifie que le fichier est correctement copier dans le dossier du
 	 * propriétaire du dossier parent
 	 */
 	public function testUploadAlreadyExistVerifyFileIsCreated() {
