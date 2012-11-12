@@ -13,7 +13,7 @@
 			$this->Form->end(__('Add user'));
 		?>
 	</div>
-	<table>
+ 	<table>
 		<tr>
 			<td><?= __('Name') ?></td>
 			<td><?= __('Read') ?></td>
@@ -21,40 +21,63 @@
 			<td><?= __('Delete') ?></td>
 			<td><?= __('Actions') ?></td>
 		</tr>
-	<?php foreach ($acos['Aro'] as $aro): ?>
+		<?php foreach ($superAdmins as $superAdmin): ?>
 		<tr>
-			<td><?= $aro['alias'] ?></td>
+			<td>
+				<?= $superAdmin['User']['username']; ?>
+				<span class="label label-SuperAdmin">
+					<?= $superAdmin['Role']['title']; ?>
+				</span>
+			</td>
+			<td><?= $this->Layout->status(1); ?></td>
+			<td><?= $this->Layout->status(1); ?></td>
+			<td><?= $this->Layout->status(1); ?></td>
+			<td></td>
+		</tr>
+		<?php endforeach ?>
+
+		<?php foreach ($acos['Aro'] as $aro): ?>
+		<tr>
+			<td>
+				<?= $aro['alias'] ?>
+				<span class="label label-<?= $aro['alias'] ?>">
+					<?= $aro['User']['Role']['title']; ?>
+				</span>
+			</td>
 			<td>
 				<?= $this->Html->link(
-					$aro['ArosAco']['_read'],
+					$this->Layout->status($aro['ArosAco']['_read']),
 					array(
 						'action' => 'toggleRight',
 						$acos['Aco']['foreign_key'],
 						$aro['foreign_key'],
 						'read'
-					)
+					),
+					array('escape' => false)
 				); ?>
 			</td>
 			<td>
 				<?= $this->Html->link(
-					$aro['ArosAco']['_create'],
+					$this->Layout->status($aro['ArosAco']['_create']),
 					array(
 						'action' => 'toggleRight',
 						$acos['Aco']['foreign_key'],
 						$aro['foreign_key'],
 						'create'
-					)
+					),
+					array('escape' => false)
 				); ?>
 			</td>
 			<td>
 				<?= $this->Html->link(
-					$aro['ArosAco']['_delete'],
+					$this->Layout->status($aro['ArosAco']['_delete']),
 					array(
 						'action' => 'toggleRight',
 						$acos['Aco']['foreign_key'],
 						$aro['foreign_key'],
 						'delete'
-					)
+					),
+					array('escape' => false)
 				); ?>
 			</td>
 			<td>
@@ -68,6 +91,6 @@
 				); ?>
 			</td>
 		</tr>
-	<?php endforeach ?>
+		<?php endforeach ?>
 	</table>		
 </div>
