@@ -36,13 +36,26 @@ class AclAco extends AclNode {
 	);
 
 	public function getRights($model, $foreignKey) {
-		$this->contain(array('Aro.model = "User"'));
+		$this->Aro->bindModel(array(
+			'belongsTo' => array(
+				'User' => array(
+					'className' => 'SdUsers.SdUser',
+					'foreignKey' => 'foreign_key'
+ 				) 
+			)
+		));
 		$result = $this->find(
 			'first',
-			array('conditions' => array(
-				$this->alias . '.model' => $model,
-				$this->alias . '.foreign_key' => $foreignKey,
-			))
+			array(
+				'conditions' => array(
+					$this->alias . '.model' => $model,
+					$this->alias . '.foreign_key' => $foreignKey,
+				),
+				'contain' => array(
+					'Aro' => array('conditions' => 'Aro.model = "User"'),
+					'Aro.User.Role'
+				)
+			)
 		);
 
 		return $result;
