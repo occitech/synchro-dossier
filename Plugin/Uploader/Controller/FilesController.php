@@ -26,13 +26,20 @@ class FilesController extends UploaderAppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Security->unlockedActions = 'upload';
+		$this->helpers[] = 'Uploader.Acl';
+	}
+
+	public function beforeRender() {
+		$userRights = $this->UploadedFile->User->getAllRights($this->Auth->user('id'));
+		$this->set(compact('userRights'));
 	}
 
 	public function rights($folderId) {
 		if ($this->UploadedFile->isRootFolder($folderId)) {
+			$superAdmins = $this->UploadedFile->User->find('superAdmin');
 			$acos = $this->AclAco->getRights('UploadedFile', $folderId);
 			$users = $this->UploadedFile->User->find('list');
-			$this->set(compact('acos', 'users'));
+			$this->set(compact('acos', 'users', 'superAdmins'));
 		} else {
 			$this->Session->setFlash(__('Vous ne pouvez pas donner de droit à ce dossier'));
 		}
