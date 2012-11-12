@@ -168,6 +168,9 @@ class SdUserTest extends CroogoTestCase {
 		$this->assertEqual($this->SdUser->find('count'), 3);
 	}
 
+/**
+ * Test the custom find 'CreatedBy'
+ */
 	public function testFindCreatedBy_TwoResultNedded() {
 		$result = $this->SdUser->find('createdBy', array('creatorId' => 1));
 		$this->assertEqual(count($result), 2);
@@ -178,4 +181,21 @@ class SdUserTest extends CroogoTestCase {
 		$this->assertEqual(count($result), 0);
 	}
 
+/**
+ * Test the custom find 'SuperAdmin'
+ */
+	public function testFindSuperAdmin() {
+		$result = $this->SdUser->find('superAdmin');
+		$this->assertEqual(count($result), 1);
+	}
+
+/**
+ * Test : getAllRights
+ */
+	public function testGetAllRights_UserHasRightOnOneFile() {
+		$userId = 3;
+		$result = $this->SdUser->getAllRights($userId);
+
+		$this->assertEqual(count($result['Aro']['Aco']), 1);
+	}
 }

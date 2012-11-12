@@ -4,7 +4,7 @@ App::uses('User', 'Users.Model');
 
 class SdUser extends User {
 
-	public $displayField = 'name';
+	public $displayField = 'username';
 
 	public $useTable = 'users';
 	
@@ -12,7 +12,10 @@ class SdUser extends User {
 	
 	public $alias = 'User';
 
-	public $findMethods = array('createdBy' =>  true);
+	public $findMethods = array(
+		'createdBy' =>  true,
+		'superAdmin' => true
+	);
 
 	public $belongsTo = array(
 		'Role' => array(
@@ -106,5 +109,33 @@ class SdUser extends User {
 			return $query;
 		}
 		return $results;
+	}
+
+	protected function _findSuperAdmin($state, $query, $results = array()) {
+		if ($state == 'before') {
+			$query['conditions'][$this->alias . '.role_id'] = Configure::read('sd.SuperAdmin.roleId');
+			return $query;
+		}
+		return $results;
+	}
+
+	public function getAllRights($userId) {
+		$this->bindModel(array(
+			'hasOne' => array(
+				'Aro' => array(
+					'className' => 'Aro',
+					'foreignKey' => 'foreign_key'
+ 				) 
+			)
+		));
+		$result = $this->find('first', array(
+			'conditions' => array($this->alias . '.id' => $userId),
+			'contain' => array(
+				'Aro' => array('conditions' => 'Aro.model = "User"'),
+				'Aro.Aco'
+			)
+		));
+
+		return $result;
 	}
 }
