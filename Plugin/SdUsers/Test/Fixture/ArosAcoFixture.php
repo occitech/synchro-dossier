@@ -32,8 +32,8 @@ class ArosAcoFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => '1',
-			'aro_id' => '5',
-			'aco_id' => '9',
+			'aro_id' => '9',
+			'aco_id' => '1',
 			'_create' => '1',
 			'_read' => '1',
 			'_update' => '1',
