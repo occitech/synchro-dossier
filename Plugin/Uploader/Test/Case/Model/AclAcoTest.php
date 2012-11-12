@@ -37,7 +37,7 @@ class AclAcoTest extends CakeTestCase {
 		$result = $this->Aco->getRights('UploadedFile', 1);
 
 		$this->assertTrue(!empty($result['Aro']));
-		$this->assertEqual($result['Aro'][0]['alias'], 'aymeric');
+		$this->assertEqual($result['Aro'][0]['alias'], 'spadm1');
 	}
 
 	public function testGetRightsHasNotAro() {
