@@ -10,7 +10,9 @@ class UploadedFile extends UploaderAppModel {
 	);
 
 	public $belongsTo = array(
-		'Users.User',
+		'User' => array(
+			'className' => 'SdUsers.SdUser',
+		),
 		'ParentUploadedFile' => array(
 			'className' => 'UploadedFile',
 			'foreignKey' => 'parent_id',
