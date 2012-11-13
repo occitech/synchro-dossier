@@ -52,7 +52,7 @@ class SynchroDossierActivation {
 			'title' => 'Ajouter un partage',
 			'class' => 'add-partage',
 			'link' => 'plugin:uploader/controller:files/action:createSharing',
-			'visibility_roles' => '["1","4"]'
+			'visibility_roles' => '["1","4","5"]'
 		),
 		array(
 			'menu_id' => 3,
