@@ -18,7 +18,7 @@
 
 	<div class="infos">
 		<?= $this->Html->link('..', array($parentId)) ?>
-	</div>		
+	</div>
 	<table>
 		<tr>
 			<th><?= __('Fichier'); ?></th>
@@ -30,7 +30,7 @@
 		</tr>
 		<?php foreach ($files as $file): ?>
 
-			<?php if ($this->Acl->userCan($file['UploadedFile']['id'], 'read') || !is_null($folderId)): ?>
+			<?php if ($this->Acl->userCan($file['Aco'], 'read')): ?>
 				<?php if (!$file['UploadedFile']['is_folder']): ?>
 					<?php $lastVersion = $file['FileStorage'][sizeof($file['FileStorage']) - 1]; ?>
 				<?php endif ?>

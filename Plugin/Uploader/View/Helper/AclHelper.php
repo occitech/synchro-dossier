@@ -14,20 +14,22 @@ class AclHelper extends Helper {
 		$this->__userRights = $View->viewVars['userRights']['Aro']['Aco'];
 	}
 
-	public function userCan($uploadedFileId, $action = 'read') {
+	public function userCan($uploadedFile, $action = 'read') {
+		$userCan = false;
+		$action = '_' . $action;
+
 		if ($this->__userId == 1) {
-			// special case of admin ...
 			return true;
 		}
 
-		$action = '_' . $action;
 		foreach ($this->__userRights as $aco) {
-			if ($aco['foreign_key'] == $uploadedFileId && $aco['model'] == 'UploadedFile') {
+			if ($aco['lft'] <= $uploadedFile['lft'] && $aco['rght'] >= $uploadedFile['rght']) {
 				if (isset($aco['Permission'][$action])) {
-					return $aco['Permission'][$action] == 1;
+					$userCan = $aco['Permission'][$action] == 1;
 				}
 			}
 		}
-		return false;
+
+		return $userCan;
 	}
 }
