@@ -71,6 +71,8 @@ class SynchroDossierActivation {
 				$this->__addFilesAcos($controller) &&
 				$this->__addSuperAdminAllRightOnUploadedFile($controller);
 
+		$controller->Croogo->addAco('Uploader/Files/createSharing', array('sdSuperAdmin', 'sdAdmin'));
+
 		return $success;
 	}
 
@@ -94,6 +96,7 @@ class SynchroDossierActivation {
 			array('model' => 'Role', 'foreign_key' => Configure::read('sd.SuperAdmin.roleId')),
 			Configure::read('sd.uploadedFileRootAco.alias')
 		);
+		return true;
 	}
 
 	private function __renameAdminRole($name) {
