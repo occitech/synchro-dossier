@@ -6,6 +6,8 @@ Configure::write('FileStorage.adapter', 'Local');
 Configure::write('FileStorage.testFolder', APP . 'tmp' . DS . 'tests' . DS . 'Uploader');
 Configure::write('FileStorage.filePattern', '{user_id}/{file_id}/{version}-{filename}');
 
+Configure::write('sd.uploadedFileRootAco.alias', 'uploadedFileAco');
+
 StorageManager::config(
 	'Local',
 	array(

@@ -109,7 +109,13 @@ class UploadedFile extends UploaderAppModel {
 	}
 
 	public function addSharing($data, $userId) {
+		$rootAco = $this->Aco->findByAlias('uploadedFileAco');
+
 		$result = $this->addFolder($data, null, $userId);
+
+		if ($result) {
+			$this->Aco->saveField('parent_id', $rootAco['Aco']['id']);
+		}
 
 		$this->getEventManager()->dispatch(new CakeEvent(
 				'Model.UploadedFile.AfterSharingCreation',
