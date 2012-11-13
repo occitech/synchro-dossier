@@ -14,7 +14,7 @@ class AclHelper extends Helper {
 		$this->__userRights = $View->viewVars['userRights']['Aro']['Aco'];
 	}
 
-	public function userCan($uploadedFile, $action = 'read') {
+	public function userCan($uploadedFileAco, $action = 'read') {
 		$userCan = false;
 		$action = '_' . $action;
 
@@ -23,7 +23,7 @@ class AclHelper extends Helper {
 		}
 
 		foreach ($this->__userRights as $aco) {
-			if ($aco['lft'] <= $uploadedFile['lft'] && $aco['rght'] >= $uploadedFile['rght']) {
+			if ($aco['lft'] <= $uploadedFileAco['lft'] && $aco['rght'] >= $uploadedFileAco['rght']) {
 				if (isset($aco['Permission'][$action])) {
 					$userCan = $aco['Permission'][$action] == 1;
 				}
