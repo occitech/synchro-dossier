@@ -35,7 +35,7 @@ class UploaderActivation {
 			'parent_id' => null,
 			'foreign_key' => null,
 			'model' => null,
-			'alias' => 'uploadedFileAco'
+			'alias' => 'uploadedFileAco' // Todo : Use Configure::read('sd.uploadedFileRootAco.alias')
 		);
 		$Aco->save($data);
 	}

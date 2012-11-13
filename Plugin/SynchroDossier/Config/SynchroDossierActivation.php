@@ -67,8 +67,9 @@ class SynchroDossierActivation {
 				$this->__addSynchroRoles() &&
 				$this->__removeAllMainMenuLink() &&
 				$this->__addNewMainMenuLink() &&
-				$this->__addUsersCRUDArcos($controller) &&
-				$this->__addFilesAcos($controller);
+				$this->__addUsersCRUDAcos($controller) &&
+				$this->__addFilesAcos($controller) &&
+				$this->__addSuperAdminAllRightOnUploadedFile($controller);
 
 		return $success;
 	}
@@ -86,6 +87,13 @@ class SynchroDossierActivation {
 
 	public function beforeDeactivation(&$controller) {
 		return true;
+	}
+
+	private function __addSuperAdminAllRightOnUploadedFile(&$controller) {
+		$controller->Acl->allow(
+			array('model' => 'Role', 'foreign_key' => Configure::read('sd.SuperAdmin.roleId')),
+			Configure::read('sd.uploadedFileRootAco.alias')
+		);
 	}
 
 	private function __renameAdminRole($name) {
@@ -111,7 +119,7 @@ class SynchroDossierActivation {
 		return $this->Link->saveMany($this->__links, array('deep' => true));
 	}
 
-	private function __addUsersCRUDArcos (&$controller) {
+	private function __addUsersCRUDAcos (&$controller) {
 		foreach ($this->__usersCRUDAcos as $aco) {
 			$controller->Croogo->removeAco($aco);
 			$controller->Croogo->addAco($aco, array('sdSuperAdmin', 'sdAdmin'));
