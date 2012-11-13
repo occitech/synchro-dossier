@@ -19,6 +19,7 @@
 			<td><?= __('Read') ?></td>
 			<td><?= __('Write') ?></td>
 			<td><?= __('Delete') ?></td>
+			<td><?= __('Change_right') ?></td>
 			<td><?= __('Actions') ?></td>
 		</tr>
 		<?php foreach ($superAdmins as $superAdmin): ?>
@@ -76,6 +77,18 @@
 						$acos['Aco']['foreign_key'],
 						$aro['foreign_key'],
 						'delete'
+					),
+					array('escape' => false)
+				); ?>
+			</td>			
+			<td>
+				<?= $this->Html->link(
+					$this->Layout->status($aro['ArosAco']['_change_right']),
+					array(
+						'action' => 'toggleRight',
+						$acos['Aco']['foreign_key'],
+						$aro['foreign_key'],
+						'change_right'
 					),
 					array('escape' => false)
 				); ?>

@@ -90,7 +90,7 @@
 								__('Renommer'),
 								array('controller' => 'files', 'action' => 'rename', $file['UploadedFile']['parent_id'], $file['UploadedFile']['id'])
 							); ?>
-							<?php if (is_null($folderId)): ?>
+							<?php if (is_null($folderId) && $this->Acl->userCan($file['Aco'], 'change_right')): ?>
 								<?= $this->Html->link(
 									__('Gérer les droits'),
 									array('controller' => 'files', 'action' => 'rights', $file['UploadedFile']['id'])
