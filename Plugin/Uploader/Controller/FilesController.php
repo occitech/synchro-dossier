@@ -112,6 +112,15 @@ class FilesController extends UploaderAppController {
 		$this->helpers[] = 'Time';
 
 		$this->UploadedFile->recursive = 2;
+		$this->UploadedFile->bindModel(array(
+			'hasOne' => array(
+				'Aco' => array(
+					'className' => 'Aco',
+					'foreignKey' => 'foreign_key'
+ 				) 
+			)
+		));
+
 		if (is_null($folderId)) {
 			$files = $this->UploadedFile->find('rootDirectories'); 
 		} else {
