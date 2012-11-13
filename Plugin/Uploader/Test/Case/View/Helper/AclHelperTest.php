@@ -9,6 +9,17 @@ class AclHelperTest extends CroogoTestCase {
 	public function setUp() {
 		$controller = null;
 		$this->View = new View($controller);
+		$this->View->viewVars = array(
+			'userRights' => array(
+				'User' => array(
+					'id' => 3
+				),
+				'Aro' => array(
+					'Aco' => array()
+				)
+			)
+		);
+		$this->Acl = new AclHelper($this->View);
 	}
 
 	public function tearDown() {
@@ -17,6 +28,7 @@ class AclHelperTest extends CroogoTestCase {
 	}
 
 	public function testUserCan_UserCan_OnRootFolder() {
+		unset($this->Acl);
 		$this->View->viewVars = array(
 			'userRights' => array(
 				'User' => array(
@@ -67,6 +79,7 @@ class AclHelperTest extends CroogoTestCase {
 	}
 
 	public function testUserCan_UserCan_OnSubFolder () {
+		unset($this->Acl);
 		$this->View->viewVars = array(
 			'userRights' => array(
 				'User' => array(
@@ -106,6 +119,7 @@ class AclHelperTest extends CroogoTestCase {
 	}
 
 	public function testUserCan_UserCannotOnRootFolder() {
+		unset($this->Acl);
 		$this->View->viewVars = array(
 			'userRights' => array(
 				'User' => array(
@@ -155,4 +169,38 @@ class AclHelperTest extends CroogoTestCase {
 
 		$this->assertFalse($result);
 	}
+
+	public function testUserCanChangeRight_UserCan_UserIsAdmin_UserIsCreatorOfFolder() {
+		$loggedInUserId = 2;
+		$loggedInUserRoleId = 5;
+		$folderCreatorId = $loggedInUserId;
+		$aroRoleId = 5;
+
+		$result = $this->Acl->userCanChangeRight($loggedInUserId, $loggedInUserRoleId, $aroRoleId, $folderCreatorId);
+		
+		$this->assertTrue($result);
+	}
+
+	public function testUserCanChangeRight_UserCannot_UserIsAdmin_UserIsNotCreatorOfFolder() {
+		$loggedInUserId = 2;
+		$loggedInUserRoleId = 5;
+		$folderCreatorId = 3;
+		$aroRoleId = 5;
+
+		$result = $this->Acl->userCanChangeRight($loggedInUserId, $loggedInUserRoleId, $aroRoleId, $folderCreatorId);
+		
+		$this->assertFalse($result);
+	}
+
+	public function testUserCanChangeRight_UserCan_UserIsNotAdmin() {
+		$loggedInUserId = 2;
+		$loggedInUserRoleId = 4;
+		$folderCreatorId = 3;
+		$aroRoleId = 5;
+
+		$result = $this->Acl->userCanChangeRight($loggedInUserId, $loggedInUserRoleId, $aroRoleId, $folderCreatorId);
+		
+		$this->assertTrue($result);
+	}
+
 }
