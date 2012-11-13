@@ -18,6 +18,9 @@ class FilesController extends UploaderAppController {
 					'downloadZipFolder' => 'read',
 					'upload' 			=> 'create',
 					'download' 			=> 'read',
+					'rights'			=> 'change_right',
+					'removeRight'		=> 'change_right',
+					'toggleRight'		=> 'change_right'
 				),
 			)
 		)
@@ -26,20 +29,21 @@ class FilesController extends UploaderAppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Security->unlockedActions = 'upload';
-		$this->helpers[] = 'Uploader.Acl';
 	}
 
 	public function beforeRender() {
+		$this->helpers[] = 'Uploader.Acl';
 		$userRights = $this->UploadedFile->User->getAllRights($this->Auth->user('id'));
 		$this->set(compact('userRights'));
 	}
 
 	public function rights($folderId) {
 		if ($this->UploadedFile->isRootFolder($folderId)) {
+			$folder = $this->UploadedFile->findById($folderId);
 			$superAdmins = $this->UploadedFile->User->find('superAdmin');
 			$acos = $this->AclAco->getRights('UploadedFile', $folderId);
 			$users = $this->UploadedFile->User->find('list');
-			$this->set(compact('acos', 'users', 'superAdmins'));
+			$this->set(compact('acos', 'users', 'superAdmins', 'folder'));
 		} else {
 			$this->Session->setFlash(__('Vous ne pouvez pas donner de droit à ce dossier'));
 		}

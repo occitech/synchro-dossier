@@ -25,6 +25,13 @@ class SynchroDossierActivation {
 		'Uploader/Files/downloadZipFolder'
 	);
 
+	private $__filesAcosAccessLimited = array(
+		'Uploader/Files/createSharing',
+		'Uploader/Files/rights',
+		'Uploader/Files/toggleRight',
+		'Uploader/Files/removeRight',
+	);
+
 	private $__links = array(
 		array(
 			'menu_id' => 3,
@@ -70,8 +77,6 @@ class SynchroDossierActivation {
 				$this->__addUsersCRUDAcos($controller) &&
 				$this->__addFilesAcos($controller) &&
 				$this->__addSuperAdminAllRightOnUploadedFile($controller);
-
-		$controller->Croogo->addAco('Uploader/Files/createSharing', array('sdSuperAdmin', 'sdAdmin'));
 
 		return $success;
 	}
@@ -134,6 +139,11 @@ class SynchroDossierActivation {
 		foreach ($this->__filesAcos as $aco) {
 			$controller->Croogo->addAco($aco, $this->__sdRoles);
 		}
+
+		foreach ($this->__filesAcosAccessLimited as $aco) {
+			$controller->Croogo->addAco($aco, array('sdSuperAdmin', 'sdAdmin'));
+		}
+
 		return true;		
 	}
 
