@@ -128,6 +128,7 @@ class SdUser extends User {
  				) 
 			)
 		));
+
 		$result = $this->find('first', array(
 			'conditions' => array($this->alias . '.id' => $userId),
 			'contain' => array(
@@ -135,6 +136,13 @@ class SdUser extends User {
 				'Aro.Aco'
 			)
 		));
+
+		$aro = $this->Aro->find('first', array('conditions' => array(
+			'Aro.model' => 'Role',
+			'Aro.foreign_key' => $result['User']['role_id']
+		)));
+
+		$result['Aro']['Aco'] = array_merge(array_values($result['Aro']['Aco']), array_values($aro['Aco']));
 
 		return $result;
 	}

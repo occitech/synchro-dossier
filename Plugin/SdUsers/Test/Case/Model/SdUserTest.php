@@ -5,6 +5,8 @@ App::uses('Controller', 'Controller');
 App::uses('CroogoTestCase', 'TestSuite');
 App::uses('AclCachedAuthorize', 'Acl.Controller/Component/Auth');
 App::uses('AuthComponent', 'Controller/Component');
+App::uses('AclComponent', 'Controller/Component');
+
 
 class SdUserTestController extends Controller {
 
@@ -28,6 +30,7 @@ class SdUserTest extends CroogoTestCase {
 	);
 
 	public function setUp() {
+		Configure::write('Acl.database', 'test');
 		parent::setUp();
 		$this->SdUser = ClassRegistry::init('SdUsers.SdUser');
 		$this->Aro = ClassRegistry::init('Aro');
@@ -96,7 +99,7 @@ class SdUserTest extends CroogoTestCase {
 		$this->assertEqual($result['Aro'], $expected);
 	}
 
-	public function testAdd_NewUserCanAccesToAPrivatePage() {
+	public function testAdd_NewUserCanAccesToFile_WithInheritsRights() {
 		$creatorId = 3;
 		$roleId = 1;
 		$data = array(
@@ -114,17 +117,27 @@ class SdUserTest extends CroogoTestCase {
 		);
 
 		$result = $this->SdUser->add($data, $creatorId, $roleId);
-		
-		$request = new CakeRequest('/admin/sd_users/sd_users/index');
-		$request->addParams(array(
-			'controller' => 'sd_users',
-			'action' => 'admin_index',
-		));
-		$user = $this->SdUser->find('first', array('order' => 'User.id desc'));
-		$user = $user['User'];
-		$AclCachedAuthorize = new AclCachedAuthorize(new ComponentCollection());
 
-		$result = $AclCachedAuthorize->authorize($user, $request);
+		$this->SdUser->bindModel(array(
+			'hasOne' => array(
+				'Aro' => array(
+					'className' => 'Aro',
+					'foreignKey' => 'foreign_key'
+ 				) 
+			)
+		));
+
+		$user = $this->SdUser->find('first', array(
+			'order' => 'User.id desc',
+			'contain' => array('Aro' => array('conditions' => 'Aro.model = "User"')),
+		));
+
+		$Acl = new AclComponent(new ComponentCollection);
+		$result = $Acl->check(
+			$user['Aro'],
+			array('model' => 'UploadedFile', 'foreign_key' => 4)
+		);
+
 		$this->assertTrue($result);
 	}
 
@@ -192,10 +205,10 @@ class SdUserTest extends CroogoTestCase {
 /**
  * Test : getAllRights
  */
-	public function testGetAllRights_UserHasRightOnOneFile() {
+	public function testGetAllRights_UserHasRightOnTwoFile() {
 		$userId = 3;
 		$result = $this->SdUser->getAllRights($userId);
 
-		$this->assertEqual(count($result['Aro']['Aco']), 1);
+		$this->assertEqual(count($result['Aro']['Aco']), 2);
 	}
 }
