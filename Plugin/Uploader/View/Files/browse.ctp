@@ -113,7 +113,7 @@
 						<?php $version = $file['UploadedFile']['current_version'] - 1; ?>
 						<?php $fileVersions = array_reverse($file['FileStorage']); ?>
 						<?php array_shift($fileVersions); ?>
-						<?php foreach ($fileVersions as $k => $v): ?>
+						<?php foreach ($fileVersions as $fileVersion): ?>
 							<tr style="display:none;" class="versions-<?= $file['UploadedFile']['id'] ?> sub-version">	
 								<td>
 									V<?= $version--; ?>
@@ -122,13 +122,13 @@
 										array(
 											'controller' => 'files',
 											'action' => 'download',
-											$v['id']
+											$fileVersion['id']
 										)
 									); ?>
 								</td>
 								<td><?= __('Par ') . $file['User']['name']; ?></td>
-								<td><?=  $this->Time->format('j/m/Y H:i', $v['created']); ?></td>
-								<td><?= $this->File->size($v['filesize']); ?></td>
+								<td><?=  $this->Time->format('j/m/Y H:i', $fileVersion['created']); ?></td>
+								<td><?= $this->File->size($fileVersion['filesize']); ?></td>
 								<td></td>
 								<td></td>
 							</tr>			

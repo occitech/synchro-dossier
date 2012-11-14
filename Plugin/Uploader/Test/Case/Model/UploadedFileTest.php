@@ -319,7 +319,6 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$data = array('UploadedFile' => array('filename' => 'MygreatSharing'));
 		$this->UploadedFile->addSharing($data, $userId);
 		$result = $Aco->find('first', array('order' => 'id DESC'));
-		debug($result);
 		$this->assertEqual($result['Aco']['parent_id'], 1);
 	}
 
