@@ -34,7 +34,8 @@ class FilesController extends UploaderAppController {
 	public function beforeRender() {
 		$this->helpers[] = 'Uploader.Acl';
 		$userRights = $this->UploadedFile->User->getAllRights($this->Auth->user('id'));
-		$this->set(compact('userRights'));
+		$can = $this->AclAco->getRightsCheckFunctions($this->Auth->user());
+		$this->set(compact('userRights', 'can'));
 	}
 
 	public function rights($folderId) {

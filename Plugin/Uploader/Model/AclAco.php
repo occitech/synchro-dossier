@@ -60,4 +60,39 @@ class AclAco extends AclNode {
 
 		return $result;
 	}
+
+	public function getRightsCheckFunctions($userData) {
+		$functions = array();
+
+		$functions['canChangeRight'] = function ($userId, $userRoleId, $folderCreatorId) use ($userData) {
+			$hasRightToChangeRight = true;
+
+			if ($userRoleId == Configure::read('sd.Admin.roleId')) {
+				if ($userData['role_id'] == Configure::read('sd.Admin.roleId')) {
+					if ($folderCreatorId != $userData['id']) {
+						$hasRightToChangeRight = false;
+					}
+				}
+			}
+
+			if ($userData['id'] == $userId) {
+				$hasRightToChangeRight = false;
+			}
+
+			return $hasRightToChangeRight;
+		};
+
+		return $functions;
+	}
+
+	public function can($userData, $action, $params = array()) {
+		$can = false;
+
+		$functions = $this->getRightsCheckFunctions($userData);
+		if (array_key_exists($action, $functions)) {
+			$can = call_user_func_array($functions[$action], (array) $params);
+		}
+
+		return $can;
+	}
 }

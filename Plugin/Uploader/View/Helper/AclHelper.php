@@ -32,22 +32,4 @@ class AclHelper extends Helper {
 
 		return $userCan;
 	}
-
-	public function userCanChangeRight($loggedInUserId, $loggedInUserRoleId, $aroUserId, $aroRoleId, $folderCreatorId) {
-		$hasRightToChangeRight = true;
-
-		if ($aroRoleId == Configure::read('sd.Admin.roleId')) {
-			if ($loggedInUserRoleId == Configure::read('sd.Admin.roleId')) {
-				if ($folderCreatorId != $loggedInUserId) {
-					$hasRightToChangeRight = false;
-				}
-			}
-		}
-
-		if ($loggedInUserId == $aroUserId) {
-			$hasRightToChangeRight = false;
-		}
-
-		return $hasRightToChangeRight;
-	}
 }
