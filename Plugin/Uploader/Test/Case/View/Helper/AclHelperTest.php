@@ -175,8 +175,15 @@ class AclHelperTest extends CroogoTestCase {
 		$loggedInUserRoleId = 5;
 		$folderCreatorId = $loggedInUserId;
 		$aroRoleId = 5;
+		$aroUserId = 7;
 
-		$result = $this->Acl->userCanChangeRight($loggedInUserId, $loggedInUserRoleId, $aroRoleId, $folderCreatorId);
+		$result = $this->Acl->userCanChangeRight(
+			$loggedInUserId,
+			$loggedInUserRoleId,
+			$aroUserId,
+			$aroRoleId,
+			$folderCreatorId
+		);
 		
 		$this->assertTrue($result);
 	}
@@ -186,8 +193,15 @@ class AclHelperTest extends CroogoTestCase {
 		$loggedInUserRoleId = 5;
 		$folderCreatorId = 3;
 		$aroRoleId = 5;
+		$aroUserId = 7;
 
-		$result = $this->Acl->userCanChangeRight($loggedInUserId, $loggedInUserRoleId, $aroRoleId, $folderCreatorId);
+		$result = $this->Acl->userCanChangeRight(
+			$loggedInUserId,
+			$loggedInUserRoleId,
+			$aroUserId ,
+			$aroRoleId,
+			$folderCreatorId
+		);
 		
 		$this->assertFalse($result);
 	}
@@ -197,10 +211,34 @@ class AclHelperTest extends CroogoTestCase {
 		$loggedInUserRoleId = 4;
 		$folderCreatorId = 3;
 		$aroRoleId = 5;
+		$aroUserId = 7;
 
-		$result = $this->Acl->userCanChangeRight($loggedInUserId, $loggedInUserRoleId, $aroRoleId, $folderCreatorId);
+		$result = $this->Acl->userCanChangeRight(
+			$loggedInUserId,
+			$loggedInUserRoleId,
+			$aroUserId,
+			$aroRoleId,
+			$folderCreatorId
+		);
 		
 		$this->assertTrue($result);
 	}
 
+	public function testUserCanChangeRight_UserCannotChangeHisOwnRights() {
+		$loggedInUserId = 2;
+		$loggedInUserRoleId = 5;
+		$folderCreatorId = $loggedInUserId;
+		$aroRoleId = 5;
+		$aroUserId = 2;
+
+		$result = $this->Acl->userCanChangeRight(
+			$loggedInUserId,
+			$loggedInUserRoleId,
+			$aroUserId ,
+			$aroRoleId,
+			$folderCreatorId
+		);
+		
+		$this->assertFalse($result);
+	}
 }

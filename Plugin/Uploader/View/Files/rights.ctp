@@ -42,6 +42,7 @@
 		<?php $hasRightToChangeRight = $this->Acl->userCanChangeRight(
 				AuthComponent::user('id'),
 				AuthComponent::user('role_id'),
+				$aro['User']['id'],
 				$aro['User']['role_id'],
 				$folder['User']['id']
 		); ?>
