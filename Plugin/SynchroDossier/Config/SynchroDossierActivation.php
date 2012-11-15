@@ -8,6 +8,10 @@ class SynchroDossierActivation {
 		array('id' => '6', 'title' => 'Utilisateur', 'alias' => 'sdUtilisateur')
 	);
 
+	private $__occitechAcos = array(
+		'SynchroDossier/SdInformations/admin_quota'
+	);
+
 	private $__usersCRUDAcos = array(
 		'SdUsers/SdUsers/admin_index',
 		'SdUsers/SdUsers/admin_edit',
@@ -68,7 +72,8 @@ class SynchroDossierActivation {
 				$this->__removeAllMainMenuLink() &&
 				$this->__addNewMainMenuLink() &&
 				$this->__addUsersCRUDArcos($controller) &&
-				$this->__addFilesAcos($controller);
+				$this->__addFilesAcos($controller) &&
+				$this->__addOccitechAco($controller);
 
 		return $success;
 	}
@@ -127,9 +132,19 @@ class SynchroDossierActivation {
 	}
 
 	private function __removeAllAcos(&$controller) {
-		$allAcos = array_merge($this->__usersCRUDAcos, $this->__filesAcos);
+		$allAcos = array_merge(
+			$this->__usersCRUDAcos,
+			$this->__filesAcos,
+			$this->__occitechAcos
+		);
 		foreach ($allAcos as $aco) {
 			$controller->Croogo->removeAco($aco);
 		}		
+	}
+
+	private function __addOccitechAco(&$controller) {
+		foreach ($this->__occitechAcos as $aco) {
+			$controller->Croogo->addAco($aco);
+		}
 	}
 }
