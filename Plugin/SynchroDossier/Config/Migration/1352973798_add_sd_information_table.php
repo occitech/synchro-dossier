@@ -55,6 +55,13 @@ class AddSdInformationTable extends CakeMigration {
  * @access public
  */
 	public function after($direction) {
-		return true;
+		$SdInformationModel = ClassRegistry::init('SynchroDossier.SdInformation');
+
+		$infos = array(
+			'quota_mb' => 10000,
+			'current_quota_mb' => 0
+		);
+
+		return $SdInformationModel->save($infos);
 	}
 }
