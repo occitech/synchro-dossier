@@ -16,3 +16,45 @@
 .uploader .sub-version, .uploader .sub-version a {
 	color: gray;
 }
+
+
+/**
+ * From bootstrap, until we create the real design
+ */
+.label{
+	display: inline-block;
+	padding: 2px 4px;
+	font-size: 11.844px;
+	font-weight: bold;
+	line-height: 14px;
+	color: #ffffff;
+	vertical-align: baseline;
+	white-space: nowrap;
+	text-shadow: 0 -1px 0 rgba(0, 0, 0, 0.25);
+	background-color: #999999;
+	margin-left: 5px;
+}
+.label {
+	border-radius: 3px;
+}
+
+a.label:hover,
+a.badge:hover {
+	color: #ffffff;
+	text-decoration: none;
+	cursor: pointer;
+}
+
+.label-Utilisateur {
+	background-color: #3a87ad;
+}
+.label-SuperAdmin {
+	background-color: #b94a48;
+}
+.label-Admin {
+  background-color: #f89406;
+}
+
+/**
+ * End bootstrap
+ */0

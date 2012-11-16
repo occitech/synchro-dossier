@@ -20,9 +20,9 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		'plugin.uploader.file_storage',
 		'plugin.uploader.user',
 		'plugin.uploader.role',
-		'plugin.uploader.aros_aco',
 		'plugin.uploader.aco',
-		'plugin.uploader.aro'
+		'plugin.uploader.aro',
+		'plugin.uploader.aros_aco'
 	);
 
 
@@ -52,6 +52,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 	}
 
 	public function setUp() {
+		Configure::write('Acl.database', 'test');
 		parent::setUp();
 		$this->UploadedFile = ClassRegistry::init('Uploader.UploadedFile');
 		$this->data = array(
@@ -140,6 +141,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$parentId = 1;
 		$userId = 1;
 		$data = array('UploadedFile' => array('filename' => 'MygreatFile'));
+
 		$result = $this->UploadedFile->addFolder($data, $parentId, $userId);
 		$this->assertEqual($result['UploadedFile']['filename'], 'MygreatFile');	
 	}
@@ -310,6 +312,16 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->assertEqual($nbAcoAfterInsert - $nbAcoBeforeInsert, 1);
 	}
 
+	public function testAco_AfterAddSharing_ParentIdIsCorrect() {
+		$Aco = ClassRegistry::init('Aco');
+
+		$userId = 1;
+		$data = array('UploadedFile' => array('filename' => 'MygreatSharing'));
+		$this->UploadedFile->addSharing($data, $userId);
+		$result = $Aco->find('first', array('order' => 'id DESC'));
+		$this->assertEqual($result['Aco']['parent_id'], 1);
+	}
+
 	public function testAcoAfterAddSharingAlreadyExist() {
 		$Aco = ClassRegistry::init('Aco');
 
@@ -341,7 +353,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$data = array('UploadedFile' => array('filename' => 'Photos'));
 		$this->UploadedFile->addFolder($data, $folderId, $userId);
 		$acoAfterInsert = $Aco->find('first', array('order' => 'id DESC'));
-		$parentIdExpected = 209;
+		$parentIdExpected = 3;
 		$this->assertEqual($acoAfterInsert['Aco']['parent_id'], $parentIdExpected);
 	}
 

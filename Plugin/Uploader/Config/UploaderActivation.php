@@ -13,8 +13,8 @@ class UploaderActivation {
 	public function onActivation(&$controller) {
 		$this->__CroogoPlugin->migrate('Uploader');
 		$this->__CroogoPlugin->migrate('FileStorage');
+		$this->__addRootUploadedFileAco();
 	}
-
 
 	public function onDeactivation(&$controller) {
 		$this->__CroogoPlugin->unmigrate('Uploader');
@@ -27,5 +27,16 @@ class UploaderActivation {
 
 	public function beforeDeactivation(&$controller) {
 		return $this->__CroogoPlugin->deactivate('FileStorage');
+	}
+
+	private function __addRootUploadedFileAco() {
+		$Aco = ClassRegistry::init('Aco');
+		$data = array(
+			'parent_id' => null,
+			'foreign_key' => null,
+			'model' => null,
+			'alias' => 'uploadedFileAco' // Todo : Use Configure::read('sd.uploadedFileRootAco.alias')
+		);
+		$Aco->save($data);
 	}
 }

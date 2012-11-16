@@ -18,6 +18,9 @@ class FilesController extends UploaderAppController {
 					'downloadZipFolder' => 'read',
 					'upload' 			=> 'create',
 					'download' 			=> 'read',
+					'rights'			=> 'change_right',
+					'removeRight'		=> 'change_right',
+					'toggleRight'		=> 'change_right'
 				),
 			)
 		)
@@ -28,11 +31,20 @@ class FilesController extends UploaderAppController {
 		$this->Security->unlockedActions = 'upload';
 	}
 
+	public function beforeRender() {
+		$this->helpers[] = 'Uploader.Acl';
+		$userRights = $this->UploadedFile->User->getAllRights($this->Auth->user('id'));
+		$can = $this->AclAco->getRightsCheckFunctions($this->Auth->user());
+		$this->set(compact('userRights', 'can'));
+	}
+
 	public function rights($folderId) {
 		if ($this->UploadedFile->isRootFolder($folderId)) {
+			$folder = $this->UploadedFile->findById($folderId);
+			$superAdmins = $this->UploadedFile->User->find('superAdmin');
 			$acos = $this->AclAco->getRights('UploadedFile', $folderId);
 			$users = $this->UploadedFile->User->find('list');
-			$this->set(compact('acos', 'users'));
+			$this->set(compact('acos', 'users', 'superAdmins', 'folder'));
 		} else {
 			$this->Session->setFlash(__('Vous ne pouvez pas donner de droit à ce dossier'));
 		}
@@ -105,6 +117,15 @@ class FilesController extends UploaderAppController {
 		$this->helpers[] = 'Time';
 
 		$this->UploadedFile->recursive = 2;
+		$this->UploadedFile->bindModel(array(
+			'hasOne' => array(
+				'Aco' => array(
+					'className' => 'Aco',
+					'foreignKey' => 'foreign_key'
+ 				) 
+			)
+		));
+
 		if (is_null($folderId)) {
 			$files = $this->UploadedFile->find('rootDirectories'); 
 		} else {

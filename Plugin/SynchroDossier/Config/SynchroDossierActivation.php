@@ -29,6 +29,13 @@ class SynchroDossierActivation {
 		'Uploader/Files/downloadZipFolder'
 	);
 
+	private $__filesAcosAccessLimited = array(
+		'Uploader/Files/createSharing',
+		'Uploader/Files/rights',
+		'Uploader/Files/toggleRight',
+		'Uploader/Files/removeRight',
+	);
+
 	private $__links = array(
 		array(
 			'menu_id' => 3,
@@ -49,7 +56,7 @@ class SynchroDossierActivation {
 			'title' => 'Ajouter un partage',
 			'class' => 'add-partage',
 			'link' => 'plugin:uploader/controller:files/action:createSharing',
-			'visibility_roles' => '["1","4"]'
+			'visibility_roles' => '["1","4","5"]'
 		),
 		array(
 			'menu_id' => 3,
@@ -73,7 +80,9 @@ class SynchroDossierActivation {
 				$this->__addNewMainMenuLink() &&
 				$this->__addUsersCRUDArcos($controller) &&
 				$this->__addFilesAcos($controller) &&
-				$this->__addOccitechAco($controller);
+				$this->__addOccitechAco($controller) &&
+				$this->__addSuperAdminAllRightOnUploadedFile($controller);
+
 
 		return $success;
 	}
@@ -90,6 +99,14 @@ class SynchroDossierActivation {
 	}
 
 	public function beforeDeactivation(&$controller) {
+		return true;
+	}
+
+	private function __addSuperAdminAllRightOnUploadedFile(&$controller) {
+		$controller->Acl->allow(
+			array('model' => 'Role', 'foreign_key' => Configure::read('sd.SuperAdmin.roleId')),
+			Configure::read('sd.uploadedFileRootAco.alias')
+		);
 		return true;
 	}
 
@@ -116,7 +133,7 @@ class SynchroDossierActivation {
 		return $this->Link->saveMany($this->__links, array('deep' => true));
 	}
 
-	private function __addUsersCRUDArcos (&$controller) {
+	private function __addUsersCRUDAcos (&$controller) {
 		foreach ($this->__usersCRUDAcos as $aco) {
 			$controller->Croogo->removeAco($aco);
 			$controller->Croogo->addAco($aco, array('sdSuperAdmin', 'sdAdmin'));
@@ -128,6 +145,11 @@ class SynchroDossierActivation {
 		foreach ($this->__filesAcos as $aco) {
 			$controller->Croogo->addAco($aco, $this->__sdRoles);
 		}
+
+		foreach ($this->__filesAcosAccessLimited as $aco) {
+			$controller->Croogo->addAco($aco, array('sdSuperAdmin', 'sdAdmin'));
+		}
+
 		return true;		
 	}
 
