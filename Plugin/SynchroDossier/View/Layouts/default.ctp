@@ -55,7 +55,8 @@
 			</div>
 
 			<div id="sidebar" class="grid_5">
-			<?php echo $this->Regions->blocks('right'); ?>
+				<?= $this->SynchroDossier->displayQuota(); ?>
+				<?php echo $this->Regions->blocks('right'); ?>
 			</div>
 
 			<div class="clear"></div>
