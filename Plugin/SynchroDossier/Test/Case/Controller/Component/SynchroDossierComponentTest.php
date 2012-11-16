@@ -4,12 +4,6 @@ App::uses('Controller', 'Controller');
 App::uses('Component', 'Controller');
 App::uses('SynchroDossierComponent', 'SynchroDossier.Controller/Component');
 
-class AuthComponent extends Object {
-	public function user($var) {
-		return true;
-	}
-}
-
 class SynchroDossierComponentTest extends ControllerTestCase {
 
 	public function setUp() {
@@ -17,7 +11,7 @@ class SynchroDossierComponentTest extends ControllerTestCase {
 		$Collection = new ComponentCollection();
 		$this->SynchroDossier = new SynchroDossierComponent($Collection);
 		$this->Controller = new Controller();
-		$this->Controller->Auth = $this->getMock('AuthComponent');
+		$this->Controller->Auth = $this->getMock('AuthComponent', array('user'));
 	}
 
 	public function tearDown() {

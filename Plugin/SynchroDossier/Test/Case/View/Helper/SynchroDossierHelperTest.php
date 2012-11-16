@@ -9,44 +9,75 @@ App::uses('SynchroDossierHelper', 'SynchroDossier.View/Helper');
  */
 class SynchroDossierHelperTest extends CakeTestCase {
 
+	public $defaultQuota = array(
+		'quota_mb' => '10000',
+		'current_quota_mb' => '245'
+	);
+
 	public function setUp() {
 		parent::setUp();
-		$this->View = new View();
-		$this->View->set('quota', array(
-			'quota_mb' => '10000',
-			'current_quota_mb' => '245'
-		));
+
+		$this->View = $this->getMock('View');
 		$this->SynchroDossier = new SynchroDossierHelper($this->View);
 	}
 
 	public function tearDown() {
 		unset($this->SynchroDossier);
+		unset($this->View);
 
 		parent::tearDown();
 	}
 
+
 	public function testGetQuotaData() {
-		$expected = array(
-			'quota_mb' => '10000',
-			'current_quota_mb' => '245'
-		);
+		$this->View
+			->expects($this->any())
+			->method('getVar')
+			->will($this->returnValue($this->defaultQuota));
+
+		$expected = $this->defaultQuota;
 		$result = $this->SynchroDossier->getQuotaData();
 
 		$this->assertEqual($result, $expected);
 	}
 
 	public function testDisplayQuota_HasDataToPrint() {
-		$result = $this->SynchroDossier->displayQuota();
+		$this->View
+			->expects($this->any())
+			->method('getVar')
+			->will($this->returnValue($this->defaultQuota));
 
-		$this->assertContains('9.77', $result);
-		$this->assertContains('2.45%', $result);
+		$elementExpectedParams = array(
+			'toPrint' => true,
+			'quota' => 9.77,
+			'currentQuota' => 0.24,
+			'percent' => 2.45
+		);
+
+		$this->View
+			->expects($this->any())
+			->method('element')
+			->with('SynchroDossier.displayQuota', $elementExpectedParams);
+
+		$this->SynchroDossier->displayQuota();
 	}
 
 	public function testDisplayQuota_HasNotDataToPrint() {
-		$this->View->set('quota', array());
-		$result = $this->SynchroDossier->displayQuota();
+		$this->View
+			->expects($this->any())
+			->method('getVar')
+			->will($this->returnValue(array()));
 
-		$this->assertEqual($result, '');
+		$elementExpectedParams = array(
+			'toPrint' => false
+		);
+
+		$this->View
+			->expects($this->any())
+			->method('element')
+			->with('SynchroDossier.displayQuota', $elementExpectedParams);
+
+		$this->SynchroDossier->displayQuota();
 	}
 
 }
