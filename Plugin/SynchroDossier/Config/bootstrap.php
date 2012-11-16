@@ -1,5 +1,7 @@
 <?php
 
+Croogo::hookComponent('*', 'SynchroDossier.SynchroDossier');
+
 $adminMenu = array(
 	'title' => __('SynchroDossier'),
 	'url' => array(
