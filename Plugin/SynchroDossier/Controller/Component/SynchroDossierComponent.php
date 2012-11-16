@@ -9,10 +9,11 @@ class SynchroDossierComponent extends Component {
 	public $helperName = 'SynchroDossier.SynchroDossier';
 
 	public function initialize(Controller $controller) {
-		$this->hasRightToViewQuota();
+		$this->hasRightToViewQuota($controller);
 	}
 
 	public function beforeRender(Controller $controller) {
+		$controller->layout = 'SynchroDossier.default';
 		$controller->helpers[] = $this->helperName;
 		$this->__setQuotaInformation($controller);
 	}
