@@ -4,12 +4,12 @@ App::uses('Component', 'Controller');
 
 class SynchroDossierComponent extends Component {
 
-	public $hasRightToViewQuota = null;
+	public $canViewQuota = null;
 
 	public $helperName = 'SynchroDossier.SynchroDossier';
 
 	public function initialize(Controller $controller) {
-		$this->hasRightToViewQuota($controller);
+		$this->setCanViewQuota($controller);
 	}
 
 	public function beforeRender(Controller $controller) {
@@ -19,9 +19,8 @@ class SynchroDossierComponent extends Component {
 	}
 
 	private function __setQuotaInformation(Controller $controller) {
-		$SdInformationModel = ClassRegistry::init('SynchroDossier.SdInformation');
-		
-		if ($this->hasRightToViewQuota) {
+		if ($this->canViewQuota) {
+			$SdInformationModel = ClassRegistry::init('SynchroDossier.SdInformation');
 			$quota = $SdInformationModel->find('first');
 			$quota = $quota['SdInformation'];
 		} else {
@@ -30,14 +29,16 @@ class SynchroDossierComponent extends Component {
 		$controller->set(compact('quota'));
 	}
 
-	public function hasRightToViewQuota(Controller $controller) {
-		if (is_null($this->hasRightToViewQuota)) {
+	public function setCanViewQuota(Controller $controller) {
+		if (is_null($this->canViewQuota)) {
 			$roleId = $controller->Auth->user('role_id');
-			$this->hasRightToViewQuota = 
-				$roleId == Configure::read('sd.Occitech.roleId') ||
-				$roleId == Configure::read('sd.SuperAdmin.roleId') ||
-				$roleId == Configure::read('sd.Admin.roleId');
+			$supervisersRole = array(
+				Configure::read('sd.Occitech.roleId'),
+				Configure::read('sd.SuperAdmin.roleId'),
+				Configure::read('sd.Admin.roleId')
+			);
+			$this->canViewQuota = in_array($roleId, $supervisersRole);
 		}
-		return $this->hasRightToViewQuota;
+		return $this->canViewQuota;
 	}
 }

@@ -16,6 +16,8 @@ class SynchroDossierComponentTest extends ControllerTestCase {
 		parent::setUp();
 		$Collection = new ComponentCollection();
 		$this->SynchroDossier = new SynchroDossierComponent($Collection);
+		$this->Controller = new Controller();
+		$this->Controller->Auth = $this->getMock('AuthComponent');
 	}
 
 	public function tearDown() {
@@ -24,26 +26,22 @@ class SynchroDossierComponentTest extends ControllerTestCase {
 		parent::tearDown();
 	}
 
-	public function testHasRightToViewQuota_HasRight() {
-		$controller = new Controller();
-		$controller->Auth = $this->getMock('AuthComponent');
-		$controller->Auth->expects($this->any())
+	public function testSetCanViewQuota_HasRight() {
+		$this->Controller->Auth->expects($this->any())
 			->method('user')
 			->will($this->returnValue('4'));
 
-		$result = $this->SynchroDossier->hasRightToViewQuota($controller);
+		$result = $this->SynchroDossier->setCanViewQuota($this->Controller);
 		$this->assertTrue($result);
 	}
 
-	public function testHasRightToViewQuota_HasNotRight() {
-		$controller = new Controller();
-		$controller->Auth = $this->getMock('AuthComponent');
-		$controller->Auth->expects($this->once())
+	public function testSetCanViewQuota_HasNotRight() {
+		$this->Controller->Auth->expects($this->once())
 			->method('user')
 			->will($this->returnValue('6'));
 
 
-		$result = $this->SynchroDossier->hasRightToViewQuota($controller);
+		$result = $this->SynchroDossier->setCanViewQuota($this->Controller);
 		$this->assertFalse($result);
 	}
 }
