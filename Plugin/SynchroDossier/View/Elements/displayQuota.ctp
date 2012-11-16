@@ -1,3 +1,5 @@
-<div class="progress-bar">
-	<?= $percent . '% - ' . $current_quota . '/' . $quota; ?>
-</div>
+<?php if ($toPrint): ?>
+	<div class="progress-bar">
+		<?= $percent . '% - ' . $currentQuota . '/' . $quota; ?>
+	</div>
+<?php endif ?>

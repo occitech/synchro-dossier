@@ -35,11 +35,18 @@ class SynchroDossierHelperTest extends CakeTestCase {
 		$this->assertEqual($result, $expected);
 	}
 
-	public function testDisplayQuota() {
+	public function testDisplayQuota_HasDataToPrint() {
 		$result = $this->SynchroDossier->displayQuota();
 
 		$this->assertContains('9.77', $result);
 		$this->assertContains('2.45%', $result);
+	}
+
+	public function testDisplayQuota_HasNotDataToPrint() {
+		$this->View->set('quota', array());
+		$result = $this->SynchroDossier->displayQuota();
+
+		$this->assertEqual($result, '');
 	}
 
 }
