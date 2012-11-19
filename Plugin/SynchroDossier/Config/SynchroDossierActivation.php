@@ -73,12 +73,16 @@ class SynchroDossierActivation {
 		$this->Role = ClassRegistry::init('Users.Role');
 		$this->Link = ClassRegistry::init('Menus.Link');
 
+		App::uses('CroogoPlugin', 'Extensions.Lib');
+		$CroogoPlugin = new CroogoPlugin();
+		$CroogoPlugin->migrate('SynchroDossier');
+
 		$success =
 				$this->__renameAdminRole('Occitech') &&
 				$this->__addSynchroRoles() &&
 				$this->__removeAllMainMenuLink() &&
 				$this->__addNewMainMenuLink() &&
-				$this->__addUsersCRUDArcos($controller) &&
+				$this->__addUsersCRUDAcos($controller) &&
 				$this->__addFilesAcos($controller) &&
 				$this->__addOccitechAco($controller) &&
 				$this->__addSuperAdminAllRightOnUploadedFile($controller);
@@ -88,6 +92,10 @@ class SynchroDossierActivation {
 	}
 
 	public function onDeactivation(&$controller) {
+		App::uses('CroogoPlugin', 'Extensions.Lib');
+		$CroogoPlugin = new CroogoPlugin();
+		$CroogoPlugin->unmigrate('SynchroDossier');
+
 		$success =
 			$this->__removeAllAcos($controller) &&
 			$this->__removeSynchroRoles() &&
