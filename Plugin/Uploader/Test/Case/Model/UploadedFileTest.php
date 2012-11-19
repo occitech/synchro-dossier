@@ -246,8 +246,9 @@ class UploadedFileTest extends OccitechCakeTestCase {
  * Test upload
  */
 	public function testUploadAlreadyExist() {
-		$user_id = 1;
-		$this->UploadedFile->upload($this->data, $user_id, 5);
+		$user['id'] = 1;
+		$user['role_id'] = 4;
+		$this->UploadedFile->upload($this->data, $user, 5);
 		$result = $this->UploadedFile->find('first', array('conditions' => array('UploadedFile.filename' => 'Fraise.jpg')));
 		$this->assertEqual($result['UploadedFile']['id'], 4);
 		$this->assertEqual($result['UploadedFile']['current_version'], 1);
@@ -256,10 +257,11 @@ class UploadedFileTest extends OccitechCakeTestCase {
 
 	public function testUploadFileNotExist() {
 		Configure::write('FileStorage.filePattern', '{user_id}/{file_id}-{version}-{filename}');
-		$user_id = 1;
+		$user['id'] = 1;
+		$user['role_id'] = 4;
 		$this->data['FileStorage']['file']['name'] = 'Newfile.jpg';
 		$filename = Security::hash('Newfile.jpg');
-		$this->UploadedFile->upload($this->data, $user_id, 1);
+		$this->UploadedFile->upload($this->data, $user, 1);
 		
 		$result = $this->UploadedFile->find('first', array('order' => 'UploadedFile.id desc'));
 		$this->assertEqual($result['UploadedFile']['id'], 7);
@@ -269,13 +271,14 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$result = $this->UploadedFile->FileStorage->find('first', array('order' => 'id desc'));
 		$this->assertEqual($result['FileStorage']['foreign_key'], 7);
 		$this->assertEqual($result['FileStorage']['path'], '1/7-1-' . $filename);
-		$this->assertEqual($result['FileStorage']['user_id'], $user_id);
+		$this->assertEqual($result['FileStorage']['user_id'], $user['id']);
 	}
 
 	public function testUploadFileNotExistButAnotherFileHasTheSameName() {
-		$user_id = 1;
+		$user['id'] = 1;
+		$user['role_id'] = 4;
 		$folder_id = 2;
-		$this->UploadedFile->upload($this->data, $user_id, $folder_id);
+		$this->UploadedFile->upload($this->data, $user, $folder_id);
 		$result = $this->UploadedFile->find('first', array('order' => 'UploadedFile.id desc'));
 		$this->assertEqual($result['UploadedFile']['id'], 7);
 		$this->assertEqual($result['UploadedFile']['filename'], 'Fraise.jpg');

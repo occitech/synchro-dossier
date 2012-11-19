@@ -192,7 +192,7 @@ class FilesController extends UploaderAppController {
 		if ($this->request->is('post')) {
 			$uploadOk = $this->UploadedFile->upload(
 				$this->request->data,
-				$this->Auth->user('id'),
+				$this->Auth->user(),
 				$folderId,
 				$originalFilename
 			);

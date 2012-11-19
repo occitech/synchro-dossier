@@ -323,7 +323,7 @@ class UploadedFile extends UploaderAppModel {
 		return $hasError;
 	}
 
-	public function upload($data, $userId, $parentId, $originalFilename = null) {
+	public function upload($data, $user, $parentId, $originalFilename = null) {
 		$fileInfos = $data['FileStorage']['file'];
 		$result = false;
 
@@ -336,12 +336,12 @@ class UploadedFile extends UploaderAppModel {
 
 		if ($event->isStopped()) {
 			// @todo : lancer un event pour que des mails soient envoyé à qui il faut
-			$this->FileStorage->invalidate('file', $event->result['message']);
+			$this->FileStorage->invalidate('file', $event->result['message'][$user['role_id']]);
 		} else {
 			if (is_null($originalFilename) && !$this->_isANewVersion($fileInfos['name'], $parentId)) {
-				$result = $this->_uploadNewFile($data, $userId, $parentId);
+				$result = $this->_uploadNewFile($data, $user['id'], $parentId);
 			} else {
-				$result = $this->_uploadNewFileVersion($data, $userId, $parentId, $originalFilename);
+				$result = $this->_uploadNewFileVersion($data, $user['id'], $parentId, $originalFilename);
 			}
 		}
 

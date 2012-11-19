@@ -17,7 +17,9 @@ class SdQuotaBehavior extends ModelBehavior {
 
 		if ($maxSizeKb < $event->data['data']['FileStorage']['file']['size']) {
 			$event->stopPropagation();
-			$event->result['message'] = __('Il n\'y a plus d\'espace');
+			$event->result['message'][Configure::read('sd.Utilisateur.roleId')] = __('Désolé, l\'envoie de fichier n\'est actuellement pas disponible.');
+			$event->result['message'][Configure::read('sd.Admin.roleId')] = __('Le quota est atteint, vous devez contacter Mr {Nom} {Prenom}, ou supprimer des fichiers.');
+			$event->result['message'][Configure::read('sd.SuperAdmin.roleId')] = __('Le quota est atteint, vous devez commander plus de quota ou supprimer des fichiers.');
 		}
 	}
 }
