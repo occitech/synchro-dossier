@@ -20,4 +20,11 @@ class SdInformation extends SynchroDossierAppModel {
 
 		return $data['SdInformation']['current_quota_mb'];
 	}
+
+	public function remainingQuota() {
+		$quotas = $this->find('first');
+		$remainingQuota = $quotas['SdInformation']['quota_mb'] - $quotas['SdInformation']['current_quota_mb'];
+
+		return $remainingQuota;
+	}
 }
