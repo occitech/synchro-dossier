@@ -331,11 +331,20 @@ class UploadedFile extends UploaderAppModel {
 			return false;
 		}
 
-		if (is_null($originalFilename) && !$this->_isANewVersion($fileInfos['name'], $parentId)) {
-			$result = $this->_uploadNewFile($data, $userId, $parentId);
+		$event = new CakeEvent('Model.UploadedFile.beforeUpload', &$this, array('data' => $data));
+		$this->getEventManager()->dispatch($event);
+
+		if ($event->isStopped()) {
+			// @todo : lancer un event pour que des mails soient envoyé à qui il faut
+			$this->FileStorage->invalidate('file', $event->result['message']);
 		} else {
-			$result = $this->_uploadNewFileVersion($data, $userId, $parentId, $originalFilename);
+			if (is_null($originalFilename) && !$this->_isANewVersion($fileInfos['name'], $parentId)) {
+				$result = $this->_uploadNewFile($data, $userId, $parentId);
+			} else {
+				$result = $this->_uploadNewFileVersion($data, $userId, $parentId, $originalFilename);
+			}
 		}
+
 		return $result;
 	}
 

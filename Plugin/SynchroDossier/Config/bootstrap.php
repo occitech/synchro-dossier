@@ -1,5 +1,12 @@
 <?php
 
+App::uses('CakeEventManager', 'Event');
+App::uses('SdQuotaBehavior', 'SynchroDossier.Model/Behavior');
+
+$callback = new SdQuotaBehavior();
+
+CakeEventManager::instance()->attach(array($callback, 'beforeUpload'), 'Model.UploadedFile.beforeUpload');
+
 Croogo::hookComponent('*', 'SynchroDossier.SynchroDossier');
 
 $adminMenu = array(
