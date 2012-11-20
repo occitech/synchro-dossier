@@ -331,12 +331,16 @@ class UploadedFile extends UploaderAppModel {
 			return false;
 		}
 
-		$event = new CakeEvent('Model.UploadedFile.beforeUpload', &$this, array('data' => $data));
+		$event = new CakeEvent('Model.UploadedFile.beforeUpload', $this, array('data' => $data, 'user' => $user));
 		$this->getEventManager()->dispatch($event);
 
-		if ($event->isStopped()) {
-			// @todo : lancer un event pour que des mails soient envoyé à qui il faut
-			$this->FileStorage->invalidate('file', $event->result['message'][$user['role_id']]);
+		if ($event->result['hasError']) {
+			$this->getEventManager()->dispatch(new CakeEvent(
+				'Model.UploadedFile.afterUploadFailed',
+				$this,
+				array('data' => $data, 'user' => $user, 'beforeUploadResult' => $event->result))
+			);
+			$this->FileStorage->invalidate('file', $event->result['message']);
 		} else {
 			if (is_null($originalFilename) && !$this->_isANewVersion($fileInfos['name'], $parentId)) {
 				$result = $this->_uploadNewFile($data, $user['id'], $parentId);
