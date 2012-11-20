@@ -3,6 +3,11 @@
 App::uses('SynchroDossierAppModel', 'SynchroDossier.Model');
 
 class SdInformation extends SynchroDossierAppModel {
+
+	public $virtualFields = array(
+    	'remaining_quota' => 'SdInformation.quota_mb - SdInformation.current_quota_mb'
+	);
+
 	public $useTable = 'sd_information';
 
 	public $validate = array(
@@ -23,8 +28,7 @@ class SdInformation extends SynchroDossierAppModel {
 
 	public function remainingQuota() {
 		$quotas = $this->find('first');
-		$remainingQuota = $quotas['SdInformation']['quota_mb'] - $quotas['SdInformation']['current_quota_mb'];
 
-		return $remainingQuota;
+		return $quotas['SdInformation']['remaining_quota'];
 	}
 }
