@@ -1,11 +1,10 @@
 <?php
 
 App::uses('CakeEventManager', 'Event');
-App::uses('SdQuotaBehavior', 'SynchroDossier.Model/Behavior');
+App::uses('SdQuotaManager', 'SynchroDossier.Lib');
 
-$callback = new SdQuotaBehavior();
-
-CakeEventManager::instance()->attach(array($callback, 'beforeUpload'), 'Model.UploadedFile.beforeUpload');
+$callback = new SdQuotaManager();
+CakeEventManager::instance()->attach($callback);
 
 Croogo::hookComponent('*', 'SynchroDossier.SynchroDossier');
 
