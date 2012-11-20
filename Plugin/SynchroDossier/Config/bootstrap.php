@@ -29,3 +29,6 @@ $adminMenu = array(
 	),
 );
 CroogoNav::add('synchro', $adminMenu);
+
+Configure::write('sd.mail.quotaExceeded.subject', 'Synchro-Dossier - Quota dépassé');
+Configure::write('sd.mail.quotaExceeded.from', array('admin@synchro-dossier.fr' => 'Synchro Dossier'));
