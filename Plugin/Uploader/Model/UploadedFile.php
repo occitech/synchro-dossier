@@ -338,8 +338,8 @@ class UploadedFile extends UploaderAppModel {
 			$this->getEventManager()->dispatch(new CakeEvent(
 				'Model.UploadedFile.afterUploadFailed',
 				$this,
-				array('data' => $data['FileStorage'], 'user' => $user, 'beforeUploadResult' => $event->result))
-			);
+				array('data' => $data['FileStorage'], 'user' => $user, 'beforeUploadResult' => $event->result)
+			));
 			$this->FileStorage->invalidate('file', $event->result['message']);
 		} else {
 			if (is_null($originalFilename) && !$this->_isANewVersion($fileInfos['name'], $parentId)) {

@@ -3,8 +3,7 @@
 App::uses('CakeEventManager', 'Event');
 App::uses('SdQuotaManager', 'SynchroDossier.Lib');
 
-$callback = new SdQuotaManager();
-CakeEventManager::instance()->attach($callback);
+CakeEventManager::instance()->attach(new SdQuotaManager());
 
 Croogo::hookComponent('*', 'SynchroDossier.SynchroDossier');
 
@@ -30,5 +29,5 @@ $adminMenu = array(
 );
 CroogoNav::add('synchro', $adminMenu);
 
-Configure::write('sd.mail.quotaExceeded.subject', 'Synchro-Dossier - Quota dépassé');
+Configure::write('sd.mail.quotaExceeded.subject', __('Synchro-Dossier - Quota dépassé'));
 Configure::write('sd.mail.quotaExceeded.from', array('admin@synchro-dossier.fr' => 'Synchro Dossier'));

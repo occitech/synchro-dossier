@@ -14,12 +14,12 @@ class SdQuotaManager implements CakeEventListener {
 
 	public function implementedEvents() {
 		return array(
-			'Model.UploadedFile.beforeUpload' => 'beforeUpload',
-			'Model.UploadedFile.afterUploadFailed' => 'onUploadFailed'
+			'Model.UploadedFile.beforeUpload' => 'checkUploadAllowed',
+			'Model.UploadedFile.afterUploadFailed' => 'sendInsufficientQuotaNotification'
 		);
 	}
 
-	public function beforeUpload($event) {
+	public function checkUploadAllowed($event) {
 		$SdInformationModel = ClassRegistry::init('SynchroDossier.SdInformation');
 		$maxSizeKb = $SdInformationModel->remainingQuota() * 1024;
 
@@ -36,7 +36,7 @@ class SdQuotaManager implements CakeEventListener {
 		}
 	}
 
-	public function onUploadFailed($event) {
+	public function sendInsufficientQuotaNotification($event) {
 		if ($event->data['user']['role_id'] != Configure::read('sd.SuperAdmin.roleId')) {
 			$UserModel = ClassRegistry::init('SdUsers.SdUser');
 			$superAdmins = $UserModel->find('superAdmin');
