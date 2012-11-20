@@ -2,7 +2,7 @@
 
 App::uses('AclNode', 'Model');
 
-class AclAco extends AclNode {
+class UploaderAclAco extends AclNode {
 
 	public $useTable = 'acos';
 

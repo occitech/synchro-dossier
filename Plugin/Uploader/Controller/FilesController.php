@@ -1,11 +1,11 @@
 <?php
 
 App::uses('UploadedFile', 'Uploader.Model');
-App::uses('Aco', 'Uploader.Model');
+App::uses('UploaderAclAco', 'Uploader.Model');
 
 class FilesController extends UploaderAppController {
 
-	public $uses = array('Uploader.UploadedFile', 'Uploader.AclAco');
+	public $uses = array('Uploader.UploadedFile', 'Uploader.UploaderAclAco');
 
 	public $components = array(
 		'RowLevelAcl' => array(
@@ -34,7 +34,7 @@ class FilesController extends UploaderAppController {
 	public function beforeRender() {
 		$this->helpers[] = 'Uploader.Acl';
 		$userRights = $this->UploadedFile->User->getAllRights($this->Auth->user('id'));
-		$can = $this->AclAco->getRightsCheckFunctions($this->Auth->user());
+		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
 		$this->set(compact('userRights', 'can'));
 	}
 
@@ -42,7 +42,7 @@ class FilesController extends UploaderAppController {
 		if ($this->UploadedFile->isRootFolder($folderId)) {
 			$folder = $this->UploadedFile->findById($folderId);
 			$superAdmins = $this->UploadedFile->User->find('superAdmin');
-			$acos = $this->AclAco->getRights('UploadedFile', $folderId);
+			$acos = $this->UploaderAclAco->getRights('UploadedFile', $folderId);
 			$users = $this->UploadedFile->User->find('list');
 			$this->set(compact('acos', 'users', 'superAdmins', 'folder'));
 		} else {
@@ -51,7 +51,7 @@ class FilesController extends UploaderAppController {
 	} 
 
 	protected function _removeRight($acoId, $aroId) {
-		return $this->AclAco->ArosAco->deleteAll(array(
+		return $this->UploaderAclAco->ArosAco->deleteAll(array(
 			'aco_id' => $acoId,
 			'aro_id' => $aroId
 		));
