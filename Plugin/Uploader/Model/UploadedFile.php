@@ -331,14 +331,14 @@ class UploadedFile extends UploaderAppModel {
 			return false;
 		}
 
-		$event = new CakeEvent('Model.UploadedFile.beforeUpload', $this, array('data' => $data, 'user' => $user));
+		$event = new CakeEvent('Model.UploadedFile.beforeUpload', $this, array('data' => $data['FileStorage'], 'user' => $user));
 		$this->getEventManager()->dispatch($event);
 
 		if ($event->result['hasError']) {
 			$this->getEventManager()->dispatch(new CakeEvent(
 				'Model.UploadedFile.afterUploadFailed',
 				$this,
-				array('data' => $data, 'user' => $user, 'beforeUploadResult' => $event->result))
+				array('data' => $data['FileStorage'], 'user' => $user, 'beforeUploadResult' => $event->result))
 			);
 			$this->FileStorage->invalidate('file', $event->result['message']);
 		} else {

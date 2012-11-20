@@ -317,7 +317,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		);
 
 		$expectedArray = array(
-			'data' => $data,
+			'data' => $data['FileStorage'],
 			'user' => $user,
 			'beforeUploadResult' => array (
 				'hasError' => true,
@@ -351,7 +351,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$callbackForNewMessage = $this->expectEventDispatched(
 			'Model.UploadedFile.beforeUpload',
 			$this->isInstanceOf($this->UploadedFile),
-			$this->logicalAnd($this->equalTo(array('data' => $data, 'user' => $user)))
+			$this->logicalAnd($this->equalTo(array('data' => $data['FileStorage'], 'user' => $user)))
 		);
 
 		$this->UploadedFile->upload($data, $user, 3);
