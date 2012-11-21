@@ -349,6 +349,14 @@ class UploadedFile extends UploaderAppModel {
 			}
 		}
 
+		if ($result) {
+			$this->getEventManager()->dispatch(new CakeEvent(
+				'Model.UploadedFile.afterUploadSuccess',
+				$this,
+				array('data' => $data['FileStorage'], 'user' => $user
+			)));
+		}
+
 		return $result;
 	}
 

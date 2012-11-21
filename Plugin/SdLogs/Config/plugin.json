@@ -1,0 +1,9 @@
+{
+	"name": "SdLogs",
+	"description": "",
+
+	"dependencies": {
+		"plugins": [
+		]
+	}
+}
