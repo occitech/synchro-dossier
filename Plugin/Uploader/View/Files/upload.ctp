@@ -1,24 +1,17 @@
 <?= $this->Plupload->css(); ?>
-<?= $this->Plupload->plupload(array('url' => $this->here)); ?>
+<?= $this->Plupload->plupload(array('url' => $this->here, 'max_file_size' => '100mb')); ?>
 
 <script type="text/javascript">
 $(function() {
-	$('form').submit(function(e) {
-        var uploader = $('#uploader').pluploadQueue();
-        if (uploader.files.length > 0) {
-            uploader.bind('StateChanged', function() {
-                if (uploader.files.length === (uploader.total.uploaded + uploader.total.failed)) {
-                    $('form')[0].submit();
-                }
-            });
-                
-            uploader.start();
-        } else {
-            alert('You must queue at least one file.');
-        }
+	var uploader = $('#uploader').pluploadQueue();
+	uploader.bind('FileUploaded', function(uploader, file, response) {
+		response = $.parseJSON(response.response);
+		if (response.error) {
+			alert(response.error.message);
+		};
+	});
 
-        return false;
-    });
+	return false;
 });
 </script>
 
