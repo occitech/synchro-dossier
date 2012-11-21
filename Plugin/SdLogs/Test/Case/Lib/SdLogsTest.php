@@ -5,7 +5,7 @@ App::uses('SdLogs', 'SdLogs.Lib');
 App::uses('SdLog', 'SdLogs.SdLog');
 App::uses('CakeEvent', 'Event');
 
-class SdQuotaManagerTest extends CroogoTestCase {
+class SdLogsTest extends CroogoTestCase {
 
 	public $fixtures = array(
 		'plugin.uploader.sd_information',
@@ -27,8 +27,6 @@ class SdQuotaManagerTest extends CroogoTestCase {
 
 	public function testAfterUpladSuccess_LogAdded() {
 		$SdLogModel = ClassRegistry::init('SdLogs.SdLog');
-
-
 
 		$event = $this->getMockBuilder('CakeEvent')
 			->disableOriginalConstructor()
