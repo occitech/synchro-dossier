@@ -48,4 +48,10 @@ class SdInformationTest extends CakeTestCase {
 		$this->assertEqual($result, 3);
 	}
 
+	public function testRemainingQuota() {
+		$result = $this->SdInformation->remainingQuota();
+
+		$this->assertEqual($result, 7);
+	}
+
 }

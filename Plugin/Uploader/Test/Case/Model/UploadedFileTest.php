@@ -22,7 +22,8 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		'plugin.uploader.role',
 		'plugin.uploader.aco',
 		'plugin.uploader.aro',
-		'plugin.uploader.aros_aco'
+		'plugin.uploader.aros_aco',
+		'plugin.uploader.sd_information'
 	);
 
 
@@ -246,8 +247,9 @@ class UploadedFileTest extends OccitechCakeTestCase {
  * Test upload
  */
 	public function testUploadAlreadyExist() {
-		$user_id = 1;
-		$this->UploadedFile->upload($this->data, $user_id, 5);
+		$user['id'] = 1;
+		$user['role_id'] = 4;
+		$this->UploadedFile->upload($this->data, $user, 5);
 		$result = $this->UploadedFile->find('first', array('conditions' => array('UploadedFile.filename' => 'Fraise.jpg')));
 		$this->assertEqual($result['UploadedFile']['id'], 4);
 		$this->assertEqual($result['UploadedFile']['current_version'], 1);
@@ -256,10 +258,11 @@ class UploadedFileTest extends OccitechCakeTestCase {
 
 	public function testUploadFileNotExist() {
 		Configure::write('FileStorage.filePattern', '{user_id}/{file_id}-{version}-{filename}');
-		$user_id = 1;
+		$user['id'] = 1;
+		$user['role_id'] = 4;
 		$this->data['FileStorage']['file']['name'] = 'Newfile.jpg';
 		$filename = Security::hash('Newfile.jpg');
-		$this->UploadedFile->upload($this->data, $user_id, 1);
+		$this->UploadedFile->upload($this->data, $user, 1);
 		
 		$result = $this->UploadedFile->find('first', array('order' => 'UploadedFile.id desc'));
 		$this->assertEqual($result['UploadedFile']['id'], 7);
@@ -269,13 +272,14 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$result = $this->UploadedFile->FileStorage->find('first', array('order' => 'id desc'));
 		$this->assertEqual($result['FileStorage']['foreign_key'], 7);
 		$this->assertEqual($result['FileStorage']['path'], '1/7-1-' . $filename);
-		$this->assertEqual($result['FileStorage']['user_id'], $user_id);
+		$this->assertEqual($result['FileStorage']['user_id'], $user['id']);
 	}
 
 	public function testUploadFileNotExistButAnotherFileHasTheSameName() {
-		$user_id = 1;
+		$user['id'] = 1;
+		$user['role_id'] = 4;
 		$folder_id = 2;
-		$this->UploadedFile->upload($this->data, $user_id, $folder_id);
+		$this->UploadedFile->upload($this->data, $user, $folder_id);
 		$result = $this->UploadedFile->find('first', array('order' => 'UploadedFile.id desc'));
 		$this->assertEqual($result['UploadedFile']['id'], 7);
 		$this->assertEqual($result['UploadedFile']['filename'], 'Fraise.jpg');
@@ -297,6 +301,62 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$result = file_exists(Configure::read('FileStorage.testFolder') . DS . $owner_id . DS . '4-2-' . $filename);
 		$this->assertEqual($result, true);
 	}
+
+	public function testUpload_EventAfterUploadFailed_CorrectlyLaunched() {
+		$user = array('id' => 1, 'role_id' => 4);
+		$data = array(
+			'FileStorage' => array(
+				'file' => array(
+					'name' => 'Fraise.jpg',
+					'type' => 'text/x-gettext-translation',
+					'tmp_name' => '/tmp/phpTmnlQd',
+					'error' => 0,
+					'size' => 71881000000000
+				)
+			)
+		);
+
+		$expectedArray = array(
+			'data' => $data['FileStorage'],
+			'user' => $user,
+			'beforeUploadResult' => array (
+				'hasError' => true,
+				'message' => 'Le quota est atteint, vous devez commander plus de quota ou supprimer des fichiers.'
+			)
+		);
+
+		$callbackForNewMessage = $this->expectEventDispatched(
+			'Model.UploadedFile.afterUploadFailed',
+			$this->isInstanceOf($this->UploadedFile),
+			$this->logicalAnd($this->equalTo($expectedArray))
+		);
+
+		$this->UploadedFile->upload($data, $user, 3);
+	}
+
+	public function testUpload_EventBeforeUpload_CorrectlyLaunched() {
+		$user = array('id' => 1, 'role_id' => 4);
+		$data = array(
+			'FileStorage' => array(
+				'file' => array(
+					'name' => 'Fraise.jpg',
+					'type' => 'text/x-gettext-translation',
+					'tmp_name' => '/tmp/phpTmnlQd',
+					'error' => 0,
+					'size' => 71881
+				)
+			)
+		);
+
+		$callbackForNewMessage = $this->expectEventDispatched(
+			'Model.UploadedFile.beforeUpload',
+			$this->isInstanceOf($this->UploadedFile),
+			$this->logicalAnd($this->equalTo(array('data' => $data['FileStorage'], 'user' => $user)))
+		);
+
+		$this->UploadedFile->upload($data, $user, 3);
+	}
+
 
 /**
  * Test ACOs
@@ -361,9 +421,10 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$Aco = ClassRegistry::init('Aco');
 
 		$folderId = 1;
-		$userId = 1;
+		$user['id'] = 1;
+		$user['role_id'] = 4;
 		$nbAcoBeforeInsert = $Aco->find('count');
-		$this->UploadedFile->upload($this->data, $userId, $folderId);
+		$this->UploadedFile->upload($this->data, $user, $folderId);
 		$nbAcoAfterInsert = $Aco->find('count');
 		$this->assertEqual($nbAcoAfterInsert - $nbAcoBeforeInsert, 1);
 	}
@@ -372,9 +433,10 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$Aco = ClassRegistry::init('Aco');
 
 		$folderId = 3;
-		$userId = 1;
+		$user['id'] = 1;
+		$user['role_id'] = 4;
 		$nbAcoBeforeInsert = $Aco->find('count');
-		$this->UploadedFile->upload($this->data, $userId, $folderId);
+		$this->UploadedFile->upload($this->data, $user, $folderId);
 		$nbAcoAfterInsert = $Aco->find('count');
 		$this->assertEqual($nbAcoAfterInsert, $nbAcoBeforeInsert);
 	}

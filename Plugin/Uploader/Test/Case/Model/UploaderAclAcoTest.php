@@ -5,7 +5,7 @@ App::uses('AclAco', 'Uploader.Model');
  * Aco Test Case
  *
  */
-class AclAcoTest extends CakeTestCase {
+class UploaderAclAcoTest extends CakeTestCase {
 
 /**
  * Fixtures
@@ -24,7 +24,7 @@ class AclAcoTest extends CakeTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		$this->Aco = ClassRegistry::init('Uploader.AclAco');
+		$this->Aco = ClassRegistry::init('Uploader.UploaderAclAco');
 	}
 
 	public function tearDown() {
@@ -41,7 +41,7 @@ class AclAcoTest extends CakeTestCase {
 	}
 
 	public function testGetRights_HasNotAro() {
-		$result = $this->Aco->getRights('UploadedFile', 3);
+		$result = $this->Aco->getRights('UploadedFile', 4);
 
 		$this->assertTrue(empty($result['Aro']));
 	}

@@ -323,7 +323,7 @@ class UploadedFile extends UploaderAppModel {
 		return $hasError;
 	}
 
-	public function upload($data, $userId, $parentId, $originalFilename = null) {
+	public function upload($data, $user, $parentId, $originalFilename = null) {
 		$fileInfos = $data['FileStorage']['file'];
 		$result = false;
 
@@ -331,11 +331,24 @@ class UploadedFile extends UploaderAppModel {
 			return false;
 		}
 
-		if (is_null($originalFilename) && !$this->_isANewVersion($fileInfos['name'], $parentId)) {
-			$result = $this->_uploadNewFile($data, $userId, $parentId);
+		$event = new CakeEvent('Model.UploadedFile.beforeUpload', $this, array('data' => $data['FileStorage'], 'user' => $user));
+		$this->getEventManager()->dispatch($event);
+
+		if ($event->result['hasError']) {
+			$this->getEventManager()->dispatch(new CakeEvent(
+				'Model.UploadedFile.afterUploadFailed',
+				$this,
+				array('data' => $data['FileStorage'], 'user' => $user, 'beforeUploadResult' => $event->result)
+			));
+			$this->FileStorage->invalidate('file', $event->result['message']);
 		} else {
-			$result = $this->_uploadNewFileVersion($data, $userId, $parentId, $originalFilename);
+			if (is_null($originalFilename) && !$this->_isANewVersion($fileInfos['name'], $parentId)) {
+				$result = $this->_uploadNewFile($data, $user['id'], $parentId);
+			} else {
+				$result = $this->_uploadNewFileVersion($data, $user['id'], $parentId, $originalFilename);
+			}
 		}
+
 		return $result;
 	}
 
