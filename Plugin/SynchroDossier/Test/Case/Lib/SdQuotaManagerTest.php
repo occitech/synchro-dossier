@@ -41,7 +41,7 @@ class SdQuotaManagerTest extends CroogoTestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$event->data['data']['file']['size'] = 100000000;
+		$event->data['data']['file']['size'] = 1000000000000;
 		$event->data['user']['role_id'] = 4;
 
 		$this->SdQuotaManager->checkUploadAllowed(&$event);

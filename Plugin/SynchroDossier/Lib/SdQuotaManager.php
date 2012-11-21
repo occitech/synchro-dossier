@@ -30,7 +30,8 @@ class SdQuotaManager implements CakeEventListener {
 		);
 
 		$event->result['hasError'] = false;
-		if ($maxSizeKb < $event->data['data']['file']['size']) {
+		$filesizeKb = $event->data['data']['file']['size'] / 1024;
+		if ($maxSizeKb < $filesizeKb) {
 			$event->result['hasError'] = true;
 			$event->result['message'] = $messages[$event->data['user']['role_id']];
 		}
