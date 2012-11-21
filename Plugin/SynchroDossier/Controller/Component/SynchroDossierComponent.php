@@ -13,7 +13,7 @@ class SynchroDossierComponent extends Component {
 	}
 
 	public function beforeRender(Controller $controller) {
-		if ($controller->request->params['prefix'] != 'admin') {
+		if (isset($controller->request->params['prefix']) && $controller->request->params['prefix'] != 'admin') {
 			$controller->layout = 'SynchroDossier.default';
 		}
 		$controller->helpers[] = $this->helperName;
