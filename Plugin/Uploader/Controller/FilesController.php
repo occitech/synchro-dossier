@@ -8,6 +8,7 @@ class FilesController extends UploaderAppController {
 	public $uses = array('Uploader.UploadedFile', 'Uploader.UploaderAclAco');
 
 	public $components = array(
+		'Plupload.Plupload',
 		'RowLevelAcl' => array(
 			'className' => 'Acl.RowLevelAcl',
 			'settings' => array(
@@ -33,6 +34,7 @@ class FilesController extends UploaderAppController {
 
 	public function beforeRender() {
 		$this->helpers[] = 'Uploader.Acl';
+		$this->helpers[] = 'Plupload.Plupload';
 		$userRights = $this->UploadedFile->User->getAllRights($this->Auth->user('id'));
 		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
 		$this->set(compact('userRights', 'can'));
@@ -189,16 +191,22 @@ class FilesController extends UploaderAppController {
  *
  */	
 	public function upload($folderId, $originalFilename = null) {
-		if ($this->request->is('post')) {
-			$uploadOk = $this->UploadedFile->upload(
-				$this->request->data,
-				$this->Auth->user(),
-				$folderId,
-				$originalFilename
-			);
-			if ($uploadOk) {
-				$this->redirect(array('controller' => 'files', 'action' => 'browse', $folderId));
+		if (isset($_REQUEST['name'])) {
+			list($uploadFinished, $response, $filePath) = $this->Plupload->upload();
+			if ($uploadFinished) {
+				$data = array('file' => array(
+					'name' => $_REQUEST['name'],
+					'type' => '@fixme',
+					'tmp_name' => $filePath,
+					'error' => 0,
+					'size' => filesize($filePath)
+				));
+				$uploadOk = $this->UploadedFile->upload($data, $this->Auth->user(), $folderId, $originalFilename);
+				if (!$uploadOk) {
+					debug($this->UploadedFile->FileStorage->invalidFields()); die;
+				}
 			}
+			die($response);
 		}
 	}
 
