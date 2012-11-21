@@ -4,8 +4,10 @@ App::uses('Component', 'Controller');
 
 class PluploadComponent extends Component {
 
-	public function upload($directory) {
-		$hasError = false;
+	public function upload() {
+		$uploadFinished = false;
+		$directory = sys_get_temp_dir();
+
 		$filename = isset($_REQUEST['name']) ? $_REQUEST['name'] : '';
 		$currentChunk = isset($_REQUEST['chunk']) ? intval($_REQUEST['chunk']) : 0;
 		$nbChunks = isset($_REQUEST['chunks']) ? intval($_REQUEST['chunks']) : 0;
@@ -24,14 +26,14 @@ class PluploadComponent extends Component {
 		if (is_null($error)) {
 			if (!$nbChunks || $currentChunk == $nbChunks - 1) {
 				rename("{$filePath}.part", $filePath);
+				$uploadFinished = true;
 			}
 			$response = '{"jsonrpc" : "2.0", "result" : null, "id" : "id"}';
 		} else {
-			$hasError = true;
 			$response = $error;
 		}
 
-		return array($hasError, $response);
+		return array($uploadFinished, $response, $filePath);
 	}
 
 	/**
@@ -40,7 +42,7 @@ class PluploadComponent extends Component {
 	protected function _getUniqueFileName($filename, $directory, $nbChunks) {
 		$newFilename = $filename;
 
-		if ($chunks < 2 && file_exists($directory . DS . $filename)) {
+		if ($nbChunks < 2 && file_exists($directory . DS . $filename)) {
 			$extentionPosition = strrpos($filename, '.');
 			$fileNameWithoutExtention = substr($filename, 0, $extentionPosition);
 			$extention = substr($filename, $extentionPosition);
