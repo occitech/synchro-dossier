@@ -10,12 +10,24 @@ class SdLogs implements CakeEventListener {
 
 	public function implementedEvents() {
 		return array(
-			'Model.UploadedFile.afterUploadSuccess' => 'afterUploadSuccess',
+			'Controller.FilesController.afterChangeRight' => 'afterChangeRight',
 		);
 	}
 
-	public function afterUploadSuccess($event) {
+	protected function _saveLogs($model, $foreignKey, $type, $data) {
 		$LogModel = ClassRegistry::init('SdLogs.SdLog');
+
+		$logData = array(
+			'model' => $model,
+			'foreign_key' => $foreignKey,
+			'type' => $type,
+			'data' => json_encode($data)
+		);
+
+		$LogModel->save($logData);
+	}
+
+	public function afterChangeRight($event) {
 		$UserModel = ClassRegistry::init('SdUsers.SdUser');
 
 		$user = $UserModel->findById($event->data['user']['id']);
@@ -27,14 +39,6 @@ class SdLogs implements CakeEventListener {
 			'email' => $user['User']['email']
 		);
 
-		$logData = array(
-			'model' => $event->subject()->alias,
-			'foreign_key' => $event->subject()->id,
-			'type' => self::CHANGE_RIGHT,
-			'data' => serialize($data)
-		);
-
-		$LogModel->save($logData);
+		$this->_saveLogs($event->data['model'], $event->data['foreign_key'], self::CHANGE_RIGHT, $data);
 	}
-
 }
