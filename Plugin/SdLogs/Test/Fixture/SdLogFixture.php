@@ -32,81 +32,9 @@ class SdLogFixture extends CakeTestFixture {
 		array(
 			'id' => 1,
 			'type' => 1,
-			'model' => 'Lorem ipsum dolor sit amet',
+			'model' => 'myModel',
 			'foreign_key' => 1,
-			'data' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'created' => '2012-11-21 11:57:25'
-		),
-		array(
-			'id' => 2,
-			'type' => 2,
-			'model' => 'Lorem ipsum dolor sit amet',
-			'foreign_key' => 2,
-			'data' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'created' => '2012-11-21 11:57:25'
-		),
-		array(
-			'id' => 3,
-			'type' => 3,
-			'model' => 'Lorem ipsum dolor sit amet',
-			'foreign_key' => 3,
-			'data' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'created' => '2012-11-21 11:57:25'
-		),
-		array(
-			'id' => 4,
-			'type' => 4,
-			'model' => 'Lorem ipsum dolor sit amet',
-			'foreign_key' => 4,
-			'data' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'created' => '2012-11-21 11:57:25'
-		),
-		array(
-			'id' => 5,
-			'type' => 5,
-			'model' => 'Lorem ipsum dolor sit amet',
-			'foreign_key' => 5,
-			'data' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'created' => '2012-11-21 11:57:25'
-		),
-		array(
-			'id' => 6,
-			'type' => 6,
-			'model' => 'Lorem ipsum dolor sit amet',
-			'foreign_key' => 6,
-			'data' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'created' => '2012-11-21 11:57:25'
-		),
-		array(
-			'id' => 7,
-			'type' => 7,
-			'model' => 'Lorem ipsum dolor sit amet',
-			'foreign_key' => 7,
-			'data' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'created' => '2012-11-21 11:57:25'
-		),
-		array(
-			'id' => 8,
-			'type' => 8,
-			'model' => 'Lorem ipsum dolor sit amet',
-			'foreign_key' => 8,
-			'data' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'created' => '2012-11-21 11:57:25'
-		),
-		array(
-			'id' => 9,
-			'type' => 9,
-			'model' => 'Lorem ipsum dolor sit amet',
-			'foreign_key' => 9,
-			'data' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
-			'created' => '2012-11-21 11:57:25'
-		),
-		array(
-			'id' => 10,
-			'type' => 10,
-			'model' => 'Lorem ipsum dolor sit amet',
-			'foreign_key' => 10,
-			'data' => 'Lorem ipsum dolor sit amet, aliquet feugiat. Convallis morbi fringilla gravida, phasellus feugiat dapibus velit nunc, pulvinar eget sollicitudin venenatis cum nullam, vivamus ut a sed, mollitia lectus. Nulla vestibulum massa neque ut et, id hendrerit sit, feugiat in taciti enim proin nibh, tempor dignissim, rhoncus duis vestibulum nunc mattis convallis.',
+			'data' => 'a:4:{s:7:"user_id";s:1:"2";s:4:"name";s:6:"admin1";s:9:"firstname";s:6:"admin1";s:5:"email";s:17:"admin1@admin1.com";}',
 			'created' => '2012-11-21 11:57:25'
 		),
 	);
