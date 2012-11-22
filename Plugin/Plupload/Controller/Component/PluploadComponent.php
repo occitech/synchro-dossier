@@ -12,10 +12,10 @@ class PluploadComponent extends Component {
 		$currentChunk = isset($_REQUEST['chunk']) ? intval($_REQUEST['chunk']) : 0;
 		$nbChunks = isset($_REQUEST['chunks']) ? intval($_REQUEST['chunks']) : 0;
 
-		if (isset($_SERVER["CONTENT_TYPE"])) {
-			$contentType = $_SERVER["CONTENT_TYPE"];
-		} elseif (isset($_SERVER["HTTP_CONTENT_TYPE"])) {
-			$contentType = $_SERVER["HTTP_CONTENT_TYPE"];
+		if (!is_null(env("CONTENT_TYPE"))) {
+			$contentType = env("CONTENT_TYPE");
+		} elseif (!is_null(env("HTTP_CONTENT_TYPE"))) {
+			$contentType = env("HTTP_CONTENT_TYPE");
 		}
 
 		$filename = $this->_getUniqueFileName($filename, $directory, $nbChunks);
