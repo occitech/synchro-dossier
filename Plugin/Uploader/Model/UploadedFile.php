@@ -22,6 +22,14 @@ class UploadedFile extends UploaderAppModel {
 		)
 	);
 
+	public $hasOne = array(
+		'Aco' => array(
+			'className' => 'Aco',
+			'foreignKey' => 'foreign_key',
+			'conditions' => array('Aco.model' => 'UploadedFile')
+ 		)
+	);
+
 	public $hasMany = array(
 		'ChildUploadedFile' => array(
 			'className' => 'UploadedFile',
@@ -39,6 +47,12 @@ class UploadedFile extends UploaderAppModel {
 		'FileStorage' => array(
 			'className' => 'FileStorage.FileStorage',
 			'foreignKey' => 'foreign_key'
+		),
+		'Comment' => array(
+			'className' => 'Comments.Comment',
+			'foreignKey' => 'foreign_key',
+			'conditions' => array('Comment.model' => 'UploadedFile'),
+			'order' => 'created DESC'
 		)
 	);
 
