@@ -1,4 +1,4 @@
-<h3>Ajouter un commentaire sur le ficher : <?= $file['UploadedFile']['filename']; ?></h3>
+<h3><?= __('Ajouter un commentaire sur le ficher : ') . $file['UploadedFile']['filename']; ?></h3>
 <?= $this->Form->create('Comment'); ?>
 
 <?= $this->Form->input('Comment.body', array('label' => 'Commentaire :')); ?>
