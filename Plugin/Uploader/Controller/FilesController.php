@@ -201,6 +201,7 @@ class FilesController extends UploaderAppController {
 				$this->redirect(array('controller' => 'files', 'action' => 'browse', $folderId));
 			}
 		}
+		$this->set(compact('folderId'));
 	}
 
 	public function download($fileStorageId = null) {

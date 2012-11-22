@@ -1,8 +1,10 @@
 <div class="nodes promoted">
-	<?php echo $this->Form->create('File', array('type' => 'file')); ?>
+	<?= $this->Form->create('File', array('type' => 'file')); ?>
 
-	<?php echo $this->Form->input('FileStorage.file', array('type' => 'file'));?>
+	<?= $this->Form->hidden('UploadedFile.id', array('value' =>$folderId)); // For AclRowLevel ?>
+
+	<?= $this->Form->input('FileStorage.file', array('type' => 'file'));?>
 	
-	<?php echo $this->Form->submit('Upload'); ?>
-	<?php echo $this->Form->end(); ?>
+	<?= $this->Form->submit('Upload'); ?>
+	<?= $this->Form->end(); ?>
 </div>
