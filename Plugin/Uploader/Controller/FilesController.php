@@ -5,7 +5,7 @@ App::uses('UploaderAclAco', 'Uploader.Model');
 
 class FilesController extends UploaderAppController {
 
-	public $uses = array('Uploader.UploadedFile', 'Uploader.UploaderAclAco');
+	public $uses = array('Uploader.UploadedFile', 'Uploader.UploaderAclAco', 'Permission');
 
 	public $components = array(
 		'RowLevelAcl' => array(
@@ -66,7 +66,7 @@ class FilesController extends UploaderAppController {
 	}
 
 	protected function _allowRight($uploadedFileId, $userId, $action) {
-		$this->Acl->allow(
+		$this->Permission->allow(
 			array('model' => 'User', 'foreign_key' => $userId),
 			array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
 			$action
@@ -104,6 +104,15 @@ class FilesController extends UploaderAppController {
 			if (!($isNewUserRight && $isRightActive)) {
 				$method = ($isRightActive) ? '_denyRight' : '_allowRight';
 				$this->{$method}($uploadedFileId, $userId, $action);
+				$this->getEventManager()->dispatch(new CakeEvent(
+					'Controller.FilesController.afterChangeRight',
+					$this,
+					array(
+						'user' => array('id' => $userId),
+						'model' => 'Permission',
+						'foreign_key' => $this->Permission->id
+					)
+				));
 			}
 
 		} else {

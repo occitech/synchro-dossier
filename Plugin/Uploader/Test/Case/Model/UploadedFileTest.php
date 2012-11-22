@@ -67,6 +67,10 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		)));
 		Configure::write('FileStorage.adapter', 'Test');
 		file_put_contents('/tmp/phpTmnlQd', 'Hi !');
+
+		$this->detachEvent('Model.UploadedFile.beforeUpload');
+		$this->detachEvent('Model.UploadedFile.afterUploadSuccess');
+		$this->detachEvent('Model.UploadedFile.afterUploadFailed');
 	}
 
 	public function tearDown() {
@@ -302,6 +306,11 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->assertEqual($result, true);
 	}
 
+	public function listener_SetHasErrorToTrue ($event) {
+		$event->result['hasError'] = true;
+		$event->result['message'] = 'really ?';
+	}
+
 	public function testUpload_EventAfterUploadFailed_CorrectlyLaunched() {
 		$user = array('id' => 1, 'role_id' => 4);
 		$data = array(
@@ -316,12 +325,17 @@ class UploadedFileTest extends OccitechCakeTestCase {
 			)
 		);
 
+		$this->UploadedFile->getEventManager()->attach(
+			array($this, 'listener_SetHasErrorToTrue'),
+			'Model.UploadedFile.beforeUpload'
+		);
+
 		$expectedArray = array(
 			'data' => $data['FileStorage'],
 			'user' => $user,
 			'beforeUploadResult' => array (
 				'hasError' => true,
-				'message' => 'Le quota est atteint, vous devez commander plus de quota ou supprimer des fichiers.'
+				'message' => 'really ?'
 			)
 		);
 
@@ -357,6 +371,28 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->UploadedFile->upload($data, $user, 3);
 	}
 
+	public function testUpload_AfterUploadSucces_CorrectlyLaunched() {
+		$user = array('id' => 1, 'role_id' => 4);
+		$data = array(
+			'FileStorage' => array(
+				'file' => array(
+					'name' => 'Fraise.jpg',
+					'type' => 'text/x-gettext-translation',
+					'tmp_name' => '/tmp/phpTmnlQd',
+					'error' => 0,
+					'size' => 71881
+				)
+			)
+		);
+
+		$callbackForNewMessage = $this->expectEventDispatched(
+			'Model.UploadedFile.afterUploadSuccess',
+			$this->isInstanceOf($this->UploadedFile),
+			$this->logicalAnd($this->equalTo(array('data' => $data['FileStorage'], 'user' => $user)))
+		);
+
+		$this->UploadedFile->upload($data, $user, 3);
+	}
 
 /**
  * Test ACOs
