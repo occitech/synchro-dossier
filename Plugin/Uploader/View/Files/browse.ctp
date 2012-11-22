@@ -106,6 +106,15 @@
 									$file['UploadedFile']['filename']
 								)
 							); ?>
+							<?= $this->Html->link(
+								__('Commenter') . ' (' . count($file['Comment']) . ')' ,
+								array(
+									'controller' => 'comments',
+									'action' => 'add',
+									$file['UploadedFile']['id'],
+								)
+							); ?>
+
 						<?php endif; ?>
 					</td>
 				</tr>
