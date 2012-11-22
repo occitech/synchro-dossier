@@ -17,7 +17,7 @@ $(function() {
 
 <form ..>
 	<div id="uploader">
-		<p>You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.</p>
+		<p><?= __('You browser doesn\'t have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.'); ?></p>
 	</div>
 </form>
 			
