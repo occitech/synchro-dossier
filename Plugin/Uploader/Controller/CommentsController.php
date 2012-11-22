@@ -16,7 +16,7 @@ class CommentsController extends UploaderAppController {
 			$this->request->data['Comment']['model'] = 'UploadedFile';
 			$this->request->data['Comment']['foreign_key'] = $fileId;
 			$this->request->data['Comment']['name'] = $this->Auth->user('username');
-			$this->request->data['Comment']['email'] = 'azmimik@gmail.com';
+			$this->request->data['Comment']['email'] = $this->Auth->user('email');
 			if ($this->Comment->save($this->request->data)) {
 				$this->redirect(array(
 					'controller' => 'files',
