@@ -36,6 +36,14 @@ class PluploadComponent extends Component {
 		return array($uploadFinished, $response, $filePath);
 	}
 
+	public function generateJsonMessage($options) {
+		$default = array('jsonrpc' => '2.0', 'result' => null);
+
+		$options = array_merge($default, $options);
+
+		return json_encode($options);
+	}
+
 	/**
 	 * Return an unique filename if chunking is disabled, else we return given filename
 	 */
