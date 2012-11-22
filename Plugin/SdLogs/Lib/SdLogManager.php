@@ -4,7 +4,7 @@ App::uses('CakeEventListener', 'Event');
 App::uses('SdUser', 'SdUsers.Model');
 App::uses('CakeEmail', 'Network/Email');
 
-class SdLogs implements CakeEventListener {
+class SdLogManager implements CakeEventListener {
 
 	const CHANGE_RIGHT = 1;
 

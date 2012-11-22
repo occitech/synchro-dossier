@@ -1,11 +1,11 @@
 <?php
 
 App::uses('CroogoTestCase', 'TestSuite');
-App::uses('SdLogs', 'SdLogs.Lib');
+App::uses('SdLogManager', 'SdLogs.Lib');
 App::uses('SdLog', 'SdLogs.SdLog');
 App::uses('CakeEvent', 'Event');
 
-class SdLogsTest extends CroogoTestCase {
+class SdLogManagerTest extends CroogoTestCase {
 
 	public $fixtures = array(
 		'plugin.uploader.sd_information',
@@ -17,7 +17,7 @@ class SdLogsTest extends CroogoTestCase {
 
 	public function setUp() {
 		parent::setUp();
-		$this->SdLogs = ClassRegistry::init('SdLogs.SdLogs');
+		$this->SdLogs = ClassRegistry::init('SdLogs.SdLogManager');
 	}
 
 	public function tearDown() {
