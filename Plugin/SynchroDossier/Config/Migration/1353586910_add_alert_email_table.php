@@ -18,7 +18,7 @@ class AddAlertEmailTable extends CakeMigration {
 	public $migration = array(
 		'up' => array(
 			'create_table' => array(
-				'alert_emails' => array(
+				'sd_alert_emails' => array(
 					'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 					'user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 					'uploaded_file_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
@@ -31,7 +31,7 @@ class AddAlertEmailTable extends CakeMigration {
 		),
 		'down' => array(
 			'drop_table' => array(
-				'alert_emails'
+				'sd_alert_emails'
 			),
 		),
 	);

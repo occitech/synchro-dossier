@@ -2,7 +2,7 @@
 
 App::uses('SynchroDossierAppModel', 'SynchroDossier.Model');
 
-class AlertEmail extends SynchroDossierAppModel {
+class SdAlertEmail extends SynchroDossierAppModel {
 
 	public $belongsTo = array(
 		'User' => array(
