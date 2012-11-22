@@ -28,17 +28,20 @@ class SdAlertEmailsController extends SynchroDossierAppController {
 			foreach ($userToAlert as $user) {
 				$to[$user['User']['email']] = $user['User']['username'];
 			}
-			$this->cakeEmail
-				->template('SynchroDossier.alert_email_new_upload', 'SynchroDossier.default')
-				->emailFormat('both')
-				->helpers(array('Uploader.File'))
-				->from(Configure::read('sd.mail.alertEmailNewUpload.from'))
-				->to($to)
-				->subject(Configure::read('sd.mail.alertEmailNewUpload.subject'))
-				->viewVars(array('user' => $files[0]['User'], 'files' => $files))
-				->send();
 
-			$this->SdFileEmail->deleteAll(array('SdFileEmail.user_id' => $this->Auth->user('id')));
+			if (!empty($to)) {
+				$this->cakeEmail
+					->template('SynchroDossier.alert_email_new_upload', 'SynchroDossier.default')
+					->emailFormat('both')
+					->helpers(array('Uploader.File'))
+					->from(Configure::read('sd.mail.alertEmailNewUpload.from'))
+					->to($to)
+					->subject(Configure::read('sd.mail.alertEmailNewUpload.subject'))
+					->viewVars(array('user' => $files[0]['User'], 'files' => $files))
+					->send();
+
+				$this->SdFileEmail->deleteAll(array('SdFileEmail.user_id' => $this->Auth->user('id')));
+			}
 		}
 		die;
 	}
