@@ -203,7 +203,10 @@ class FilesController extends UploaderAppController {
 				));
 				$uploadOk = $this->UploadedFile->upload($data, $this->Auth->user(), $folderId, $originalFilename);
 				if (!$uploadOk) {
-					debug($this->UploadedFile->FileStorage->invalidFields()); die;
+					$error = $this->UploadedFile->FileStorage->invalidFields();
+					if (isset($error['file'][0])) {
+						$response = '{"jsonrpc" : "2.0", "error" : {"code": 104, "message": "' . $error['file'][0] . '"}, "id" : "id"}';
+					}
 				}
 			}
 			die($response);
