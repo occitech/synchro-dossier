@@ -28,7 +28,7 @@ class PluploadComponent extends Component {
 				rename("{$filePath}.part", $filePath);
 				$uploadFinished = true;
 			}
-			$response = '{"jsonrpc" : "2.0", "result" : null, "id" : "id"}';
+			$response = $this->generateJsonMessage();
 		} else {
 			$response = $error;
 		}
@@ -36,7 +36,7 @@ class PluploadComponent extends Component {
 		return array($uploadFinished, $response, $filePath);
 	}
 
-	public function generateJsonMessage($options) {
+	public function generateJsonMessage($options = array()) {
 		$default = array('jsonrpc' => '2.0', 'result' => null);
 
 		$options = array_merge($default, $options);
@@ -84,15 +84,21 @@ class PluploadComponent extends Component {
 						fwrite($out, $buff);
 					}
 				} else {
-					$error = '{"jsonrpc" : "2.0", "error" : {"code": 101, "message": "Failed to open input stream."}, "id" : "id"}';
+					$error = $this->generateJsonMessage(array(
+						'error' => array('code' => 101, 'message' => __('Failed to open input stream.'))
+					));
 				}
 				fclose($in);
 				fclose($out);
 			} else {
-				$error = '{"jsonrpc" : "2.0", "error" : {"code": 102, "message": "Failed to open output stream."}, "id" : "id"}';
+				$error = $this->generateJsonMessage(array(
+					'error' => array('code' => 102, 'message' => __('Failed to open output stream.'))
+				));
 			}
 		} else {
-			$error = '{"jsonrpc" : "2.0", "error" : {"code": 103, "message": "Failed to move uploaded file."}, "id" : "id"}';
+			$error = $this->generateJsonMessage(array(
+				'error' => array('code' => 103, 'message' => __('Failed to move uploaded file.'))
+			));
 		}
 
 		return $error;
