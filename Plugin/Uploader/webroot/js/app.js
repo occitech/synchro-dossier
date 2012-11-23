@@ -6,4 +6,17 @@ jQuery(document).ready(function($) {
 			$(this).toggle();
 		})
 	})
+
+	/**
+	 * Plupload Error message
+	 */
+	var uploader = $('#uploader').pluploadQueue();
+	if (uploader != undefined) {
+		uploader.bind('FileUploaded', function(uploader, file, response) {
+			response = $.parseJSON(response.response);
+			if (response.error) {
+				alert(response.error.message);
+			};
+		});
+	}
 });

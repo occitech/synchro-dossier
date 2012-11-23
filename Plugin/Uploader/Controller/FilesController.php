@@ -8,6 +8,7 @@ class FilesController extends UploaderAppController {
 	public $uses = array('Uploader.UploadedFile', 'Uploader.UploaderAclAco', 'Permission');
 
 	public $components = array(
+		'Plupload.Plupload',
 		'RowLevelAcl' => array(
 			'className' => 'Acl.RowLevelAcl',
 			'settings' => array(
@@ -33,9 +34,17 @@ class FilesController extends UploaderAppController {
 
 	public function beforeRender() {
 		$this->helpers[] = 'Uploader.Acl';
+		$this->helpers[] = 'Plupload.Plupload';
 		$userRights = $this->UploadedFile->User->getAllRights($this->Auth->user('id'));
 		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
 		$this->set(compact('userRights', 'can'));
+
+		$this->Plupload->setUploaderOptions(array(
+			'locale' => 'fr',
+			'runtimes' => 'html5',
+			'filters' => array(),
+			'url' => $this->request->here
+		));
 	}
 
 	public function rights($folderId) {
@@ -48,7 +57,7 @@ class FilesController extends UploaderAppController {
 		} else {
 			$this->Session->setFlash(__('Vous ne pouvez pas donner de droit à ce dossier'));
 		}
-	} 
+	}
 
 	protected function _removeRight($acoId, $aroId) {
 		return $this->UploaderAclAco->ArosAco->deleteAll(array(
@@ -127,6 +136,15 @@ class FilesController extends UploaderAppController {
 
 		$this->UploadedFile->recursive = 2;
 
+		$this->UploadedFile->bindModel(array(
+			'hasOne' => array(
+				'Aco' => array(
+					'className' => 'Aco',
+					'foreignKey' => 'foreign_key'
+				) 
+			)
+		));
+
 		if (is_null($folderId)) {
 			$files = $this->UploadedFile->find('rootDirectories'); 
 		} else {
@@ -190,16 +208,20 @@ class FilesController extends UploaderAppController {
  *
  */	
 	public function upload($folderId, $originalFilename = null) {
-		if ($this->request->is('post')) {
-			$uploadOk = $this->UploadedFile->upload(
-				$this->request->data,
-				$this->Auth->user(),
-				$folderId,
-				$originalFilename
-			);
-			if ($uploadOk) {
-				$this->redirect(array('controller' => 'files', 'action' => 'browse', $folderId));
+		if ($this->Plupload->isPluploadRequest()) {
+			list($uploadFinished, $response, $file) = $this->Plupload->upload();
+			if ($uploadFinished) {
+				$uploadOk = $this->UploadedFile->upload($file, $this->Auth->user(), $folderId, $originalFilename);
+				if (!$uploadOk) {
+					$error = $this->UploadedFile->FileStorage->invalidFields();
+					if (isset($error['file'][0])) {
+						$response = $this->Plupload->generateJsonMessage(array(
+							'error' => array('code' => 104, 'message' => $error['file'][0]) 
+						));
+					}
+				}
 			}
+			die($response);
 		}
 	}
 

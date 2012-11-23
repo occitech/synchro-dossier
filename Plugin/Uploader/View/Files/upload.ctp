@@ -1,8 +1,17 @@
-<div class="nodes promoted">
-	<?php echo $this->Form->create('File', array('type' => 'file')); ?>
+<?= $this->Plupload->loadAsset('jquery'); ?>
 
-	<?php echo $this->Form->input('FileStorage.file', array('type' => 'file'));?>
-	
-	<?php echo $this->Form->submit('Upload'); ?>
-	<?php echo $this->Form->end(); ?>
-</div>
+<script type="text/javascript">
+$(function() {
+	$("#uploader").pluploadQueue(
+		<?php echo $this->Plupload->getOptions();?>
+	);
+});
+</script>
+
+<form ..>
+	<div id="uploader">
+		<p><?= __('You browser doesn\'t have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.'); ?></p>
+	</div>
+</form>
+
+<?= $this->Html->script('Uploader.app'); ?>

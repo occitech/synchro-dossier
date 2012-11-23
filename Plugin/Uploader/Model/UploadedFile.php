@@ -281,11 +281,11 @@ class UploadedFile extends UploaderAppModel {
 	}
 
 	protected function _uploadNewFileVersion($data, $userId, $parentId, $originalFilename) {
-		$fileInfos = $data['FileStorage']['file'];
+		$fileInfos = $data['file'];
 		$isValid = true;
 		
 		if (!is_null($originalFilename)) {
-			$isValid = $this->_isNewVersionValidFile($data['FileStorage']['file']['name'], $originalFilename);
+			$isValid = $this->_isNewVersionValidFile($data['file']['name'], $originalFilename);
 			if (!$isValid) {
 				$this->FileStorage->invalidate('file', __('Le fichier doit avoir la même extension que le fichier d\'origine'));
 			}
@@ -308,7 +308,7 @@ class UploadedFile extends UploaderAppModel {
 	}
 
 	protected function _uploadNewFile($data, $userId, $parentId) {
-		$fileInfos = $data['FileStorage']['file'];
+		$fileInfos = $data['file'];
 		$version = 1;
 
 		if ($this->_saveUploadedFile($fileInfos, $userId, $parentId)) {
@@ -338,21 +338,21 @@ class UploadedFile extends UploaderAppModel {
 	}
 
 	public function upload($data, $user, $parentId, $originalFilename = null) {
-		$fileInfos = $data['FileStorage']['file'];
+		$fileInfos = $data['file'];
 		$result = false;
 
 		if ($this->_hasUploadErrors($fileInfos['error'])) {
 			return false;
 		}
 
-		$event = new CakeEvent('Model.UploadedFile.beforeUpload', $this, array('data' => $data['FileStorage'], 'user' => $user));
+		$event = new CakeEvent('Model.UploadedFile.beforeUpload', $this, array('data' => $data, 'user' => $user));
 		$this->getEventManager()->dispatch($event);
 
 		if ($event->result['hasError']) {
 			$this->getEventManager()->dispatch(new CakeEvent(
 				'Model.UploadedFile.afterUploadFailed',
 				$this,
-				array('data' => $data['FileStorage'], 'user' => $user, 'beforeUploadResult' => $event->result)
+				array('data' => $data, 'user' => $user, 'beforeUploadResult' => $event->result)
 			));
 			$this->FileStorage->invalidate('file', $event->result['message']);
 		} else {
