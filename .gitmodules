@@ -7,3 +7,6 @@
 [submodule "Plugin/FileStorage"]
 	path = Plugin/FileStorage
 	url = git://github.com/burzum/FileStorage.git
+[submodule "Plugin/Plupload"]
+	path = Plugin/Plupload
+	url = git@github.com:occitech/CakePHP-Plupload-Plugin.git
