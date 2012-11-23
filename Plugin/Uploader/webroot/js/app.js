@@ -11,7 +11,6 @@ jQuery(document).ready(function($) {
 	 * Plupload Error message
 	 */
 	var uploader = $('#uploader').pluploadQueue();
-	console.log(uploader);
 	if (uploader != undefined) {
 		uploader.bind('FileUploaded', function(uploader, file, response) {
 			response = $.parseJSON(response.response);
