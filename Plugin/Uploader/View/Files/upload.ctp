@@ -1,8 +1,10 @@
-<?= $this->Plupload->css(); ?>
-<?= $this->Plupload->plupload(array('url' => $this->here, 'max_file_size' => '100mb')); ?>
+<?= $this->Plupload->loadAsset('jquery'); ?>
 
 <script type="text/javascript">
 $(function() {
+	$("#uploader").pluploadQueue(
+		<?php echo $this->Plupload->getOptions();?>
+	);
 	var uploader = $('#uploader').pluploadQueue();
 	uploader.bind('FileUploaded', function(uploader, file, response) {
 		response = $.parseJSON(response.response);
@@ -20,4 +22,3 @@ $(function() {
 		<p><?= __('You browser doesn\'t have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.'); ?></p>
 	</div>
 </form>
-			

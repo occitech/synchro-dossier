@@ -30,6 +30,13 @@ class FilesController extends UploaderAppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Security->unlockedActions = 'upload';
+
+		$this->Plupload->setUploaderOptions(array(
+			'locale' => 'fr',
+			'runtimes' => 'html5',
+			'filters' => array(),
+			'url' => $this->request->here
+		));
 	}
 
 	public function beforeRender() {
@@ -50,7 +57,7 @@ class FilesController extends UploaderAppController {
 		} else {
 			$this->Session->setFlash(__('Vous ne pouvez pas donner de droit à ce dossier'));
 		}
-	} 
+	}
 
 	protected function _removeRight($acoId, $aroId) {
 		return $this->UploaderAclAco->ArosAco->deleteAll(array(
@@ -124,7 +131,7 @@ class FilesController extends UploaderAppController {
 				'Aco' => array(
 					'className' => 'Aco',
 					'foreignKey' => 'foreign_key'
- 				) 
+				) 
 			)
 		));
 
@@ -191,17 +198,10 @@ class FilesController extends UploaderAppController {
  *
  */	
 	public function upload($folderId, $originalFilename = null) {
-		if (isset($_REQUEST['name'])) {
-			list($uploadFinished, $response, $filePath) = $this->Plupload->upload();
+		if ($this->Plupload->isPluploadRequest()) {
+			list($uploadFinished, $response, $file) = $this->Plupload->upload();
 			if ($uploadFinished) {
-				$data = array('file' => array(
-					'name' => $_REQUEST['name'],
-					'type' => '@fixme',
-					'tmp_name' => $filePath,
-					'error' => 0,
-					'size' => filesize($filePath)
-				));
-				$uploadOk = $this->UploadedFile->upload($data, $this->Auth->user(), $folderId, $originalFilename);
+				$uploadOk = $this->UploadedFile->upload($file, $this->Auth->user(), $folderId, $originalFilename);
 				if (!$uploadOk) {
 					$error = $this->UploadedFile->FileStorage->invalidFields();
 					if (isset($error['file'][0])) {
