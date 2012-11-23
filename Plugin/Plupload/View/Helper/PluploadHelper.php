@@ -7,8 +7,6 @@ class PluploadHelper extends AppHelper {
 	public $helpers = array('Html');
 
 	protected $_jsIncludes = array(
-		'https://ajax.googleapis.com/ajax/libs/jquery/1.5.1/jquery.min.js',
-		'http://bp.yahooapis.com/2.4.21/browserplus-min.js',
 		'Plupload.plupload.full.js',
 		'Plupload.jquery.plupload.queue/jquery.plupload.queue.js',
 	);
@@ -43,7 +41,7 @@ class PluploadHelper extends AppHelper {
 	protected function _pluploadJs($options) {
 		$_default = array(
 			'id' => '#uploader',
-			'runtimes' => 'html5,gears,flash,silverlight,browserplus',
+			'runtimes' => 'html5,gears,flash,silverlight',
 			'max_file_size' => '10mb',
 			'chunk_size' => '1mb',
 			'flash_swf_url' => '/plupload/js/plupload.flash.swf',
