@@ -1,9 +1,0 @@
-{
-	"name": "Plupload",
-	"description": "An awesome plugin !",
-
-	"dependencies": {
-		"plugins": [
-		]
-	}
-}
