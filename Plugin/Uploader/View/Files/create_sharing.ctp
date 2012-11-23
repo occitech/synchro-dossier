@@ -9,7 +9,7 @@
 	<?= $this->Form->input(
 		'SdAlertEmail.subscribe',
 		array(
-			'label' => __('Inscription au Alert email'),
+			'label' => __('Inscription aux Alertes email'),
 			'type' => 'checkbox'
 		)
 	); ?>

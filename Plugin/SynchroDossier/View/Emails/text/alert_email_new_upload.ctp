@@ -1,8 +1,9 @@
 <?= __('Bonjour,'); ?>
 
-<?= __('L\'un de vos utilisateurs (dont l\'adresse email est \'%s\')
-vient d\'envoyer de nouveaux fichiers sur votre espace de stockage', $user['email']); ?>
-
+<?= __(
+	'L\'un de vos utilisateurs (dont l\'adresse email est \'%s\') vient d\'envoyer de nouveaux fichiers sur votre espace de stockage',
+	$user['email']
+); ?>
 
 <?= __('Voici la liste des fichiers envoyés'); ?>
 
