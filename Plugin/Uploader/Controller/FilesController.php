@@ -30,13 +30,6 @@ class FilesController extends UploaderAppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Security->unlockedActions = 'upload';
-
-		$this->Plupload->setUploaderOptions(array(
-			'locale' => 'fr',
-			'runtimes' => 'html5',
-			'filters' => array(),
-			'url' => $this->request->here
-		));
 	}
 
 	public function beforeRender() {
@@ -45,6 +38,13 @@ class FilesController extends UploaderAppController {
 		$userRights = $this->UploadedFile->User->getAllRights($this->Auth->user('id'));
 		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
 		$this->set(compact('userRights', 'can'));
+
+		$this->Plupload->setUploaderOptions(array(
+			'locale' => 'fr',
+			'runtimes' => 'html5',
+			'filters' => array(),
+			'url' => $this->request->here
+		));
 	}
 
 	public function rights($folderId) {
