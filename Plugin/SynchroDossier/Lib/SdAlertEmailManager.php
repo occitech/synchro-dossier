@@ -15,7 +15,8 @@ class SdAlertEmailManager implements CakeEventListener {
 	public function implementedEvents() {
 		return array(
 			'Model.UploadedFile.afterUploadSuccess' => 'saveFileForAlertEmail',
-			'Model.UploadedFile.AfterSharingCreation' => 'subscribeToAlertEmail'
+			'Model.UploadedFile.AfterSharingCreation' => 'subscribeToAlertEmail',
+			'Controller.SdAlertEmail.SendAlertsEmail' => 'sendAlertsEmail'
 		);
 	}
 
@@ -36,6 +37,24 @@ class SdAlertEmailManager implements CakeEventListener {
 			);
 
 			$SdAlertEmailModel->save($data);
+		}
+	}
+
+	public function sendAlertsEmail($event) {
+		$SdAlertEmailModel = ClassRegistry::init('SynchroDossier.SdAlertEmail');
+
+		$usersToAlert = $SdAlertEmailModel->getUserToAlert($event->data['user']['id']);
+
+		if (!empty($usersToAlert['to'])) {
+			$this->cakeEmail
+				->template('SynchroDossier.alert_email_new_upload', 'SynchroDossier.default')
+				->emailFormat('both')
+				->helpers(array('Uploader.File'))
+				->from(Configure::read('sd.mail.alertEmailNewUpload.from'))
+				->to($usersToAlert['to'])
+				->subject(Configure::read('sd.mail.alertEmailNewUpload.subject'))
+				->viewVars(array('user' => $event->data['user'], 'files' => $usersToAlert['files']))
+				->send();
 		}
 	}
 }
