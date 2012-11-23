@@ -29,7 +29,7 @@ class SdFileEmailFixture extends CakeTestFixture {
 		array(
 			'id' => 1,
 			'uploaded_file_id' => 1,
-			'user_id' => 1
+			'user_id' => 2
 		),
 	);
 

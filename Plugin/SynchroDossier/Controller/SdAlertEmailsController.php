@@ -19,36 +19,20 @@ class SdAlertEmailsController extends SynchroDossierAppController {
 	}
 
 	public function sendEmails() {
-		$files = $this->SdFileEmail->findAllByUser_id($this->Auth->user('id'));
-		if (count($files) > 0) {
-			$rootFolderId = $this->_getRootFolderId($files[0]['UploadedFile']['id']);
-			$userToAlert = $this->SdAlertEmail->findAllByUploaded_file_id($rootFolderId);
+		$usersToAlert = $this->SdAlertEmail->getUserToAlert($this->Auth->user('id'));
 
-			$to = array();
-			foreach ($userToAlert as $user) {
-				$to[$user['User']['email']] = $user['User']['username'];
-			}
-
-			if (!empty($to)) {
-				$this->cakeEmail
-					->template('SynchroDossier.alert_email_new_upload', 'SynchroDossier.default')
-					->emailFormat('both')
-					->helpers(array('Uploader.File'))
-					->from(Configure::read('sd.mail.alertEmailNewUpload.from'))
-					->to($to)
-					->subject(Configure::read('sd.mail.alertEmailNewUpload.subject'))
-					->viewVars(array('user' => $files[0]['User'], 'files' => $files))
-					->send();
-
-				$this->SdFileEmail->deleteAll(array('SdFileEmail.user_id' => $this->Auth->user('id')));
-			}
+		if (!empty($usersToAlert['to'])) {
+			$this->cakeEmail
+				->template('SynchroDossier.alert_email_new_upload', 'SynchroDossier.default')
+				->emailFormat('both')
+				->helpers(array('Uploader.File'))
+				->from(Configure::read('sd.mail.alertEmailNewUpload.from'))
+				->to($usersToAlert['to'])
+				->subject(Configure::read('sd.mail.alertEmailNewUpload.subject'))
+				->viewVars(array('user' => $this->Auth->user(), 'files' => $usersToAlert['files']))
+				->send();
 		}
-		die;
-	}
 
-	protected function _getRootFolderId($uploadedFileId) {
-		$path = $this->UploadedFile->getPath($uploadedFileId);
-
-		return $path[0]['UploadedFile']['id'];
+		$this->autoRender = false;
 	}
 }

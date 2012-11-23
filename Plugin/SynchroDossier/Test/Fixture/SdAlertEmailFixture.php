@@ -3,7 +3,7 @@
  * AlertEmailFixture
  *
  */
-class AlertEmailFixture extends CakeTestFixture {
+class SdAlertEmailFixture extends CakeTestFixture {
 
 /**
  * Fields
@@ -28,7 +28,7 @@ class AlertEmailFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => 1,
-			'user_id' => 1,
+			'user_id' => 2,
 			'uploaded_file_id' => 1
 		),
 	);

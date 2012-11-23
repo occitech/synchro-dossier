@@ -107,6 +107,12 @@ class UploadedFile extends UploaderAppModel {
 		return $result;
 	}
 
+	public function getRootFolderId($uploadedFileId) {
+		$path = $this->getPath($uploadedFileId);
+
+		return $path[0]['UploadedFile']['id'];
+	}
+
 	public function addFolder($data, $parentId, $userId) {
 		if (!is_null($parentId)) {
 			$parent = $this->findById($parentId);
