@@ -10,7 +10,7 @@
 	?>
 	<div class="progress">
 		<div class="bar <?= $classColor; ?>" style="width: <?= $usedPercent; ?>%">
-			<?= $currentQuota . 'Mb'; ?>
+			<?= $currentQuota . 'Go'; ?>
 		</div>
 	</div>
 <?php endif ?>
