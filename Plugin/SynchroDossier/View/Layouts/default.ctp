@@ -24,9 +24,11 @@
 		<?= $this->element('SynchroDossier.navbar'); ?>
 		<div id="content-container" class="container-fluid">
 			<div class="row-fluid">
-				<div id="content" class="clearfix">
+				<div class="sidebar" style="width: 200px; float: left;">
+					<?= $this->element('SynchroDossier.sidebar'); ?>
+				</div>
+				<div id="content" class="clearfix" style="margin-left: 200px;">
 					<div id="inner-content" class="span12">
-						<?= $this->Menus->menu('main', array('dropdown' => true)); ?>
 						<?= $this->Layout->sessionFlash(); ?>
 						<?= $this->fetch('content'); ?>
 					</div>
