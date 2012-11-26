@@ -9,6 +9,9 @@
 		echo $this->Html->css(array(
 			'SynchroDossier./bootstrap/bootstrap/css/bootstrap',
 		));
+		echo $this->Html->script(array(
+			'SynchroDossier./bootstrap/bootstrap/js/bootstrap',
+		));
 		echo $this->Layout->js();
 		echo $this->Html->script(array());
 
