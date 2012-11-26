@@ -12,25 +12,28 @@
 		</li>
 		<?php foreach ($SynchroDossier_rootFolders as $folder): ?>
 			<li>
-				<?= $this->Html->link(
-					$folder['UploadedFile']['filename'],
-					array('plugin' => 'uploader', 'controller' => 'files', 'action' =>'browse', $folder['UploadedFile']['id'])
-				); ?>
+				<?php if ($this->Acl->userCan($folder['Aco'], 'read')): ?>
+					<?= $this->Html->link(
+						$folder['UploadedFile']['filename'],
+						array('plugin' => 'uploader', 'controller' => 'files', 'action' =>'browse', $folder['UploadedFile']['id'])
+					); ?>
+				<?php endif ?>
 			</li>
 		<?php endforeach ?>
-		<li class="nav-header">
-			<?= __('Utilisateurs'); ?>
-			<span style="float: right;">
-				<a href="#" rel="tooltip" title="<?= __('Ajouter un utilisateur à ce dossier'); ?>">
-					<i class="icon-plus-sign"></i>
-				</a>
-			</span>
-		</li>
-		<li><a href="#">Aymeric Derbois</a></li>
-		<li><a href="#">Home</a></li>
-		<li><a href="#">Home</a></li>
-		<li><a href="#">Home</a></li>
-		<li><a href="#">Home</a></li>
-		<li><a href="#">Home</a></li>
-		<li><a href="#">Library</a></li>
+		<?php if (!is_null($SynchroDossier_aroAccessFolder)): ?>
+			<li class="nav-header">
+				<?= __('Utilisateurs du dossier'); ?>
+				<span style="float: right;">
+					<a href="#" rel="tooltip" title="<?= __('Ajouter un utilisateur à ce dossier'); ?>">
+						<i class="icon-plus-sign"></i>
+					</a>
+				</span>
+			</li>
+			<?php foreach ($SynchroDossier_aroAccessFolder as $aro): ?>
+				<li>
+					<a href="#"><?= $aro['User']['username']; ?></a>
+				</li>
+			<?php endforeach ?>
+		<?php endif ?>
+
 	</ul>

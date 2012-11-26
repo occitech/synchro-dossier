@@ -13,16 +13,37 @@ class SynchroDossierComponent extends Component {
 	}
 
 	public function beforeRender(Controller $controller) {
-		if (!isset($controller->request->params['prefix'])) {
+		if ($controller->request->params['action'] == 'login') {
+			$controller->layout = 'SynchroDossier.login';
+		} elseif (!isset($controller->request->params['prefix'])) {
 			$controller->layout = 'SynchroDossier.default';
 		}
+
 		$controller->helpers[] = $this->helperName;
 		$this->__setQuotaInformation($controller);
+		$this->__setListUserCanAccessCurrentFolder($controller);
+		$this->__setRootFolders($controller);
 
-		$UploadedFileModel = ClassRegistry::init('Uploader.UploadedFile');
-		$UploadedFileModel->recursive = -1;
-		$rootFolders = $UploadedFileModel->findAllByParent_idAndIs_folder(null, 1);
-		$controller->set('SynchroDossier_rootFolders', $rootFolders);
+		$controller->helpers[] = 'Uploader.Acl';
+	}
+
+	private function __setListUserCanAccessCurrentFolder(Controller $controller) {
+		if (!is_null($controller->Auth->user())) {
+			$UploaderAclAcoModel = ClassRegistry::init('Uploader.UploaderAclAco');
+
+			$idFolder = isset($controller->request->params['pass'][0]) ? $controller->request->params['pass'][0] : null;
+			$usersCanAccess = $UploaderAclAcoModel->getRights('UploadedFile', $idFolder);
+			$controller->set('SynchroDossier_aroAccessFolder', $usersCanAccess['Aro']);
+		}
+	}
+
+	private function __setRootFolders(Controller $controller) {
+		if (!is_null($controller->Auth->user())) {
+			$UploadedFileModel = ClassRegistry::init('Uploader.UploadedFile');
+			$UploadedFileModel->recursive = 1;
+			$rootFolders = $UploadedFileModel->findAllByParent_idAndIs_folder(null, 1);
+			$controller->set('SynchroDossier_rootFolders', $rootFolders);
+		}
 	}
 
 	private function __setQuotaInformation(Controller $controller) {
