@@ -13,11 +13,16 @@ class SynchroDossierComponent extends Component {
 	}
 
 	public function beforeRender(Controller $controller) {
-		if (isset($controller->request->params['prefix']) && $controller->request->params['prefix'] != 'admin') {
+		if (!isset($controller->request->params['prefix'])) {
 			$controller->layout = 'SynchroDossier.default';
 		}
 		$controller->helpers[] = $this->helperName;
 		$this->__setQuotaInformation($controller);
+
+		$UploadedFileModel = ClassRegistry::init('Uploader.UploadedFile');
+		$UploadedFileModel->recursive = -1;
+		$rootFolders = $UploadedFileModel->findAllByParent_idAndIs_folder(null, 1);
+		$controller->set('SynchroDossier_rootFolders', $rootFolders);
 	}
 
 	private function __setQuotaInformation(Controller $controller) {
