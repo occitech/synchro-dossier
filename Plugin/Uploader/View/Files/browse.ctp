@@ -42,7 +42,7 @@
 							<?php if (!$file['UploadedFile']['is_folder']): ?>
 								V<?= $file['UploadedFile']['current_version']; ?>
 								<?php if ($file['UploadedFile']['current_version'] > 1): ?>
-									<?= $this->Html->link('<i class="icon-play"></i>',
+									<?= $this->Html->link('<i class="icon-chevron-right"></i>',
 										'#',
 										array('class' => 'show-versions', 'id' => $file['UploadedFile']['id'], 'escape' => false)); ?>
 								<?php endif; ?>

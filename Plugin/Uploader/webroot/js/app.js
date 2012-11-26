@@ -4,7 +4,12 @@ jQuery(document).ready(function($) {
 		id = $(this).attr('id');
 		$('.versions-' + id).each(function() {
 			$(this).toggle();
-		})
+		});
+		if ($('.versions-' + id).first().css('display') != 'none') {
+			$(this).html('<i class="icon-chevron-down"></i>');
+		} else {
+			$(this).html('<i class="icon-chevron-right"></i>');
+		}
 	})
 
 	/**
