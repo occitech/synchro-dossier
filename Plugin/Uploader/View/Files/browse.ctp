@@ -60,7 +60,7 @@
 
 						<td>
 							<?php if (!$file['UploadedFile']['is_folder']): ?>
-								<?= __('Par ') . $file['User']['name']; ?>
+								<?= $file['User']['Profile']['name']; ?>
 							<?php endif ?>
 						</td>
 
@@ -163,7 +163,7 @@
 											)
 										); ?>
 									</td>
-									<td><?= $file['User']['name']; ?></td>
+									<td><?= $file['User']['Profile']['name']; ?></td>
 									<td><?= $this->Time->format('j/m/Y H:i', $fileVersion['created']); ?></td>
 									<td><?= $this->File->size($fileVersion['filesize']); ?></td>
 									<td></td>
