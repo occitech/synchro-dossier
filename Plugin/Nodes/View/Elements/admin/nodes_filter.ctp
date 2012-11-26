@@ -1,57 +1,57 @@
-<?php
-	if (isset($this->params['named']['filter'])) {
-		$this->Html->scriptBlock('var filter = 1;', array('inline' => false));
-	}
-?>
-<div class="filter">
-<?php
-	echo $this->Form->create('Filter');
-	$filterType = '';
-	if (isset($filters['type'])) {
-		$filterType = $filters['type'];
-	}
-	$types = Set::sort($types, '{n}.Type.title', 'asc');
-	$types = Set::combine($types, '{n}.Type.alias', '{n}.Type.title');
-	echo $this->Form->input('Filter.type', array(
-		'options' => $types,
-		'empty' => true,
-		'value' => $filterType,
-	));
-	$filterStatus = '';
-	if (isset($filters['status'])) {
-		$filterStatus = $filters['status'];
-	}
-	echo $this->Form->input('Filter.status', array(
-		'options' => array(
-			'1' => __('Published'),
-			'0' => __('Unpublished'),
-		),
-		'empty' => true,
-		'value' => $filterStatus,
-	));
-	$filterPromote = '';
-	if (isset($filters['promote'])) {
-		$filterPromote = $filters['promote'];
-	}
-	echo $this->Form->input('Filter.promote', array(
-		'label' => __('Promoted'),
-		'options' => array(
-			'1' => __('Yes'),
-			'0' => __('No'),
-		),
-		'empty' => true,
-		'value' => $filterPromote,
-	));
+<div class="row-fluid">
+	<div class="span12">
+		<div class="row-fluid filter">
+			<?php
+			echo $this->Form->create('Node', array(
+				'class' => 'inline',
+				'url' => array_merge(
+					array('action' => 'index'), $this->params['pass']
+				)
+			));
 
-	$filterSearch = '';
-	if (isset($this->params['named']['q'])) {
-		$filterSearch = $this->params['named']['q'];
-	}
-	echo $this->Form->input('Filter.q', array(
-		'label' => __('Search'),
-		'value' => $filterSearch,
-	));
-	echo $this->Form->end(__('Filter'));
-?>
-	<div class="clear">&nbsp;</div>
+			echo $this->Form->input('filter', array(
+				'label' => false,
+				'title' => __('Search'),
+				'placeholder' => __('Search...'),
+				'div' => 'input text span3',
+				'class' => 'span11',
+				'tooltip' => false,
+			));
+
+			echo $this->Form->input('type', array(
+				'label' => false,
+				'options' => $nodeTypes,
+				'empty' => __('Type'),
+				'div' => 'input select span2',
+				'class' => 'span11'
+			));
+
+			echo $this->Form->input('status', array(
+				'label' => false,
+				'options' => array(
+					'1' => __('Published'),
+					'0' => __('Unpublished'),
+				),
+				'empty' => __('Status'),
+				'div' => 'input select span2',
+				'class' => 'span11'
+			));
+
+			echo $this->Form->input('promote', array(
+				'label' => false,
+				'options' => array(
+					'1' => __('Yes'),
+					'0' => __('No'),
+				),
+				'empty' => __('Promoted'),
+				'div' => 'input select span2',
+				'class' => 'span11'
+			));
+			echo $this->Form->submit(__('Filter'), array('class' => 'btn',
+				'div' => 'input submit span2'
+			));
+			echo $this->Form->end();
+			?>
+		</div>
+	</div>
 </div>

@@ -23,9 +23,12 @@ class CroogoNav extends Object {
  * @var array
  */
 	protected static $_defaults = array(
+		'icon' => false,
 		'title' => false,
 		'url' => '#',
 		'weight' => 9999,
+		'before' => false,
+		'after' => false,
 		'access' => array(),
 		'children' => array(),
 		'htmlAttributes' => array(),
@@ -143,7 +146,7 @@ class CroogoNav extends Object {
  * @return array
  */
 	public static function getDefaults() {
-	    return self::$_defaults;
+		return self::$_defaults;
 	}
 
 }

@@ -7,12 +7,12 @@
 		$fields = $fieldsKeyToId = array();
 	}
 	if (count($fields) > 0) {
-		foreach ($fields AS $fieldKey => $fieldValue) {
+		foreach ($fields as $fieldKey => $fieldValue) {
 			echo $this->Meta->field($fieldKey, $fieldValue, $fieldsKeyToId[$fieldKey]);
 		}
 	}
 ?>
-	<div class="clear">&nbsp;</div>
+	<div class="clear"></div>
 </div>
 <?php
 echo $this->Html->link(

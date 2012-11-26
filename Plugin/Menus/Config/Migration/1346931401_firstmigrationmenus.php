@@ -2,20 +2,20 @@
 
 class FirstMigrationMenus extends CakeMigration {
 
-	/**
-	 * Migration description
-	 *
-	 * @var string
-	 * @access public
-	 */
+/**
+ * Migration description
+ *
+ * @var string
+ * @access public
+ */
 	public $description = '';
 
-	/**
-	 * Actions to be performed
-	 *
-	 * @var array $migration
-	 * @access public
-	 */
+/**
+ * Actions to be performed
+ *
+ * @var array $migration
+ * @access public
+ */
 	public $migration = array(
 		'up' => array(
 			'create_table' => array(
@@ -39,7 +39,7 @@ class FirstMigrationMenus extends CakeMigration {
 					'indexes' => array(
 						'PRIMARY' => array('column' => 'id', 'unique' => 1)
 					),
-					'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'MyISAM')
+					'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
 				),
 				'menus' => array(
 					'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
@@ -57,7 +57,7 @@ class FirstMigrationMenus extends CakeMigration {
 						'PRIMARY' => array('column' => 'id', 'unique' => 1),
 						'menu_alias' => array('column' => 'alias', 'unique' => 1)
 					),
-					'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'MyISAM')
+					'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
 				),
 			),
 		),
@@ -68,24 +68,24 @@ class FirstMigrationMenus extends CakeMigration {
 		),
 	);
 
-	/**
-	 * Before migration callback
-	 *
-	 * @param string $direction, up or down direction of migration process
-	 * @return boolean Should process continue
-	 * @access public
-	 */
+/**
+ * Before migration callback
+ *
+ * @param string $direction, up or down direction of migration process
+ * @return boolean Should process continue
+ * @access public
+ */
 	public function before($direction) {
 		return true;
 	}
 
-	/**
-	 * After migration callback
-	 *
-	 * @param string $direction, up or down direction of migration process
-	 * @return boolean Should process continue
-	 * @access public
-	 */
+/**
+ * After migration callback
+ *
+ * @param string $direction, up or down direction of migration process
+ * @return boolean Should process continue
+ * @access public
+ */
 	public function after($direction) {
 		return true;
 	}

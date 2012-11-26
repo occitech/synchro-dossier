@@ -33,6 +33,20 @@ class NodesController extends NodesAppController {
  */
 	public $components = array(
 		'Recaptcha',
+		'Search.Prg',
+	);
+
+/**
+ * Preset Variable Search
+ *
+ * @var array
+ * @access public
+ */
+	public $presetVars = array(
+		'filter' => array('type' => 'value'),
+		'type' => array('type' => 'value'),
+		'status' => array('type' => 'value'),
+		'promote' => array('type' => 'value'),
 	);
 
 /**
@@ -78,6 +92,7 @@ class NodesController extends NodesAppController {
  */
 	public function admin_index() {
 		$this->set('title_for_layout', __('Content'));
+		$this->Prg->commonProcess();
 
 		$this->Node->recursive = 0;
 		$this->paginate['Node']['order'] = 'Node.created DESC';
@@ -88,30 +103,11 @@ class NodesController extends NodesAppController {
 		$typeAliases = Set::extract('/Type/alias', $types);
 		$this->paginate['Node']['conditions']['Node.type'] = $typeAliases;
 
-		if (isset($this->request->params['named']['filter'])) {
-			$filters = $this->Croogo->extractFilter();
-			foreach ($filters as $filterKey => $filterValue) {
-				if (strpos($filterKey, '.') === false) {
-					$filterKey = 'Node.' . $filterKey;
-				}
-				$this->paginate['Node']['conditions'][$filterKey] = $filterValue;
-			}
-			$this->set('filters', $filters);
-		}
-
-		if (isset($this->request->params['named']['q'])) {
-			App::uses('Sanitize', 'Utility');
-			$q = Sanitize::clean($this->request->params['named']['q']);
-			$this->paginate['Node']['conditions']['OR'] = array(
-				'Node.title LIKE' => '%' . $q . '%',
-				'Node.excerpt LIKE' => '%' . $q . '%',
-				'Node.body LIKE' => '%' . $q . '%',
-				'Node.terms LIKE' => '%"' . $q . '"%',
-			);
-		}
-
-		$nodes = $this->paginate('Node');
-		$this->set(compact('nodes', 'types', 'typeAliases'));
+		$nodes = $this->paginate($this->Node->parseCriteria($this->passedArgs));
+		$nodeTypes = $this->Node->Taxonomy->Vocabulary->Type->find('list', array(
+			'fields' => array('Type.alias', 'Type.title')
+			));
+		$this->set(compact('nodes', 'types', 'typeAliases', 'nodeTypes'));
 
 		if (isset($this->request->params['named']['links'])) {
 			$this->layout = 'ajax';
@@ -223,7 +219,6 @@ class NodesController extends NodesAppController {
 			$this->redirect(array('action' => 'create'));
 		}
 
-		$this->set('title_for_layout', __('Edit content: %s', $type['Type']['title']));
 		$this->Node->type = $type['Type']['alias'];
 		$this->Node->Behaviors->attach('Tree', array('scope' => array('Node.type' => $this->Node->type)));
 
@@ -259,6 +254,8 @@ class NodesController extends NodesAppController {
 			$data['Role']['Role'] = $this->Node->decodeData($data['Node']['visibility_roles']);
 			$this->request->data = $data;
 		}
+
+		$this->set('title_for_layout', __('Edit %s: %s', $type['Type']['title'], $this->request->data['Node']['title']));
 
 		$nodes = $this->Node->generateTreeList();
 		$roles = $this->Node->User->Role->find('list');
