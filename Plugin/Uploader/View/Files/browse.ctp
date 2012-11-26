@@ -1,6 +1,25 @@
 <?php //echo $this->Html->css('Uploader.style'); ?>
 <?= $this->Html->script('Uploader.app'); ?>
 
+<?= $this->Plupload->loadAsset('jquery'); ?>
+
+<div class="plupload">
+	<script type="text/javascript">
+	$(function() {
+		$("#uploader").pluploadQueue(
+			<?php echo $this->Plupload->getOptions();?>
+		);
+	});
+	</script>
+
+	<form ..>
+		<div id="uploader">
+			<p><?= __('You browser doesn\'t have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.'); ?></p>
+		</div>
+	</form>
+</div>
+
+
 <div class="uploader">
 	<div class="actions">
 		<?php if (!is_null($folderId)): ?>		
@@ -19,7 +38,7 @@
 	<div class="infos">
 		<?= $this->Html->link('..', array($parentId)) ?>
 	</div>
-	<table class="table table-hover table-striped">
+	<table class="table table-hover">
 		<thead>
 			<tr>
 				<th><?= __('Fichier'); ?></th>
@@ -87,18 +106,33 @@
 							<?php if ($file['UploadedFile']['is_folder']): ?>
 								<?php if (!empty($file['ChildUploadedFile'])): ?>
 									<?= $this->Html->link(
-										__('Télécharger'),
-										array('controller' => 'files', 'action' => 'downloadZipFolder', $file['UploadedFile']['id'])
+										__('<i class="icon-download-alt"></i>'),
+										array('controller' => 'files', 'action' => 'downloadZipFolder', $file['UploadedFile']['id']),
+										array(
+											'rel' => 'tooltip',
+											'title' => __('Download folder as zipfile'),
+											'escape' => false
+										)
 									); ?>
 								<?php endif ?>
 								<?= $this->Html->link(
-									__('Renommer'),
-									array('controller' => 'files', 'action' => 'rename', $file['UploadedFile']['parent_id'], $file['UploadedFile']['id'])
+									__('<i class="icon-pencil"></i>'),
+									array('controller' => 'files', 'action' => 'rename', $file['UploadedFile']['parent_id'], $file['UploadedFile']['id']),
+									array(
+										'rel' => 'tooltip',
+										'title' => __('Rename'),
+										'escape' => false
+									)
 								); ?>
 								<?php if (is_null($folderId) && $this->Acl->userCan($file['Aco'], 'change_right')): ?>
 									<?= $this->Html->link(
-										__('Gérer les droits'),
-										array('controller' => 'files', 'action' => 'rights', $file['UploadedFile']['id'])
+										__('<i class="icon-user"></i>'),
+										array('controller' => 'files', 'action' => 'rights', $file['UploadedFile']['id']),
+										array(
+											'rel' => 'tooltip',
+											'title' => __('Gérer les droits'),
+											'escape' => false
+										)
 									); ?>
 								<?php endif ?>
 							<?php else: ?>
