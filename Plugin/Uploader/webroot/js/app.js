@@ -8,6 +8,13 @@ jQuery(document).ready(function($) {
 	})
 
 	/**
+	 * Activate tooltip
+	 */
+	$('*').tooltip({
+		delay: 200
+	});
+
+	/**
 	 * Plupload Error message
 	 */
 	var uploader = $('#uploader').pluploadQueue();

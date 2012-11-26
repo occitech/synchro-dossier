@@ -109,7 +109,11 @@
 										'action' => 'download',
 										$lastVersion['id']
 									),
-									array('escape' => false)
+									array(
+										'rel' => 'tooltip',
+										'title' => __('Download'),
+										'escape' => false
+									)
 								); ?>
 								<?= $this->Html->link(
 									'<i class="icon-plus-sign"></i>',
@@ -119,7 +123,11 @@
 										$file['UploadedFile']['parent_id'],
 										$file['UploadedFile']['filename']
 									),
-									array('escape' => false)
+									array(
+										'rel' => 'tooltip',
+										'title' => __('New version'),
+										'escape' => false
+									)
 								); ?>
 								<?= $this->Html->link(
 									'<i class="icon-comment"></i>',
@@ -128,7 +136,11 @@
 										'action' => 'add',
 										$file['UploadedFile']['id'],
 									),
-									array('escape' => false)
+									array(
+										'rel' => 'tooltip',
+										'title' => __('Comment'),
+										'escape' => false
+									)
 								); ?>
 
 							<?php endif; ?>
