@@ -155,9 +155,12 @@ class FilesController extends UploaderAppController {
 		$this->set(compact('files', 'folderId', 'parentId'));
 	}
 
+	/**
+	 * @todo : To move in SynchroDossier plugin ?
+	 */
 	public function createSharing() {
 		if ($this->request->is('post')) {
-			if ($this->UploadedFile->addSharing($this->request->data, $this->Auth->user('id'))) {
+			if ($this->UploadedFile->addSharing($this->request->data, $this->Auth->user())) {
 				$this->Acl->allow(
 					array('model' => 'User', 'foreign_key' => Configure::write('sd.SuperAdmin.roleId')),
 					array('model' => 'UploadedFile', 'foreign_key' => $this->UploadedFile->id)
@@ -223,6 +226,15 @@ class FilesController extends UploaderAppController {
 			}
 			die($response);
 		}
+		$this->set(compact('folderId'));
+	}
+
+	public function allFilesUploadedInBatch() {
+		$this->getEventManager()->dispatch(new CakeEvent(
+				'Controller.Files.allFilesUploadedInBatch',
+				$this,
+				array('user' => $this->Auth->user())
+		));
 	}
 
 	public function download($fileStorageId = null) {

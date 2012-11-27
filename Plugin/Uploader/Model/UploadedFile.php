@@ -107,6 +107,12 @@ class UploadedFile extends UploaderAppModel {
 		return $result;
 	}
 
+	public function getRootFolderId($uploadedFileId) {
+		$path = $this->getPath($uploadedFileId);
+
+		return $path[0]['UploadedFile']['id'];
+	}
+
 	public function addFolder($data, $parentId, $userId) {
 		if (!is_null($parentId)) {
 			$parent = $this->findById($parentId);
@@ -122,19 +128,24 @@ class UploadedFile extends UploaderAppModel {
 		return $this->save($data);
 	}
 
-	public function addSharing($data, $userId) {
+	/**
+	 * @todo To move in SynchroDossier plugin ? (cf action createSharing)
+	 */
+	public function addSharing($data, $user) {
 		$rootAco = $this->Aco->findByAlias('uploadedFileAco');
 
-		$result = $this->addFolder($data, null, $userId);
+		$result = $this->addFolder($data, null, $user['id']);
 
 		if ($result) {
 			$this->Aco->saveField('parent_id', $rootAco['Aco']['id']);
 		}
 
+		$data['UploadedFile']['id'] = $this->id;
+
 		$this->getEventManager()->dispatch(new CakeEvent(
 				'Model.UploadedFile.AfterSharingCreation',
 				$this,
-				$data
+				array('data' => $data, 'user' => $user)
 		));
 
 		return $result;
@@ -364,6 +375,7 @@ class UploadedFile extends UploaderAppModel {
 		}
 
 		if ($result) {
+			$data['FileStorage']['file']['id'] = $this->id;
 			$this->getEventManager()->dispatch(new CakeEvent(
 				'Model.UploadedFile.afterUploadSuccess',
 				$this,
