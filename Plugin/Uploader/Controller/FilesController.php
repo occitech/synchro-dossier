@@ -207,6 +207,14 @@ class FilesController extends UploaderAppController {
 		$this->set(compact('folderId'));
 	}
 
+	public function allFilesUploadedInBatch() {
+		$this->getEventManager()->dispatch(new CakeEvent(
+				'Controller.Files.allFilesUploadedInBatch',
+				$this,
+				array('user' => $this->Auth->user())
+		));
+	}
+
 	public function download($fileStorageId = null) {
 		list($content, $filename) = $this->UploadedFile->download($fileStorageId);
 		$this->response->download($filename);

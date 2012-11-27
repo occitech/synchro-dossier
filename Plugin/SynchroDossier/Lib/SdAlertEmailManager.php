@@ -16,7 +16,7 @@ class SdAlertEmailManager implements CakeEventListener {
 		return array(
 			'Model.UploadedFile.afterUploadSuccess' => 'saveFileForAlertEmail',
 			'Model.UploadedFile.AfterSharingCreation' => 'subscribeToAlertEmail',
-			'Controller.SdAlertEmail.SendAlertsEmail' => 'sendAlertsEmail'
+			'Controller.Files.allFilesUploadedInBatch' => 'sendAlertsEmail'
 		);
 	}
 
