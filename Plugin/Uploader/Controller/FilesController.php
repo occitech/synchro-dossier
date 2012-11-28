@@ -39,13 +39,15 @@ class FilesController extends UploaderAppController {
 		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
 		$this->set(compact('userRights', 'can'));
 
-		$idFolder = isset($this->request->params['pass'][0]) ? $this->request->params['pass'][0] : null;
+		$folderId = isset($this->request->params['pass'][0]) ? $this->request->params['pass'][0] : null;
+
+		$this->set(compact('folderId'));
 
 		$uploadUrl = Router::url(array(
 			'plugin' => 'uploader',
 			'controller' => 'files',
 			'action' => 'upload',
-			$idFolder
+			$folderId
 		));
 
 		$this->Plupload->setUploaderOptions(array(
@@ -153,6 +155,8 @@ class FilesController extends UploaderAppController {
 				) 
 			)
 		));
+
+		$this->UploadedFile->order = 'UploadedFile.is_folder DESC';
 
 		if (is_null($folderId)) {
 			$files = $this->UploadedFile->find('rootDirectories'); 

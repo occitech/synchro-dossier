@@ -1,6 +1,3 @@
-<?php //echo $this->Html->css('Uploader.style'); ?>
-<?= $this->Html->script('Uploader.app'); ?>
-
 <?= $this->Plupload->loadAsset('jquery'); ?>
 
 <div class="plupload">
@@ -18,26 +15,7 @@
 		</div>
 	</form>
 </div>
-
-
 <div class="uploader">
-	<div class="actions">
-		<?php if (!is_null($folderId)): ?>		
-			<?= $this->Html->link(
-				__('Uploader un fichier'),
-				array('controller' => 'files', 'action' => 'upload', $folderId)
-			); ?>
-			 - 
-			<?= $this->Html->link(
-				__('Créer un sous dossier'),
-				array('controller' => 'files', 'action' => 'createFolder', $folderId)
-			); ?>
-		<?php endif ?>
-	</div>
-
-	<div class="infos">
-		<?= $this->Html->link('..', array($parentId)) ?>
-	</div>
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -79,7 +57,10 @@
 
 						<td>
 							<?php if (!$file['UploadedFile']['is_folder']): ?>
-								<?= $file['User']['Profile']['name']; ?>
+								<?php // Special case for admin that haven't profile ! ?>
+								<?php if (!empty($file['User']['Profile'])): ?>
+									<?= $file['User']['Profile']['name']; ?>
+								<?php endif ?>
 							<?php endif ?>
 						</td>
 
