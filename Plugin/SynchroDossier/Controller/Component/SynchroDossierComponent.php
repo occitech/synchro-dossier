@@ -25,6 +25,7 @@ class SynchroDossierComponent extends Component {
 		$this->__setRootFolders($controller);
 
 		$controller->helpers[] = 'Uploader.Acl';
+		$controller->helpers[] = 'Chosen.Chosen';
 	}
 
 	private function __setListUserCanAccessCurrentFolder(Controller $controller) {
