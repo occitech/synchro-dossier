@@ -1,6 +1,3 @@
-<?php echo $this->Html->css('Uploader.style'); ?>
-<?php echo $this->Html->script('Uploader.app'); ?>
-
 <div class="rights uploader">
 	<div class="add-right">
 		<?= 
@@ -9,7 +6,11 @@
 				'action' => 'toggleRight',
 				$acos['Aco']['foreign_key']
 			))) .
-			$this->Form->input('user_id') .
+			$this->Chosen->select(
+				'user_id',
+				$users,
+				array('data-placeholder' => __('Select user'))
+			) .
 			$this->Form->end(__('Add user'));
 		?>
 	</div>
