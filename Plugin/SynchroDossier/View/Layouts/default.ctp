@@ -3,20 +3,23 @@
 	<head>
 		<meta charset="utf-8">
 		<title><?php echo $title_for_layout; ?> - <?php echo __('Croogo'); ?></title>
-		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		
 		<?php
 		echo $this->Html->css(array(
 			'SynchroDossier./bootstrap/bootstrap/css/bootstrap',
+			'SynchroDossier.style',
 		));
 		echo $this->Html->script(array(
+			'SynchroDossier.jquery.1.8.3.min',
 			'SynchroDossier./bootstrap/bootstrap/js/bootstrap',
-			'SynchroDossier.jquery.jstree'
+			'SynchroDossier._lib/jquery.cookie',
+			'SynchroDossier.jquery.jstree',
 		));
+		$this->Chosen->loadScripts(); // Chosen is used in addUserRigthsOnFolder
+
 		echo $this->Layout->js();
 		echo $this->Html->script(array());
 
-		echo $this->fetch('script');
 		echo $this->fetch('css');
 
 		?>
@@ -37,7 +40,11 @@
 				&nbsp;
 			</div>
 		</div>
-	<?= $this->element('SynchroDossier.addSharingModal'); ?>
-	<?= $this->Html->script('Uploader.app'); ?>
+		<div>
+			<?= $this->element('SynchroDossier.addSharingModal'); ?>
+			<?= $this->element('SynchroDossier.addUserRightsOnFolderModal'); ?>
+		</div>
+		<?=	$this->fetch('script'); ?>
+		<?= $this->Html->script('Uploader.app'); ?>
 	</body>
 </html>
