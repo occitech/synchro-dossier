@@ -33,6 +33,7 @@ class SynchroDossierComponent extends Component {
 
 			$idFolder = isset($controller->request->params['pass'][0]) ? $controller->request->params['pass'][0] : null;
 			$usersCanAccess = $UploaderAclAcoModel->getRights('UploadedFile', $idFolder);
+			$usersCanAccess['Aro'] = isset($usersCanAccess['Aro']) ? $usersCanAccess['Aro'] : array();
 			$controller->set('SynchroDossier_aroAccessFolder', $usersCanAccess['Aro']);
 		}
 	}
@@ -42,7 +43,8 @@ class SynchroDossierComponent extends Component {
 			$UploadedFileModel = ClassRegistry::init('Uploader.UploadedFile');
 			$UploadedFileModel->recursive = 1;
 			$rootFolders = $UploadedFileModel->findAllByParent_idAndIs_folder(null, 1);
-			$controller->set('SynchroDossier_rootFolders', $rootFolders);
+			$allFolders = $UploadedFileModel->getThreadedAllFolders();
+			$controller->set('SynchroDossier_allFolders', $allFolders);
 		}
 	}
 

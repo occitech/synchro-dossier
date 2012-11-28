@@ -11,6 +11,7 @@
 		));
 		echo $this->Html->script(array(
 			'SynchroDossier./bootstrap/bootstrap/js/bootstrap',
+			'SynchroDossier.jquery.jstree'
 		));
 		echo $this->Layout->js();
 		echo $this->Html->script(array());

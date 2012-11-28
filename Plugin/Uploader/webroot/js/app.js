@@ -12,6 +12,17 @@ jQuery(document).ready(function($) {
 		}
 	})
 
+	$(function () {
+		$(".sidebar-folders").jstree({
+			"themes" : {
+				"theme" : "synchrodossier",
+				"dots" : false,
+				"icons" : false
+			},
+			"plugins" : [ "themes", "html_data" ]
+		});
+	});
+
 	/**
 	 * Activate tooltip
 	 */

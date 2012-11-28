@@ -10,16 +10,13 @@
 				</a>
 			</span>
 		</li>
-		<?php foreach ($SynchroDossier_rootFolders as $folder): ?>
-			<li>
-				<?php if ($this->Acl->userCan($folder['Aco'], 'read')): ?>
-					<?= $this->Html->link(
-						$folder['UploadedFile']['filename'],
-						array('plugin' => 'uploader', 'controller' => 'files', 'action' =>'browse', $folder['UploadedFile']['id'])
-					); ?>
-				<?php endif ?>
-			</li>
-		<?php endforeach ?>
+	</ul>
+	<div class="sidebar-folders">
+		<ul class="nav nav-list">
+			<?= $this->SynchroDossier->displayTreeFolders($SynchroDossier_allFolders); ?>
+		</ul>
+	</div>
+	<ul class="nav nav-list">
 		<?php if (!is_null($SynchroDossier_aroAccessFolder)): ?>
 			<li class="nav-header">
 				<?= __('Utilisateurs du dossier'); ?>
@@ -35,5 +32,4 @@
 				</li>
 			<?php endforeach ?>
 		<?php endif ?>
-
 	</ul>
