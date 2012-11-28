@@ -191,6 +191,67 @@ class UploadedFileTest extends OccitechCakeTestCase {
 	}
 
 /**
+ * Test getThreadedFolders
+ */
+	public function testGetThreadedFolders_AllFolders() {
+		$result = $this->UploadedFile->getThreadedAllFolders();
+
+		$expected = array(
+			0 => array(
+				'UploadedFile' => array(
+					'id' => '1',
+					'filename' => 'Photos',
+					'size' => '',
+					'user_id' => '1',
+					'current_version' => '',
+					'available' => '',
+					'parent_id' => null,
+					'is_folder' => '1',
+					'lft' => '1',
+					'rght' => '8',
+					'mime_type' => null
+				),
+				'children' => array(
+					0 => array(
+						'UploadedFile' => array(
+							'id' => '3',
+							'filename' => 'Fruits',
+							'size' => '',
+							'user_id' => '1',
+							'current_version' => '',
+							'available' => '',
+							'parent_id' => '1',
+							'is_folder' => '1',
+							'lft' => '2',
+							'rght' => '7',
+							'mime_type' => null
+						),
+						'children' => array()
+					)
+				)
+			),
+			1 => array(
+				'UploadedFile' => array(
+					'id' => '2',
+					'filename' => 'Documents',
+					'size' => '',
+					'user_id' => '1',
+					'current_version' => '',
+					'available' => '',
+					'parent_id' => null,
+					'is_folder' => '1',
+					'lft' => '9',
+					'rght' => '12',
+					'mime_type' => null
+				),
+				'children' => array()
+			)
+		);
+
+		$this->assertEqual($result, $expected);
+	}
+
+/**
  * Test getFoldersPath
  */
 	public function testGetFoldersPathLittleFolder() {

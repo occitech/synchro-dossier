@@ -151,6 +151,16 @@ class UploadedFile extends UploaderAppModel {
 		return $result;
 	}
 
+	public function getThreadedAllFolders() {
+		$this->recursive = -1;
+		$folder = $this->find('threaded', array(
+			'conditions' => 
+				array('UploadedFile.is_folder' => 1,)
+		));
+
+		return $folder;
+	}
+
 	protected function _getFoldersPath($folderId) {
 		$parentFolder = $this->findById($folderId);
 		if (empty($parentFolder) || !$parentFolder['UploadedFile']['is_folder']) {
