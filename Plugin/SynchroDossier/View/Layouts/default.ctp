@@ -37,6 +37,7 @@
 				&nbsp;
 			</div>
 		</div>
+	<?= $this->element('SynchroDossier.addSharingModal'); ?>
 	<?= $this->Html->script('Uploader.app'); ?>
 	</body>
 </html>

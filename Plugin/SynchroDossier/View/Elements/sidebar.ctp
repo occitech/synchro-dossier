@@ -5,7 +5,7 @@
 		<li class="nav-header">
 			<?= __('Mes Dossiers'); ?>
 			<span style="float: right;">
-				<a href="#" rel="tooltip" title="<?= __('Ajouter un dossier'); ?>">
+				<a href="#addSharingModal" role="button" data-toggle="modal" rel="tooltip" title="<?= __('Ajouter un dossier'); ?>">
 					<i class="icon-plus-sign"></i>
 				</a>
 			</span>
