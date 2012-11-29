@@ -21,6 +21,11 @@ uploaderWidget = function() {
 		$(__sendButtonElt).click(function() {
 			$(__progressBarElt).css('width', '0%');
 			$(__filesListElt).css('display', 'none');
+			$(__progressBarElt).parent().css('display', 'block');
+			if( $('.progressbar-overlay').length == 0 ){
+				$('body').append('<div class="progressbar-overlay"></div>');
+				$('.progressbar-overlay').css('display', 'block');
+			}
 			uploader.start();
 			uploader.refresh();
 		});

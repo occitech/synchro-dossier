@@ -10,7 +10,7 @@
 
 <div class="row-fluid" id="plupload">
 	<div id="drop-area">
-		<p><?= __('Glisser/Déposer vos fichier ici'); ?></p>
+		<p><?= __('Glisser/Déposer vos fichiers ici'); ?></p>
 		<span>ou</span>
 		<a href="#" id="browse" class="btn"><?= __('Parcourir'); ?></a>
 	
