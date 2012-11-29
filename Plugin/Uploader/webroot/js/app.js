@@ -34,17 +34,4 @@ jQuery(document).ready(function($) {
 	$('*').tooltip({
 		delay: 200
 	});
-
-	/**
-	 * Plupload Error message
-	 */
-	var uploader = $('#uploader').pluploadQueue();
-	if (uploader != undefined) {
-		uploader.bind('FileUploaded', function(uploader, file, response) {
-			response = $.parseJSON(response.response);
-			if (response.error) {
-				alert(response.error.message);
-			};
-		});
-	}
 });
