@@ -5,7 +5,7 @@ App::uses('UploaderAclAco', 'Uploader.Model');
 
 class FilesController extends UploaderAppController {
 
-	public $uses = array('Uploader.UploadedFile', 'Uploader.UploaderAclAco', 'Permission');
+	public $uses = array('Uploader.UploadedFile');
 
 	public $components = array(
 		'Plupload.Plupload',
@@ -34,15 +34,9 @@ class FilesController extends UploaderAppController {
 	}
 
 	public function beforeRender() {
-		$this->helpers[] = 'Uploader.Acl';
-		$this->helpers[] = 'Plupload.Plupload';
-		$userRights = $this->UploadedFile->User->getAllRights($this->Auth->user('id'));
-		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
-		$this->set(compact('userRights', 'can'));
+		parent::beforeRender();
 
 		$folderId = isset($this->request->params['pass'][0]) ? $this->request->params['pass'][0] : null;
-
-		$this->set(compact('folderId'));
 
 		$uploadUrl = Router::url(array(
 			'plugin' => 'uploader',
