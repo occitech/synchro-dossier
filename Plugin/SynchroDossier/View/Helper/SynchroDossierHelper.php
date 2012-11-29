@@ -36,16 +36,18 @@ class SynchroDossierHelper extends AppHelper {
 	public function displayTreeFolders($folders) {
 		$output = '';
 		foreach ($folders as $folder) {
-			$subfolderOutput = '';
-			if (isset($folder['children']) && count($folder['children']) > 0) {
-				$subfolderOutput .= $this->displayTreeFolders($folder['children']);
-				$subfolderOutput = $this->Html->tag('ul', $subfolderOutput, array('class' => 'hidden'));
+			if ($this->Acl->userCan($folder['Aco'], 'read')) {
+				$subfolderOutput = '';
+				if (isset($folder['children']) && count($folder['children']) > 0) {
+					$subfolderOutput .= $this->displayTreeFolders($folder['children']);
+					$subfolderOutput = $this->Html->tag('ul', $subfolderOutput, array('class' => 'hidden'));
+				}
+				$link = $this->Html->link(
+					$folder['UploadedFile']['filename'],
+					array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse', $folder['UploadedFile']['id'])
+				);
+				$output .= $this->Html->tag('li', $link . $subfolderOutput);
 			}
-			$link = $this->Html->link(
-				$folder['UploadedFile']['filename'],
-				array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse', $folder['UploadedFile']['id'])
-			);
-			$output .= $this->Html->tag('li', $link . $subfolderOutput);
 		}
 
 		return $output;

@@ -152,7 +152,7 @@ class UploadedFile extends UploaderAppModel {
 	}
 
 	public function getThreadedAllFolders() {
-		$this->recursive = -1;
+		$this->contain('Aco');
 		$folder = $this->find('threaded', array(
 			'conditions' => 
 				array('UploadedFile.is_folder' => 1,)
