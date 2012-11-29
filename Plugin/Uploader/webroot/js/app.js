@@ -23,6 +23,11 @@ jQuery(document).ready(function($) {
 		});
 	});
 
+	$('.rename-folder').on('click', function() {
+		$('#renameFolderModal').find('#UploadedFileFilename').val($(this).attr('data-filename'));
+		$('#renameFolderModal').find('#UploadedFileId').val($(this).attr('data-id'));
+	})
+
 	/**
 	 * Activate tooltip
 	 */

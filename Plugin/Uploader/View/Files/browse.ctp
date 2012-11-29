@@ -24,7 +24,7 @@
 					<tr>
 						<td>
 							<?php if (!$file['UploadedFile']['is_folder']): ?>
-								V<?= $file['UploadedFile']['current_version']; ?>
+								<span class="badge">V<?= $file['UploadedFile']['current_version']; ?></span>
 								<?php if ($file['UploadedFile']['current_version'] > 1): ?>
 									<?= $this->Html->link('<i class="icon-chevron-right"></i>',
 										'#',
@@ -84,11 +84,16 @@
 									); ?>
 								<?php endif ?>
 								<?= $this->Html->link(
-									__('<i class="icon-pencil"></i>'),
-									array('controller' => 'files', 'action' => 'rename', $file['UploadedFile']['parent_id'], $file['UploadedFile']['id']),
+									'<i class="icon-pencil"></i>',
+									'#renameFolderModal',
 									array(
 										'rel' => 'tooltip',
-										'title' => __('Rename'),
+										'title' => __('Renomer le dossier'),
+										'role' => 'button',
+										'data-toggle' => 'modal',
+										'class' => 'rename-folder',
+										'data-id' => $file['UploadedFile']['id'],
+										'data-filename' => $file['UploadedFile']['filename'],
 										'escape' => false
 									)
 								); ?>
@@ -119,15 +124,12 @@
 								); ?>
 								<?= $this->Html->link(
 									'<i class="icon-plus-sign"></i>',
-									array(
-										'controller' => 'files',
-										'action' => 'upload',
-										$file['UploadedFile']['parent_id'],
-										$file['UploadedFile']['filename']
-									),
+									'#addNewVersion',
 									array(
 										'rel' => 'tooltip',
 										'title' => __('New version'),
+										'role' => 'button',
+										'data-toggle' => 'modal',
 										'escape' => false
 									)
 								); ?>
