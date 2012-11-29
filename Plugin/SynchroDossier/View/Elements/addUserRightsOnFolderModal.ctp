@@ -4,22 +4,18 @@
 		<h3 id="myModalLabel"><?= __('Select User'); ?></h3>
 	</div>
 	<div class="modal-body no-overflow-y">
-		<?php if (isset($folderId)): ?>
-			<?=	$this->Form->create('User', array('url' => array(
-				'controller' => 'Files',
-				'action' => 'toggleRight',
-				$folderId
-			))); ?>
-			<?= 
-				$this->Chosen->select(
-					'user_id',
-					array(),
-					array('data-placeholder' => __('Select user'))
-				);
-			?>
-		<?php else: ?>
-			<?= __('An error occured.'); ?>
-		<?php endif; ?>	
+		<?=	$this->Form->create('User', array('url' => array(
+			'controller' => 'Files',
+			'action' => 'toggleRight',
+			$folderId
+		))); ?>
+		<?= 
+			$this->Chosen->select(
+				'user_id',
+				array(),
+				array('data-placeholder' => __('Select user'))
+			);
+		?>
 	</div>
 	<div class="modal-footer">
 		<?= $this->Form->submit(__('Add user on this folder'), array('class' => 'btn')); ?>
