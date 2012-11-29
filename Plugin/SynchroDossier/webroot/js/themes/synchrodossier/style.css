@@ -4,6 +4,10 @@
  * Supported plugins: ui (hovered, clicked), checkbox, contextmenu, search
  */
 
+.jstree-synchrodossier > ul > li > a {
+	font-weight: bold;
+}
+
 .jstree-synchrodossier li, 
 .jstree-synchrodossier ins { background-image:url("d.png"); background-repeat:no-repeat; background-color:transparent; }
 .jstree-synchrodossier li { background-position:-90px 0; background-repeat:repeat-y; }

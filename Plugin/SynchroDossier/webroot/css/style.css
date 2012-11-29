@@ -1,3 +1,24 @@
 .no-overflow-y {
 	overflow-y: visible;
 }
+
+.sub-version {
+	background-color: whiteSmoke;
+}
+
+.sub-version td:first-child {
+	padding-left: 45px;
+}
+
+a {
+	color: black;
+}
+
+.sidebar{
+	width: 200px;
+	float: left;
+}
+
+#content {
+	margin-left: 250px;
+}
