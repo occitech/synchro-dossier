@@ -26,3 +26,11 @@ a {
 .sidebar .btn {
 	margin-bottom: 10px;
 }
+
+.popover {
+	width: 325px;
+}
+
+.popover textarea {
+	width: 95%;
+}

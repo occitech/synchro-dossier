@@ -31,7 +31,25 @@ jQuery(document).ready(function($) {
 	/**
 	 * Activate tooltip
 	 */
-	$('*').tooltip({
+	$('[rel="tooltip"]').tooltip({
 		delay: 200
 	});
+
+	$('[rel="popover"]').popover();
+	
+	$('[rel="popover"]').on('click', function(){
+
+		// $('.popover').each(function() {
+		// 	$(this).remove();
+		// });
+
+		var thislink = $(this);
+
+		$.ajax({
+			url: thislink.attr('ajax-url'),
+		}).done(function(data) {
+			thislink.next().find('.popover-content').html(data);
+		});
+	});
+
 });

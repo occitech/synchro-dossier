@@ -135,14 +135,17 @@
 								); ?>
 								<?= $this->Html->link(
 									'<i class="icon-comment"></i>',
+									'#',
 									array(
-										'controller' => 'comments',
-										'action' => 'add',
-										$file['UploadedFile']['id'],
-									),
-									array(
-										'rel' => 'tooltip',
-										'title' => __('Comment'),
+										'ajax-url' => $this->Html->url(array(
+											'controller' => 'comments',
+											'action' => 'add',
+											$file['UploadedFile']['id'],
+										)),
+										'rel' => 'popover',
+										'data-placement' => 'left',
+										'data-content' => 'test',
+										'data-original-title' => __('Commentaires'),
 										'escape' => false
 									)
 								); ?>
