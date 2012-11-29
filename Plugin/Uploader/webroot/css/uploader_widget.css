@@ -1,0 +1,56 @@
+#plupload {
+        font-family: Arial;
+        color: #AAA;
+}
+
+#plupload #drop-area {
+        border: 5px dashed #DDD;
+        height: 150px;
+        text-align: center;
+        font-size: 18px;
+        border-radius: 10px;
+        margin: 20px;
+}
+
+#plupload #drop-area .progress {
+        width: 85%;
+        margin: auto;
+        height: 3px;
+        margin-top: 45px;
+}
+
+#plupload #drop-area .hover {
+        border: 6px dashed red;
+}
+
+#plupload #drop-area p {
+        margin: 0;
+        padding: 25px 0 0 0;
+        font-weight: bold;
+        font-size: 20px;
+}
+
+#plupload #drop-area span {
+        display: block;
+        margin-bottom: 4px;
+}
+
+#plupload #browse {
+        padding: 4px 15px;
+        border-radius: 15px;
+}
+
+.upload-send {
+        margin: auto;
+        text-align: center; margin-top: 10px;
+}
+
+.popover-upload {
+        display: none;
+        top: 42px;
+        float: right;
+        right: 0px;
+        margin-right: 5px;
+        left: auto;
+        width: 300px;
+}
