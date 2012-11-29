@@ -28,10 +28,10 @@
 		<?= $this->element('SynchroDossier.navbar'); ?>
 		<div id="content-container" class="container-fluid">
 			<div class="row-fluid">
-				<div class="sidebar" style="width: 200px; float: left;">
+				<div class="sidebar well">
 					<?= $this->element('SynchroDossier.sidebar'); ?>
 				</div>
-				<div id="content" class="clearfix" style="margin-left: 200px;">
+				<div id="content" class="clearfix">
 					<div id="inner-content" class="span12">
 						<?= $this->Layout->sessionFlash(); ?>
 						<?= $this->fetch('content'); ?>
@@ -43,6 +43,8 @@
 		<div>
 			<?= $this->element('SynchroDossier.addSharingModal'); ?>
 			<?= $this->element('SynchroDossier.addUserRightsOnFolderModal'); ?>
+			<?= $this->element('SynchroDossier.addNewVersionModal'); ?>
+			<?= $this->element('SynchroDossier.renameFolderModal'); ?>
 		</div>
 		<?=	$this->fetch('script'); ?>
 		<?= $this->Html->script('Uploader.app'); ?>
