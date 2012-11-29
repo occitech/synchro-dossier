@@ -22,3 +22,7 @@ a {
 #content {
 	margin-left: 250px;
 }
+
+.sidebar .btn {
+	margin-bottom: 10px;
+}

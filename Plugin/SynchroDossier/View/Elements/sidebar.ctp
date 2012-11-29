@@ -23,31 +23,51 @@
 		<li class="nav-header">
 			<?= __('Actions') ?>
 		</li>
-		<?php if (isset($folderId)): ?>
-			<?= $this->Html->link(
-				__('Créer un sous dossier'),
-				array('controller' => 'files', 'action' => 'createFolder', $folderId));
-			?>
+		<?php if ($can['canCreateUser']()): ?>
+			<li>
+				<?= $this->Html->link(
+					__('Créer un utilisateur'),
+					array(
+						'plugin' => 'sd_users',
+						'controller' => 'sd_users',
+						'action' => 'add'
+					),
+					array('class' => 'btn')
+				);
+				?>
+			</li>
 		<?php endif ?>
-		<li>
-		</li>
+		<?php if (isset($folderId)): ?>
+			<li>
+				<?= $this->Html->link(
+					__('Créer un sous dossier'),
+					'#createFolderModal',
+					array(
+						'class' => 'btn',
+						'role' => 'button',
+						'data-toggle' => 'modal',
+					)
+				);
+				?>
+			</li>
+		<?php endif ?>
 
 		<?php if (!empty($SynchroDossier_aroAccessFolder)): ?>
-			<li class="nav-header">
-				<?= __('Utilisateurs du dossier'); ?>
-				<?php if ($this->Acl->userCan('change_right')): ?>				
-					<span style="float: right;">
-						<a href="#addUserRightsOnFolder" role="button" data-toggle="modal" rel="tooltip" title="<?= __('Ajouter un utilisateur à ce dossier'); ?>">
-							<i class="icon-plus-sign"></i>
-						</a>
-						</a>
-					</span>
-				<?php endif ?>
-			</li>
-			<?php foreach ($SynchroDossier_aroAccessFolder as $aro): ?>
-				<li>
-					<a href="#"><?= $aro['User']['username']; ?></a>
+			<?php if ($this->Acl->userCan('change_right')): ?>				
+				<li class="nav-header">
+					<?= __('Utilisateurs du dossier'); ?>
+						<span style="float: right;">
+							<a href="#addUserRightsOnFolder" role="button" data-toggle="modal" rel="tooltip" title="<?= __('Ajouter un utilisateur à ce dossier'); ?>">
+								<i class="icon-plus-sign"></i>
+							</a>
+							</a>
+						</span>
 				</li>
-			<?php endforeach ?>
+				<?php foreach ($SynchroDossier_aroAccessFolder as $aro): ?>
+					<li>
+						<a href="#"><?= $aro['User']['username']; ?></a>
+					</li>
+				<?php endforeach ?>
+			<?php endif ?>
 		<?php endif ?>
 	</ul>

@@ -29,7 +29,7 @@
 		<div id="content-container" class="container-fluid">
 			<div class="row-fluid">
 				<div class="sidebar well">
-					<?= $this->element('SynchroDossier.sidebar'); ?>
+					<?= $this->element('SynchroDossier.sidebar', array('can' => $can)); ?>
 				</div>
 				<div id="content" class="clearfix">
 					<div id="inner-content" class="span12">
@@ -45,6 +45,7 @@
 			<?= $this->element('SynchroDossier.addUserRightsOnFolderModal'); ?>
 			<?= $this->element('SynchroDossier.addNewVersionModal'); ?>
 			<?= $this->element('SynchroDossier.renameFolderModal'); ?>
+			<?= $this->element('SynchroDossier.createFolderModal'); ?>
 		</div>
 		<?=	$this->fetch('script'); ?>
 		<?= $this->Html->script('Uploader.app'); ?>
