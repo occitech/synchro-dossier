@@ -215,8 +215,8 @@ class UploadedFile extends UploaderAppModel {
 		return $content;
 	}
 
-	public function rename($fileId, $data) {
-		$fileInfos = $this->findById($fileId);
+	public function rename($data) {
+		$fileInfos = $this->findById($data[$this->alias]['id']);
 
 		if (!$fileInfos['UploadedFile']['is_folder']) {
 			return false;

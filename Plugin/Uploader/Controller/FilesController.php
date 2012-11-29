@@ -30,6 +30,7 @@ class FilesController extends UploaderAppController {
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Security->unlockedActions = 'upload';
+		$this->Security->unlockedActions = 'rename';
 	}
 
 	public function beforeRender() {
@@ -200,9 +201,9 @@ class FilesController extends UploaderAppController {
 		}
 	}
 
-	public function rename($parentId, $id) {
+	public function rename($parentId = null, $id = null) {
 		if ($this->request->is('put')) {
-			if ($this->UploadedFile->rename($id, $this->request->data)) {
+			if ($this->UploadedFile->rename($this->request->data)) {
 				$this->redirect(array('action' => 'browse', $parentId));
 			}
 		} else {
