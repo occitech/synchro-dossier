@@ -54,6 +54,9 @@ class FilesController extends UploaderAppController {
 			'locale' => 'fr',
 			'runtimes' => 'html5',
 			'filters' => array(),
+			'browse_button' => 'browse',
+			'drop_element' => 'drop-area',
+			'container' => 'plupload',
 			'url' => $uploadUrl
 		));
 	}

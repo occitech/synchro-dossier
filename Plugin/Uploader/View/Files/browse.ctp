@@ -1,20 +1,7 @@
 <?= $this->Plupload->loadAsset('jquery'); ?>
 
-<div class="plupload">
-	<script type="text/javascript">
-	$(function() {
-		$("#uploader").pluploadQueue(
-			<?php echo $this->Plupload->getOptions();?>
-		);
-	});
-	</script>
+<?= $this->element('Uploader.plupload_widget'); ?>
 
-	<form ..>
-		<div id="uploader">
-			<p><?= __('You browser doesn\'t have Flash, Silverlight, Gears, BrowserPlus or HTML5 support.'); ?></p>
-		</div>
-	</form>
-</div>
 <div class="uploader">
 	<table class="table table-hover">
 		<thead>
