@@ -35,7 +35,7 @@ class FilesController extends UploaderAppController {
 
 	public function beforeRender() {
 		parent::beforeRender();
-
+ 
 		$folderId = isset($this->request->params['pass'][0]) ? $this->request->params['pass'][0] : null;
 
 		$uploadUrl = Router::url(array(
@@ -140,6 +140,8 @@ class FilesController extends UploaderAppController {
 	}
 
 	public function browse($folderId = null) {
+		$folderId = $folderId === 'null' ? null : $folderId;
+
 		$this->helpers[] = 'Uploader.File';
 		$this->helpers[] = 'Time';
 
@@ -222,6 +224,7 @@ class FilesController extends UploaderAppController {
  *
  */	
 	public function upload($folderId, $originalFilename = null) {
+		$folderId = $folderId === 'null' ? null : $folderId;
 		if ($this->Plupload->isPluploadRequest()) {
 			list($uploadFinished, $response, $file) = $this->Plupload->upload();
 			if ($uploadFinished) {
@@ -236,6 +239,20 @@ class FilesController extends UploaderAppController {
 				}
 			}
 			die($response);
+		} elseif($this->request->is('post')) {
+			$uploadOk = $this->UploadedFile->upload(
+				$this->request->data['FileStorage'],
+				$this->Auth->user(),
+				$folderId,
+				$originalFilename
+			);
+			if (!$uploadOk) {
+				$error = $this->UploadedFile->FileStorage->invalidFields();
+				if (isset($error['file'][0])) {
+					$response = $this->Session->setFlash($error['file'][0], 'default', array('class' => 'alert alert-danger'));
+				}
+			}
+			$this->redirect(array('action' => 'browse', $folderId));
 		}
 		$this->set(compact('folderId'));
 	}

@@ -34,7 +34,20 @@ jQuery(document).ready(function($) {
 	$('[rel="tooltip"]').tooltip({
 		delay: 200
 	});
-	
+
+	/**
+	 * New version
+	 */
+
+	$('.add-new-version').on('click', function() {
+		action = $(this).attr('action');
+		$('#addNewVersion').find('form').attr('action', action);
+		$('#addNewVersion').find('.filename').text($(this).attr('data-filename'));
+	});
+
+	/**
+	 * Comments
+	 */
 	$('.comments').on('click', function(){
 		getModalContent($(this), $(this).attr('href'));
 	});
@@ -43,7 +56,6 @@ jQuery(document).ready(function($) {
 		$.ajax({
 			url: popOverLink.attr('ajax-url'),
 		}).done(function(data) {
-			console.log(data);
 			$(modalElt).find('.modal-body').html(data);
 		});		
 	}

@@ -1,11 +1,13 @@
 <div id="addNewVersion" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h3 id="myModalLabel"><?= __('Ajouter une nouvelle version'); ?></h3>
+		<h3 id="myModalLabel"><?= __('Ajouter une nouvelle version de'); ?><span class="filename"></span></h3>
 	</div>
 	<div class="modal-body no-overflow-y">
 		<div class="uploader">
-TODO
+			<?php echo $this->Form->create('File', array('type' => 'file')); ?>
+		
+			<?php echo $this->Form->input('FileStorage.file', array('type' => 'file'));?>
 		</div>
 	</div>
 	<div class="modal-footer">

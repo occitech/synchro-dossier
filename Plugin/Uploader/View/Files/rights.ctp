@@ -14,7 +14,7 @@
 			$this->Form->end(__('Add user'));
 		?>
 	</div>
- 	<table>
+ 	<table class="table table-hover">
 		<tr>
 			<td><?= __('Name') ?></td>
 			<td><?= __('Read') ?></td>

@@ -126,10 +126,19 @@
 									'<i class="icon-plus-sign"></i>',
 									'#addNewVersion',
 									array(
+										'action' => $this->Html->url(array(
+											'plugin' => 'uploader',
+											'controller' => 'files',
+											'action' => 'upload',
+											is_null($folderId) ? 'null' : $folderId,
+											$file['UploadedFile']['filename']
+										)),
 										'rel' => 'tooltip',
 										'title' => __('New version'),
 										'role' => 'button',
 										'data-toggle' => 'modal',
+										'data-filename' => $file['UploadedFile']['filename'],
+										'class' => 'add-new-version',
 										'escape' => false
 									)
 								); ?>

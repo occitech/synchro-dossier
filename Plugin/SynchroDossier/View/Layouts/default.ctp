@@ -46,6 +46,7 @@
 			<?= $this->element('SynchroDossier.addNewVersionModal'); ?>
 			<?= $this->element('SynchroDossier.renameFolderModal'); ?>
 			<?= $this->element('SynchroDossier.createFolderModal'); ?>
+			<?= $this->element('SynchroDossier.formCommentModal'); ?>
 		</div>
 		<?=	$this->fetch('script'); ?>
 		<?= $this->Html->script('Uploader.app'); ?>
