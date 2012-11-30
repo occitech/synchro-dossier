@@ -27,6 +27,8 @@ class FilesController extends UploaderAppController {
 		)
 	);
 
+	private $__listRights = array('read', 'create', 'delete');
+
 	public function beforeFilter() {
 		parent::beforeFilter();
 		$this->Security->unlockedActions = 'upload';
@@ -84,19 +86,30 @@ class FilesController extends UploaderAppController {
 	}
 
 	protected function _allowRight($uploadedFileId, $userId, $action) {
-		$this->Permission->allow(
-			array('model' => 'User', 'foreign_key' => $userId),
-			array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
-			$action
-		);		
+		foreach ($this->__listRights as $right) {
+			$this->Permission->allow(
+				array('model' => 'User', 'foreign_key' => $userId),
+				array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
+				$right
+			);		
+			if ($right == $action) {
+				break;
+			}
+		}
 	}
 
 	protected function _denyRight($uploadedFileId, $userId, $action) {
-		$this->Acl->deny(
-			array('model' => 'User', 'foreign_key' => $userId),
-			array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
-			$action
-		);		
+		foreach (array_reverse($this->__listRights) as $right) {
+			$this->Acl->deny(
+				array('model' => 'User', 'foreign_key' => $userId),
+				array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
+				$right
+			);
+
+			if ($right == $action) {
+				break;
+			}
+		}
 	}
 
 	public function removeRight($acoId, $aroId) {
@@ -108,6 +121,8 @@ class FilesController extends UploaderAppController {
 	}
 
 	public function toggleRight($uploadedFileId, $userId = null, $action = 'read') {
+		$listRights = array('read', 'create', 'delete');
+
 		$isNewUserRight = false;
 		if (isset($this->request->data['User']['user_id'])) {
 			$userId = $this->request->data['User']['user_id'];
@@ -121,7 +136,9 @@ class FilesController extends UploaderAppController {
 
 			if (!($isNewUserRight && $isRightActive)) {
 				$method = ($isRightActive) ? '_denyRight' : '_allowRight';
+				
 				$this->{$method}($uploadedFileId, $userId, $action);
+				
 				$this->getEventManager()->dispatch(new CakeEvent(
 					'Controller.FilesController.afterChangeRight',
 					$this,

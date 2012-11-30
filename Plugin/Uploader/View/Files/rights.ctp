@@ -17,10 +17,9 @@
  	<table class="table table-hover">
 		<tr>
 			<td><?= __('Name') ?></td>
-			<td><?= __('Read') ?></td>
-			<td><?= __('Write') ?></td>
-			<td><?= __('Delete') ?></td>
-			<td><?= __('Change_right') ?></td>
+			<td><?= __('Lecture') ?></td>
+			<td><?= __('Upload') ?></td>
+			<td><?= __('Suppression') ?></td>
 			<td><?= __('Actions') ?></td>
 		</tr>
 		<?php foreach ($superAdmins as $superAdmin): ?>
@@ -31,7 +30,6 @@
 					<?= $superAdmin['Role']['title']; ?>
 				</span>
 			</td>
-			<td><?= $this->Layout->status(1); ?></td>
 			<td><?= $this->Layout->status(1); ?></td>
 			<td><?= $this->Layout->status(1); ?></td>
 			<td><?= $this->Layout->status(1); ?></td>
@@ -98,22 +96,6 @@
 					); ?>
 				<?php else: ?>
 					<?= $this->Layout->status($aro['ArosAco']['_delete']) ?>
-				<?php endif ?>
-			</td>
-			<td>
-				<?php if ($hasRightToChangeRight): ?>
-					<?= $this->Html->link(
-						$this->Layout->status($aro['ArosAco']['_change_right']),
-						array(
-							'action' => 'toggleRight',
-							$acos['Aco']['foreign_key'],
-							$aro['foreign_key'],
-							'change_right'
-						),
-						array('escape' => false)
-					); ?>
-				<?php else: ?>
-					<?= $this->Layout->status($aro['ArosAco']['_change_right']) ?>
 				<?php endif ?>
 			</td>
 			<td>
