@@ -38,80 +38,88 @@
 		<?php endforeach ?>
 
 		<?php foreach ($acos['Aro'] as $aro): ?>
-		<?php $hasRightToChangeRight = $can['canChangeRight'](
-			$aro['User']['id'],
-			$aro['User']['role_id'],
-			$folder['User']['id']
-		); ?>
-		<tr>
-			<td>
-				<?= $aro['alias'] ?>
-				<span class="label label-<?= $aro['alias'] ?>">
-					<?= $aro['User']['Role']['title']; ?>
-				</span>
-			</td>
-			<td>
-				<?php if ($hasRightToChangeRight): ?>
-					<?= $this->Html->link(
-						$this->Layout->status($aro['ArosAco']['_read']),
-						array(
-							'action' => 'toggleRight',
-							$acos['Aco']['foreign_key'],
-							$aro['foreign_key'],
-							'read'
-						),
-						array('escape' => false)
-					); ?>
-				<?php else: ?>
-					<?= $this->Layout->status($aro['ArosAco']['_read']) ?>
-				<?php endif ?>
-			</td>
-			<td>
-				<?php if ($hasRightToChangeRight): ?>
-					<?= $this->Html->link(
-						$this->Layout->status($aro['ArosAco']['_create']),
-						array(
-							'action' => 'toggleRight',
-							$acos['Aco']['foreign_key'],
-							$aro['foreign_key'],
-							'create'
-						),
-						array('escape' => false)
-					); ?>
-				<?php else: ?>
-					<?= $this->Layout->status($aro['ArosAco']['_create']) ?>
-				<?php endif ?>
-			</td>
-			<td>
-				<?php if ($hasRightToChangeRight): ?>
-					<?= $this->Html->link(
-						$this->Layout->status($aro['ArosAco']['_delete']),
-						array(
-							'action' => 'toggleRight',
-							$acos['Aco']['foreign_key'],
-							$aro['foreign_key'],
-							'delete'
-						),
-						array('escape' => false)
-					); ?>
-				<?php else: ?>
-					<?= $this->Layout->status($aro['ArosAco']['_delete']) ?>
-				<?php endif ?>
-			</td>
-			<td>
+			<?php
+				$hasRightToChangeRight = $can['canChangeRight'](
+					$aro['User']['id'],
+					$aro['User']['role_id'],
+					$folder['User']['id']
+				); 
+				$listRolesToPrint = array(
+					Configure::read('sd.Admin.roleId'),
+					Configure::read('sd.Utilisateur.roleId'),
+				);
+			?>
+			<?php if (in_array($aro['User']['role_id'], $listRolesToPrint)): ?>
+				<tr>
+					<td>
+						<?= $aro['alias'] ?>
+						<span class="label label-<?= $aro['alias'] ?>">
+							<?= $aro['User']['Role']['title']; ?>
+						</span>
+					</td>
+					<td>
+						<?php if ($hasRightToChangeRight): ?>
+							<?= $this->Html->link(
+								$this->Layout->status($aro['ArosAco']['_read']),
+								array(
+									'action' => 'toggleRight',
+									$acos['Aco']['foreign_key'],
+									$aro['foreign_key'],
+									'read'
+								),
+								array('escape' => false)
+							); ?>
+						<?php else: ?>
+							<?= $this->Layout->status($aro['ArosAco']['_read']) ?>
+						<?php endif ?>
+					</td>
+					<td>
+						<?php if ($hasRightToChangeRight): ?>
+							<?= $this->Html->link(
+								$this->Layout->status($aro['ArosAco']['_create']),
+								array(
+									'action' => 'toggleRight',
+									$acos['Aco']['foreign_key'],
+									$aro['foreign_key'],
+									'create'
+								),
+								array('escape' => false)
+							); ?>
+						<?php else: ?>
+							<?= $this->Layout->status($aro['ArosAco']['_create']) ?>
+						<?php endif ?>
+					</td>
+					<td>
+						<?php if ($hasRightToChangeRight): ?>
+							<?= $this->Html->link(
+								$this->Layout->status($aro['ArosAco']['_delete']),
+								array(
+									'action' => 'toggleRight',
+									$acos['Aco']['foreign_key'],
+									$aro['foreign_key'],
+									'delete'
+								),
+								array('escape' => false)
+							); ?>
+						<?php else: ?>
+							<?= $this->Layout->status($aro['ArosAco']['_delete']) ?>
+						<?php endif ?>
+					</td>
+					<td>
 
-				<?php if ($hasRightToChangeRight): ?>
-					<?= $this->Html->link(
-						__('Remove all rights'),
-						array(
-							'action' => 'removeRight',
-							$aro['ArosAco']['aco_id'],
-							$aro['ArosAco']['aro_id']
-						)
-					); ?>
-				<?php endif ?>
-			</td>
-		</tr>
+						<?php if ($hasRightToChangeRight): ?>
+							<?= $this->Html->link(
+								__('Remove all rights'),
+								array(
+									'action' => 'removeRight',
+									$aro['ArosAco']['aco_id'],
+									$aro['ArosAco']['aro_id']
+								)
+							); ?>
+						<?php endif ?>
+					</td>
+				</tr>
+			<?php endif ?>
 		<?php endforeach ?>
 	</table>		
 </div>

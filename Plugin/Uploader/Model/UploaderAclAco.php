@@ -35,7 +35,7 @@ class UploaderAclAco extends AclNode {
 		)
 	);
 
-	public function getRights($model, $foreignKey) {
+	public function getArosOfFolder($model, $foreignKey) {
 		$this->Aro->bindModel(array(
 			'belongsTo' => array(
 				'User' => array(
@@ -44,6 +44,7 @@ class UploaderAclAco extends AclNode {
  				) 
 			)
 		));
+
 		$result = $this->find(
 			'first',
 			array(

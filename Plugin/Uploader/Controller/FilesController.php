@@ -62,7 +62,7 @@ class FilesController extends UploaderAppController {
 		if ($this->UploadedFile->isRootFolder($folderId)) {
 			$folder = $this->UploadedFile->findById($folderId);
 			$superAdmins = $this->UploadedFile->User->find('superAdmin');
-			$acos = $this->UploaderAclAco->getRights('UploadedFile', $folderId);
+			$acos = $this->UploaderAclAco->getArosOfFolder('UploadedFile', $folderId);
 			$users = $this->UploadedFile->User->find('list');
 			$this->set(compact('acos', 'users', 'superAdmins', 'folder'));
 		} else {
@@ -272,7 +272,6 @@ class FilesController extends UploaderAppController {
 					$response = $this->Session->setFlash($error['file'][0], 'default', array('class' => 'alert alert-danger'));
 				}
 			}
-			$this->redirect(array('action' => 'browse', $folderId));
 		}
 		$this->set(compact('folderId'));
 	}
@@ -283,6 +282,8 @@ class FilesController extends UploaderAppController {
 				$this,
 				array('user' => $this->Auth->user())
 		));
+
+		$this->redirect(array('action' => 'browse', $folderId));
 	}
 
 	public function download($fileStorageId = null) {

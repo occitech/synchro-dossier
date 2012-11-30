@@ -23,6 +23,7 @@ class UploaderAclAcoTest extends CakeTestCase {
 	);
 
 	public function setUp() {
+		Configure::write('Acl.database', 'test');
 		parent::setUp();
 		$this->Aco = ClassRegistry::init('Uploader.UploaderAclAco');
 	}
@@ -33,15 +34,15 @@ class UploaderAclAcoTest extends CakeTestCase {
 		parent::tearDown();
 	}
 
-	public function testGetRights_HasAros() {
-		$result = $this->Aco->getRights('UploadedFile', 1);
+	public function testGetArosOfFolder_HasAros() {
+		$result = $this->Aco->getArosOfFolder('UploadedFile', 1);
 
 		$this->assertTrue(!empty($result['Aro']));
-		$this->assertEqual($result['Aro'][0]['alias'], 'admin');
+		$this->assertEqual($result['Aro'][0]['alias'], 'aymeric');
 	}
 
-	public function testGetRights_HasNotAro() {
-		$result = $this->Aco->getRights('UploadedFile', 4);
+	public function testGetArosOfFolder_HasNotAro() {
+		$result = $this->Aco->getArosOfFolder('UploadedFile', 4);
 
 		$this->assertTrue(empty($result['Aro']));
 	}
