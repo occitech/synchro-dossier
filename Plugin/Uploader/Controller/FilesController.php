@@ -64,7 +64,7 @@ class FilesController extends UploaderAppController {
 			$users = $this->UploadedFile->User->find('list');
 			$this->set(compact('acos', 'users', 'superAdmins', 'folder'));
 		} else {
-			$this->Session->setFlash(__('Vous ne pouvez pas donner de droit à ce dossier'));
+			$this->Session->setFlash(__('Vous ne pouvez pas donner de droit à ce dossier'), 'default', array('class' => 'alert alert-danger'));
 		}
 	}
 
@@ -102,7 +102,7 @@ class FilesController extends UploaderAppController {
 	public function removeRight($acoId, $aroId) {
 		$result = $this->_removeRight($acoId, $aroId);
 		if (!$result) {
-			$this->Session->setFlash(__('There was an error while deleting the right. Thank you try again or contact an administrator'));
+			$this->Session->setFlash(__('There was an error while deleting the right. Thank you try again or contact an administrator'), 'default', array('class' => 'alert alert-danger'));
 		}
 		$this->redirect($this->referer());
 	}
@@ -134,7 +134,7 @@ class FilesController extends UploaderAppController {
 			}
 
 		} else {
-			$this->Session->setFlash(__('Given information are incorrect')); 
+			$this->Session->setFlash(__('Given information are incorrect'), 'default', array('class' => 'alert alert-danger')); 
 		}
 		$this->redirect($this->referer());
 	}
@@ -178,33 +178,36 @@ class FilesController extends UploaderAppController {
 					array('model' => 'User', 'foreign_key' => Configure::write('sd.SuperAdmin.roleId')),
 					array('model' => 'UploadedFile', 'foreign_key' => $this->UploadedFile->id)
 				);
-				$this->Session->setFlash(__('Folder correctly created'));
-				$this->redirect(array('action' => 'browse', $parentId));
+				$this->Session->setFlash(__('Le dossier a correctement été créé'), 'default', array('class' => 'alert'));
 			} else {
-				$this->Session->setFlash(__('There are errors in the data sent by the form'));
+				$errors = $this->UploadedFile->invalidFields();
+				$errorMessage = '';
+				foreach ($errors as $error) {
+					$errorMessage .= implode('<br> ', array_unique($error));
+				}
+				$this->Session->setFlash(__('Il y a des erreurs dans les données du formulaire') . '<br>' . $errorMessage, 'default', array('class' => 'alert alert-danger'));
 			}
 		}
+		$this->redirect(array('action' => 'browse'));
 	}
 
 	public function createFolder($parentId) {
 		if ($this->request->is('post')) {
 			if ($this->UploadedFile->addFolder($this->request->data, $parentId, $this->Auth->user('id'))) {
-				$this->Session->setFlash(__('Sub-folder correctly created'));
-				$this->redirect(array('action' => 'browse', $parentId));
+				$this->Session->setFlash(__('Le dossier a correctement été créé'), 'default', array('class' => 'alert'));
 			} else {
-				$this->Session->setFlash(__('There are errors in the data sent by the form'));
+				$this->Session->setFlash(__('Il y a des erreurs dans les données du formulaire'), 'default', array('class' => 'alert alert-danger'));
 			}
 		}
+		$this->redirect(array('action' => 'browse', $parentId));
 	}
 
 	public function rename($parentId = null, $id = null) {
 		if ($this->request->is('put')) {
 			if ($this->UploadedFile->rename($this->request->data)) {
-				$this->redirect(array('action' => 'browse', $parentId));
 			}
-		} else {
-			$this->request->data = $this->UploadedFile->findById($id);
 		}
+		$this->redirect(array('action' => 'browse', $parentId));
 	}
 
 	public function downloadZipFolder($folderId) {
