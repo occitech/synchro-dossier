@@ -2,12 +2,14 @@
 
 class UploaderAppController extends AppController {
 
+	public function beforeFilter() {
+		$this->loadModel('Uploader.UploaderAclAco');
+		$this->loadModel('Permission');
+	}
+
 	public function beforeRender() {
 		$this->helpers[] = 'Uploader.Acl';
 		$this->helpers[] = 'Plupload.Plupload';
-
-		$this->loadModel('Uploader.UploaderAclAco');
-		$this->loadModel('Permission');
 
 		$userRights = $this->UploadedFile->User->getAllRights($this->Auth->user('id'));
 		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
