@@ -28,6 +28,7 @@
 				<?= $this->Html->link(
 					__('Créer un utilisateur'),
 					array(
+						'admin' => true,
 						'plugin' => 'sd_users',
 						'controller' => 'sd_users',
 						'action' => 'add'
