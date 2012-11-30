@@ -7,6 +7,7 @@ class CommentsController extends UploaderAppController {
 	public $uses = array('Comments.Comment', 'Uploader.UploadedFile');
 
 	public function beforeRender() {
+		parent::beforeRender();
 		if ($this->request->is('ajax')) {
 			$this->layout = null;
 		}

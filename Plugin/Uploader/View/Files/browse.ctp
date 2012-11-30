@@ -135,17 +135,17 @@
 								); ?>
 								<?= $this->Html->link(
 									'<i class="icon-comment"></i>',
-									'#',
+									'#formCommentModal',
 									array(
 										'ajax-url' => $this->Html->url(array(
 											'controller' => 'comments',
 											'action' => 'add',
 											$file['UploadedFile']['id'],
 										)),
-										'rel' => 'popover',
-										'data-placement' => 'left',
-										'data-content' => 'test',
-										'data-original-title' => __('Commentaires'),
+										'role' => 'button',
+										'data-toggle' => 'modal',
+										'title' => __('Commentaires'),
+										'class' => 'comments',
 										'escape' => false
 									)
 								); ?>

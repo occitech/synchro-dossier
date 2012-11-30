@@ -34,22 +34,18 @@ jQuery(document).ready(function($) {
 	$('[rel="tooltip"]').tooltip({
 		delay: 200
 	});
-
-	$('[rel="popover"]').popover();
 	
-	$('[rel="popover"]').on('click', function(){
-
-		// $('.popover').each(function() {
-		// 	$(this).remove();
-		// });
-
-		var thislink = $(this);
-
-		$.ajax({
-			url: thislink.attr('ajax-url'),
-		}).done(function(data) {
-			thislink.next().find('.popover-content').html(data);
-		});
+	$('.comments').on('click', function(){
+		getModalContent($(this), $(this).attr('href'));
 	});
+
+	function getModalContent(popOverLink, modalElt) {
+		$.ajax({
+			url: popOverLink.attr('ajax-url'),
+		}).done(function(data) {
+			console.log(data);
+			$(modalElt).find('.modal-body').html(data);
+		});		
+	}
 
 });
