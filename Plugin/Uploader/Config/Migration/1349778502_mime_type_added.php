@@ -19,7 +19,7 @@ class MimeTypeAdded extends CakeMigration {
 		'up' => array(
 			'create_field' => array(
 				'uploaded_files' => array(
-					'mime_type' => array('type' => 'string', 'null' => true, 'default' => NULL, 'collate' => 'utf8_bin', 'charset' => 'utf8', 'after' => 'rght'),
+					'mime_type' => array('type' => 'string', 'null' => true, 'default' => NULL, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'after' => 'rght'),
 				),
 			),
 			'alter_field' => array(
