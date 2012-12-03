@@ -36,7 +36,8 @@ foreach ($rolesInfos as $roleName => $infos) {
 }
 
 $adminMenu = array(
-	'title' => __('Users'),
+	'icon' => array('user', 'large'),
+	'title' => __('Utilisateurs'),
 	'url' => array(
 		'admin' => true,
 		'plugin' => 'sd_users',
@@ -45,7 +46,7 @@ $adminMenu = array(
 	),
 	'children' => array(
 		'list' => array(
-			'title' => __('List'),
+			'title' => __('Liste'),
 			'url' => array(
 				'admin' => true,
 				'plugin' => 'sd_users',
@@ -54,7 +55,7 @@ $adminMenu = array(
 			),
 		),
 		'add' => array(
-			'title' => __('Add'),
+			'title' => __('Ajouter'),
 			'url' => array(
 				'admin' => true,
 				'plugin' => 'sd_users',

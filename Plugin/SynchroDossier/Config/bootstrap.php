@@ -10,6 +10,7 @@ CakeEventManager::instance()->attach(new SdAlertEmailManager());
 Croogo::hookComponent('*', 'SynchroDossier.SynchroDossier');
 
 $adminMenu = array(
+	'icon' => array('file', 'large'),
 	'title' => __('SynchroDossier'),
 	'url' => array(
 		'admin' => true,

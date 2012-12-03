@@ -1,31 +1,37 @@
 <?php echo $this->Form->create('SdInformation');?>
-	<fieldset>
-		<div class="tabs">
-			<ul>
-				<li><a href="#node-main"><span><?php echo __('Users'); ?></span></a></li>
-				<?php echo $this->Croogo->adminTabs(); ?>
-			</ul>
 
-			<div id="node-main">
+<div class="row-fluid">
+	<div class="span8">
+
+		<ul class="nav nav-tabs">
+			<li><a href="#quota-main" data-toggle="tab"><span><?php echo __('Quota'); ?></span></a></li>
+			<?php echo $this->Croogo->adminTabs(); ?>
+		</ul>
+
+		<div class="tab-content">
+			<div id="quota-main" class="tab-pane">
 			<?=
 				$this->Form->hidden('SdInformation.id').
 				$this->Form->input('SdInformation.quota', array('label' => __('Quota (Go) : '), 'type' => 'text')) .
-				__('Used Quota : ') . $usedQuota;
+				__('Quota utilisé : ') . $usedQuota;
 			?>
 			</div>
 
 			<?php echo $this->Croogo->adminTabs(); ?>
-			<div class="clear">&nbsp;</div>
 		</div>
-	</fieldset>
-	<div class="buttons">
+	</div>
+	<div class="span4">
 	<?php
-		echo $this->Form->submit(__('Save'), array('label' => __('Save')));
-		echo $this->Html->link(__('Cancel'), array(
-			'action' => 'index',
-		), array(
-			'class' => 'cancel',
-		));
+		echo $this->Html->beginBox(__('Publishing')) .
+			$this->Form->button(__('Sauver'), array('button' => 'default')) .
+			$this->Html->link(__('Annuler'), array('action' => 'index'), array(
+				'button' => 'danger')
+			).
+			$this->Html->endBox();
+
+		echo $this->Croogo->adminBoxes();
 	?>
 	</div>
+
+</div>
 <?php echo $this->Form->end();?>
