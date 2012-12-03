@@ -18,6 +18,9 @@ class UploaderAppController extends AppController {
 
 		$folderId = isset($this->request->params['pass'][0]) ? $this->request->params['pass'][0] : null;
 
-		$this->set(compact('folderId'));
+		$this->UploaderAclAco->recursive = -1;
+		$folderAco = $this->UploaderAclAco->findByModelAndForeign_key('UploadedFile', $folderId);
+
+		$this->set(compact('folderId', 'folderAco'));
 	}
 }

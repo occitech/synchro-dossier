@@ -1,18 +1,21 @@
 	<ul class="nav nav-list">
-		<li class="nav-header">
-			<?= __('Votre Quota'); ?>
-		</li>
-		<li>
-			<?= $this->SynchroDossier->displayQuota(); ?>
-		</li>
-
+		<?php if ($can['canCreateUser']()): ?>
+			<li class="nav-header">
+				<?= __('Votre Quota'); ?>
+			</li>
+			<li>
+				<?= $this->SynchroDossier->displayQuota(); ?>
+			</li>
+		<?php endif ?>
 		<li class="nav-header">
 			<?= __('Mes Dossiers'); ?>
-			<span style="float: right;">
-				<a href="#addSharingModal" role="button" data-toggle="modal" rel="tooltip" title="<?= __('Ajouter un dossier'); ?>">
-					<i class="icon-plus-sign"></i>
-				</a>
-			</span>
+			<?php if ($can['canCreateUser']()): ?>
+				<span style="float: right;">
+					<a href="#addSharingModal" role="button" data-toggle="modal" rel="tooltip" title="<?= __('Ajouter un dossier'); ?>">
+						<i class="icon-plus-sign"></i>
+					</a>
+				</span>
+			<?php endif ?>
 		</li>
 		<div class="sidebar-folders">
 			<ul>
@@ -26,7 +29,7 @@
 		<?php if ($can['canCreateUser']()): ?>
 			<li>
 				<?= $this->Html->link(
-					__('Créer un utilisateur'),
+					__('Créez un utilisateur'),
 					array(
 						'admin' => true,
 						'plugin' => 'sd_users',
@@ -39,22 +42,24 @@
 			</li>
 		<?php endif ?>
 		<?php if (isset($folderId)): ?>
-			<li>
-				<?= $this->Html->link(
-					__('Créer un sous dossier'),
-					'#createFolderModal',
-					array(
-						'class' => 'btn',
-						'role' => 'button',
-						'data-toggle' => 'modal',
-					)
-				);
-				?>
-			</li>
+			<?php if ($this->Acl->userCan($folderAco['Aco'], 'create')): ?>
+				<li>
+					<?= $this->Html->link(
+						__('Créez un sous dossier'),
+						'#createFolderModal',
+						array(
+							'class' => 'btn',
+							'role' => 'button',
+							'data-toggle' => 'modal',
+						)
+					);
+					?>
+				</li>
+			<?php endif ?>
 		<?php endif ?>
 
 		<?php if (!empty($SynchroDossier_aroAccessFolder) && isset($folderId)): ?>
-			<?php if ($this->Acl->userCan('change_right')): ?>				
+			<?php if ($this->Acl->userCan('change_right')): ?>
 				<li class="nav-header">
 					<?= __('Utilisateurs du dossier'); ?>
 						<span style="float: right;">
