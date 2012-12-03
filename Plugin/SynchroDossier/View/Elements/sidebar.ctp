@@ -53,15 +53,21 @@
 			</li>
 		<?php endif ?>
 
-		<?php if (!empty($SynchroDossier_aroAccessFolder)): ?>
+		<?php if (!empty($SynchroDossier_aroAccessFolder) && isset($folderId)): ?>
 			<?php if ($this->Acl->userCan('change_right')): ?>				
 				<li class="nav-header">
 					<?= __('Utilisateurs du dossier'); ?>
 						<span style="float: right;">
-							<a href="#addUserRightsOnFolder" role="button" data-toggle="modal" rel="tooltip" title="<?= __('Ajouter un utilisateur à ce dossier'); ?>">
-								<i class="icon-plus-sign"></i>
-							</a>
-							</a>
+							<?= $this->Html->link(
+								'<i class="icon-plus-sign"></i>',
+								array('controller' => 'files', 'action' => 'rights', $folderId),
+								array(
+									'data-toggle' => 'modal',
+									'rel' => 'tooltip',
+									'title' => __('Ajouter un utilisateur à ce dossier'),
+									'escape' => false
+								)
+							); ?>
 						</span>
 				</li>
 				<?php foreach ($SynchroDossier_aroAccessFolder as $aro): ?>

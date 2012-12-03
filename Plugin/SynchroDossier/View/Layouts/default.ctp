@@ -42,7 +42,6 @@
 		</div>
 		<div>
 			<?= $this->element('SynchroDossier.addSharingModal'); ?>
-			<?= $this->element('SynchroDossier.addUserRightsOnFolderModal'); ?>
 			<?= $this->element('SynchroDossier.addNewVersionModal'); ?>
 			<?= $this->element('SynchroDossier.renameFolderModal'); ?>
 			<?= $this->element('SynchroDossier.createFolderModal'); ?>

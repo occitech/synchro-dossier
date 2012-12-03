@@ -66,7 +66,12 @@ class FilesController extends UploaderAppController {
 			$usersNotInFolder = $this->UploaderAclAro->getUserNotInFolder($folderId);
 			$this->set(compact('acos', 'superAdmins', 'folder', 'usersNotInFolder'));
 		} else {
-			$this->Session->setFlash(__('Vous ne pouvez pas donner de droit à ce dossier'), 'default', array('class' => 'alert alert-danger'));
+			$rootId = $this->UploadedFile->getRootFolderId($folderId);
+			$this->Session->setFlash(
+				__('Vous ne pouvez pas donner de droit à un sous dossier. Nous vous avons donc redirigé sur la page permettant de donner les droits au dossier racine. Les droits s\'appliqueront aussi au sous dossier'),
+				'default',
+				array('class' => 'alert alert-info'));
+			$this->redirect(array('action' => 'rights', $rootId));
 		}
 	}
 
