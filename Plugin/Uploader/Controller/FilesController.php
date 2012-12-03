@@ -63,8 +63,8 @@ class FilesController extends UploaderAppController {
 			$folder = $this->UploadedFile->findById($folderId);
 			$superAdmins = $this->UploadedFile->User->find('superAdmin');
 			$acos = $this->UploaderAclAco->getArosOfFolder('UploadedFile', $folderId);
-			$users = $this->UploadedFile->User->find('list');
-			$this->set(compact('acos', 'users', 'superAdmins', 'folder'));
+			$usersNotInFolder = $this->UploaderAclAro->getUserNotInFolder($folderId);
+			$this->set(compact('acos', 'superAdmins', 'folder', 'usersNotInFolder'));
 		} else {
 			$this->Session->setFlash(__('Vous ne pouvez pas donner de droit à ce dossier'), 'default', array('class' => 'alert alert-danger'));
 		}

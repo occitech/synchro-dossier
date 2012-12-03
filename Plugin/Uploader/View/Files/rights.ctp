@@ -5,13 +5,14 @@
 				'controller' => 'Files',
 				'action' => 'toggleRight',
 				$acos['Aco']['foreign_key']
-			))) .
+			)), array('class' => 'form-inline')) .
 			$this->Chosen->select(
 				'user_id',
-				$users,
+				$usersNotInFolder,
 				array('data-placeholder' => __('Select user'))
 			) .
-			$this->Form->end(__('Add user'));
+			$this->Form->submit(__('Add user'), array('class' => 'btn')) .
+			$this->Form->end();
 		?>
 	</div>
  	<table class="table table-hover">

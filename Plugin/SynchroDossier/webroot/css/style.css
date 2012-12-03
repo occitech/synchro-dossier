@@ -34,3 +34,9 @@ a {
 .popover textarea {
 	width: 95%;
 }
+
+#UserUserId_chzn {
+	float: left;
+	margin-right: 5px;
+	margin-top: 3px;
+}
