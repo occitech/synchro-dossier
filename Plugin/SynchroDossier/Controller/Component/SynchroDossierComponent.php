@@ -10,6 +10,8 @@ class SynchroDossierComponent extends Component {
 
 	public function initialize(Controller $controller) {
 		$this->setCanViewQuota($controller);
+		$controller->Auth->loginRedirect = array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse');
+		$controller->Auth->authError = __('Pour accéder à cette page vous devez vous connecter');
 	}
 
 	public function beforeRender(Controller $controller) {
