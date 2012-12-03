@@ -84,6 +84,13 @@ class SdUser extends User {
 		));
 	}
 
+	public function beforeFind($queryData) {
+		$queryData['conditions'] += array(
+			$this->alias . '.role_id !=' =>  Configure::read('sd.Occitech.roleId')
+		);
+		return $queryData;
+	}
+
 	public function add($data, $creatorId, $creatorRoleId) {
 		$this->_addValidateRuleAboutRole($creatorRoleId);
 		$this->create();
