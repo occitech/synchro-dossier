@@ -3,9 +3,11 @@
 App::uses('CakeEventManager', 'Event');
 App::uses('SdQuotaManager', 'SynchroDossier.Lib');
 App::uses('SdAlertEmailManager', 'SynchroDossier.Lib');
+App::uses('SdRightsManager', 'SynchroDossier.Lib');
 
 CakeEventManager::instance()->attach(new SdQuotaManager());
 CakeEventManager::instance()->attach(new SdAlertEmailManager());
+CakeEventManager::instance()->attach(new SdRightsManager());
 
 Croogo::hookComponent('*', 'SynchroDossier.SynchroDossier');
 

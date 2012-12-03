@@ -148,6 +148,7 @@ class FilesController extends UploaderAppController {
 					'Controller.FilesController.afterChangeRight',
 					$this,
 					array(
+						'method' => $method,
 						'user' => array('id' => $userId),
 						'model' => 'Permission',
 						'foreign_key' => $this->Permission->id
