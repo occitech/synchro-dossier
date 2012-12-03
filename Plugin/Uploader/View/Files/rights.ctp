@@ -110,7 +110,7 @@
 
 						<?php if ($hasRightToChangeRight): ?>
 							<?= $this->Html->link(
-								__('Remove all rights'),
+								__('Supprimer l\'utilisateur de ce dossier'),
 								array(
 									'action' => 'removeRight',
 									$aro['ArosAco']['aco_id'],
