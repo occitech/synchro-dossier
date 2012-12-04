@@ -1,6 +1,6 @@
 <?= $this->Plupload->loadAsset('jquery'); ?>
 
-<?php if (isset($folderId) && $this->Acl->userCan($folderAco['Aco'], 'create')): ?>
+<?php if (isset($folderId) && $this->UploaderAcl->userCan($folderAco['Aco'], 'create')): ?>
 	<?= $this->element('Uploader.plupload_widget'); ?>
 <?php endif ?>
 
@@ -19,7 +19,7 @@
 		<tbody>
 			<?php foreach ($files as $file): ?>
 
-				<?php if ($this->Acl->userCan($file['Aco'], 'read')): ?>
+				<?php if ($this->UploaderAcl->userCan($file['Aco'], 'read')): ?>
 					<?php if (!$file['UploadedFile']['is_folder']): ?>
 						<?php $lastVersion = $file['FileStorage'][sizeof($file['FileStorage']) - 1]; ?>
 					<?php endif ?>
@@ -99,7 +99,7 @@
 										'escape' => false
 									)
 								); ?>
-								<?php if (is_null($folderId) && $this->Acl->userCan($file['Aco'], 'change_right')): ?>
+								<?php if (is_null($folderId) && $this->UploaderAcl->userCan($file['Aco'], 'change_right')): ?>
 									<?= $this->Html->link(
 										__('<i class="icon-user"></i>'),
 										array('controller' => 'files', 'action' => 'rights', $file['UploadedFile']['id']),

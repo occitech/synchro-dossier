@@ -42,7 +42,7 @@
 			</li>
 		<?php endif ?>
 		<?php if (isset($folderId)): ?>
-			<?php if ($this->Acl->userCan($folderAco['Aco'], 'create')): ?>
+			<?php if ($this->UploaderAcl->userCan($folderAco['Aco'], 'create')): ?>
 				<li>
 					<?= $this->Html->link(
 						__('Créez un sous dossier'),
@@ -59,7 +59,7 @@
 		<?php endif ?>
 
 		<?php if (!empty($SynchroDossier_aroAccessFolder) && isset($folderId)): ?>
-			<?php if ($this->Acl->userCan('change_right')): ?>
+			<?php if ($this->UploaderAcl->userCan('change_right')): ?>
 				<li class="nav-header">
 					<?= __('Utilisateurs du dossier'); ?>
 						<span style="float: right;">

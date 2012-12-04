@@ -19,7 +19,7 @@ class SynchroDossierComponent extends Component {
 			$controller->layout = 'SynchroDossier.login';
 		} elseif (!isset($controller->request->params['prefix'])) {
 			$controller->layout = 'SynchroDossier.default';
-			$controller->helpers[] = 'Uploader.Acl';
+			$controller->helpers[] = 'Uploader.UploaderAcl';
 		}
 
 		$controller->helpers[] = $this->helperName;

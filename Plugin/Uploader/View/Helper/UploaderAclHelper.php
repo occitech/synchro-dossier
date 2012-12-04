@@ -2,7 +2,7 @@
 
 App::uses('Helper', 'View');
 
-class AclHelper extends Helper {
+class UploaderAclHelper extends Helper {
 
 	private $__userRights = array();
 	private $__userId = array();

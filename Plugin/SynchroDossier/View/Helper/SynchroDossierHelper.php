@@ -6,7 +6,7 @@ class SynchroDossierHelper extends AppHelper {
 
 	public $helpers = array(
 		'Html',
-		'Uploader.Acl'
+		'Uploader.UploaderAcl'
 	);
 
 	public function getQuotaData() {
@@ -36,7 +36,7 @@ class SynchroDossierHelper extends AppHelper {
 	public function displayTreeFolders($folders) {
 		$output = '';
 		foreach ($folders as $folder) {
-			if ($this->Acl->userCan($folder['Aco'], 'read')) {
+			if ($this->UploaderAcl->userCan($folder['Aco'], 'read')) {
 				$subfolderOutput = '';
 				if (isset($folder['children']) && count($folder['children']) > 0) {
 					$subfolderOutput .= $this->displayTreeFolders($folder['children']);

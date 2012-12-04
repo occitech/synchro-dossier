@@ -9,7 +9,7 @@ class UploaderAppController extends AppController {
 	}
 
 	public function beforeRender() {
-		$this->helpers[] = 'Uploader.Acl';
+		$this->helpers[] = 'Uploader.UploaderAcl';
 		$this->helpers[] = 'Plupload.Plupload';
 
 		$userRights = $this->UploadedFile->User->getAllRights($this->Auth->user('id'));
