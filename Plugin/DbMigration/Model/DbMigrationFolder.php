@@ -18,26 +18,26 @@ class DbMigrationFolder extends DbMigrationAppModel {
 
 	public $belongsTo = array(
 		// 'ParentFolder' => array(
-		// 	'className' => 'Folder',
+		// 	'className' => 'DbMigrationFolder',
 		// 	'foreignKey' => 'parent_id'
 		// ),
 		// 'User' => array(
-		// 	'className' => 'User',
+		// 	'className' => 'DbMigrationUser',
 		// 	'foreignKey' => 'owner_id'
 		// )
 	);
 
 	public $hasMany = array(
 		// 'File' => array(
-		// 	'className' => 'File',
+		// 	'className' => 'DbMigrationFile',
 		// 	'foreignKey' => 'folder_id'
 		// ),
 		// 'FilesComment' => array(
-		// 	'className' => 'FilesComment',
+		// 	'className' => 'DbMigrationFilesComment',
 		// 	'foreignKey' => 'folder_id'
 		// ),
 		// 'ChildFolder' => array(
-		// 	'className' => 'Folder',
+		// 	'className' => 'DbMigrationFolder',
 		// 	'foreignKey' => 'parent_id'
 		// )
 	);

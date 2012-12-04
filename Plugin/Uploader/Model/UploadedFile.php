@@ -251,6 +251,7 @@ class UploadedFile extends UploaderAppModel {
 	}
 
 	protected function _saveFileStorage($path, $userId, $fileInfos) {
+		$this->FileStorage->create();
 		$data['FileStorage']['foreign_key'] = $this->id;
 		$data['FileStorage']['model'] = get_class($this);
 		$data['FileStorage']['path'] = $path;
