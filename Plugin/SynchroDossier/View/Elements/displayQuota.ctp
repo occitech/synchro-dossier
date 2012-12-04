@@ -10,7 +10,7 @@
 	?>
 	<div class="progress">
 		<div class="bar <?= $classColor; ?>" style="width: <?= $usedPercent; ?>%">
-			<?= $usedPercent . '%'; ?>
+			<?= round($usedPercent, 2) . '%'; ?>
 		</div>
 	</div>
 	<div style="font-size: 11px; text-align: center; margin-top: -20px;">

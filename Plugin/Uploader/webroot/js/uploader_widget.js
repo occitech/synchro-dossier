@@ -48,9 +48,16 @@ uploaderWidget = function() {
 			$(__progressBarElt).css('width', up.total.percent + '%');
 		});
 
-		uploader.bind('FileUploaded', function(up, files) {
+		uploader.bind('FileUploaded', function(up, files, response) {
 			__nbFilesToSend--;
 			$(__nbFilesToSendElt).text(__nbFilesToSend);
+			responseJson = $.parseJSON(response.response);
+			if (responseJson.error != undefined) {
+				alert(responseJson.error['message']);
+				up.stop();
+				location.assign(location.href);
+				location.reload();		
+			};
 		});
 
 		uploader.bind('UploadComplete', function(up, files) {
