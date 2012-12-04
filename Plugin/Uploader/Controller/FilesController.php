@@ -31,8 +31,7 @@ class FilesController extends UploaderAppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Security->unlockedActions = 'upload';
-		$this->Security->unlockedActions = 'rename';
+		$this->Security->unlockedActions = array('upload', 'rename');
 	}
 
 	public function beforeRender() {
