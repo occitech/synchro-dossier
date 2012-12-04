@@ -7,10 +7,11 @@ App::uses('CakeEvent', 'Event');
 class SdQuotaManagerTest extends CroogoTestCase {
 
 	public $fixtures = array(
-		'plugin.uploader.sd_information',
+		'plugin.synchro_dossier.sd_information',
 		'plugin.uploader.user',
 		'plugin.uploader.role',
 		'plugin.sd_users.profile',
+		'plugin.uploader.uploaded_file',
 	);
 
 	public function setUp() {
@@ -95,5 +96,20 @@ class SdQuotaManagerTest extends CroogoTestCase {
 		$event->data['data']['file']['size'] = 150;
 		$event->data['data']['file']['name'] = 'coucou';
 		$this->SdQuotaManager->sendInsufficientQuotaNotification(&$event);
+	}
+
+	public function testCalculNewCurrentQuota() {
+		$event = $this->getMockBuilder('CakeEvent')
+			->disableOriginalConstructor()
+			->getMock();
+
+		$SdInformationModel = ClassRegistry::init('SynchroDossier.SdInformation');
+
+		$this->SdQuotaManager->calculNewCurrentQuota(&$event);
+
+		$sdInfo = $SdInformationModel->find('first');
+		$result = $sdInfo['SdInformation']['current_quota_mb'];
+
+		$this->assertEqual($result, 131);
 	}
 }

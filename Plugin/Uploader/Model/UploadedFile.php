@@ -385,7 +385,7 @@ class UploadedFile extends UploaderAppModel {
 		}
 
 		if ($result) {
-			$data['FileStorage']['file']['id'] = $this->id;
+			$data['file']['id'] = $this->id;
 			$this->getEventManager()->dispatch(new CakeEvent(
 				'Model.UploadedFile.afterUploadSuccess',
 				$this,

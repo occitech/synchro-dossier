@@ -15,7 +15,8 @@ class SdQuotaManager implements CakeEventListener {
 	public function implementedEvents() {
 		return array(
 			'Model.UploadedFile.beforeUpload' => 'checkUploadAllowed',
-			'Model.UploadedFile.afterUploadFailed' => 'sendInsufficientQuotaNotification'
+			'Model.UploadedFile.afterUploadFailed' => 'sendInsufficientQuotaNotification',
+			'Model.UploadedFile.afterUploadSuccess' => 'calculNewCurrentQuota'
 		);
 	}
 
@@ -58,5 +59,25 @@ class SdQuotaManager implements CakeEventListener {
 				->viewVars(array('user' => $event->data['user'], 'data' => $event->data['data']))
 				->send();
 		}
+	}
+
+	public function calculNewCurrentQuota($event) {
+		$UploadedFileModel = ClassRegistry::init('Uploader.UploadedFile');
+		$SdInformationModel = ClassRegistry::init('SynchroDossier.SdInformation');
+
+		$UploadedFileModel->recursive = -1;
+		$files = $UploadedFileModel->find('all');
+
+		$currentQuotaOctect = 0;
+
+		foreach ($files as $file) {
+			$currentQuotaOctect += $file['UploadedFile']['size'];
+		}
+
+		$currentQuotaMb = $currentQuotaOctect / 1024 / 1024;
+
+		$sdInfo = $SdInformationModel->find('first');
+		$SdInformationModel->id = $sdInfo['SdInformation']['id'];
+		$SdInformationModel->saveField('current_quota_mb', round($currentQuotaMb, 0));
 	}
 }

@@ -102,7 +102,7 @@ class UploadedFileFixture extends CakeTestFixture {
 		array(
 			'id' => '6',
 			'filename' => '2012-comptes.ods',
-			'size' => '13681',
+			'size' => '136812534',
 			'user_id' => '1',
 			'current_version' => '1',
 			'available' => '0',

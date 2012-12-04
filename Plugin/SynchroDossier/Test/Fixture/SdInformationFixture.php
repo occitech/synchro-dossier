@@ -35,8 +35,8 @@ class SdInformationFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => '1',
-			'quota_mb' => '10',
-			'current_quota_mb' => '3'
+			'quota_mb' => '1000',
+			'current_quota_mb' => '0'
 		),
 	);
 
