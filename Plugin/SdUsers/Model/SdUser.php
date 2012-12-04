@@ -85,9 +85,13 @@ class SdUser extends User {
 	}
 
 	public function beforeFind($queryData) {
-		$queryData['conditions'] += array(
-			$this->alias . '.role_id !=' =>  Configure::read('sd.Occitech.roleId')
-		);
+		if (!array_key_exists('noBeforeFind', $queryData)) {
+			$queryData['conditions'] += array(
+				$this->alias . '.role_id !=' =>  Configure::read('sd.Occitech.roleId')
+			);
+		} else {
+			unset($queryData['noBeforeFind']);
+		}
 		return $queryData;
 	}
 
@@ -137,6 +141,7 @@ class SdUser extends User {
 		));
 
 		$result = $this->find('first', array(
+			'noBeforeFind' => '',
 			'conditions' => array($this->alias . '.id' => $userId),
 			'contain' => array(
 				'Aro' => array('conditions' => 'Aro.model = "User"'),
