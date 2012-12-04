@@ -12,8 +12,8 @@
 			<div id="quota-main" class="tab-pane">
 			<?=
 				$this->Form->hidden('SdInformation.id').
-				$this->Form->input('SdInformation.quota', array('label' => __('Quota (Go) : '), 'type' => 'text')) .
-				__('Quota utilisé : ') . $usedQuota;
+				$this->Form->input('SdInformation.quota_mb', array('label' => __('Quota (Mo) : '), 'type' => 'text')) .
+				__('Quota utilisé : ') . $usedQuota . ' M';
 			?>
 			</div>
 
