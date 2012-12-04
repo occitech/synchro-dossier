@@ -11,7 +11,7 @@
 			<?= __('Mes Dossiers'); ?>
 			<?php if ($can['canCreateUser']()): ?>
 				<span style="float: right;">
-					<a href="#addSharingModal" role="button" data-toggle="modal" rel="tooltip" title="<?= __('Ajouter un dossier'); ?>">
+					<a href="#addSharingModal" role="button" data-toggle="modal" rel="tooltip" title="<?= __('Ajoutez un dossier'); ?>">
 						<i class="icon-plus-sign"></i>
 					</a>
 				</span>
@@ -69,7 +69,7 @@
 								array(
 									'data-toggle' => 'modal',
 									'rel' => 'tooltip',
-									'title' => __('Ajouter un utilisateur à ce dossier'),
+									'title' => __('Ajoutez un utilisateur à ce dossier'),
 									'escape' => false
 								)
 							); ?>
