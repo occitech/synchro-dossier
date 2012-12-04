@@ -277,6 +277,7 @@ class FilesController extends UploaderAppController {
 					$response = $this->Session->setFlash($error['file'][0], 'default', array('class' => 'alert alert-danger'));
 				}
 			}
+			$this->redirect(array('action' => 'browse', $folderId));
 		}
 		$this->set(compact('folderId'));
 	}
