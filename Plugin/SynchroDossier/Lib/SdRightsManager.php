@@ -26,6 +26,8 @@ class SdRightsManager implements CakeEventListener {
 			if ($user['User']['role_id'] == Configure::read('sd.Admin.roleId')) {
 				$PermissionModel = ClassRegistry::init('Permission');
 				$PermissionModel->id = $event->data['foreign_key'];
+				$PermissionModel->saveField('_create', 1);
+				$PermissionModel->saveField('_delete', 1);
 				$PermissionModel->saveField('_change_right', 1);
 			}
 		}
