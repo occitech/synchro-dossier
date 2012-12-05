@@ -185,7 +185,7 @@ class DbMigrationShell extends AppShell {
 					'name' => $file['name'],
 					'tmp_name' => $filePath,
 					'size' => $file['size'],
-					'type' => $file['mime'],
+					'type' => $this->__cleanMimeType($file['mime']),
 					'error' => 0
 			));
 
@@ -209,6 +209,10 @@ class DbMigrationShell extends AppShell {
 
 	private function __getFilePath($filename) {
 		return $this->__oldUploadFolder . '/' . $filename[0] . '/' . $filename[1] . '/' . substr($filename, 2);
+	}
+
+	private function __cleanMimeType($oldMime) {
+		return str_replace('; charset=binary', '', $oldMime);
 	}
 
 /**
