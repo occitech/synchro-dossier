@@ -10,6 +10,8 @@ class DbMigrationShell extends AppShell {
 		'Uploader.UploadedFile',
 		'DbMigration.DbMigrationComment',
 		'Uploader.Comment',
+		'DbMigration.DbMigrationAlert',
+		'SynchroDossier.SdAlertEmail',
 		'Aro',
 		'Aco',
 	);
@@ -29,6 +31,7 @@ class DbMigrationShell extends AppShell {
 		$this->Aco->deleteAll(array($this->Aco->alias . '.model' => 'UploadedFile'));
 		$this->UploadedFile->query('TRUNCATE TABLE ' . $this->UploadedFile->useTable);
 		$this->Comment->query('TRUNCATE TABLE ' . $this->Comment->useTable);
+		$this->SdAlertEmail->query('TRUNCATE TABLE ' . $this->SdAlertEmail->useTable);
 		$this->UploadedFile->FileStorage->query('TRUNCATE TABLE ' . $this->UploadedFile->FileStorage->useTable);
 
 		$this->out('All migrations removed');
@@ -39,7 +42,8 @@ class DbMigrationShell extends AppShell {
 			$this->_migrateUser() &&
 			$this->_migrateFolders() &&
 			$this->_migrateFiles() &&
-			$this->_migrateComments();
+			$this->_migrateComments() &&
+			$this->_migrateAlertsSubcription();
 
 		if ($result) {
 			$this->out('Toutes les migrations ont réussies, normal je m\'appelle Chuck Norris !');
@@ -220,6 +224,11 @@ class DbMigrationShell extends AppShell {
 				'body' => $comment['comment'],
 				'created' => $comment['created']
 			);
+			$this->Comment->create();
+			$result = $this->Comment->save($newComment);
+			if (!$result) {
+				break;
+			}
 		}
 
 		if ($result) {
@@ -245,6 +254,41 @@ class DbMigrationShell extends AppShell {
 		return array($name, $email);
 	}
 
+/**
+ * Migration Alert subcription
+ */
+	protected function _migrateAlertsSubcription() {
+		$this->out('Alerts Subscription Migration');
+		$this->out('=================');
+
+
+		$oldAlertsSubscipt = $this->DbMigrationAlert->find('all');
+		$result = true;
+
+		foreach ($oldAlertsSubscipt as $alertSubscipt) {
+			$alertSubscipt = $alertSubscipt['DbMigrationAlert'];
+			$newAlertSubscipt = array(
+				'user_id' => $this->__RelationOldUserNewUser[$alertSubscipt['user_id']],
+				'uploaded_file_id' => $this->__RelationOldFolderNewFolder[$alertSubscipt['folder_id']]	
+			);
+			$this->SdAlertEmail->create();
+			$result = $this->SdAlertEmail->save($newAlertSubscipt);
+			if (!$result) {
+				break;
+			}
+		}
+
+		if ($result) {
+			$this->out('Alerts Subscription Migration Ok');
+		} else {
+			$this->out('Alerts Subscription Migration Error');
+		}
+		return $result;
+	}
+
+/**
+ * General private method
+ */
 	private function __detachEvent($eventName) {
 		CakeEventManager::instance()->detach(null, $eventName);
 		foreach(CakeEventManager::instance()->listeners($eventName) as $listner) {
