@@ -8,6 +8,10 @@ class DbMigrationShell extends AppShell {
 		'DbMigration.DbMigrationFolder',
 		'DbMigration.DbMigrationFile',
 		'Uploader.UploadedFile',
+		'DbMigration.DbMigrationComment',
+		'Uploader.Comment',
+		'Aro',
+		'Aco',
 	);
 
 	/**
@@ -19,11 +23,23 @@ class DbMigrationShell extends AppShell {
 
 	private $__oldUploadFolder = 'uploads/old/';
 
+	public function reset() {
+		$this->SdUser->deleteAll(array($this->SdUser->alias . '.id !=' => 1));
+		$this->Aro->deleteAll(array($this->Aro->alias . '.id >' => 7));
+		$this->Aco->deleteAll(array($this->Aco->alias . '.model' => 'UploadedFile'));
+		$this->UploadedFile->query('TRUNCATE TABLE ' . $this->UploadedFile->useTable);
+		$this->Comment->query('TRUNCATE TABLE ' . $this->Comment->useTable);
+		$this->UploadedFile->FileStorage->query('TRUNCATE TABLE ' . $this->UploadedFile->FileStorage->useTable);
+
+		$this->out('All migrations removed');
+	}
+
 	public function main() {
 		$result =
 			$this->_migrateUser() &&
 			$this->_migrateFolders() &&
-			$this->_migrateFiles();
+			$this->_migrateFiles() &&
+			$this->_migrateComments();
 
 		if ($result) {
 			$this->out('Toutes les migrations ont réussies, normal je m\'appelle Chuck Norris !');
@@ -176,21 +192,57 @@ class DbMigrationShell extends AppShell {
 		return $this->__oldUploadFolder . '/' . $filename[0] . '/' . $filename[1] . '/' . substr($filename, 2);
 	}
 
-	private function __addUploadedFile($oldFile) {
-		$newFile = array(
-			'filename' => $oldFile['name'],
-			'size' => $oldFile['size'],
-			'user_id' => $this->__getNewUserId($oldFile['user_id']),
-			'mime_type' => $oldFile['mime'],
-			'current_version' => 1,
-			'parent_id' => $this->__RelationOldFolderNewFolder[$oldFile['folder_id']],
-			'is_folder' => 0
-		);
-		return $this->UploadedFile->save($newFile);
+/**
+ * Migrate comments
+ */
+	protected function _migrateComments() {
+		$this->out('Comments Migration');
+		$this->out('=================');
+
+
+		$oldComments = $this->DbMigrationComment->find('all');
+		$result = true;
+
+		foreach ($oldComments as $comment) {
+			$comment = $comment['DbMigrationComment'];
+
+			list($name, $email) = $this->__getNameAndEmailByUserId($comment['user_id']);
+			$foreignKey = $this->__getForeignKeyFromFolderIdAndFilename($comment['folder_id'], $comment['file_name']);
+
+			$newComment = array(
+				'model' => 'UploadedFile',
+				'foreign_key' => $foreignKey,
+				'user_id' => $this->__getNewUserId($comment['user_id']),
+				'name' => $name,
+				'email' => $email,
+				'title' => $comment['file_name'],
+				'body' => $comment['comment'],
+				'created' => $comment['created']
+			);
+			debug($newComment);
+		}
+
+		if ($result) {
+			$this->out('Comments Migration Ok');
+		} else {
+			$this->out('Comments Migration Error');
+		}
+		return $result;
 	}
 
-	private function __addFileStorage($oldFile) {
-		// @FIXME
+	private function __getForeignKeyFromFolderIdAndFilename($oldFolderId, $filename) {
+		$newFolderId = $this->__RelationOldFolderNewFolder[$oldFolderId];
+		$file = $this->UploadedFile->findByFilenameAndParent_id($filename, $newFolderId);
+		return $file['UploadedFile']['id'];
+	}
+
+	private function __getNameAndEmailByUserId($userId) {
+		$user = $this->DbMigrationUser->findById($userId);
+		$user = $user['DbMigrationUser'];
+
+		$name = strtolower($user['lastname'] . '.' . $user['firstname']);
+		$email = $user['email'];
+		return array($name, $email);
 	}
 
 	private function __detachEvent($eventName) {
