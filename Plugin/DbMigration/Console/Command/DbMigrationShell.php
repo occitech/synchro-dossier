@@ -14,12 +14,15 @@ class DbMigrationShell extends AppShell {
 		'SynchroDossier.SdAlertEmail',
 		'Aro',
 		'Aco',
+		'DbMigration.DbMigrationUserFolder',
+		'Permission',
+
 	);
 
-	/**
-	 * key => old
-	 * value => new
-	 */
+/**
+ * key => old
+ * value => new
+ */
 	private $__RelationOldUserNewUser = array();
 	private $__RelationOldFolderNewFolder = array();
 
@@ -29,6 +32,7 @@ class DbMigrationShell extends AppShell {
 		$this->SdUser->deleteAll(array($this->SdUser->alias . '.id !=' => 1));
 		$this->Aro->deleteAll(array($this->Aro->alias . '.id >' => 7));
 		$this->Aco->deleteAll(array($this->Aco->alias . '.model' => 'UploadedFile'));
+		$this->Permission->deleteAll(array($this->Permission->alias . '.id >' => 63));
 		$this->UploadedFile->query('TRUNCATE TABLE ' . $this->UploadedFile->useTable);
 		$this->Comment->query('TRUNCATE TABLE ' . $this->Comment->useTable);
 		$this->SdAlertEmail->query('TRUNCATE TABLE ' . $this->SdAlertEmail->useTable);
@@ -43,7 +47,8 @@ class DbMigrationShell extends AppShell {
 			$this->_migrateFolders() &&
 			$this->_migrateFiles() &&
 			$this->_migrateComments() &&
-			$this->_migrateAlertsSubcription();
+			$this->_migrateAlertsSubcription() &&
+			$this->_migrateAcl();
 
 		if ($result) {
 			$this->out('Toutes les migrations ont réussies, normal je m\'appelle Chuck Norris !');
@@ -56,8 +61,8 @@ class DbMigrationShell extends AppShell {
  * Migration des utilisateurs et des profiles
  */
 	protected function _migrateUser() {
+		$this->out('');
 		$this->out('User Migration');
-		$this->out('===============');
 
 		$oldUsers = $this->DbMigrationUser->find('all');
 		$newUsers = array();
@@ -119,8 +124,8 @@ class DbMigrationShell extends AppShell {
  * Migration des dossiers
  */
 	protected function _migrateFolders() {
+		$this->out('');
 		$this->out('Folders Migration');
-		$this->out('=================');
 		$this->__detachEvent('Model.UploadedFile.AfterSharingCreation');
 
 		$oldFolders = $this->DbMigrationFolder->find('all');
@@ -166,8 +171,8 @@ class DbMigrationShell extends AppShell {
  */
 
 	protected function _migrateFiles() {
+		$this->out('');
 		$this->out('Files Migration');
-		$this->out('=================');
 		$this->__detachEvent('Model.UploadedFile.AfterSharingCreation');
 		$this->__detachEvent('Model.UploadedFile.afterUploadFailed');
 		$this->__detachEvent('Model.UploadedFile.afterUploadSuccess');
@@ -219,8 +224,8 @@ class DbMigrationShell extends AppShell {
  * Migrate comments
  */
 	protected function _migrateComments() {
+		$this->out('');
 		$this->out('Comments Migration');
-		$this->out('=================');
 
 
 		$oldComments = $this->DbMigrationComment->find('all');
@@ -277,8 +282,8 @@ class DbMigrationShell extends AppShell {
  * Migration Alert subcription
  */
 	protected function _migrateAlertsSubcription() {
+		$this->out('');
 		$this->out('Alerts Subscription Migration');
-		$this->out('=================');
 
 
 		$oldAlertsSubscipt = $this->DbMigrationAlert->find('all');
@@ -303,6 +308,78 @@ class DbMigrationShell extends AppShell {
 			$this->out('Alerts Subscription Migration Error');
 		}
 		return $result;
+	}
+
+/**
+ * Migrate ACL
+ */
+	protected function _migrateAcl() {
+		$this->out('');
+		$this->out('Acls Migration');
+
+		$oldAcls = $this->DbMigrationUserFolder->find('all');
+		
+		foreach ($oldAcls as $acl) {
+			$acl = $acl['DbMigrationUserFolder'];
+
+			$rights = $this->__getAclRigthNewFormat($acl['perms']);
+			$newAcl = array(
+				'id' => null,
+				'aro_id' => $this->__getAroIdFromOldUserId($acl['user_id']),
+				'aco_id' => $this->__getAcoIdFromOldFolderId($acl['group_id']),
+				'_create' => $rights['_create'],
+				'_read' => $rights['_read'],
+				'_update' => $rights['_update'],
+				'_delete' => $rights['_delete'],
+				'_change_right' => $rights['_change_right'],
+			);
+			$result = $this->Permission->save($newAcl);
+			if (!$result) {
+				break;
+			}
+		}
+
+		if ($result) {
+			$this->out('Acl Migration Ok');
+		} else {
+			debug($newAcl);
+			debug($this->Permission->invalidFields());
+			$this->out('Acl Migration Error');
+		}
+		return $result;
+	}
+
+	private function __getAroIdFromOldUserId($userId) {
+		$newUserId = $this->__RelationOldUserNewUser[$userId];
+		$aro = $this->Aro->findByModelAndForeign_key('User', $newUserId);
+
+		return $aro['Aro']['id'];
+	}
+
+	private function __getAcoIdFromOldFolderId($folderId) {
+		$newFolderId = $this->__RelationOldFolderNewFolder[$folderId];
+		$aco = $this->Aco->findByModelAndForeign_key('UploadedFile', $newFolderId);
+
+		return $aco['Aco']['id'];
+	}
+
+	private function __getAclRigthNewFormat($lastFormat) {
+		$rights = array(
+			'_create' => 0,
+			'_read' => 0,
+			'_delete' => 0,
+			'_update' => 0,
+			'_change_right' => 0,
+		);
+
+		if (strpos($lastFormat, 'r') !== false) {
+			$rights['_read'] = 1;
+		}
+		if (strpos($lastFormat, 'w') !== false) {
+			$rights['_create'] = 1;
+		}
+
+		return $rights;
 	}
 
 /**
