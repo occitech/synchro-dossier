@@ -75,9 +75,10 @@ class DbMigrationShell extends AppShell {
 					'name' => $user['lastname'],
 					'firstname' => $user['firstname'],
 					'society' => $user['sct'],
+					'gender' => $user['gender'],
 				)
 			);
-			$result = $this->SdUser->save($newUser);
+			$result = $this->SdUser->saveAssociated($newUser);
 			$this->__RelationOldUserNewUser[$user['id']] = $this->SdUser->id;
 	
 			if (!$result) {
@@ -219,7 +220,6 @@ class DbMigrationShell extends AppShell {
 				'body' => $comment['comment'],
 				'created' => $comment['created']
 			);
-			debug($newComment);
 		}
 
 		if ($result) {
