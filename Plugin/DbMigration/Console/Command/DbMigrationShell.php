@@ -65,9 +65,11 @@ class DbMigrationShell extends AppShell {
 
 		foreach ($oldUsers as $user) {
 			$user = $user['DbMigrationUser'];
+
 			$newUser = array(
 				'User' => array(
 					'id' => null,
+					'role_id' => $this->__getRoleIdFromOldType($user['type']),
 					'username' => strtolower($user['lastname'] . '.' . $user['firstname']),
 					'password' => '@TODO : Mot de passe à regénérer ?',
 					'email' => $user['email'],
@@ -91,7 +93,6 @@ class DbMigrationShell extends AppShell {
 			}
 		}
 
-
 		if ($result) {
 			$this->out('User Migration Ok');
 		} else {
@@ -99,6 +100,19 @@ class DbMigrationShell extends AppShell {
 			$this->out('User Migration Error');
 		}
 		return $result;
+	}
+
+	private function __getRoleIdFromOldType($type) {
+		switch ($type) {
+			case 'admin':
+				return Configure::read('sd.Admin.roleId');
+			case 'superadmin':
+				return Configure::read('sd.SuperAdmin.roleId');
+			case 'root':
+				return Configure::read('sd.Occitech.roleId');
+			default:
+				return Configure::read('sd.Utilisateur.roleId');				
+		}
 	}
 
 /**
@@ -222,7 +236,8 @@ class DbMigrationShell extends AppShell {
 				'email' => $email,
 				'title' => $comment['file_name'],
 				'body' => $comment['comment'],
-				'created' => $comment['created']
+				'created' => $comment['created'],
+				'status' => 1
 			);
 			$this->Comment->create();
 			$result = $this->Comment->save($newComment);
