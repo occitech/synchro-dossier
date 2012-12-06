@@ -25,6 +25,8 @@ class DbMigrationShell extends AppShell {
 
 		if ($result) {
 			$this->success('Toutes les migrations ont réussies, normal je m\'appelle Chuck Norris !');
+			$this->hr();
+			$this->out('ATTENTION IL FAUT IMPORTER DANS LES CONFS DE CROOGO LE SALT DU SYNCHRODOSSER');
 		} else {
 			$this->warning('Une migration a échouée ... même Chuck ne peut rien faire !');
 		}

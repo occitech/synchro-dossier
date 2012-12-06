@@ -1,12 +1,7 @@
 <?php
 App::uses('DbMigrationAppModel', 'DbMigration.Model');
-/**
- * UserAlert Model
- *
- */
-class DbMigrationAlert extends DbMigrationAppModel {
 
-	public $useDbConfig = 'old';
+class DbMigrationAlert extends DbMigrationAppModel {
 
 	public $useTable = 'user_alerts';
 }

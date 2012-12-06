@@ -6,7 +6,5 @@ App::uses('DbMigrationAppModel', 'DbMigration.Model');
  */
 class DbMigrationUserFolder extends DbMigrationAppModel {
 
-	public $useDbConfig = 'old';
-
 	public $useTable = 'user_folders';
 }

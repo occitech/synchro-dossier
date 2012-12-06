@@ -1,5 +1,6 @@
 <?php
 
+App::uses('DbMigrationOrdersUser', 'DbMigration.Model');
 App::uses('DbMigrationUser', 'DbMigration.Model');
 App::uses('DbMigrationFolder', 'DbMigration.Model');
 App::uses('DbMigrationFile', 'DbMigration.Model');
@@ -25,8 +26,11 @@ class DbMigration {
  */
 	public $relationOldUserNewUser = array();
 	public $relationOldFolderNewFolder = array();
+	public $relationOldFileNewFile = array();
 
 	public $oldUploadFolder = 'uploads/old/';
+	
+	public $isInTest = false;
 
 	public function __construct($Shell) {
 		$this->__Shell = $Shell;
@@ -36,6 +40,7 @@ class DbMigration {
 		$this->DbMigrationComment = ClassRegistry::init('DbMigration.DbMigrationComment');
 		$this->DbMigrationAlert = ClassRegistry::init('DbMigration.DbMigrationAlert');
 		$this->DbMigrationUserFolder = ClassRegistry::init('DbMigration.DbMigrationUserFolder');
+		$this->DbMigrationOrdersUser = ClassRegistry::init('DbMigration.DbMigrationOrdersUser');
 		$this->SdUser = ClassRegistry::init('SdUsers.SdUser');
 		$this->UploadedFile = ClassRegistry::init('Uploader.UploadedFile');
 		$this->Comment = ClassRegistry::init('Uploader.Comment');
@@ -71,14 +76,18 @@ class DbMigration {
 		$result = true;
 
 		foreach ($oldUsers as $user) {
-			$user = $user['DbMigrationUser'];
+			$role = $user['DbMigrationUser']['type'];
+			if (!is_null($user['OrdersUser']['type']) && empty($user['DbMigrationUser']['type'])) {
+				$role = $user['OrdersUser']['type'];
+			}
 
+			$user = $user['DbMigrationUser'];
 			$newUser = array(
 				'User' => array(
 					'id' => null,
-					'role_id' => $this->__getRoleIdFromOldType($user['type']),
+					'role_id' => $this->__getRoleIdFromOldType($role),
 					'username' => strtolower($user['lastname'] . '.' . $user['firstname']),
-					'password' => '@TODO : Mot de passe à regénérer ?',
+					'password' => $user['email'],
 					'email' => $user['email'],
 					'status' => 1,
 					'updated' => $user['modified'],
@@ -197,7 +206,7 @@ class DbMigration {
 			));
 
 			$user['id'] = $this->__getNewUserId($file['user_id']);
-			$parentId = $this->relationOldFolderNewFolder[$file['folder_id']];
+			$parentId = $this->relationOldFileNewFile[$file['folder_id']];
 
 			$this->UploadedFile->upload($data, $user, $parentId);
 
@@ -215,6 +224,9 @@ class DbMigration {
 	}
 
 	private function __getFilePath($filename) {
+		if ($this->isInTest) {
+			return tempnam('RandomFolder_LikeThat_Tempnam_CreateATempFolder','myPrefix');
+		}
 		return $this->oldUploadFolder . '/' . $filename[0] . '/' . $filename[1] . '/' . substr($filename, 2);
 	}
 
@@ -396,7 +408,7 @@ class DbMigration {
 
 	private function __getNewUserId($oldId) {
 		if (!array_key_exists($oldId, $this->relationOldUserNewUser)) {
-			return 1;
+			return 2;
 		} else {
 			return $this->relationOldUserNewUser[$oldId];
 		}
