@@ -65,7 +65,7 @@ class DbMigrationTest extends CroogoTestCase {
 		$new = $UserModel->find('all');
 		for ($i = 0; $i < sizeof($old); $i++) {
 			$role = $old[$i]['DbMigrationUser']['type'];
-			if (!is_null($old[$i]['OrdersUser']['type']) && empty($old[$i]['DbMigrationUser']['type'])) {
+			if (!is_null($old[$i]['OrdersUser']['type']) && $old[$i]['DbMigrationUser']['type'] != 'root') {
 				$role = $old[$i]['OrdersUser']['type'];
 			}
 			$this->assertEqual($new[$i]['Role']['title'], $this->__getRoleFromOldType($role));

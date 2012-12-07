@@ -2,10 +2,12 @@
 
 App::uses('DbMigrationOrdersUser', 'DbMigration.Model');
 App::uses('DbMigrationUser', 'DbMigration.Model');
+App::uses('DbMigrationOrder', 'DbMigration.Model');
 App::uses('DbMigrationFolder', 'DbMigration.Model');
 App::uses('DbMigrationFile', 'DbMigration.Model');
 App::uses('DbMigrationComment', 'DbMigration.Model');
 App::uses('DbMigrationAlert', 'DbMigration.Model');
+App::uses('DbMigrationUserFolder', 'DbMigration.Model');
 App::uses('DbMigrationUserFolder', 'DbMigration.Model');
 App::uses('SdUser', 'SdUsers.Model');
 App::uses('UploadedFile', 'Uploader.Model');
@@ -28,13 +30,14 @@ class DbMigration {
 	public $relationOldFolderNewFolder = array();
 	public $relationOldFileNewFile = array();
 
-	public $oldUploadFolder = 'uploads/old/';
+	public $oldUploadFolder = '/home/aymeric/www/old.synchro-dossier.local/files';
 	
 	public $isInTest = false;
 
 	public function __construct($Shell) {
 		$this->__Shell = $Shell;
 		$this->DbMigrationUser = ClassRegistry::init('DbMigration.DbMigrationUser');
+		$this->DbMigrationOrder = ClassRegistry::init('DbMigration.DbMigrationOrder');
 		$this->DbMigrationFolder = ClassRegistry::init('DbMigration.DbMigrationFolder');
 		$this->DbMigrationFile = ClassRegistry::init('DbMigration.DbMigrationFile');
 		$this->DbMigrationComment = ClassRegistry::init('DbMigration.DbMigrationComment');
@@ -45,6 +48,7 @@ class DbMigration {
 		$this->UploadedFile = ClassRegistry::init('Uploader.UploadedFile');
 		$this->Comment = ClassRegistry::init('Uploader.Comment');
 		$this->SdAlertEmail = ClassRegistry::init('SynchroDossier.SdAlertEmail');
+		$this->SdInformation = ClassRegistry::init('SynchroDossier.SdInformation');
 		$this->Aro = ClassRegistry::init('Aro');
 		$this->Aco = ClassRegistry::init('Aco');
 		$this->Permission = ClassRegistry::init('Permission');
@@ -77,7 +81,7 @@ class DbMigration {
 
 		foreach ($oldUsers as $user) {
 			$role = $user['DbMigrationUser']['type'];
-			if (!is_null($user['OrdersUser']['type']) && empty($user['DbMigrationUser']['type'])) {
+			if (!is_null($user['OrdersUser']['type']) && $user['DbMigrationUser']['type'] != 'root') {
 				$role = $user['OrdersUser']['type'];
 			}
 
@@ -206,7 +210,7 @@ class DbMigration {
 			));
 
 			$user['id'] = $this->__getNewUserId($file['user_id']);
-			$parentId = $this->relationOldFileNewFile[$file['folder_id']];
+			$parentId = $this->relationOldFolderNewFolder[$file['folder_id']];
 
 			$this->UploadedFile->upload($data, $user, $parentId);
 
@@ -227,7 +231,7 @@ class DbMigration {
 		if ($this->isInTest) {
 			return tempnam('RandomFolder_LikeThat_Tempnam_CreateATempFolder','myPrefix');
 		}
-		return $this->oldUploadFolder . '/' . $filename[0] . '/' . $filename[1] . '/' . substr($filename, 2);
+		return $this->oldUploadFolder . '/' . $filename[0] . '/' . $filename[1] . '/' . $filename;
 	}
 
 	private function __cleanMimeType($oldMime) {
@@ -305,14 +309,18 @@ class DbMigration {
 
 		foreach ($oldAlertsSubscipt as $alertSubscipt) {
 			$alertSubscipt = $alertSubscipt['DbMigrationAlert'];
-			$newAlertSubscipt = array(
-				'user_id' => $this->relationOldUserNewUser[$alertSubscipt['user_id']],
-				'uploaded_file_id' => $this->relationOldFolderNewFolder[$alertSubscipt['folder_id']]	
-			);
-			$this->SdAlertEmail->create();
-			$result = $this->SdAlertEmail->save($newAlertSubscipt);
-			if (!$result) {
-				break;
+
+			// Le if est la pour un cas spécial, lorsque le dossier a été supprimé et pas l'alerte 
+			if (array_key_exists($alertSubscipt['folder_id'], $this->relationOldFolderNewFolder)) {
+				$newAlertSubscipt = array(
+					'user_id' => $this->relationOldUserNewUser[$alertSubscipt['user_id']],
+					'uploaded_file_id' => $this->relationOldFolderNewFolder[$alertSubscipt['folder_id']]	
+				);
+				$this->SdAlertEmail->create();
+				$result = $this->SdAlertEmail->save($newAlertSubscipt);
+				if (!$result) {
+					break;
+				}
 			}
 		}
 
@@ -394,6 +402,22 @@ class DbMigration {
 		}
 
 		return $rights;
+	}
+
+/**
+ * Migrate SdInformation
+ */
+	public function migrateInfos() {
+		$this->__Shell->out('');
+		$this->__Shell->out('Default Settings Migration');
+
+		$oldSettings = $this->DbMigrationOrder->find('first', array('fields' => array('quota', 'used')));
+		$quota_mb = $oldSettings['DbMigrationOrder']['quota'];
+		$current_quota_mb = $oldSettings['DbMigrationOrder']['used'] / 1024;
+
+		$this->SdInformation->id = 1;
+		$this->SdInformation->saveField('quota_mb', $quota_mb);
+		$this->SdInformation->saveField('current_quota_mb', $current_quota_mb);
 	}
 
 /**

@@ -21,14 +21,15 @@ class DbMigrationShell extends AppShell {
 			$this->DbMigration->migrateFiles() &&
 			$this->DbMigration->migrateComments() &&
 			$this->DbMigration->migrateAlertsSubcription() &&
-			$this->DbMigration->migrateAcl();
+			$this->DbMigration->migrateAcl() &&
+			$this->DbMigration->migrateInfos();	
 
 		if ($result) {
-			$this->success('Toutes les migrations ont réussies, normal je m\'appelle Chuck Norris !');
+			$this->success('Toutes les migrations ont réussies, normal je m\'appel Chuck Norris !');
 			$this->hr();
 			$this->out('ATTENTION IL FAUT IMPORTER DANS LES CONFS DE CROOGO LE SALT DU SYNCHRODOSSER');
 		} else {
-			$this->warning('Une migration a échouée ... même Chuck ne peut rien faire !');
+			$this->warn('Une migration a échouée ... même Chuck ne peut rien faire !');
 		}
 	}
 }
