@@ -13,33 +13,27 @@ class SdModeBoxManager implements CakeEventListener {
 
 	public function createSubDirectories($event) {
 		if (Configure::read('sd.config.useModeBox')) {
-			$UploadedFileModel = ClassRegistry::init('Uploader.UploadedFile');
-			$PermissionModel = ClassRegistry::init('Permission');
-
-			$parentId = $event->data['data']['UploadedFile']['id'];
-			$userId = $event->data['user']['id'];
-
-			$data['UploadedFile']['filename'] = 'Inbox';
-			$UploadedFileModel->addFolder($data, $parentId, $userId);
-			$inboxId = $UploadedFileModel->id;
-
-			$data['UploadedFile']['filename'] = 'Outbox';
-			$UploadedFileModel->addFolder($data, $parentId, $userId);
-			$outboxId = $UploadedFileModel->id;
-
-			$PermissionModel->allow(
-				array('model' => 'Role', 'foreign_key' => Configure::read('sd.Utilisateur.roleId')),
-				array('model' => 'UploadedFile', 'foreign_key' => $inboxId),
-				'create',
-				1
-			);
-
-			$PermissionModel->allow(
-				array('model' => 'Role', 'foreign_key' => Configure::read('sd.Utilisateur.roleId')),
-				array('model' => 'UploadedFile', 'foreign_key' => $outboxId),
-				'create',
-				-1
-			);
+			$this->__createFolderWithPermissions($event, 'Inbox', 'create', 1);
+			$this->__createFolderWithPermissions($event, 'Outbox', 'create', -1);
 		}
+	}
+
+	private function __createFolderWithPermissions($event, $folderName, $permission, $value) {
+		$UploadedFileModel = ClassRegistry::init('Uploader.UploadedFile');
+		$PermissionModel = ClassRegistry::init('Permission');
+
+		$parentId = $event->data['data']['UploadedFile']['id'];
+		$userId = $event->data['user']['id'];
+		$data['UploadedFile']['filename'] = $folderName;
+
+		$UploadedFileModel->addFolder($data, $parentId, $userId);
+		$folderId = $UploadedFileModel->id;
+
+		$PermissionModel->allow(
+			array('model' => 'Role', 'foreign_key' => Configure::read('sd.Utilisateur.roleId')),
+			array('model' => 'UploadedFile', 'foreign_key' => $folderId),
+			$permission,
+			$value
+		);
 	}
 }
