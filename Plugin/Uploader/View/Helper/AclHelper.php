@@ -25,7 +25,9 @@ class AclHelper extends Helper {
 		foreach ($this->__userRights as $aco) {
 			if ($aco['lft'] <= $uploadedFileAco['lft'] && $aco['rght'] >= $uploadedFileAco['rght']) {
 				if (isset($aco['Permission'][$action])) {
-					$userCan = $aco['Permission'][$action] == 1;
+					if ($aco['Permission'][$action] != 0) {
+						$userCan = $aco['Permission'][$action] == 1;
+					}
 				}
 			}
 		}

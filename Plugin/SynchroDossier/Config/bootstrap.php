@@ -3,9 +3,11 @@
 App::uses('CakeEventManager', 'Event');
 App::uses('SdQuotaManager', 'SynchroDossier.Lib');
 App::uses('SdAlertEmailManager', 'SynchroDossier.Lib');
+App::uses('SdModeBoxManager', 'SynchroDossier.Lib');
 
 CakeEventManager::instance()->attach(new SdQuotaManager());
 CakeEventManager::instance()->attach(new SdAlertEmailManager());
+CakeEventManager::instance()->attach(new SdModeBoxManager());
 
 Croogo::hookComponent('*', 'SynchroDossier.SynchroDossier');
 
@@ -37,3 +39,4 @@ Configure::write('sd.mail.alertEmailNewUpload.subject', __('Synchro-Dossier - No
 Configure::write('sd.mail.alertEmailNewUpload.from', array('admin@synchro-dossier.fr' => 'Synchro Dossier'));
 
 Configure::write('sd.config.useSsl', true);
+Configure::write('sd.config.useModeBox', true);
