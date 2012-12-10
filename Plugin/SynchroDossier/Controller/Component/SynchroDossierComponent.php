@@ -33,7 +33,7 @@ class SynchroDossierComponent extends Component {
 	}
 
 	private function __checkSsl(Controller $controller) {
-		$url =  $_SERVER['SERVER_NAME'] . $controller->here;
+		$url = env('SERVER_NAME') . $controller->here;
 		if ($controller->request->is('ssl') && !Configure::read('sd.config.useSsl')) {
 			$controller->redirect('http://' . $url);
 		} elseif (!$controller->request->is('ssl') && Configure::read('sd.config.useSsl')) {
