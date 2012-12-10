@@ -118,6 +118,59 @@ class AclHelperTest extends CroogoTestCase {
 		$this->assertTrue($result);
 	}
 
+	public function testUserCan_UserCan_OnSubFolder_Extends () {
+		unset($this->Acl);
+		$this->View->viewVars = array(
+			'userRights' => array(
+				'User' => array(
+					'id' => 3
+				),
+				'Aro' => array(
+					'Aco' => array(
+						array(
+							'model' => 'UploadedFile',
+							'foreign_key' => '1',
+							'lft' => 1,
+							'rght' => 6,
+							'Permission' => array(
+								'_create' => '0',
+								'_read' => '1',
+								'_update' => '0',
+								'_delete' => '0'
+							)
+						),
+						array(
+							'model' => 'UploadedFile',
+							'foreign_key' => '1',
+							'lft' => 2,
+							'rght' => 5,
+							'Permission' => array(
+								'_create' => '0',
+								'_read' => '0',
+								'_update' => '0',
+								'_delete' => '0'
+							)
+						)
+					)
+				)
+			)
+		);
+		$uploadedFile = array(
+			'id' => 8,
+			'model' => 'UploadedFile',
+			'foreign_key' => 18,
+			'lft' => 3,
+			'rght' => 4
+		);
+
+		$this->Acl = new AclHelper($this->View);
+
+		$result = $this->Acl->userCan($uploadedFile, 'read');
+
+		$this->assertTrue($result);
+	}
+
+
 	public function testUserCan_UserCannotOnRootFolder() {
 		unset($this->Acl);
 		$this->View->viewVars = array(
