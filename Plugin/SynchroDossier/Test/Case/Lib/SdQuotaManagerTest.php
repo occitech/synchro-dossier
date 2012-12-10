@@ -98,14 +98,14 @@ class SdQuotaManagerTest extends CroogoTestCase {
 		$this->SdQuotaManager->sendInsufficientQuotaNotification(&$event);
 	}
 
-	public function testCalculNewCurrentQuota() {
+	public function testUpdateCurrentQuota() {
 		$event = $this->getMockBuilder('CakeEvent')
 			->disableOriginalConstructor()
 			->getMock();
 
 		$SdInformationModel = ClassRegistry::init('SynchroDossier.SdInformation');
 
-		$this->SdQuotaManager->calculNewCurrentQuota(&$event);
+		$this->SdQuotaManager->updateCurrentQuota(&$event);
 
 		$sdInfo = $SdInformationModel->find('first');
 		$result = $sdInfo['SdInformation']['current_quota_mb'];

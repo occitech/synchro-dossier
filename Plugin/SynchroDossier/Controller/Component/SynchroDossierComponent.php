@@ -15,7 +15,8 @@ class SynchroDossierComponent extends Component {
 	}
 
 	public function beforeRender(Controller $controller) {
-		if ($controller->request->params['action'] == 'login') {
+		$params = array_intersect_key($controller->request->params, $controller->Auth->loginAction);
+		if ($params == $controller->Auth->loginAction) {
 			$controller->layout = 'SynchroDossier.login';
 		} elseif (!isset($controller->request->params['prefix'])) {
 			$controller->layout = 'SynchroDossier.default';

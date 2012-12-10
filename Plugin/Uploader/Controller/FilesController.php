@@ -69,7 +69,8 @@ class FilesController extends UploaderAppController {
 			$this->Session->setFlash(
 				__('Vous ne pouvez pas donner de droit à un sous dossier. Nous vous avons donc redirigé sur la page permettant de donner les droits au dossier racine. Les droits s\'appliqueront aussi au sous dossier'),
 				'default',
-				array('class' => 'alert alert-info'));
+				array('class' => 'alert alert-info')
+			);
 			$this->redirect(array('action' => 'rights', $rootId));
 		}
 	}

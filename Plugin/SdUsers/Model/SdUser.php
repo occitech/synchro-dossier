@@ -85,12 +85,12 @@ class SdUser extends User {
 	}
 
 	public function beforeFind($queryData) {
-		if (!array_key_exists('noBeforeFind', $queryData)) {
+		if (!array_key_exists('noRoleChecking', $queryData)) {
 			$queryData['conditions'] += array(
 				$this->alias . '.role_id !=' =>  Configure::read('sd.Occitech.roleId')
 			);
 		} else {
-			unset($queryData['noBeforeFind']);
+			unset($queryData['noRoleChecking']);
 		}
 		return $queryData;
 	}
@@ -141,7 +141,7 @@ class SdUser extends User {
 		));
 
 		$result = $this->find('first', array(
-			'noBeforeFind' => '',
+			'noRoleChecking' => '',
 			'conditions' => array($this->alias . '.id' => $userId),
 			'contain' => array(
 				'Aro' => array('conditions' => 'Aro.model = "User"'),

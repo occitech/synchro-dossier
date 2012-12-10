@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title><?php echo $title_for_layout; ?> - <?php echo __('Croogo'); ?></title>
+		<title><?php echo $title_for_layout; ?> - <?php echo __('Synchro Dossier'); ?></title>
 		
 		<?php
 		echo $this->Html->css(array(

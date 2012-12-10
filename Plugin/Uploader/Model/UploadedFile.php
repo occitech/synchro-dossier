@@ -154,8 +154,7 @@ class UploadedFile extends UploaderAppModel {
 	public function getThreadedAllFolders() {
 		$this->contain('Aco');
 		$folder = $this->find('threaded', array(
-			'conditions' => 
-				array('UploadedFile.is_folder' => 1,)
+			'conditions' => array('UploadedFile.is_folder' => 1)
 		));
 
 		return $folder;

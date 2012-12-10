@@ -15,7 +15,7 @@
 				));
 				echo $tableHeaders;
 				$rows = array();
-				foreach ($users as $user) {
+				foreach ($users as $user) :
 					$actions  = $this->Html->link(
 						'',
 						'mailto:' . $user['User']['email'],
@@ -42,7 +42,7 @@
 						$user['Role']['title'],
 						$actions,
 					);
-				}
+				endforeach;
 
 				echo $this->Html->tableCells($rows);
 				echo $tableHeaders;

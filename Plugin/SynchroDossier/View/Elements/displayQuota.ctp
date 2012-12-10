@@ -1,11 +1,11 @@
 <?php if ($toPrint): ?>
 	<?php
-		$classColor = 'bar-success';
-		if ($usedPercent > 50) :
-			$classColor = 'bar-warning';
-		endif;
-		if ($usedPercent > 75):
+		if ($usedPercent > 75) :
 			$classColor = 'bar-danger';
+		elseif ($usedPercent > 50):
+			$classColor = 'bar-warning';
+		else:
+			$classColor = 'bar-success';
 		endif;
 	?>
 	<div class="progress">

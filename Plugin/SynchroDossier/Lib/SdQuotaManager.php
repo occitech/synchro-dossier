@@ -16,7 +16,7 @@ class SdQuotaManager implements CakeEventListener {
 		return array(
 			'Model.UploadedFile.beforeUpload' => 'checkUploadAllowed',
 			'Model.UploadedFile.afterUploadFailed' => 'sendInsufficientQuotaNotification',
-			'Model.UploadedFile.afterUploadSuccess' => 'calculNewCurrentQuota'
+			'Model.UploadedFile.afterUploadSuccess' => 'updateCurrentQuota'
 		);
 	}
 
@@ -61,7 +61,7 @@ class SdQuotaManager implements CakeEventListener {
 		}
 	}
 
-	public function calculNewCurrentQuota($event) {
+	public function updateCurrentQuota($event) {
 		$UploadedFileModel = ClassRegistry::init('Uploader.UploadedFile');
 		$SdInformationModel = ClassRegistry::init('SynchroDossier.SdInformation');
 
