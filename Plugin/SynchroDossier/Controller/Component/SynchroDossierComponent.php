@@ -9,6 +9,7 @@ class SynchroDossierComponent extends Component {
 	public $helperName = 'SynchroDossier.SynchroDossier';
 
 	public function initialize(Controller $controller) {
+		$this->__checkSsl($controller);
 		$this->setCanViewQuota($controller);
 	}
 
@@ -29,6 +30,15 @@ class SynchroDossierComponent extends Component {
 			$quota = array();
 		}
 		$controller->set(compact('quota'));
+	}
+
+	private function __checkSsl(Controller $controller) {
+		$url = env('SERVER_NAME') . $controller->here;
+		if ($controller->request->is('ssl') && !Configure::read('sd.config.useSsl')) {
+			$controller->redirect('http://' . $url);
+		} elseif (!$controller->request->is('ssl') && Configure::read('sd.config.useSsl')) {
+			$controller->redirect('https://' . $url);
+		}
 	}
 
 	public function setCanViewQuota(Controller $controller) {
