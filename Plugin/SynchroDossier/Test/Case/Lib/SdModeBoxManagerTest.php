@@ -34,9 +34,6 @@ class SdModeBoxManagerTest extends CroogoTestCase {
 
 	public function testCreateSubDirectories_ModeBoxActivated() {
 		$UploadedFileModel = ClassRegistry::init('Uploader.UploadedFile');
-		$event = $this->getMockBuilder('CakeEvent')
-			->disableOriginalConstructor()
-			->getMock();
 
 		Configure::write('sd.config.useModeBox', true);
 
@@ -54,9 +51,6 @@ class SdModeBoxManagerTest extends CroogoTestCase {
 
 	public function testCreateSubDirectories_ModeBoxDeactivated() {
 		$UploadedFileModel = ClassRegistry::init('Uploader.UploadedFile');
-		$event = $this->getMockBuilder('CakeEvent')
-			->disableOriginalConstructor()
-			->getMock();
 
 		Configure::write('sd.config.useModeBox', false);
 
@@ -68,5 +62,36 @@ class SdModeBoxManagerTest extends CroogoTestCase {
 		$result = $UploadedFileModel->findByFilename('lastGreateSharing');
 
 		$this->assertEqual(count($result['ChildUploadedFile']), 0);
+	}
+
+	public function testCreateSubDirectories_Rights() {
+		$UploadedFileModel = ClassRegistry::init('Uploader.UploadedFile');
+		$PermissionModel = ClassRegistry::init('Permission');
+
+		Configure::write('sd.config.useModeBox', true);
+
+		$user['id'] = 3;
+
+		$UploadedFileModel->addSharing($this->data, $user);
+
+		$UploadedFileModel->contain('ChildUploadedFile');
+		$result = $UploadedFileModel->findByFilename('lastGreateSharing');
+
+		$inboxId = $result['ChildUploadedFile'][0]['id'];
+		$outboxId = $result['ChildUploadedFile'][1]['id'];
+
+		$inboxUserWritePerm = $PermissionModel->check(
+			array('model' => 'Role', 'foreign_key' => Configure::read('sd.Utilisateur.roleId')),
+			array('model' => 'UploadedFile', 'foreign_key' => $inboxId),
+			'create'
+		);
+		$outboxUserWritePerm = $PermissionModel->check(
+			array('model' => 'Role', 'foreign_key' => Configure::read('sd.Utilisateur.roleId')),
+			array('model' => 'UploadedFile', 'foreign_key' => $outboxId),
+			'create'
+		);
+
+		$this->assertTrue($inboxUserWritePerm);
+		$this->assertFalse($outboxUserWritePerm);
 	}
 }
