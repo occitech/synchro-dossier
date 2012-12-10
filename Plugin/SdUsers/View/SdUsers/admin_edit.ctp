@@ -12,8 +12,10 @@
 
 		<div class="tab-content">
 			<div id="user-main" class="tab-pane">
+				<?php if (isset($this->request->data['User']['id'])): ?>
+					<?= $this->Form->hidden('User.id'); ?>
+				<?php endif ?>
 				<?=
-					$this->Form->hidden('User.id') .
 					$this->Form->input('User.role_id', array('placeholder' => __('Role'))).
 					$this->Form->input('User.username', array('placeholder' => __('Username'))).
 					$this->Form->input('User.email', array('placeholder' => __('Email'))).
@@ -22,8 +24,10 @@
 			</div>
 
 			<div id="user-profile" class="tab-pane">
+				<?php if (isset($this->request->data['Profile']['id'])): ?>
+					<?= $this->Form->hidden('Profile.id'); ?>
+				<?php endif ?>
 				<?=
-					$this->Form->hidden('Profile.id') .
 					$this->Form->input('Profile.name', array('placeholder' => __('Name'))) .
 					$this->Form->input('Profile.firstname', array('placeholder' => __('Firstname'))) .
 					$this->Form->input('Profile.society', array('placeholder' => __('Society')));
