@@ -36,23 +36,7 @@ class UploaderAclAro extends AclNode {
 	);
 
 	public function getUserNotInFolder($folderId) {
-		$this->bindModel(array(
-			'belongsTo' => array(
-				'User' => array(
-					'className' => 'SdUsers.SdUser',
-					'foreignKey' => 'foreign_key'
- 				) 
-			)
-		));
-
-		$aros = $this->find('all', array('conditions' => array(
-			'Aro.model' => 'User',
-			'User.role_id !=' => array(
-				Configure::read('sd.SuperAdmin.roleId'),
-				Configure::read('sd.Occitech.roleId')
-			),
-		)));
-
+		$aros = $this->__getAroAndRelatedAco();
 		$users = array();
 
 		foreach ($aros as $aro) {
@@ -71,5 +55,26 @@ class UploaderAclAro extends AclNode {
 		}
 
 		return $users;
+	}
+
+	private function __getAroAndRelatedAco() {
+		$this->bindModel(array(
+			'belongsTo' => array(
+				'User' => array(
+					'className' => 'SdUsers.SdUser',
+					'foreignKey' => 'foreign_key'
+ 				) 
+			)
+		));
+
+		$aros = $this->find('all', array('conditions' => array(
+			'Aro.model' => 'User',
+			'User.role_id !=' => array(
+				Configure::read('sd.SuperAdmin.roleId'),
+				Configure::read('sd.Occitech.roleId')
+			),
+		)));
+
+		return $aros;
 	}
 }
