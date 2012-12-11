@@ -194,9 +194,12 @@ class FilesController extends UploaderAppController {
 
 	public function find() {
 		$this->Prg->commonProcess();
-		$this->paginate['conditions'] = $this->UploadedFile->parseCriteria($this->passedArgs);
-		debug($this->paginate());
-		//$this->set('articles', $this->paginate());
+		$files = $this->UploadedFile->find('all', array('conditions' => $this->UploadedFile->parseCriteria($this->passedArgs)));
+		$parentId = null;
+		$folderId = null;
+
+		$this->set(compact('files', 'folderId', 'parentId'));
+		$this->render('browse');
 	}
 
 	/**

@@ -40,3 +40,17 @@ a {
 	margin-right: 5px;
 	margin-top: 3px;
 }
+
+.search .checkbox {
+	float: left;
+	margin-left: 5px;
+}
+
+.search .checkbox label {
+	font-size: 0.8em;
+}
+
+.search input.placeholder-size {
+	margin-left: 2px;
+	font-size: 0.8em;
+}

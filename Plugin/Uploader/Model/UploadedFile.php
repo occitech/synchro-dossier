@@ -74,7 +74,10 @@ class UploadedFile extends UploaderAppModel {
 
 	public $filterArgs = array(
 		'filename' => array('type' => 'like'),
+		'parent_id' => array('type' => 'int'),
 		'is_folder' => array('type' => 'value'),
+		'size' => array('type' => 'expression', 'method' => 'makeSizeCondition', 'field' => 'UploadedFile.size BETWEEN ? AND ?'),
+		'created' => array('type' => 'expression', 'encode' => true, 'method' => 'makeCreatedCondition', 'field' => 'UploadedFile.created BETWEEN ? AND ?'),
 		'username' => array('type' => 'like', 'field' => array('User.username')),
 	);
 
@@ -100,6 +103,35 @@ class UploadedFile extends UploaderAppModel {
 			));
 		}
 		return $parentId;
+	}
+
+////////////////////////////////
+/// Method for search plugin ///
+////////////////////////////////
+
+	public function makeSizeCondition($data, $field = null) {
+		$min = empty($data['size_min']) ? 0 : $data['size_min'] * 1024;
+		$max = empty($data['size_max']) ? PHP_INT_MAX : $data['size_max'] * 1024;
+
+		return array($min, $max);
+	}
+
+	public function makeCreatedCondition($data, $field = null) {
+		$min = empty($data['created_min']) ? '0000-00-00' : $data['created_min'] . ' 00:00:00';
+		$max = empty($data['created_max'])? '3000-01-01' : $data['created_max'] . ' 23:59:59';
+
+		return array($min, $max);
+	}
+
+	public function parseCriteria($data) {
+		if (!empty($data['size_min']) || !empty($data['size_max'])) {
+			$data['size'] = true;
+		}
+		if (!empty($data['created_min']) || !empty($data['created_max'])) {
+			$data['created'] = true;
+		}
+
+		return parent::parseCriteria($data);
 	}
 
 ///////////////////////////
