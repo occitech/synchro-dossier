@@ -15,7 +15,6 @@
 			'SynchroDossier._lib/jquery.cookie',
 			'SynchroDossier.jquery.jstree',
 		));
-		$this->Chosen->loadScripts(); // Chosen is used in addUserRigthsOnFolder
 
 		echo $this->Layout->js();
 		echo $this->Html->script(array());
