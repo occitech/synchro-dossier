@@ -199,7 +199,6 @@ class FilesController extends UploaderAppController {
 		$folderId = null;
 
 		$this->set(compact('files', 'folderId', 'parentId'));
-		$this->render('browse');
 	}
 
 	/**
