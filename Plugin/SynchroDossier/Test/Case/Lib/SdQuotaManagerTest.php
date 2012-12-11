@@ -105,11 +105,12 @@ class SdQuotaManagerTest extends CroogoTestCase {
 
 		$SdInformationModel = ClassRegistry::init('SynchroDossier.SdInformation');
 
-		$this->SdQuotaManager->updateCurrentQuota(&$event);
+		$return = $this->SdQuotaManager->updateCurrentQuota(&$event);
 
 		$sdInfo = $SdInformationModel->find('first');
 		$result = $sdInfo['SdInformation']['current_quota_mb'];
 
+		$this->assertNull($return);
 		$this->assertEqual($result, 131);
 	}
 }
