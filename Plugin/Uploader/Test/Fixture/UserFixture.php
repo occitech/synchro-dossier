@@ -89,6 +89,23 @@ class UserFixture extends CakeTestFixture {
 			'updated' => '2012-11-02 12:30:36',
 			'created' => '2012-11-02 12:30:36'
 		),
+		array(
+			'id' => '4',
+			'role_id' => '6',
+			'creator_id' => '0',
+			'username' => 'toto',
+			'password' => '935dce4494121f848ffe2d3337ed2c05192526b1',
+			'name' => 'Derbois',
+			'email' => 'toto@derbois.com',
+			'website' => '',
+			'activation_key' => 'd6b0ca85517794669b14460dec519714',
+			'image' => null,
+			'bio' => null,
+			'timezone' => '0',
+			'status' => 1,
+			'updated' => '2012-10-31 17:21:32',
+			'created' => '2012-10-31 17:21:32'
+		),
 	);
 
 }

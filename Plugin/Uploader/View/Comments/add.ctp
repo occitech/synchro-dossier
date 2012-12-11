@@ -1,9 +1,11 @@
-<h3><?= __('Ajouter un commentaire sur le ficher : ') . $file['UploadedFile']['filename']; ?></h3>
 <?= $this->Form->create('Comment'); ?>
 
-<?= $this->Form->input('Comment.body', array('label' => 'Commentaire :')); ?>
+<?= $this->Form->input('Comment.body', array('label' => false, 'class' => 'span7')); ?>
 
-<?= $this->Form->end(__('Post comment')); ?>
+<?= $this->Form->submit(__('Poster votre commentaire'), array('class' => 'btn')); ?>
+
+
+<?= $this->Form->end(); ?>
 
 <?php foreach ($file['Comment'] as $comment): ?>
 	<h4>Par <?= $comment['name']; ?> le <?= $this->Time->format('j/m/Y H:i', $comment['created']); ?> </h4>

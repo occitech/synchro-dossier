@@ -1,0 +1,42 @@
+/*
+ * jsTree default theme 1.0
+ * Supported features: dots/no-dots, icons/no-icons, focused, loading
+ * Supported plugins: ui (hovered, clicked), checkbox, contextmenu, search
+ */
+
+.jstree-synchrodossier > ul > li > a {
+	font-weight: bold;
+}
+
+.jstree-synchrodossier li, 
+.jstree-synchrodossier ins { background-image:url("d.png"); background-repeat:no-repeat; background-color:transparent; }
+.jstree-synchrodossier li { background-position:-90px 0; background-repeat:repeat-y; }
+.jstree-synchrodossier li.jstree-last { background:transparent; }
+.jstree-synchrodossier .jstree-open > ins { background-position:-72px 0; }
+.jstree-synchrodossier .jstree-closed > ins { background-position:-54px 0; }
+.jstree-synchrodossier .jstree-leaf > ins { background-position:-36px 0; }
+
+.jstree-synchrodossier .jstree-hovered { background:#e7f4f9; border:1px solid #d8f0fa; padding:0 2px 0 1px; }
+.jstree-synchrodossier .jstree-clicked { background:#beebff; border:1px solid #99defd; padding:0 2px 0 1px; }
+.jstree-synchrodossier a .jstree-icon { background-position:-56px -19px; }
+.jstree-synchrodossier a.jstree-loading .jstree-icon { background:url("throbber.gif") center center no-repeat !important; }
+
+.jstree-synchrodossier.jstree-focused { }
+
+.jstree-synchrodossier .jstree-no-dots li, 
+.jstree-synchrodossier .jstree-no-dots .jstree-leaf > ins { background:transparent; }
+.jstree-synchrodossier .jstree-no-dots .jstree-open > ins { background-position:-18px 0; }
+.jstree-synchrodossier .jstree-no-dots .jstree-closed > ins { background-position:0 0; }
+
+.jstree-synchrodossier .jstree-no-icons a .jstree-icon { display:none; }
+
+.jstree-synchrodossier .jstree-search { font-style:italic; }
+
+.jstree-synchrodossier .jstree-no-icons .jstree-checkbox { display:inline-block; }
+.jstree-synchrodossier .jstree-no-checkboxes .jstree-checkbox { display:none !important; }
+.jstree-synchrodossier .jstree-checked > a > .jstree-checkbox { background-position:-38px -19px; }
+.jstree-synchrodossier .jstree-unchecked > a > .jstree-checkbox { background-position:-2px -19px; }
+.jstree-synchrodossier .jstree-undetermined > a > .jstree-checkbox { background-position:-20px -19px; }
+.jstree-synchrodossier .jstree-checked > a > .jstree-checkbox:hover { background-position:-38px -37px; }
+.jstree-synchrodossier .jstree-unchecked > a > .jstree-checkbox:hover { background-position:-2px -37px; }
+.jstree-synchrodossier .jstree-undetermined > a > .jstree-checkbox:hover { background-position:-20px -37px; }

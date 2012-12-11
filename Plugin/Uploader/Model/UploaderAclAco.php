@@ -35,7 +35,7 @@ class UploaderAclAco extends AclNode {
 		)
 	);
 
-	public function getRights($model, $foreignKey) {
+	public function getArosOfFolder($model, $foreignKey) {
 		$this->Aro->bindModel(array(
 			'belongsTo' => array(
 				'User' => array(
@@ -44,6 +44,7 @@ class UploaderAclAco extends AclNode {
  				) 
 			)
 		));
+
 		$result = $this->find(
 			'first',
 			array(
@@ -81,6 +82,23 @@ class UploaderAclAco extends AclNode {
 
 			return $hasRightToChangeRight;
 		};
+
+		$functions['canCreateUser'] = function () use ($userData) {
+			$can = false;
+
+			$authorizeRoles = array(
+				Configure::read('sd.Occitech.roleId'),
+				Configure::read('sd.SuperAdmin.roleId'),
+				Configure::read('sd.Admin.roleId')
+			);
+
+			if (in_array($userData['role_id'], $authorizeRoles)) {
+				$can = true;
+			}
+
+			return $can;
+		};
+
 
 		return $functions;
 	}

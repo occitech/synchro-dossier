@@ -116,7 +116,7 @@ class UploadedFile extends UploaderAppModel {
 	public function addFolder($data, $parentId, $userId) {
 		if (!is_null($parentId)) {
 			$parent = $this->findById($parentId);
-			if (!$parent['UploadedFile']['is_folder']) {
+			if (!empty($parent) && !$parent['UploadedFile']['is_folder']) {
 				return false;
 			}
 		}
@@ -149,6 +149,15 @@ class UploadedFile extends UploaderAppModel {
 		));
 
 		return $result;
+	}
+
+	public function getThreadedAllFolders() {
+		$this->contain('Aco');
+		$folder = $this->find('threaded', array(
+			'conditions' => array('UploadedFile.is_folder' => 1)
+		));
+
+		return $folder;
 	}
 
 	protected function _getFoldersPath($folderId) {
@@ -205,8 +214,8 @@ class UploadedFile extends UploaderAppModel {
 		return $content;
 	}
 
-	public function rename($fileId, $data) {
-		$fileInfos = $this->findById($fileId);
+	public function rename($data) {
+		$fileInfos = $this->findById($data[$this->alias]['id']);
 
 		if (!$fileInfos['UploadedFile']['is_folder']) {
 			return false;
@@ -375,11 +384,11 @@ class UploadedFile extends UploaderAppModel {
 		}
 
 		if ($result) {
-			$data['FileStorage']['file']['id'] = $this->id;
+			$data['file']['id'] = $this->id;
 			$this->getEventManager()->dispatch(new CakeEvent(
 				'Model.UploadedFile.afterUploadSuccess',
 				$this,
-				array('data' => $data['FileStorage'], 'user' => $user
+				array('data' => $data, 'user' => $user
 			)));
 		}
 

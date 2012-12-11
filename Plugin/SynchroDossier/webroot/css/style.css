@@ -1,0 +1,42 @@
+.no-overflow-y {
+	overflow-y: visible;
+}
+
+.sub-version {
+	background-color: whiteSmoke;
+}
+
+.sub-version td:first-child {
+	padding-left: 45px;
+}
+
+a {
+	color: black;
+}
+
+.sidebar{
+	width: 200px;
+	float: left;
+}
+
+#content {
+	margin-left: 250px;
+}
+
+.sidebar .btn {
+	margin-bottom: 10px;
+}
+
+.popover {
+	width: 325px;
+}
+
+.popover textarea {
+	width: 95%;
+}
+
+#UserUserId_chzn {
+	float: left;
+	margin-right: 5px;
+	margin-top: 3px;
+}

@@ -24,7 +24,7 @@ class SdInformationFixture extends CakeTestFixture {
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
-		'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB')
+		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
 	);
 
 /**
@@ -35,8 +35,8 @@ class SdInformationFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => '1',
-			'quota_mb' => '10',
-			'current_quota_mb' => '3'
+			'quota_mb' => '1000',
+			'current_quota_mb' => '0'
 		),
 	);
 

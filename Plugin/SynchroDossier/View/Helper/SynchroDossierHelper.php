@@ -4,6 +4,11 @@ App::uses('AppHelper', 'View/Helper');
 
 class SynchroDossierHelper extends AppHelper {
 
+	public $helpers = array(
+		'Html',
+		'Uploader.UploaderAcl'
+	);
+
 	public function getQuotaData() {
 		return $this->_View->getVar('quota');
 	}
@@ -26,5 +31,25 @@ class SynchroDossierHelper extends AppHelper {
 		$element = $this->_View->element($element, $vars);
 
 		return $element;
+	}
+
+	public function displayTreeFolders($folders) {
+		$output = '';
+		foreach ($folders as $folder) {
+			if ($this->UploaderAcl->userCan($folder['Aco'], 'read')) {
+				$subfolderOutput = '';
+				if (isset($folder['children']) && count($folder['children']) > 0) {
+					$subfolderOutput .= $this->displayTreeFolders($folder['children']);
+					$subfolderOutput = $this->Html->tag('ul', $subfolderOutput, array('class' => 'hidden'));
+				}
+				$link = $this->Html->link(
+					$folder['UploadedFile']['filename'],
+					array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse', $folder['UploadedFile']['id'])
+				);
+				$output .= $this->Html->tag('li', $link . $subfolderOutput);
+			}
+		}
+
+		return $output;
 	}
 }

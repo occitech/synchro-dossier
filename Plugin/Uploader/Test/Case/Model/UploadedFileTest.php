@@ -23,6 +23,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		'plugin.uploader.aco',
 		'plugin.uploader.aro',
 		'plugin.uploader.aros_aco',
+		'plugin.uploader.comment',
 		'plugin.uploader.sd_information'
 	);
 
@@ -57,14 +58,13 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		parent::setUp();
 		$this->UploadedFile = ClassRegistry::init('Uploader.UploadedFile');
 		$this->data = array(
-			'FileStorage' => array(
-				'file' => array(
-					'name' => 'Fraise.jpg',
-					'type' => 'text/x-gettext-translation',
-					'tmp_name' => '/tmp/phpTmnlQd',
-					'error' => (int) 0,
-					'size' => (int) 71881
-		)));
+			'file' => array(
+				'name' => 'Fraise.jpg',
+				'type' => 'text/x-gettext-translation',
+				'tmp_name' => '/tmp/phpTmnlQd',
+				'error' => (int) 0,
+				'size' => (int) 71881
+		));
 		Configure::write('FileStorage.adapter', 'Test');
 		file_put_contents('/tmp/phpTmnlQd', 'Hi !');
 
@@ -191,6 +191,67 @@ class UploadedFileTest extends OccitechCakeTestCase {
 	}
 
 /**
+ * Test getThreadedFolders
+ */
+	public function testGetThreadedFolders_AllFolders() {
+		$result = $this->UploadedFile->getThreadedAllFolders();
+
+		$expected = array(
+			0 => array(
+				'UploadedFile' => array(
+					'id' => '1',
+					'filename' => 'Photos',
+					'size' => '',
+					'user_id' => '1',
+					'current_version' => '',
+					'available' => '',
+					'parent_id' => null,
+					'is_folder' => '1',
+					'lft' => '1',
+					'rght' => '8',
+					'mime_type' => null
+				),
+				'children' => array(
+					0 => array(
+						'UploadedFile' => array(
+							'id' => '3',
+							'filename' => 'Fruits',
+							'size' => '',
+							'user_id' => '1',
+							'current_version' => '',
+							'available' => '',
+							'parent_id' => '1',
+							'is_folder' => '1',
+							'lft' => '2',
+							'rght' => '7',
+							'mime_type' => null
+						),
+						'children' => array()
+					)
+				)
+			),
+			1 => array(
+				'UploadedFile' => array(
+					'id' => '2',
+					'filename' => 'Documents',
+					'size' => '',
+					'user_id' => '1',
+					'current_version' => '',
+					'available' => '',
+					'parent_id' => null,
+					'is_folder' => '1',
+					'lft' => '9',
+					'rght' => '12',
+					'mime_type' => null
+				),
+				'children' => array()
+			)
+		);
+
+		$this->assertEqual($result, $expected);
+	}
+
+/**
  * Test getFoldersPath
  */
 	public function testGetFoldersPathLittleFolder() {
@@ -264,7 +325,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		Configure::write('FileStorage.filePattern', '{user_id}/{file_id}-{version}-{filename}');
 		$user['id'] = 1;
 		$user['role_id'] = 4;
-		$this->data['FileStorage']['file']['name'] = 'Newfile.jpg';
+		$this->data['file']['name'] = 'Newfile.jpg';
 		$filename = Security::hash('Newfile.jpg');
 		$this->UploadedFile->upload($this->data, $user, 1);
 		
@@ -314,14 +375,12 @@ class UploadedFileTest extends OccitechCakeTestCase {
 	public function testUpload_EventAfterUploadFailed_CorrectlyLaunched() {
 		$user = array('id' => 1, 'role_id' => 4);
 		$data = array(
-			'FileStorage' => array(
-				'file' => array(
-					'name' => 'Fraise.jpg',
-					'type' => 'text/x-gettext-translation',
-					'tmp_name' => '/tmp/phpTmnlQd',
-					'error' => 0,
-					'size' => 71881000000000
-				)
+			'file' => array(
+				'name' => 'Fraise.jpg',
+				'type' => 'text/x-gettext-translation',
+				'tmp_name' => '/tmp/phpTmnlQd',
+				'error' => 0,
+				'size' => 71881000000000
 			)
 		);
 
@@ -331,7 +390,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		);
 
 		$expectedArray = array(
-			'data' => $data['FileStorage'],
+			'data' => $data,
 			'user' => $user,
 			'beforeUploadResult' => array (
 				'hasError' => true,
@@ -351,21 +410,19 @@ class UploadedFileTest extends OccitechCakeTestCase {
 	public function testUpload_EventBeforeUpload_CorrectlyLaunched() {
 		$user = array('id' => 1, 'role_id' => 4);
 		$data = array(
-			'FileStorage' => array(
-				'file' => array(
-					'name' => 'Fraise.jpg',
-					'type' => 'text/x-gettext-translation',
-					'tmp_name' => '/tmp/phpTmnlQd',
-					'error' => 0,
-					'size' => 71881
-				)
+			'file' => array(
+				'name' => 'Fraise.jpg',
+				'type' => 'text/x-gettext-translation',
+				'tmp_name' => '/tmp/phpTmnlQd',
+				'error' => 0,
+				'size' => 71881
 			)
 		);
 
 		$callbackForNewMessage = $this->expectEventDispatched(
 			'Model.UploadedFile.beforeUpload',
 			$this->isInstanceOf($this->UploadedFile),
-			$this->logicalAnd($this->equalTo(array('data' => $data['FileStorage'], 'user' => $user)))
+			$this->logicalAnd($this->equalTo(array('data' => $data, 'user' => $user)))
 		);
 
 		$this->UploadedFile->upload($data, $user, 3);
@@ -374,21 +431,19 @@ class UploadedFileTest extends OccitechCakeTestCase {
 	public function testUpload_AfterUploadSucces_CorrectlyLaunched() {
 		$user = array('id' => 1, 'role_id' => 4);
 		$data = array(
-			'FileStorage' => array(
-				'file' => array(
-					'name' => 'Fraise.jpg',
-					'type' => 'text/x-gettext-translation',
-					'tmp_name' => '/tmp/phpTmnlQd',
-					'error' => 0,
-					'size' => 71881
-				)
+			'file' => array(
+				'name' => 'Fraise.jpg',
+				'type' => 'text/x-gettext-translation',
+				'tmp_name' => '/tmp/phpTmnlQd',
+				'error' => 0,
+				'size' => 71881
 			)
 		);
 
 		$callbackForNewMessage = $this->expectEventDispatched(
 			'Model.UploadedFile.afterUploadSuccess',
 			$this->isInstanceOf($this->UploadedFile),
-			$this->logicalAnd($this->equalTo(array('data' => $data['FileStorage'], 'user' => $user)))
+			$this->logicalAnd($this->equalTo(array('data' => $data, 'user' => $user)))
 		);
 
 		$this->UploadedFile->upload($data, $user, 3);

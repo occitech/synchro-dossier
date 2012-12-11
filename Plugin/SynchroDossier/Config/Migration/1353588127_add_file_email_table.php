@@ -18,20 +18,20 @@ class AddFileEmailTable extends CakeMigration {
 	public $migration = array(
 		'up' => array(
 			'create_table' => array(
-				'sd_alert_emails' => array(
+				'sd_file_emails' => array(
 					'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
 					'user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 					'uploaded_file_id' => array('type' => 'integer', 'null' => false, 'default' => NULL),
 					'indexes' => array(
 						'PRIMARY' => array('column' => 'id', 'unique' => 1),
 					),
-					'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB'),
+					'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB'),
 				),
 			),
 		),
 		'down' => array(
 			'drop_table' => array(
-				'sd_alert_emails'
+				'sd_file_emails'
 			),
 		),
 	);

@@ -13,3 +13,9 @@
 [submodule "Plugin/Plupload"]
 	path = Plugin/Plupload
 	url = git://github.com/occitech/CakePHP-Plupload-Plugin.git
+[submodule "Plugin/SynchroDossier/webroot/bootstrap"]
+	path = Plugin/SynchroDossier/webroot/bootstrap
+	url = git://github.com/twitter/bootstrap.git
+[submodule "Plugin/Chosen"]
+	path = Plugin/Chosen
+	url = git://github.com/paulredmond/chosen-cakephp.git

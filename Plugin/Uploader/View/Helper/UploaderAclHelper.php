@@ -2,16 +2,18 @@
 
 App::uses('Helper', 'View');
 
-class AclHelper extends Helper {
+class UploaderAclHelper extends Helper {
 
-	private $__userRights;
-	private $__userId;
+	private $__userRights = array();
+	private $__userId = array();
 
 	public function __construct(View $View, $settings = array()) {
 		parent::__construct($View, $settings);
 
-		$this->__userId = $View->viewVars['userRights']['User']['id'];
-		$this->__userRights = $View->viewVars['userRights']['Aro']['Aco'];
+		if (isset($View->viewVars['userRights'])) {
+			$this->__userId = $View->viewVars['userRights']['User']['id'];
+			$this->__userRights = $View->viewVars['userRights']['Aro']['Aco'];
+		}
 	}
 
 	public function userCan($uploadedFileAco, $action = 'read') {

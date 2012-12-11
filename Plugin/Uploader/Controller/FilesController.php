@@ -5,7 +5,7 @@ App::uses('UploaderAclAco', 'Uploader.Model');
 
 class FilesController extends UploaderAppController {
 
-	public $uses = array('Uploader.UploadedFile', 'Uploader.UploaderAclAco', 'Permission');
+	public $uses = array('Uploader.UploadedFile');
 
 	public $components = array(
 		'Plupload.Plupload',
@@ -27,23 +27,33 @@ class FilesController extends UploaderAppController {
 		)
 	);
 
+	private $__listRights = array('read', 'create', 'delete');
+
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Security->unlockedActions = 'upload';
+		$this->Security->unlockedActions = array('upload', 'rename');
 	}
 
 	public function beforeRender() {
-		$this->helpers[] = 'Uploader.Acl';
-		$this->helpers[] = 'Plupload.Plupload';
-		$userRights = $this->UploadedFile->User->getAllRights($this->Auth->user('id'));
-		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
-		$this->set(compact('userRights', 'can'));
+		parent::beforeRender();
+ 
+		$folderId = isset($this->request->params['pass'][0]) ? $this->request->params['pass'][0] : null;
+
+		$uploadUrl = Router::url(array(
+			'plugin' => 'uploader',
+			'controller' => 'files',
+			'action' => 'upload',
+			$folderId
+		));
 
 		$this->Plupload->setUploaderOptions(array(
 			'locale' => 'fr',
 			'runtimes' => 'html5',
 			'filters' => array(),
-			'url' => $this->request->here
+			'browse_button' => 'browse',
+			'drop_element' => 'drop-area',
+			'container' => 'plupload',
+			'url' => $uploadUrl
 		));
 	}
 
@@ -51,11 +61,17 @@ class FilesController extends UploaderAppController {
 		if ($this->UploadedFile->isRootFolder($folderId)) {
 			$folder = $this->UploadedFile->findById($folderId);
 			$superAdmins = $this->UploadedFile->User->find('superAdmin');
-			$acos = $this->UploaderAclAco->getRights('UploadedFile', $folderId);
-			$users = $this->UploadedFile->User->find('list');
-			$this->set(compact('acos', 'users', 'superAdmins', 'folder'));
+			$acos = $this->UploaderAclAco->getArosOfFolder('UploadedFile', $folderId);
+			$usersNotInFolder = $this->UploaderAclAro->getUserNotInFolder($folderId);
+			$this->set(compact('acos', 'superAdmins', 'folder', 'usersNotInFolder'));
 		} else {
-			$this->Session->setFlash(__('Vous ne pouvez pas donner de droit à ce dossier'));
+			$rootId = $this->UploadedFile->getRootFolderId($folderId);
+			$this->Session->setFlash(
+				__('Vous ne pouvez pas donner de droit à un sous dossier. Nous vous avons donc redirigé sur la page permettant de donner les droits au dossier racine. Les droits s\'appliqueront aussi au sous dossier'),
+				'default',
+				array('class' => 'alert alert-info')
+			);
+			$this->redirect(array('action' => 'rights', $rootId));
 		}
 	}
 
@@ -75,30 +91,43 @@ class FilesController extends UploaderAppController {
 	}
 
 	protected function _allowRight($uploadedFileId, $userId, $action) {
-		$this->Permission->allow(
-			array('model' => 'User', 'foreign_key' => $userId),
-			array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
-			$action
-		);		
+		foreach ($this->__listRights as $right) {
+			$this->Permission->allow(
+				array('model' => 'User', 'foreign_key' => $userId),
+				array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
+				$right
+			);		
+			if ($right == $action) {
+				break;
+			}
+		}
 	}
 
 	protected function _denyRight($uploadedFileId, $userId, $action) {
-		$this->Acl->deny(
-			array('model' => 'User', 'foreign_key' => $userId),
-			array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
-			$action
-		);		
+		foreach (array_reverse($this->__listRights) as $right) {
+			$this->Acl->deny(
+				array('model' => 'User', 'foreign_key' => $userId),
+				array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
+				$right
+			);
+
+			if ($right == $action) {
+				break;
+			}
+		}
 	}
 
 	public function removeRight($acoId, $aroId) {
 		$result = $this->_removeRight($acoId, $aroId);
 		if (!$result) {
-			$this->Session->setFlash(__('There was an error while deleting the right. Thank you try again or contact an administrator'));
+			$this->Session->setFlash(__('There was an error while deleting the right. Thank you try again or contact an administrator'), 'default', array('class' => 'alert alert-danger'));
 		}
 		$this->redirect($this->referer());
 	}
 
 	public function toggleRight($uploadedFileId, $userId = null, $action = 'read') {
+		$listRights = array('read', 'create', 'delete');
+
 		$isNewUserRight = false;
 		if (isset($this->request->data['User']['user_id'])) {
 			$userId = $this->request->data['User']['user_id'];
@@ -112,11 +141,14 @@ class FilesController extends UploaderAppController {
 
 			if (!($isNewUserRight && $isRightActive)) {
 				$method = ($isRightActive) ? '_denyRight' : '_allowRight';
+				
 				$this->{$method}($uploadedFileId, $userId, $action);
+				
 				$this->getEventManager()->dispatch(new CakeEvent(
 					'Controller.FilesController.afterChangeRight',
 					$this,
 					array(
+						'method' => $method,
 						'user' => array('id' => $userId),
 						'model' => 'Permission',
 						'foreign_key' => $this->Permission->id
@@ -125,12 +157,14 @@ class FilesController extends UploaderAppController {
 			}
 
 		} else {
-			$this->Session->setFlash(__('Given information are incorrect')); 
+			$this->Session->setFlash(__('Given information are incorrect'), 'default', array('class' => 'alert alert-danger')); 
 		}
 		$this->redirect($this->referer());
 	}
 
 	public function browse($folderId = null) {
+		$folderId = $folderId === 'null' ? null : $folderId;
+
 		$this->helpers[] = 'Uploader.File';
 		$this->helpers[] = 'Time';
 
@@ -144,6 +178,8 @@ class FilesController extends UploaderAppController {
 				) 
 			)
 		));
+
+		$this->UploadedFile->order = 'UploadedFile.is_folder DESC';
 
 		if (is_null($folderId)) {
 			$files = $this->UploadedFile->find('rootDirectories'); 
@@ -165,33 +201,36 @@ class FilesController extends UploaderAppController {
 					array('model' => 'User', 'foreign_key' => Configure::write('sd.SuperAdmin.roleId')),
 					array('model' => 'UploadedFile', 'foreign_key' => $this->UploadedFile->id)
 				);
-				$this->Session->setFlash(__('Folder correctly created'));
-				$this->redirect(array('action' => 'browse', $parentId));
+				$this->Session->setFlash(__('Le dossier a correctement été créé'), 'default', array('class' => 'alert'));
 			} else {
-				$this->Session->setFlash(__('There are errors in the data sent by the form'));
+				$errors = $this->UploadedFile->invalidFields();
+				$errorMessage = '';
+				foreach ($errors as $error) {
+					$errorMessage .= implode('<br> ', array_unique($error));
+				}
+				$this->Session->setFlash(__('Il y a des erreurs dans les données du formulaire') . '<br>' . $errorMessage, 'default', array('class' => 'alert alert-danger'));
 			}
 		}
+		$this->redirect(array('action' => 'browse'));
 	}
 
 	public function createFolder($parentId) {
 		if ($this->request->is('post')) {
 			if ($this->UploadedFile->addFolder($this->request->data, $parentId, $this->Auth->user('id'))) {
-				$this->Session->setFlash(__('Sub-folder correctly created'));
-				$this->redirect(array('action' => 'browse', $parentId));
+				$this->Session->setFlash(__('Le dossier a correctement été créé'), 'default', array('class' => 'alert'));
 			} else {
-				$this->Session->setFlash(__('There are errors in the data sent by the form'));
+				$this->Session->setFlash(__('Il y a des erreurs dans les données du formulaire'), 'default', array('class' => 'alert alert-danger'));
 			}
 		}
+		$this->redirect(array('action' => 'browse', $parentId));
 	}
 
-	public function rename($parentId, $id) {
+	public function rename($parentId = null, $id = null) {
 		if ($this->request->is('put')) {
-			if ($this->UploadedFile->rename($id, $this->request->data)) {
-				$this->redirect(array('action' => 'browse', $parentId));
+			if ($this->UploadedFile->rename($this->request->data)) {
 			}
-		} else {
-			$this->request->data = $this->UploadedFile->findById($id);
 		}
+		$this->redirect(array('action' => 'browse', $parentId));
 	}
 
 	public function downloadZipFolder($folderId) {
@@ -211,6 +250,7 @@ class FilesController extends UploaderAppController {
  *
  */	
 	public function upload($folderId, $originalFilename = null) {
+		$folderId = $folderId === 'null' ? null : $folderId;
 		if ($this->Plupload->isPluploadRequest()) {
 			list($uploadFinished, $response, $file) = $this->Plupload->upload();
 			if ($uploadFinished) {
@@ -225,6 +265,20 @@ class FilesController extends UploaderAppController {
 				}
 			}
 			die($response);
+		} elseif($this->request->is('post')) {
+			$uploadOk = $this->UploadedFile->upload(
+				$this->request->data['FileStorage'],
+				$this->Auth->user(),
+				$folderId,
+				$originalFilename
+			);
+			if (!$uploadOk) {
+				$error = $this->UploadedFile->FileStorage->invalidFields();
+				if (isset($error['file'][0])) {
+					$response = $this->Session->setFlash($error['file'][0], 'default', array('class' => 'alert alert-danger'));
+				}
+			}
+			$this->redirect(array('action' => 'browse', $folderId));
 		}
 		$this->set(compact('folderId'));
 	}
@@ -235,6 +289,8 @@ class FilesController extends UploaderAppController {
 				$this,
 				array('user' => $this->Auth->user())
 		));
+
+		$this->redirect(array('action' => 'browse', $folderId));
 	}
 
 	public function download($fileStorageId = null) {

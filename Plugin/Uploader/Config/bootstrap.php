@@ -40,3 +40,5 @@ StorageManager::config(
 		'class' => '\Gaufrette\Filesystem'
 	)
 );
+
+CakePlugin::load('Chosen');

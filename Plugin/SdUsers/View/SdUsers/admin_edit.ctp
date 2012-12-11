@@ -1,44 +1,55 @@
 <?php $this->extend('/Common/admin_edit'); ?>
-<?php echo $this->Form->create('SdUser', array('url' => array('action' => 'edit')));?>
-	<fieldset>
-		<div class="tabs">
-			<ul>
-				<li><a href="#node-main"><span><?php echo __('Users'); ?></span></a></li>
-				<li><a href="#node-profile"><span><?php echo __('Profile'); ?></span></a></li>
-				<?php echo $this->Croogo->adminTabs(); ?>
-			</ul>
+<?php echo $this->Form->create('SdUser');?>
 
-			<div id="node-main">
-			<?=
-				$this->Form->input('User.id').
-				$this->Form->input('User.role_id', array('label' => __('Role'))).
-				$this->Form->input('User.username', array('label' => __('Username'))).
-				$this->Form->input('User.email', array('label' => __('Email'))).
-				$this->Form->input('User.status', array('label' => __('Status')));
-			?>
-			</div>
+<div class="row-fluid">
+	<div class="span8">
 
-			<div id="node-profile">
-			<?=
-				$this->Form->input('Profile.id') .
-				$this->Form->input('Profile.name', array('label' => __('Name'))) .
-				$this->Form->input('Profile.firstname', array('label' => __('Firstname'))) .
-				$this->Form->input('Profile.society', array('label' => __('Society')));
-			?>
-			</div>
+		<ul class="nav nav-tabs">
+			<li><a href="#user-main" data-toggle="tab"><span><?php echo __('Users'); ?></span></a></li>
+			<li><a href="#user-profile" data-toggle="tab"><span><?php echo __('Profile'); ?></span></a></li>
 			<?php echo $this->Croogo->adminTabs(); ?>
-			<div class="clear">&nbsp;</div>
+		</ul>
+
+		<div class="tab-content">
+			<div id="user-main" class="tab-pane">
+				<?php if (isset($this->request->data['User']['id'])): ?>
+					<?= $this->Form->hidden('User.id'); ?>
+				<?php endif ?>
+				<?=
+					$this->Form->input('User.role_id', array('placeholder' => __('Role'))).
+					$this->Form->input('User.username', array('placeholder' => __('Username'))).
+					$this->Form->input('User.email', array('placeholder' => __('Email'))).
+					$this->Form->input('User.status', array('label' => __('Status')));
+				?>
+			</div>
+
+			<div id="user-profile" class="tab-pane">
+				<?php if (isset($this->request->data['Profile']['id'])): ?>
+					<?= $this->Form->hidden('Profile.id'); ?>
+				<?php endif ?>
+				<?=
+					$this->Form->input('Profile.name', array('placeholder' => __('Name'))) .
+					$this->Form->input('Profile.firstname', array('placeholder' => __('Firstname'))) .
+					$this->Form->input('Profile.society', array('placeholder' => __('Society')));
+				?>
+			</div>
+
+			<?php echo $this->Croogo->adminTabs(); ?>
 		</div>
-	</fieldset>
-	<div class="buttons">
+	</div>
+
+	<div class="span4">
 	<?php
-		echo $this->Form->submit(__('Apply'), array('name' => 'apply', 'label' => __('Apply')));
-		echo $this->Form->submit(__('Save'), array('label' => __('Save')));
-		echo $this->Html->link(__('Cancel'), array(
-			'action' => 'index',
-		), array(
-			'class' => 'cancel',
-		));
+		echo $this->Html->beginBox(__('Publishing')) .
+			$this->Form->button(__('Sauver'), array('button' => 'default')) .
+			$this->Html->link(__('Annuler'), array('action' => 'index'), array(
+				'button' => 'danger')
+			).
+			$this->Html->endBox();
+
+		echo $this->Croogo->adminBoxes();
 	?>
 	</div>
-<?php echo $this->Form->end();?>
+
+</div>
+<?php echo $this->Form->end(); ?>

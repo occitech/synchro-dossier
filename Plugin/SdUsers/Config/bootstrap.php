@@ -36,30 +36,28 @@ foreach ($rolesInfos as $roleName => $infos) {
 }
 
 $adminMenu = array(
-	'title' => __('Users'),
+	'icon' => array('user', 'large'),
+	'title' => __('Utilisateurs'),
 	'url' => array(
-		'admin' => true,
 		'plugin' => 'sd_users',
 		'controller' => 'sd_users',
-		'action' => 'index',
+		'action' => 'admin_index',
 	),
 	'children' => array(
 		'list' => array(
-			'title' => __('List'),
+			'title' => __('Liste'),
 			'url' => array(
-				'admin' => true,
 				'plugin' => 'sd_users',
 				'controller' => 'sd_users',
-				'action' => 'index',
+				'action' => 'admin_index',
 			),
 		),
 		'add' => array(
-			'title' => __('Add'),
+			'title' => __('Ajouter'),
 			'url' => array(
-				'admin' => true,
 				'plugin' => 'sd_users',
 				'controller' => 'sd_users',
-				'action' => 'add',
+				'action' => 'admin_add',
 			),
 		),
 	),

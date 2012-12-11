@@ -11,14 +11,46 @@ class SynchroDossierComponent extends Component {
 	public function initialize(Controller $controller) {
 		$this->__checkSsl($controller);
 		$this->setCanViewQuota($controller);
+		$controller->Auth->loginRedirect = array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse');
+		$controller->Auth->authError = __('Pour accéder à cette page vous devez vous connecter');
 	}
 
 	public function beforeRender(Controller $controller) {
-		if (isset($controller->request->params['prefix']) && $controller->request->params['prefix'] != 'admin') {
+		$params = array_intersect_key($controller->request->params, $controller->Auth->loginAction);
+		if ($params == $controller->Auth->loginAction) {
+			$controller->layout = 'SynchroDossier.login';
+		} elseif (!isset($controller->request->params['prefix'])) {
 			$controller->layout = 'SynchroDossier.default';
+			$controller->helpers[] = 'Uploader.UploaderAcl';
 		}
+
 		$controller->helpers[] = $this->helperName;
 		$this->__setQuotaInformation($controller);
+		$this->__setListUserCanAccessCurrentFolder($controller);
+		$this->__setRootFolders($controller);
+
+		$controller->helpers[] = 'Chosen.Chosen';
+	}
+
+	private function __setListUserCanAccessCurrentFolder(Controller $controller) {
+		if (!is_null($controller->Auth->user())) {
+			$UploaderAclAcoModel = ClassRegistry::init('Uploader.UploaderAclAco');
+
+			$idFolder = isset($controller->request->params['pass'][0]) ? $controller->request->params['pass'][0] : null;
+			$usersCanAccess = $UploaderAclAcoModel->getArosOfFolder('UploadedFile', $idFolder);
+			$usersCanAccess['Aro'] = isset($usersCanAccess['Aro']) ? $usersCanAccess['Aro'] : array();
+			$controller->set('SynchroDossier_aroAccessFolder', $usersCanAccess['Aro']);
+		}
+	}
+
+	private function __setRootFolders(Controller $controller) {
+		if (!is_null($controller->Auth->user())) {
+			$UploadedFileModel = ClassRegistry::init('Uploader.UploadedFile');
+			$UploadedFileModel->recursive = 1;
+			$rootFolders = $UploadedFileModel->findAllByParent_idAndIs_folder(null, 1);
+			$allFolders = $UploadedFileModel->getThreadedAllFolders();
+			$controller->set('SynchroDossier_allFolders', $allFolders);
+		}
 	}
 
 	private function __setQuotaInformation(Controller $controller) {

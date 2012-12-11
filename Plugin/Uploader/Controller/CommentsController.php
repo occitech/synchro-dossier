@@ -6,6 +6,13 @@ class CommentsController extends UploaderAppController {
 
 	public $uses = array('Comments.Comment', 'Uploader.UploadedFile');
 
+	public function beforeRender() {
+		parent::beforeRender();
+		if ($this->request->is('ajax')) {
+			$this->layout = null;
+		}
+	}
+
 	public function add($fileId) {
 		if (!$this->UploadedFile->exists($fileId)) {
 			$this->redirect($this->referer(), 404);

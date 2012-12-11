@@ -20,7 +20,7 @@ class UploadedFile extends CakeMigration {
 			'create_table' => array(
 				'uploaded_files' => array(
 					'id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'key' => 'primary'),
-					'filename' => array('type' => 'string', 'null' => false, 'default' => NULL, 'collate' => 'utf8_bin', 'charset' => 'utf8', 'after' => 'id'),
+					'filename' => array('type' => 'string', 'null' => false, 'default' => NULL, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'after' => 'id'),
 					'size' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'after' => 'filename'),
 					'user_id' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'after' => 'size'),
 					'current_version' => array('type' => 'integer', 'null' => false, 'default' => NULL, 'after' => 'user_id'),
@@ -32,7 +32,7 @@ class UploadedFile extends CakeMigration {
 					'indexes' => array(
 						'PRIMARY' => array('column' => 'id', 'unique' => 1),
 					),
-					'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB'),
+					'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB'),
 				),
 			),
 		),
