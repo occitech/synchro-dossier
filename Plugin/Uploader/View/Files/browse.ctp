@@ -1,6 +1,6 @@
 <?= $this->Plupload->loadAsset('jquery'); ?>
 
-<?php if (isset($folderId) && $this->UploaderAcl->userCan($folderAco['Aco'], 'create')): ?>
+<?php if (isset($folderId) && !is_null($folderId) && $this->UploaderAcl->userCan($folderAco['Aco'], 'create')): ?>
 	<?= $this->element('Uploader.plupload_widget'); ?>
 <?php endif ?>
 

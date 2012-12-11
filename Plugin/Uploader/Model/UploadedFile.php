@@ -6,7 +6,8 @@ class UploadedFile extends UploaderAppModel {
 
 	public $actsAs = array(
 		'Tree',
-		 'Acl' => array('type' => 'controlled')
+		'Acl' => array('type' => 'controlled'),
+		'Search.Searchable'
 	);
 
 	public $belongsTo = array(
@@ -27,7 +28,7 @@ class UploadedFile extends UploaderAppModel {
 			'className' => 'Aco',
 			'foreignKey' => 'foreign_key',
 			'conditions' => array('Aco.model' => 'UploadedFile')
- 		)
+		)
 	);
 
 	public $hasMany = array(
@@ -70,6 +71,13 @@ class UploadedFile extends UploaderAppModel {
 			)
 		)
 	);
+
+	public $filterArgs = array(
+		'filename' => array('type' => 'like'),
+		'is_folder' => array('type' => 'value'),
+		'username' => array('type' => 'like', 'field' => array('User.username')),
+	);
+
 
 	public function isUniqueName($check) {
 		$parentId = $this->data['UploadedFile']['parent_id'];

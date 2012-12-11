@@ -9,6 +9,7 @@ class FilesController extends UploaderAppController {
 
 	public $components = array(
 		'Plupload.Plupload',
+		'Search.Prg',
 		'RowLevelAcl' => array(
 			'className' => 'Acl.RowLevelAcl',
 			'settings' => array(
@@ -31,7 +32,7 @@ class FilesController extends UploaderAppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Security->unlockedActions = array('upload', 'rename');
+		$this->Security->unlockedActions = array('upload', 'rename', 'find', 'browse');
 	}
 
 	public function beforeRender() {
@@ -189,6 +190,13 @@ class FilesController extends UploaderAppController {
 		$parent = $this->UploadedFile->findById($folderId);
 		$parentId = ($parent) ? $parent['ParentUploadedFile']['id'] : null;
 		$this->set(compact('files', 'folderId', 'parentId'));
+	}
+
+	public function find() {
+		$this->Prg->commonProcess();
+		$this->paginate['conditions'] = $this->UploadedFile->parseCriteria($this->passedArgs);
+		debug($this->paginate());
+		//$this->set('articles', $this->paginate());
 	}
 
 	/**
