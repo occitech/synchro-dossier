@@ -10,6 +10,8 @@ class UploaderAclAro extends AclNode {
 
 	public $actsAs = array('Containable');
 
+	public $findMethods = array('aroAndRelatedAco' =>  true);
+
 	public $belongsTo = array(
 		'ParentAro' => array(
 			'className' => 'Aro',
@@ -35,8 +37,30 @@ class UploaderAclAro extends AclNode {
 		)
 	);
 
+	protected function _findAroAndRelatedAco($state, $query, $results = array()) {
+		if ($state == 'before') {
+			$this->bindModel(array(
+				'belongsTo' => array(
+					'User' => array(
+						'className' => 'SdUsers.SdUser',
+						'foreignKey' => 'foreign_key'
+					)
+				)
+			));
+			$query['conditions'] = array(
+				'Aro.model' => 'User',
+				'User.role_id !=' => array(
+					Configure::read('sd.SuperAdmin.roleId'),
+					Configure::read('sd.Occitech.roleId')
+				),
+			);
+			return $query;
+		}
+		return $results;
+	}
+
 	public function getUserNotInFolder($folderId) {
-		$aros = $this->__getAroAndRelatedAco();
+		$aros = $this->find('aroAndRelatedAco');
 		$users = array();
 
 		foreach ($aros as $aro) {
@@ -55,26 +79,5 @@ class UploaderAclAro extends AclNode {
 		}
 
 		return $users;
-	}
-
-	private function __getAroAndRelatedAco() {
-		$this->bindModel(array(
-			'belongsTo' => array(
-				'User' => array(
-					'className' => 'SdUsers.SdUser',
-					'foreignKey' => 'foreign_key'
- 				) 
-			)
-		));
-
-		$aros = $this->find('all', array('conditions' => array(
-			'Aro.model' => 'User',
-			'User.role_id !=' => array(
-				Configure::read('sd.SuperAdmin.roleId'),
-				Configure::read('sd.Occitech.roleId')
-			),
-		)));
-
-		return $aros;
 	}
 }
