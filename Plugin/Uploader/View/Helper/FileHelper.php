@@ -8,6 +8,12 @@ class FileHelper extends AppHelper {
 
 	protected $_unit = array('o', 'Ko', 'Mo', 'Go');
 
+	protected $_imgMimeType = array(
+		'image/gif',
+		'image/jpeg',
+		'image/png',
+		'image/tiff',
+	);
 /**
  * Return a readable size.
  * If the size is less than 1Ko that return 1Ko
@@ -36,7 +42,7 @@ class FileHelper extends AppHelper {
 
 	public function preview($UploadedFile) {
 		$html = '';
-		if (true) {
+		if (in_array($UploadedFile['mime_type'], $this->_imgMimeType)) {
 			$html .= $this->Html->link(
 				'<i class="icon-eye-open"></i>',
 				'#',
@@ -45,8 +51,8 @@ class FileHelper extends AppHelper {
 					'class' => 'file-preview',
 					'rel' => 'popover',
 					'data-placement' => 'right',
-					'data-content' => '',
-					'data-original-title' => __('En chargement'),
+					'data-original-title' => __('Preview de %s', $UploadedFile['filename']),
+					'data-content' => __('Chargement de l\'image'),
 					'data-preview-url' => $this->Html->url(array(
 						'plugin' => 'uploader',
 						'controller' =>'files',
