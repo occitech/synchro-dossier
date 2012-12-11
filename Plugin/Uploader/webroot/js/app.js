@@ -60,4 +60,20 @@ jQuery(document).ready(function($) {
 		});		
 	}
 
+	/**
+	 * File preview
+	 */
+	$('.file-preview').on('mouseenter', function(event) {
+		$(this).popover('show');
+		$.ajax({
+			url: $(this).attr('data-preview-url'),
+		}).done(function(data) {
+			$('.popover-content').html(data);
+		});
+		event.preventDefault();
+	});
+	$('.file-preview').on('mouseleave', function(event) {
+		$(this).popover('hide');
+		event.preventDefault();
+	});
 });

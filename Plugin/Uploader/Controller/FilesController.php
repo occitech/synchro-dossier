@@ -299,4 +299,12 @@ class FilesController extends UploaderAppController {
 		$this->response->body($content);
 		$this->response->send();
 	}
+
+	public function preview($uploadedFileId = null) {
+		list($content, $filename, $mimeType) = $this->UploadedFile->downloadLastVersion($uploadedFileId);
+		$base64 = base64_encode($content);
+		$fileSrc = 'data:' . $mimeType . ';base64,' . $base64;
+		$this->set(compact('fileSrc'));
+		$this->layout = false;
+	}
 }
