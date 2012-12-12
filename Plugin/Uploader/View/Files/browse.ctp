@@ -49,10 +49,7 @@
 
 						<td>
 							<?php if (!$file['UploadedFile']['is_folder']): ?>
-								<?php // Special case for admin that haven't profile ! ?>
-								<?php if (!empty($file['User']['Profile'])): ?>
-									<?= $file['User']['Profile']['name']; ?>
-								<?php endif ?>
+								<?= $file['UploadedFile']['uploader_name']; ?>
 							<?php endif ?>
 						</td>
 
@@ -184,7 +181,7 @@
 											)
 										); ?>
 									</td>
-									<td><?= $file['User']['Profile']['name']; ?></td>
+									<td><?= $fileVersion['uploader_name']; ?></td>
 									<td><?= $this->Time->format('j/m/Y H:i', $fileVersion['created']); ?></td>
 									<td><?= $this->File->size($fileVersion['filesize']); ?></td>
 									<td></td>
