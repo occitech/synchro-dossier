@@ -40,7 +40,7 @@ class FileHelper extends AppHelper {
 		return $type;
 	}
 
-	public function preview($UploadedFile) {
+	public function iconPreview($UploadedFile) {
 		$html = '';
 		if (in_array($UploadedFile['mime_type'], $this->_imgMimeType)) {
 			$html .= $this->Html->link(
@@ -49,10 +49,9 @@ class FileHelper extends AppHelper {
 				array(
 					'escape' => false,
 					'class' => 'file-preview',
-					'rel' => 'popover',
+					'html' => true,
 					'data-placement' => 'right',
-					'data-original-title' => __('Preview de %s', $UploadedFile['filename']),
-					'data-content' => __('Chargement de l\'image'),
+					'data-original-title' => __('Chargement en cours de l\'image. Merci de patienter ...'),
 					'data-preview-url' => $this->Html->url(array(
 						'plugin' => 'uploader',
 						'controller' =>'files',
@@ -64,5 +63,21 @@ class FileHelper extends AppHelper {
 		}
 
 		return $html;
+	}
+
+	public function preview($content, $mimeType) {
+		$html = '';
+		if (in_array($mimeType, $this->_imgMimeType)) {
+			$html .= $this->__imgPreview($content, $mimeType);
+		} else {
+			$html .= __('Pas de prévisualisation possible pour ce document.');
+		}
+		return $html;
+	}
+
+	private function __imgPreview($content, $mimeType) {
+		$base64 = base64_encode($content);
+		$imgSrc = 'data:' . $mimeType . ';base64,' . $base64;
+		return '<img src="' . $imgSrc . '">';
 	}
 }

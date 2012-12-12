@@ -27,7 +27,7 @@
 						<td>
 							<?php if (!$file['UploadedFile']['is_folder']): ?>
 								<span class="badge">V<?= $file['UploadedFile']['current_version']; ?></span>
-								<?= $this->File->preview($file['UploadedFile']); ?>
+								<?= $this->File->iconPreview($file['UploadedFile']); ?>
 								<?php if ($file['UploadedFile']['current_version'] > 1): ?>
 									<?= $this->Html->link('<i class="icon-chevron-right"></i>',
 										'#',

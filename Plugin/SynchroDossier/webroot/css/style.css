@@ -40,3 +40,7 @@ a {
 	margin-right: 5px;
 	margin-top: 3px;
 }
+
+.tooltip-inner {
+	max-width: 300px;
+}

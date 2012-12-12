@@ -64,12 +64,12 @@ jQuery(document).ready(function($) {
 	 * File preview
 	 */
 	$('.file-preview').on('mouseenter', function(event) {
-		$(this).popover('show');
-
+		$(this).tooltip('show');
 		$.ajax({
 			url: $(this).attr('data-preview-url'),
 		}).done(function(data) {
-			$('.popover-content').html(data);
+			$('.tooltip-inner').html(data);
+			$('.tooltip-arrow').hide();
 		});
 
 		event.preventDefault();

@@ -1,1 +1,1 @@
-<img src="<?= $fileSrc; ?>" />
+<?= $this->File->preview($content, $mimeType); ?>
