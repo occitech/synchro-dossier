@@ -6,7 +6,6 @@
 		<table class="table table-striped">
 			<?php
 				$tableHeaders =  $this->Html->tableHeaders(array(
-					$this->Paginator->sort('username', __('Nom d\'utilisateur')),
 					$this->Paginator->sort('name', __('Nom')),
 					$this->Paginator->sort('firstname', __('Prénom')),
 					$this->Paginator->sort('email', __('Email')),
@@ -38,7 +37,6 @@
 					}
 
 					$rows[] = array(
-						$user['User']['username'],
 						$user['Profile']['name'],
 						$user['Profile']['firstname'],
 						$user['User']['email'],

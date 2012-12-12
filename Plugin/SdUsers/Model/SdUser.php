@@ -42,19 +42,6 @@ class SdUser extends User {
 	);
 
 	public $validate = array(
-		'username' => array(
-			'isUnique' => array(
-				'rule' => 'isUnique',
-				'message' => 'The username has already been taken.',
-				'last' => true,
-			),
-			'notEmpty' => array(
-				'rule' => 'notEmpty',
-				'message' => 'This field cannot be left blank.',
-				'last' => true,
-				'required' => true
-			),
-		),
 		'email' => array(
 			'email' => array(
 				'rule' => 'email',
@@ -101,6 +88,8 @@ class SdUser extends User {
 		$data[$this->alias]['role_id'] = intval($data[$this->alias]['role_id']);
 		$data[$this->alias]['activation_key'] = md5(uniqid());
 		$data[$this->alias]['creator_id'] = $creatorId;
+		$data[$this->alias]['status'] = 1;
+		$data[$this->alias]['name'] = $data[$this->Profile->alias]['name'] . ' ' . $data[$this->Profile->alias]['firstname'];
 		return $this->saveAssociated($data);
 	}
 
