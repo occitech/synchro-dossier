@@ -14,6 +14,7 @@ class FileHelper extends AppHelper {
 		'image/png',
 		'image/tiff',
 	);
+
 /**
  * Return a readable size.
  * If the size is less than 1Ko that return 1Ko

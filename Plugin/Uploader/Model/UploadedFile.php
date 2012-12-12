@@ -407,7 +407,7 @@ class UploadedFile extends UploaderAppModel {
 		return array($content, $fileInfos['UploadedFile']['filename'], $fileInfos['UploadedFile']['mime_type']);
 	}
 
-	public function downloadLastVersion($uploadedFileId) {
+	public function downloadLatestVersion($uploadedFileId) {
 		$fileStorage = $this->FileStorage->find('first', array(
 			'conditions' => array('FileStorage.foreign_key' => $uploadedFileId),
 			'order' => 'FileStorage.created DESC'

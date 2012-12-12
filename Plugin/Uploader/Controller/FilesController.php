@@ -301,7 +301,7 @@ class FilesController extends UploaderAppController {
 	}
 
 	public function preview($uploadedFileId = null) {
-		list($content, $filename, $mimeType) = $this->UploadedFile->downloadLastVersion($uploadedFileId);
+		list($content, $filename, $mimeType) = $this->UploadedFile->downloadLatestVersion($uploadedFileId);
 		$this->set(compact('content', 'mimeType'));
 		$this->layout = false;
 	}
