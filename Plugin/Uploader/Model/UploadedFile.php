@@ -404,6 +404,15 @@ class UploadedFile extends UploaderAppModel {
 		$fileStorage = $this->FileStorage->findById($fileStorageId);
 		$fileInfos = $this->findById($fileStorage['FileStorage']['foreign_key']); // Fixme : wtf ?
 		$content = $this->_receiveFileFromRemote($fileStorage['FileStorage']['path'], $fileStorage['FileStorage']['adapter']);
-		return array($content, $fileInfos['UploadedFile']['filename']);
+		return array($content, $fileInfos['UploadedFile']['filename'], $fileInfos['UploadedFile']['mime_type']);
+	}
+
+	public function downloadLatestVersion($uploadedFileId) {
+		$fileStorage = $this->FileStorage->find('first', array(
+			'conditions' => array('FileStorage.foreign_key' => $uploadedFileId),
+			'order' => 'FileStorage.created DESC'
+		));
+
+		return $this->download($fileStorage['FileStorage']['id']);
 	}
 }

@@ -4,7 +4,16 @@ App::uses('Helper', 'View');
 
 class FileHelper extends AppHelper {
 
+	public $helpers = array('Html');
+
 	protected $_unit = array('o', 'Ko', 'Mo', 'Go');
+
+	protected $_imgMimeType = array(
+		'image/gif',
+		'image/jpeg',
+		'image/png',
+		'image/tiff',
+	);
 
 /**
  * Return a readable size.
@@ -30,5 +39,46 @@ class FileHelper extends AppHelper {
 			$type = $type[sizeof($type) - 1];
 		}
 		return $type;
+	}
+
+	public function iconPreview($UploadedFile) {
+		$html = '';
+		if (in_array($UploadedFile['mime_type'], $this->_imgMimeType)) {
+			$html .= $this->Html->link(
+				'<i class="icon-eye-open"></i>',
+				'#',
+				array(
+					'escape' => false,
+					'class' => 'file-preview',
+					'html' => true,
+					'data-placement' => 'right',
+					'data-original-title' => __('Chargement en cours de l\'image. Merci de patienter ...'),
+					'data-preview-url' => $this->Html->url(array(
+						'plugin' => 'uploader',
+						'controller' =>'files',
+						'action' => 'preview',
+						$UploadedFile['id']
+					))
+				)
+			);
+		}
+
+		return $html;
+	}
+
+	public function preview($content, $mimeType) {
+		$html = '';
+		if (in_array($mimeType, $this->_imgMimeType)) {
+			$html .= $this->__imgPreview($content, $mimeType);
+		} else {
+			$html .= __('Pas de prévisualisation possible pour ce document.');
+		}
+		return $html;
+	}
+
+	private function __imgPreview($content, $mimeType) {
+		$base64 = base64_encode($content);
+		$imgSrc = 'data:' . $mimeType . ';base64,' . $base64;
+		return '<img src="' . $imgSrc . '">';
 	}
 }
