@@ -8,12 +8,10 @@ class SdUsersController extends SdUsersAppController {
 	public $components = array('SdUsers.Roles');
 
 	public function admin_index() {
-		if ($this->Auth->user('role_id') == Configure::read('sd.Admin.roleId')) {
-			$this->paginate['User'] = array('findType' => 'createdBy', 'creatorId' => $this->Auth->user('id'));
-		} else {
-			$this->paginate = array();
-		}
-		$this->set('users', $this->paginate());
+		$this->loadModel('Uploader.UploaderAclAco');
+		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
+		$users = $this->paginate();
+		$this->set(compact('users', 'can'));
 	}
 
 	public function admin_add() {
