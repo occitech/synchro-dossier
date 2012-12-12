@@ -73,7 +73,7 @@ class UploadedFile extends UploaderAppModel {
 	);
 
 	public $filterArgs = array(
-		'filename' => array('type' => 'like'),
+		'filename' => array('type' => 'like', 'field' => 'LOWER(UploadedFile.filename) COLLATE utf8_general_ci'),
 		'parent_id' => array('type' => 'int'),
 		'is_folder' => array('type' => 'value'),
 		'size' => array('type' => 'expression', 'method' => 'makeSizeCondition', 'field' => 'UploadedFile.size BETWEEN ? AND ?'),
@@ -124,13 +124,14 @@ class UploadedFile extends UploaderAppModel {
 	}
 
 	public function parseCriteria($data) {
+		debug($data);
 		if (!empty($data['size_min']) || !empty($data['size_max'])) {
 			$data['size'] = true;
 		}
 		if (!empty($data['created_min']) || !empty($data['created_max'])) {
 			$data['created'] = true;
 		}
-
+		$data['filename'] = strtolower($data['filename']);
 		return parent::parseCriteria($data);
 	}
 

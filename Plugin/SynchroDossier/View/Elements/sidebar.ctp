@@ -65,7 +65,7 @@
 		<?=
 			$this->Form->create(
 				'UploadedFile',
-				array('url' => array('controller' => 'files', 'action' => 'find'))
+				array('url' => array('controller' => 'files', 'action' => 'find', $folderId))
 			) .
 			$this->Form->input(
 				'parent_id',
