@@ -74,4 +74,26 @@ jQuery(document).ready(function($) {
 
 		event.preventDefault();
 	});
+
+	/*
+	 * Date picker for search input
+	 */
+	 $(function() {
+	 	defaults = {
+			changeMonth: true,
+			numberOfMonths: 1,
+			dateFormat: "yy-mm-dd",
+		}
+
+		$("#search-from").datepicker($.extend({}, defaults, {
+			onClose: function (selectedDate) {
+				$("#search-to").datepicker("option", "minDate", selectedDate);
+			}
+		}));
+		$("#search-to").datepicker($.extend({}, defaults, {
+			onClose: function (selectedDate) {
+				$("#search-from").datepicker("option", "maxDate", selectedDate);
+			}
+		}));
+	});
 });

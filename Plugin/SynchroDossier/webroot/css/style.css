@@ -43,4 +43,21 @@ a {
 
 .tooltip-inner {
 	max-width: 300px;
+
+}
+.search .checkbox {
+	float: left;
+	margin-left: 5px;
+}
+
+.search .checkbox label {
+	font-size: 0.8em;
+}
+
+.search input.placeholder-size {
+	font-size: 0.8em;
+}
+
+.search input[type='text'] {
+	margin-left: 2px;
 }

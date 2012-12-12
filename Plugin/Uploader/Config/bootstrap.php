@@ -42,3 +42,4 @@ StorageManager::config(
 );
 
 CakePlugin::load('Chosen');
+CakePlugin::load('Plupload');

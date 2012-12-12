@@ -1,8 +1,10 @@
 <?= $this->Plupload->loadAsset('jquery'); ?>
 
-<?php if (isset($folderId) && $this->UploaderAcl->userCan($folderAco['Aco'], 'create')): ?>
+<?php if (isset($folderId) && !is_null($folderId) && $this->UploaderAcl->userCan($folderAco['Aco'], 'create')): ?>
 	<?= $this->element('Uploader.plupload_widget'); ?>
 <?php endif ?>
+
+<h2><?= $this->fetch('browse_title'); ?></h2>
 
 <div class="uploader">
 	<table class="table table-hover">

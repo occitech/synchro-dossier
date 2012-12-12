@@ -44,4 +44,5 @@ Configure::write('sd.mail.alertEmailNewUpload.from', array('admin@synchro-dossie
 
 Configure::write('sd.config.useSsl', true);
 Configure::write('sd.config.useModeBox', true);
+
 Configure::write('Asset.timestamp', 'force');

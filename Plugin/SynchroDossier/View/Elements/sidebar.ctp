@@ -58,6 +58,13 @@
 			<?php endif ?>
 		<?php endif ?>
 
+		<li class="nav-header">
+			<?= __('Recherche') ?>
+		</li>
+		<li class="search">
+			<?= $this->element('Uploader.search'); ?>
+		</li>	
+
 		<?php if (!empty($SynchroDossier_aroAccessFolder) && isset($folderId)): ?>
 			<?php if ($this->UploaderAcl->userCan('change_right')): ?>
 				<li class="nav-header">
