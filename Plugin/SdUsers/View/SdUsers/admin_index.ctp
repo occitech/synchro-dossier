@@ -21,18 +21,21 @@
 						'mailto:' . $user['User']['email'],
 						array('icon' => 'envelope', 'tooltip' => __('Envoyer un email à cet utilisateur'))
 					);
-					$actions .= ' ' . $this->Html->link(
-						'',
-						array('action' => 'edit', $user['User']['id']),
-						array('icon' => 'pencil', 'tooltip' => __('Modifier cet utilisateur'))
-					);
 					$actions .= ' ' . $this->Croogo->adminRowActions($user['User']['id']);
-					$actions .= ' ' . $this->Form->postLink(
-						'',
-						array('action' => 'delete',	$user['User']['id']),
-						array('icon' => 'remove', 'tooltip' => __('Supprimer cet utilisateur'), 'class' => 'red'),
-						__('Are you sure?')
-					);
+					if ($can['canUpdateUser']($user['User'])) {
+						$actions .= ' ' . $this->Html->link(
+							'',
+							array('action' => 'edit', $user['User']['id']),
+							array('icon' => 'pencil', 'tooltip' => __('Modifier cet utilisateur'))
+						);
+						$actions .= ' ' . $this->Form->postLink(
+							'',
+							array('action' => 'delete',	$user['User']['id']),
+							array('icon' => 'remove', 'tooltip' => __('Supprimer cet utilisateur'), 'class' => 'red'),
+							__('Are you sure?')
+						);
+
+					}
 
 					$rows[] = array(
 						$user['User']['username'],

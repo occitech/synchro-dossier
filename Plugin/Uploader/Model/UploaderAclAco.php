@@ -99,6 +99,9 @@ class UploaderAclAco extends AclNode {
 			return $can;
 		};
 
+		$functions['canUpdateUser'] = function ($ressource) use ($userData) {
+			return $ressource['creator_id'] == $userData['id'];
+		};
 
 		return $functions;
 	}
