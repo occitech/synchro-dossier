@@ -74,8 +74,4 @@ jQuery(document).ready(function($) {
 
 		event.preventDefault();
 	});
-	$('.file-preview').on('mouseleave', function(event) {
-		$(this).popover('hide');
-		event.preventDefault();
-	});
 });
