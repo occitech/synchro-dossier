@@ -64,21 +64,21 @@ jQuery(document).ready(function($) {
 	 * Date picker for search input
 	 */
 	 $(function() {
-		$( "#search-from" ).datepicker({
+	 	defaults = {
 			changeMonth: true,
 			numberOfMonths: 1,
 			dateFormat: "yy-mm-dd",
-			onClose: function( selectedDate ) {
-				$( "#search-to" ).datepicker( "option", "minDate", selectedDate );
+		}
+
+		$("#search-from").datepicker($.extend({}, defaults, {
+			onClose: function (selectedDate) {
+				$("#search-to").datepicker("option", "minDate", selectedDate);
 			}
-		});
-		$( "#search-to" ).datepicker({
-			changeMonth: true,
-			numberOfMonths: 1,
-			dateFormat: "yy-mm-dd",
-			onClose: function( selectedDate ) {
-				$( "#search-from" ).datepicker( "option", "maxDate", selectedDate );
+		}));
+		$("#search-to").datepicker($.extend({}, defaults, {
+			onClose: function (selectedDate) {
+				$("#search-from").datepicker("option", "maxDate", selectedDate);
 			}
-		});
+		}));
 	});
 });
