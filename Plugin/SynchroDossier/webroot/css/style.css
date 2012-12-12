@@ -51,6 +51,9 @@ a {
 }
 
 .search input.placeholder-size {
-	margin-left: 2px;
 	font-size: 0.8em;
+}
+
+.search input[type='text'] {
+	margin-left: 2px;
 }

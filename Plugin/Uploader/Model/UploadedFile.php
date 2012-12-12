@@ -73,7 +73,7 @@ class UploadedFile extends UploaderAppModel {
 	);
 
 	public $filterArgs = array(
-		'filename' => array('type' => 'like', 'field' => 'LOWER(UploadedFile.filename) COLLATE utf8_general_ci'),
+		'filename_extension' => array('type' => 'query', 'method' => 'filenameExtensionCondition'),
 		'parent_id' => array('type' => 'int'),
 		'is_folder' => array('type' => 'value'),
 		'size' => array('type' => 'expression', 'method' => 'makeSizeCondition', 'field' => 'UploadedFile.size BETWEEN ? AND ?'),
@@ -123,8 +123,16 @@ class UploadedFile extends UploaderAppModel {
 		return array($min, $max);
 	}
 
+	public function filenameExtensionCondition($data = array()) {
+		$filename = ($data['filename'] != '') ? '%' . $data['filename'] . '%' : '';
+		$extension = ($data['extension'] != '') ? '%.' . $data['extension'] : '';
+		$cond = array(
+			'LOWER(' . $this->alias . '.filename) COLLATE utf8_unicode_ci LIKE' => $filename . $extension,
+		);
+		return $cond;
+	}
+
 	public function parseCriteria($data) {
-		debug($data);
 		if (!empty($data['size_min']) || !empty($data['size_max'])) {
 			$data['size'] = true;
 		}
@@ -132,6 +140,8 @@ class UploadedFile extends UploaderAppModel {
 			$data['created'] = true;
 		}
 		$data['filename'] = strtolower($data['filename']);
+		$data['extension'] = strtolower($data['extension']);
+		$data['filename_extension'] = true;
 		return parent::parseCriteria($data);
 	}
 
