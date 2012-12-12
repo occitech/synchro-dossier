@@ -3,7 +3,7 @@
 	<?php echo $this->Form->create('User', array('url' => array('controller' => 'users', 'action' => 'login')));?>
 		<fieldset>
 		<?php
-			echo $this->Form->input('username');
+			echo $this->Form->input('email');
 			echo $this->Form->input('password');
 		?>
 		</fieldset>

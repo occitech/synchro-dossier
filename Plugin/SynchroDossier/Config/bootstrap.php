@@ -14,6 +14,22 @@ CakeEventManager::instance()->attach(new SdRightsManager());
 
 Croogo::hookComponent('*', 'SynchroDossier.SynchroDossier');
 
+$authConfig = array(
+			'all' => array(
+				'userModel' => 'Users.User',
+				'fields' => array(
+					'username' => 'email',
+					'password' => 'password',
+				),
+				'scope' => array(
+					'User.status' => 1,
+				),
+			),
+			'Form',
+		);
+
+Configure::write('Acl.Auth.authenticate', $authConfig);
+
 $adminMenu = array(
 	'icon' => array('file', 'large'),
 	'title' => __('SynchroDossier'),
@@ -35,6 +51,7 @@ $adminMenu = array(
 		),
 	),
 );
+
 CroogoNav::add('synchro', $adminMenu);
 
 Configure::write('sd.mail.quotaExceeded.subject', __('Synchro-Dossier - Quota dépassé'));
