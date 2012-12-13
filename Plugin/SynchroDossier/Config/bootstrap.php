@@ -42,7 +42,7 @@ Configure::write('sd.mail.quotaExceeded.from', array('admin@synchro-dossier.fr' 
 Configure::write('sd.mail.alertEmailNewUpload.subject', __('Synchro-Dossier - Nouveaux fichiers envoyés'));
 Configure::write('sd.mail.alertEmailNewUpload.from', array('admin@synchro-dossier.fr' => 'Synchro Dossier'));
 
-Configure::write('sd.config.useSsl', true);
-Configure::write('sd.config.useModeBox', true);
+Configure::write('sd.config.useSsl', false);
+Configure::write('sd.config.useModeBox', false);
 
 Configure::write('Asset.timestamp', 'force');
