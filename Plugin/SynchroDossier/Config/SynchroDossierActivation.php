@@ -176,5 +176,7 @@ class SynchroDossierActivation {
 		foreach ($this->__occitechAcos as $aco) {
 			$controller->Croogo->addAco($aco);
 		}
+
+		return true;
 	}
 }
