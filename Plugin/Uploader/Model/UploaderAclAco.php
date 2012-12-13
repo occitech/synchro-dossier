@@ -100,7 +100,11 @@ class UploaderAclAco extends AclNode {
 		};
 
 		$functions['canUpdateUser'] = function ($ressource) use ($userData) {
-			return $ressource['creator_id'] == $userData['id'];
+			$can = true;
+			if ($userData['role_id'] == Configure::read('sd.Admin.roleId')) {
+				$can = $ressource['creator_id'] == $userData['id'];
+			}
+			return $can;
 		};
 
 		return $functions;
