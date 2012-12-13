@@ -13,6 +13,8 @@
  */
 class InstallShell extends AppShell {
 
+	public $uses = array('Install.Install');
+
 /**
  * Display help/options
  */
@@ -33,6 +35,38 @@ class InstallShell extends AppShell {
 				)
 			);
 		return $parser;
+	}
+
+	public function database() {
+		$plugins = Configure::read('Core.corePlugins');
+		foreach ($plugins as $plugin) {
+			$this->Install->runMigrations($plugin);
+		}
+
+		$path = App::pluginPath('Install') . DS . 'Config' . DS . 'Data' . DS;
+		$dataObjects = App::objects('class', $path);
+		foreach ($dataObjects as $data) {
+			include ($path . $data . '.php');
+			$classVars = get_class_vars($data);
+			$modelAlias = substr($data, 0, -4);
+			$table = $classVars['table'];
+			$records = $classVars['records'];
+			App::uses('Model', 'Model');
+			$modelObject =& new Model(array(
+				'name' => $modelAlias,
+				'table' => $table,
+				'ds' => 'default',
+			));
+			if (is_array($records) && count($records) > 0) {
+				foreach ($records as $record) {
+					$modelObject->create($record);
+					$modelObject->save();
+				}
+				$modelObject->getDatasource()->resetSequence(
+					$modelObject->useTable, $modelObject->primaryKey
+				);
+			}
+		}
 	}
 
 /**
