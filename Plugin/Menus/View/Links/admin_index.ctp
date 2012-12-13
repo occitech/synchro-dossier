@@ -10,7 +10,7 @@ $this->Html
 		'?' => array('menu_id' => $menu['Menu']['id'])));
 ?>
 
-<?php $this->start('tabs'); ?>
+<?php $this->start('actions'); ?>
 <li>
 	<?php
 	echo $this->Html->link(
@@ -20,7 +20,7 @@ $this->Html
 	);
 	?>
 </li>
-<?php $this->end('tabs'); ?>
+<?php $this->end('actions'); ?>
 
 <?php
 	if (isset($this->params['named'])) {
@@ -74,7 +74,8 @@ $this->Html
 		$actions[] = $this->Croogo->adminRowAction('', '#Link' . $linkId . 'Id',
 			array(
 				'icon' => 'trash',
-				'tooltip' => __('Delete this item')
+				'tooltip' => __('Delete this item'),
+				'rowAction' => 'delete',
 			),
 			__('Are you sure?')
 		);
@@ -93,7 +94,7 @@ $this->Html
 
 </table>
 <div class="row-fluid">
-	<div class="control-group">
+	<div id="bulk-action" class="control-group">
 		<?php
 			echo $this->Form->input('Link.action', array(
 				'div' => 'input inline',

@@ -8,7 +8,7 @@ $this->Html
 	->addCrumb(__('Plugins'), $this->here);
 
 ?>
-<?php $this->start('tabs'); ?>
+<?php $this->start('actions'); ?>
 <li>
 	<?php
 		echo $this->Html->link(
@@ -49,7 +49,7 @@ $this->Html
 		$actions  = array();
 		$actions[] = $this->Croogo->adminRowAction('',
 			array('action' => 'toggle',	$pluginAlias),
-			array('icon' => $icon, 'tooltip' => $toggleText)
+			array('icon' => $icon, 'tooltip' => $toggleText, 'method' => 'post')
 		);
 		$actions[] = $this->Croogo->adminRowAction('',
 			array('action' => 'delete', $pluginAlias),

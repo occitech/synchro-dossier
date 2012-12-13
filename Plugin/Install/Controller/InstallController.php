@@ -38,7 +38,15 @@ class InstallController extends Controller {
  * @var array
  * @access public
  */
-	public $helpers = array('Html', 'Form', 'Layout');
+	public $helpers = array(
+		'Html' => array(
+			'className' => 'CroogoHtml',
+		),
+		'Form' => array(
+			'className' => 'CroogoForm',
+		),
+		'Layout',
+	);
 
 /**
  * Default configuration
@@ -70,6 +78,23 @@ class InstallController extends Controller {
 		parent::beforeFilter();
 
 		$this->layout = 'install';
+		$this->_generateAssets();
+	}
+
+/**
+ * Generate assets
+ */
+	protected function _generateAssets() {
+		if (!file_exists(CSS . 'croogo-bootstrap.css')) {
+			App::uses('AssetGenerator', 'Install.Lib');
+			$generator = new AssetGenerator();
+			try {
+				$generator->generate();
+			} catch (Exception $e) {
+				$this->log($e->getMessage());
+				$this->Session->setFlash('Asset generation failed. Please verify that dependencies exists and readable.', 'default', array('class' => 'error'));
+			}
+		}
 	}
 
 /**
@@ -245,7 +270,7 @@ class InstallController extends Controller {
  * @access public
  */
 	public function finish($token = null) {
-		$this->set('title_for_layout', __('Installation completed successfully'));
+		$this->set('title_for_layout', __('Installation successful'));
 		$this->_check();
 		$this->loadModel('Install.Install');
 		$install = $this->Session->read('Install');
