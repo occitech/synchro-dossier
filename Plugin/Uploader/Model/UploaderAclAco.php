@@ -65,7 +65,28 @@ class UploaderAclAco extends AclNode {
 	public function getRightsCheckFunctions($userData) {
 		$functions = array();
 
-		$functions['canChangeRight'] = function ($userId, $userRoleId, $folderCreatorId) use ($userData) {
+		$functions['canChangeRight'] = $this->__canChangeRight($userData);
+
+		$functions['canCreateUser'] = $this->__canCreateUser($userData);
+
+		$functions['canUpdateUser'] = $this->__canUpdateUser($userData);
+
+		return $functions;
+	}
+
+	public function can($userData, $action, $params = array()) {
+		$can = false;
+
+		$functions = $this->getRightsCheckFunctions($userData);
+		if (array_key_exists($action, $functions)) {
+			$can = call_user_func_array($functions[$action], (array) $params);
+		}
+
+		return $can;
+	}
+
+	private function __canChangeRight($userData) {
+		$func = function ($userId, $userRoleId, $folderCreatorId) use ($userData) {
 			$hasRightToChangeRight = true;
 
 			if ($userRoleId == Configure::read('sd.Admin.roleId')) {
@@ -83,7 +104,11 @@ class UploaderAclAco extends AclNode {
 			return $hasRightToChangeRight;
 		};
 
-		$functions['canCreateUser'] = function () use ($userData) {
+		return $func;
+	}
+
+	private function __canCreateUser($userData) {
+		$func = function () use ($userData) {
 			$can = false;
 
 			$authorizeRoles = array(
@@ -99,7 +124,11 @@ class UploaderAclAco extends AclNode {
 			return $can;
 		};
 
-		$functions['canUpdateUser'] = function ($ressource) use ($userData) {
+		return $func;
+	}
+
+	private function __canUpdateUser($userData) {
+		$func = function ($ressource) use ($userData) {
 			$can = true;
 			if ($userData['role_id'] == Configure::read('sd.Admin.roleId')) {
 				$can = $ressource['creator_id'] == $userData['id'];
@@ -107,17 +136,6 @@ class UploaderAclAco extends AclNode {
 			return $can;
 		};
 
-		return $functions;
-	}
-
-	public function can($userData, $action, $params = array()) {
-		$can = false;
-
-		$functions = $this->getRightsCheckFunctions($userData);
-		if (array_key_exists($action, $functions)) {
-			$can = call_user_func_array($functions[$action], (array) $params);
-		}
-
-		return $can;
+		return $func;
 	}
 }
