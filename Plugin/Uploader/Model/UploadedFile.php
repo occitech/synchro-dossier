@@ -299,6 +299,7 @@ class UploadedFile extends UploaderAppModel {
 	}
 
 	protected function _saveUploadedFile($fileInfos, $userId, $parentId) {
+		$this->Behaviors->unload('RowLevelAcl');
 		$this->create();
 		$data['UploadedFile']['filename'] = $fileInfos['name'];
 		$data['UploadedFile']['size'] = $fileInfos['size'];
