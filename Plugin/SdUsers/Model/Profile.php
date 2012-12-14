@@ -15,14 +15,6 @@ class Profile extends SdUsersAppModel {
 		'name' => array(
 			'rule' => 'notEmpty',
 			'message' => 'Ce champ ne peut pas être laissé vide'
-		),
-		'firstname' => array(
-			'rule' => 'notEmpty',
-			'message' => 'Ce champ ne peut pas être laissé vide'
-		),
-		'society' => array(
-			'rule' => 'notEmpty',
-			'message' => 'Ce champ ne peut pas être laissé vide'
 		)
 	);
 }

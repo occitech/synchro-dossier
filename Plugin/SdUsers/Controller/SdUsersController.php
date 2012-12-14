@@ -8,12 +8,10 @@ class SdUsersController extends SdUsersAppController {
 	public $components = array('SdUsers.Roles');
 
 	public function admin_index() {
-		if ($this->Auth->user('role_id') == Configure::read('sd.Admin.roleId')) {
-			$this->paginate['User'] = array('findType' => 'createdBy', 'creatorId' => $this->Auth->user('id'));
-		} else {
-			$this->paginate = array();
-		}
-		$this->set('users', $this->paginate());
+		$this->loadModel('Uploader.UploaderAclAco');
+		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
+		$users = $this->paginate();
+		$this->set(compact('users', 'can'));
 	}
 
 	public function admin_add() {
@@ -24,7 +22,7 @@ class SdUsersController extends SdUsersAppController {
 				$this->Session->setFlash(__('L\'utilisateur à été enregistré'), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The User could not be saved. Please, try again.'), 'default', array('class' => 'error'));
+				$this->Session->setFlash(__('L\'utilisateur ne peux pas être ajouté'), 'default', array('class' => 'error'));
 				unset($this->request->data['User']['password']);
 			}
 		}
@@ -38,7 +36,7 @@ class SdUsersController extends SdUsersAppController {
 				$this->Session->setFlash(__('L\'utilisateur à été mis à jour'), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The User could not be saved. Please, try again.'), 'default', array('class' => 'error'));
+				$this->Session->setFlash(__('L\'utilisateur ne peux pas être modifié'), 'default', array('class' => 'error'));
 			}
 		} else {
 			$this->request->data = $this->SdUser->read(null, $userId);
@@ -54,7 +52,7 @@ class SdUsersController extends SdUsersAppController {
 			if ($this->SdUser->delete($id)) {
 				$this->Session->setFlash(__('L\'utilisateur à été supprimé'), 'default', array('class' => 'success'));
 			} else {
-				$this->Session->setFlash(__('User cannot be deleted'), 'default', array('class' => 'error'));
+				$this->Session->setFlash(__('L\'utilisateur ne peux pas être supprimé'), 'default', array('class' => 'error'));
 			}
 		}
 		$this->redirect(array('action' => 'index'), $httpCode);

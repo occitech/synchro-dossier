@@ -122,4 +122,37 @@ class UploaderAclAcoTest extends CakeTestCase {
 		
 		$this->assertFalse($result);
 	}
+
+	public function testUserCanUpdateUser_UserCan() {
+		$userData = array(
+			'id' => 2,
+			'role_id' => Configure::read('sd.Admin.roleId')
+		);
+		$ressource['creator_id'] = $userData['id'];
+
+		$result = $this->Aco->can(
+			$userData,
+			'canUpdateUser',
+			array($ressource)
+		);
+		
+		$this->assertTrue($result);
+	}
+
+	public function testUserCanUpdateUser_UserCannot() {
+		$userData = array(
+			'id' => 2,
+			'role_id' => Configure::read('sd.Admin.roleId')
+		);
+		$ressource['creator_id'] = 4;
+
+		$result = $this->Aco->can(
+			$userData,
+			'canUpdateUser',
+			array($ressource)
+		);
+		
+		$this->assertFalse($result);
+	}
+
 }

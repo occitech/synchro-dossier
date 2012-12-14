@@ -16,10 +16,9 @@
 					<?= $this->Form->hidden('User.id'); ?>
 				<?php endif ?>
 				<?=
-					$this->Form->input('User.role_id', array('placeholder' => __('Role'))).
-					$this->Form->input('User.username', array('placeholder' => __('Username'))).
-					$this->Form->input('User.email', array('placeholder' => __('Email'))).
-					$this->Form->input('User.status', array('label' => __('Status')));
+					$this->Form->input('User.role_id', array('placeholder' => __('Role'))) .
+					$this->Form->input('User.email', array('placeholder' => __('Email'))) .
+					$this->Form->input('User.password', array('placeholder' => __('Mot de passe'), 'type' => 'text'));
 				?>
 			</div>
 
@@ -28,9 +27,9 @@
 					<?= $this->Form->hidden('Profile.id'); ?>
 				<?php endif ?>
 				<?=
-					$this->Form->input('Profile.name', array('placeholder' => __('Name'))) .
-					$this->Form->input('Profile.firstname', array('placeholder' => __('Firstname'))) .
-					$this->Form->input('Profile.society', array('placeholder' => __('Society')));
+					$this->Form->input('Profile.name', array('placeholder' => __('Nom'), 'label' => __('Nom'))) .
+					$this->Form->input('Profile.firstname', array('placeholder' => __('Prénom'), 'label' => __('Prénom'))) .
+					$this->Form->input('Profile.society', array('placeholder' => __('Société'), 'label' => __('Société')));
 				?>
 			</div>
 
