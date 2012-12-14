@@ -406,6 +406,18 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->UploadedFile->upload($data, $user, 3);
 	}
 
+	public function testUpload_NewVersion_FileStorageCreated() {
+		$FileStorage = ClassRegistry::init('FileStorage');
+
+		$folderId = 3;
+		$user['id'] = 1;
+		$user['role_id'] = 4;
+		$nbAcoBeforeInsert = $FileStorage->find('count');
+		$this->UploadedFile->upload($this->data, $user, $folderId);
+		$nbAcoAfterInsert = $FileStorage->find('count');
+		$this->assertEqual($nbAcoAfterInsert, $nbAcoBeforeInsert + 1);
+	}
+
 /**
  * Test ACOs
  */
@@ -465,7 +477,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->assertEqual($acoAfterInsert['Aco']['parent_id'], $parentIdExpected);
 	}
 
-	public function testUploadNewFile() {
+	public function testUpload_NewFile() {
 		$Aco = ClassRegistry::init('Aco');
 
 		$folderId = 1;
@@ -477,7 +489,8 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->assertEqual($nbAcoAfterInsert - $nbAcoBeforeInsert, 1);
 	}
 
-	public function testUploadNewVersion() {
+
+	public function testUpload_NewVersion() {
 		$Aco = ClassRegistry::init('Aco');
 
 		$folderId = 3;
@@ -487,6 +500,18 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->UploadedFile->upload($this->data, $user, $folderId);
 		$nbAcoAfterInsert = $Aco->find('count');
 		$this->assertEqual($nbAcoAfterInsert, $nbAcoBeforeInsert);
+	}
+
+	public function testUpload_NewVersion_AcoParentId_NotChanged() {
+		$folderId = 3;
+		$user['id'] = 1;
+		$user['role_id'] = 4;
+
+		$fileInfosBefore = $this->UploadedFile->findByFilenameAndParent_id($this->data['file']['name'], $folderId);
+		$this->UploadedFile->upload($this->data, $user, $folderId);
+		$fileInfosAfter = $this->UploadedFile->findByFilenameAndParent_id($this->data['file']['name'], $folderId);
+
+		$this->assertEqual($fileInfosAfter['Aco']['parent_id'], $fileInfosBefore['Aco']['parent_id']);
 	}
 
 	public function testIsRootFolderOk() {

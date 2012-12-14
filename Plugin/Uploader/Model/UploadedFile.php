@@ -312,6 +312,7 @@ class UploadedFile extends UploaderAppModel {
 	}
 
 	protected function _saveFileStorage($path, $userId, $fileInfos) {
+		$this->FileStorage->create();
 		$data['FileStorage']['foreign_key'] = $this->id;
 		$data['FileStorage']['model'] = get_class($this);
 		$data['FileStorage']['path'] = $path;
@@ -372,7 +373,10 @@ class UploadedFile extends UploaderAppModel {
 
 			$path = $this->_sendFileOnRemote($userId, $version, $fileInfos);
 
-			$this->saveField('current_version', $version);
+			$this->Behaviors->unload('Acl');
+			$this->Behaviors->unload('RowLevelAcl');
+			$this->saveField('current_version', $version, array('callback' => false));
+			$this->id = $originalFileInfos['UploadedFile']['id'];
 
 			return $this->_saveFileStorage($path, $userId, $fileInfos);
 		}
