@@ -18,7 +18,7 @@ Croogo::hookComponent('*', 'SynchroDossier.SynchroDossier');
 
 $authConfig = array(
 	'all' => array(
-		'userModel' => 'Users.User',
+		'userModel' => 'SdUsers.SdUser',
 		'fields' => array(
 			'username' => 'email',
 			'password' => 'password',

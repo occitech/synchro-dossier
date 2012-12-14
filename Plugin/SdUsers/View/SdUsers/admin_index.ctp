@@ -21,7 +21,7 @@
 						array('icon' => 'envelope', 'tooltip' => __('Envoyer un email à cet utilisateur'))
 					);
 					$actions .= ' ' . $this->Croogo->adminRowActions($user['User']['id']);
-					if ($can['canUpdateUser']($user['User'])) {
+					if ($can['canUpdateUser']($user['User'])) :
 						$actions .= ' ' . $this->Html->link(
 							'',
 							array('action' => 'edit', $user['User']['id']),
@@ -34,7 +34,7 @@
 							__('Are you sure?')
 						);
 
-					}
+					endif;
 
 					$rows[] = array(
 						$user['Profile']['name'],
