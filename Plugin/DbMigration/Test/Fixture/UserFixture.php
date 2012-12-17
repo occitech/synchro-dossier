@@ -1,28 +1,8 @@
-<?php 
-class SdUserSchema extends CakeSchema {
+<?php
 
-	public function before($event = array()) {
-		return true;
-	}
+class UserFixture extends CakeTestFixture {
 
-	public function after($event = array()) {
-	}
-
-	public $profiles = array(
-		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
-
-		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_bin', 'charset' => 'utf8'),
-		'firstname' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_bin', 'charset' => 'utf8'),
-		'society' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_bin', 'charset' => 'utf8'),
-		'gender' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_bin', 'charset' => 'utf8'),
-		'user_id' => array('type' => 'integer', 'null' => false, 'default' => null),
-		'indexes' => array(
-			'PRIMARY' => array('column' => 'id', 'unique' => 1)
-		),
-		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
-	);
-
-	public $users = array(
+	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 20, 'key' => 'primary'),
 		'role_id' => array('type' => 'integer', 'null' => false, 'default' => null),
 		'creator_id' => array('type' => 'integer', 'null' => false, 'default' => null),
@@ -44,4 +24,23 @@ class SdUserSchema extends CakeSchema {
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
 	);
 
+	public $records = array(
+		array(
+			'id' => '1',
+			'role_id' => '1',
+			'creator_id' => '0',
+			'username' => 'admin',
+			'password' => '7c4a5f2150be09b35c9fd6d41ab44990aaf6cf88',
+			'name' => 'admin',
+			'email' => '',
+			'website' => null,
+			'activation_key' => 'a129223d146cf9aa8a1f89612cd444eb',
+			'image' => null,
+			'bio' => null,
+			'timezone' => '0',
+			'status' => 1,
+			'updated' => '2012-12-04 18:19:08',
+			'created' => '2012-12-04 18:19:08'
+		),
+	);
 }
