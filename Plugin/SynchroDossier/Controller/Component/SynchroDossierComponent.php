@@ -21,7 +21,9 @@ class SynchroDossierComponent extends Component {
 			if ($params == $controller->Auth->loginAction) {
 				$controller->layout = 'SynchroDossier.login';
 			} elseif (!isset($controller->request->params['prefix'])) {
-				$controller->layout = 'SynchroDossier.default';
+				if (is_null($controller->theme)) {
+					$controller->layout = 'SynchroDossier.default';
+				}
 				$controller->helpers[] = 'Uploader.UploaderAcl';
 			}
 		}
