@@ -20,7 +20,6 @@ class AddUploaderNameFields extends CakeMigration {
 			'create_field' => array(
 				'file_storage' => array(
 					'uploader_name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1', 'after' => 'user_id'),
-					'tableParameters' => array('charset' => 'latin1', 'collate' => 'latin1_swedish_ci', 'engine' => 'InnoDB'),
 				),
 				'uploaded_files' => array(
 					'uploader_name' => array('type' => 'string', 'null' => false, 'default' => NULL, 'collate' => 'latin1_swedish_ci', 'charset' => 'latin1', 'after' => 'user_id'),
@@ -31,7 +30,7 @@ class AddUploaderNameFields extends CakeMigration {
 		),
 		'down' => array(
 			'drop_field' => array(
-				'file_storage' => array('uploader_name', 'tableParameters',),
+				'file_storage' => array('uploader_name',),
 				'uploaded_files' => array('uploader_name', 'created', 'modified',),
 			),
 		),
