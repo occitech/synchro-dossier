@@ -56,5 +56,11 @@
 		</div>
 		<?=	$this->fetch('script'); ?>
 		<?= $this->Html->script('Uploader.app'); ?>
+		<footer>
+			<?= Configure::read('SynchroDossier.footer') ?>
+			<p>
+				Propulsé par <?= $this->Html->link('Synchro Dossier', '#'); ?>
+			</p>
+		</footer>
 	</body>
 </html>
