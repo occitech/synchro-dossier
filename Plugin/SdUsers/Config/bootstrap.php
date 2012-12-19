@@ -1,4 +1,5 @@
 <?php
+Croogo::hookComponent('Users', 'SdUsers.Login');
 
 // Information about Sd roles
 $OccitechId = 1;
