@@ -143,7 +143,11 @@ class SdUser extends User {
 			'Aro.foreign_key' => $result['User']['role_id']
 		)));
 
-		$result['Aro']['Aco'] = array_merge(array_values($result['Aro']['Aco']), array_values($aro['Aco']));
+		if ($userId == 1) {
+			$result['Aro']['Aco'] = array();
+		} else {
+			$result['Aro']['Aco'] = array_merge(array_values($result['Aro']['Aco']), array_values($aro['Aco']));
+		}
 
 		return $result;
 	}
