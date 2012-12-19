@@ -7,10 +7,10 @@
 		
 		<?php
 		echo $this->Html->css(array(
-			'SynchroDossier./bootstrap/bootstrap/css/bootstrap',
+			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css',
 		));
 		echo $this->Html->script(array(
-			'SynchroDossier./bootstrap/bootstrap/js/bootstrap',
+			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js',
 		));
 		echo $this->Layout->js();
 		echo $this->Html->script(array());
