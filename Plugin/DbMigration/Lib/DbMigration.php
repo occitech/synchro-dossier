@@ -76,6 +76,9 @@ class DbMigration {
 		$this->__Shell->out('User Migration');
 
 		$oldUsers = $this->DbMigrationUser->find('all');
+
+
+
 		$newUsers = array();
 		$result = true;
 
@@ -129,7 +132,7 @@ class DbMigration {
 			case 'superadmin':
 				return Configure::read('sd.SuperAdmin.roleId');
 			case 'root':
-				return Configure::read('sd.Occitech.roleId');
+				return Configure::read('sd.SuperAdmin.roleId');
 			default:
 				return Configure::read('sd.Utilisateur.roleId');				
 		}
@@ -418,6 +421,7 @@ class DbMigration {
 		$this->SdInformation->id = 1;
 		$this->SdInformation->saveField('quota_mb', $quota_mb);
 		$this->SdInformation->saveField('current_quota_mb', $current_quota_mb);
+		return true;
 	}
 
 /**
@@ -432,7 +436,7 @@ class DbMigration {
 
 	private function __getNewUserId($oldId) {
 		if (!array_key_exists($oldId, $this->relationOldUserNewUser)) {
-			return 2;
+			return 1;
 		} else {
 			return $this->relationOldUserNewUser[$oldId];
 		}

@@ -65,3 +65,5 @@ Configure::write('sd.config.useSsl', false);
 Configure::write('sd.config.useModeBox', false);
 
 Configure::write('Asset.timestamp', 'force');
+
+CakePlugin::load('DbMigration');
