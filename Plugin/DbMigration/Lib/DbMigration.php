@@ -220,6 +220,20 @@ class DbMigration {
 
 			$this->UploadedFile->upload($data, $user, $parentId);
 
+			$newFile = $this->UploadedFile->findById($this->UploadedFile->id);
+			if ($newFile['UploadedFile']['current_version'] == 1) {
+				$AcoModel = ClassRegistry::init('Aco');
+				$acoParent = $AcoModel->findByForeign_key($parentId);
+				$newAco = array('Aco' => array(
+					'id' => null,
+					'model' => 'UploadedFile',
+					'foreign_key' => $this->UploadedFile->id,
+					'parent_id' => $acoParent['Aco']['id']
+				));
+
+				$AcoModel->save($newAco);
+			}
+
 			$this->UploadedFile->FileStorage->saveField('created', $file['created']);
 		}
 
