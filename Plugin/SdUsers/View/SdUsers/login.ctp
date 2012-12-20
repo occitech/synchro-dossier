@@ -1,6 +1,6 @@
 <div class="users form">
 	<h2><?php echo __('Connexion utilisateur'); ?></h2>
-	<?php echo $this->Form->create('SdUser', array('url' => array('controller' => 'users', 'action' => 'login')));?>
+	<?php echo $this->Form->create('User', array('url' => array('controller' => 'users', 'action' => 'login')));?>
 		<fieldset>
 		<?php
 			echo $this->Form->input('email', array('label' =>__('Adresse email')));
