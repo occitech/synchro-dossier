@@ -1,5 +1,7 @@
 <?php
 
+ini_set('memory_limit', -1);
+
 App::uses('DbMigrationOrdersUser', 'DbMigration.Model');
 App::uses('DbMigrationUser', 'DbMigration.Model');
 App::uses('DbMigrationOrder', 'DbMigration.Model');
@@ -30,7 +32,7 @@ class DbMigration {
 	public $relationOldFolderNewFolder = array();
 	public $relationOldFileNewFile = array();
 
-	public $oldUploadFolder = '/home/aymeric/www/old.synchro-dossier.local/files';
+	public $oldUploadFolder = '/home/occitechprod/sd/espaceclient/files';
 	
 	public $isInTest = false;
 
