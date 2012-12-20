@@ -9,6 +9,21 @@ class DbMigrationShell extends AppShell {
 		$this->DbMigration = new DbMigration($this);
 	}
 
+	public function admin_reset() {
+		$newPassword = rand (111111, 999999);
+		$email = 'admin@occi-tech.com';
+
+		$UserModel = ClassRegistry::init('Users.User');
+		$admin = $UserModel->findById(1);
+		$UserModel->id = 1;
+		$UserModel->Behaviors->unload('Acl');
+		$UserModel->saveField('password', $newPassword);
+		$UserModel->saveField('email', 'admin@occi-tech.com');
+
+		$this->out('Le nouvel email admin est : ' . $email);
+		$this->out('Le nouveau password admin est : ' . $newPassword);
+	}
+
 	public function reset() {
 		$this->DbMigration->reset();
 		$this->success('All migrations removed');
