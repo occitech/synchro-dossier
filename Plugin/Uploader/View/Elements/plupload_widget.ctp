@@ -10,7 +10,7 @@
 
 <div class="row-fluid" id="plupload">
 	<div id="drop-area">
-		<p><?= __('Glisser/Déposer vos fichiers ici'); ?></p>
+		<p><?= __('Glissez/Déposez vos fichiers ici'); ?></p>
 		<span>ou</span>
 		<a href="#" id="browse" class="btn"><?= __('Parcourir'); ?></a>
 	
@@ -23,7 +23,7 @@
 	<div class="popover fade bottom in popover-upload">
 		<div class="arrow"></div>
 		<div class="popover-inner">
-			<h3 class="popover-title"><?= __('Fichier dans la file d\'attente'); ?></h3>
+			<h3 class="popover-title"><?= __('Fichiers dans la file d\'attente'); ?></h3>
 			<div class="popover-content">
 				<div class="list">
 
