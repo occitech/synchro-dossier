@@ -96,6 +96,7 @@ class DbMigration {
 					'id' => null,
 					'role_id' => $this->__getRoleIdFromOldType($role),
 					'username' => strtolower($user['lastname'] . '.' . $user['firstname']),
+					'name' => strtolower($user['lastname'] . '.' . $user['firstname']),
 					'password' => $user['password'],
 					'email' => $user['email'],
 					'status' => 1,
