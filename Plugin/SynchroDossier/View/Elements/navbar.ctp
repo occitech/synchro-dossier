@@ -13,11 +13,11 @@
 					</a>
 				</li>
 				<li>
-					<?php echo $this->Html->link(__("Log out"), array('plugin' => 'users', 'controller' => 'users', 'action' => 'logout')); ?>
+					<?php echo $this->Html->link(__("Déconnexion"), array('plugin' => 'users', 'controller' => 'users', 'action' => 'logout')); ?>
 				</li>
 			<?php else: ?>
 				<li>
-					<?php echo $this->Html->link(__("Login"), array('plugin' => 'users', 'controller' => 'users', 'action' => 'login')); ?>
+					<?php echo $this->Html->link(__("Connexion"), array('plugin' => 'users', 'controller' => 'users', 'action' => 'login')); ?>
 				</li>
 			<?php endif ?>
 		</ul>
