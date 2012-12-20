@@ -18,4 +18,4 @@
 	url = git://github.com/twitter/bootstrap.git
 [submodule "Plugin/Chosen"]
 	path = Plugin/Chosen
-	url = git://github.com/paulredmond/chosen-cakephp.git
+	url = git://github.com/occitech/chosen-cakephp.git
