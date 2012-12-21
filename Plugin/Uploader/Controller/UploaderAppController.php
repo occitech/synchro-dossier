@@ -3,6 +3,7 @@
 class UploaderAppController extends AppController {
 
 	public function beforeFilter() {
+		parent::beforeFilter();
 		$this->loadModel('Uploader.UploaderAclAco');
 		$this->loadModel('Uploader.UploaderAclAro');
 		$this->loadModel('Permission');

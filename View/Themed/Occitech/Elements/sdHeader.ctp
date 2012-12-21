@@ -1,0 +1,1 @@
+<?= $this->Html->image('header.jpg'); ?>
