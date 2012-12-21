@@ -8,6 +8,8 @@
 		<?php
 		echo $this->Html->css(array(
 			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css',
+			'SynchroDossier.style',
+			'style'
 		));
 		echo $this->Html->script(array(
 			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js',
@@ -21,6 +23,11 @@
 		?>
 	</head>
 	<body>
+		<header>
+			<?php if ($this->elementExists('sdHeader')): ?>
+				<?= $this->element('sdHeader'); ?>
+			<?php endif ?>
+		</header>
 		<?= $this->element('SynchroDossier.navbar'); ?>
 		<div id="content-container" class="container-fluid">
 			<div class="row-fluid">
@@ -33,5 +40,11 @@
 				&nbsp;
 			</div>
 		</div>
+		<footer>
+			<?= Configure::read('SynchroDossier.footer') ?>
+			<p>
+				Propulsé par <?= $this->Html->link('Synchro Dossier', '#'); ?>
+			</p>
+		</footer>
 	</body>
 </html>
