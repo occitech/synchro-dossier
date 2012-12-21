@@ -36,6 +36,11 @@ class SynchroDossierActivation {
 		'Uploader/Files/removeRight',
 	);
 
+	private $__allUsersAcos = array(
+		'Users/Users/logout',
+		'Users/Users/index',
+	);
+
 	private $__links = array(
 		array(
 			'menu_id' => 3,
@@ -85,8 +90,8 @@ class SynchroDossierActivation {
 				$this->__addUsersCRUDAcos($controller) &&
 				$this->__addFilesAcos($controller) &&
 				$this->__addOccitechAco($controller) &&
-				$this->__addSuperAdminAllRightOnUploadedFile($controller);
-
+				$this->__addSuperAdminAllRightOnUploadedFile($controller) &&
+				$this->__addAllUsersAcos($controller);
 
 		return $success;
 	}
@@ -159,6 +164,14 @@ class SynchroDossierActivation {
 		}
 
 		return true;		
+	}
+
+	public function __addAllUsersAcos($controller) {
+		foreach ($this->__allUsersAcos as $aco) {
+			$controller->Croogo->addAco($aco, array('sdSuperAdmin', 'sdAdmin', 'sdUtilisateur'));
+		}
+
+		return true;	
 	}
 
 	private function __removeAllAcos(&$controller) {
