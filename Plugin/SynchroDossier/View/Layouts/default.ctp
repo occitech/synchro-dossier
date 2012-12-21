@@ -6,7 +6,7 @@
 		
 		<?php
 		echo $this->Html->css(array(
-			'SynchroDossier./bootstrap/bootstrap/css/bootstrap',
+			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css',
 			'SynchroDossier.smoothness/jquery-ui-1.9.2.custom.min',
 			'SynchroDossier.style',
 			'style'
@@ -14,7 +14,7 @@
 		echo $this->Html->script(array(
 			'SynchroDossier.jquery.1.8.3.min',
 			'SynchroDossier.jquery-ui-1.9.2.custom.min',
-			'SynchroDossier./bootstrap/bootstrap/js/bootstrap',
+			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js',
 			'SynchroDossier._lib/jquery.cookie',
 			'SynchroDossier.jquery.jstree',
 		));
