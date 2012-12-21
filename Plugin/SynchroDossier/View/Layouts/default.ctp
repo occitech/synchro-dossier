@@ -3,17 +3,17 @@
 	<head>
 		<meta charset="utf-8">
 		<title><?php echo $title_for_layout; ?> - <?php echo __('Synchro Dossier'); ?></title>
-
+		
 		<?php
 		echo $this->Html->css(array(
-			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css',
+			'SynchroDossier./bootstrap/bootstrap/css/bootstrap',
 			'SynchroDossier.smoothness/jquery-ui-1.9.2.custom.min',
 			'SynchroDossier.style',
 		));
 		echo $this->Html->script(array(
 			'SynchroDossier.jquery.1.8.3.min',
 			'SynchroDossier.jquery-ui-1.9.2.custom.min',
-			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js',
+			'SynchroDossier./bootstrap/bootstrap/js/bootstrap',
 			'SynchroDossier._lib/jquery.cookie',
 			'SynchroDossier.jquery.jstree',
 		));
@@ -29,9 +29,11 @@
 		<?= $this->element('SynchroDossier.navbar'); ?>
 		<div id="content-container" class="container-fluid">
 			<div class="row-fluid">
-				<div class="sidebar well">
-					<?= $this->element('SynchroDossier.sidebar', array('can' => $can)); ?>
-				</div>
+				<?php if (isset($can)): ?>				
+					<div class="sidebar well">
+						<?= $this->element('SynchroDossier.sidebar', array('can' => $can)); ?>
+					</div>
+				<?php endif ?>
 				<div id="content" class="clearfix">
 					<div id="inner-content" class="span12">
 						<?= $this->Layout->sessionFlash(); ?>
