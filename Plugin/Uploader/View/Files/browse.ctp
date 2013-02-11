@@ -90,7 +90,7 @@
 									'#renameFolderModal',
 									array(
 										'rel' => 'tooltip',
-										'title' => __('Renomer le dossier'),
+										'title' => __('Renommer le dossier'),
 										'role' => 'button',
 										'data-toggle' => 'modal',
 										'class' => 'rename-folder',
