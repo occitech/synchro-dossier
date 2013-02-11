@@ -52,7 +52,7 @@ class FileHelper extends AppHelper {
 					'class' => 'file-preview',
 					'html' => true,
 					'data-placement' => 'right',
-					'data-original-title' => __('Chargement en cours de l\'image. Merci de patienter ...'),
+					'data-original-title' => __d('uploader', 'Chargement en cours de l\'image. Merci de patienter ...'),
 					'data-preview-url' => $this->Html->url(array(
 						'plugin' => 'uploader',
 						'controller' =>'files',
@@ -71,7 +71,7 @@ class FileHelper extends AppHelper {
 		if (in_array($mimeType, $this->_imgMimeType)) {
 			$html .= $this->__imgPreview($content, $mimeType);
 		} else {
-			$html .= __('Pas de prévisualisation possible pour ce document.');
+			$html .= __d('uploader', 'Pas de prévisualisation possible pour ce document.');
 		}
 		return $html;
 	}

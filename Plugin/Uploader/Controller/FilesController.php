@@ -37,7 +37,7 @@ class FilesController extends UploaderAppController {
 
 	public function beforeRender() {
 		parent::beforeRender();
- 
+
 		$folderId = isset($this->request->params['pass'][0]) ? $this->request->params['pass'][0] : null;
 
 		$uploadUrl = Router::url(array(
@@ -68,7 +68,7 @@ class FilesController extends UploaderAppController {
 		} else {
 			$rootId = $this->UploadedFile->getRootFolderId($folderId);
 			$this->Session->setFlash(
-				__('Vous ne pouvez pas donner de droit à un sous dossier. Nous vous avons donc redirigé sur la page permettant de donner les droits au dossier racine. Les droits s\'appliqueront aussi au sous dossier'),
+				__d('uploader', 'Vous ne pouvez pas donner de droit à un sous dossier. Nous vous avons donc redirigé sur la page permettant de donner les droits au dossier racine. Les droits s\'appliqueront aussi au sous dossier'),
 				'default',
 				array('class' => 'alert alert-info')
 			);
@@ -97,7 +97,7 @@ class FilesController extends UploaderAppController {
 				array('model' => 'User', 'foreign_key' => $userId),
 				array('model' => 'UploadedFile', 'foreign_key' => $uploadedFileId),
 				$right
-			);		
+			);
 			if ($right == $action) {
 				break;
 			}
@@ -121,7 +121,7 @@ class FilesController extends UploaderAppController {
 	public function removeRight($acoId, $aroId) {
 		$result = $this->_removeRight($acoId, $aroId);
 		if (!$result) {
-			$this->Session->setFlash(__('There was an error while deleting the right. Thank you try again or contact an administrator'), 'default', array('class' => 'alert alert-danger'));
+			$this->Session->setFlash(__d('uploader', 'There was an error while deleting the right. Thank you try again or contact an administrator'), 'default', array('class' => 'alert alert-danger'));
 		}
 		$this->redirect($this->referer());
 	}
@@ -142,9 +142,9 @@ class FilesController extends UploaderAppController {
 
 			if (!($isNewUserRight && $isRightActive)) {
 				$method = ($isRightActive) ? '_denyRight' : '_allowRight';
-				
+
 				$this->{$method}($uploadedFileId, $userId, $action);
-				
+
 				$this->getEventManager()->dispatch(new CakeEvent(
 					'Controller.FilesController.afterChangeRight',
 					$this,
@@ -158,7 +158,7 @@ class FilesController extends UploaderAppController {
 			}
 
 		} else {
-			$this->Session->setFlash(__('Given information are incorrect'), 'default', array('class' => 'alert alert-danger')); 
+			$this->Session->setFlash(__d('uploader', 'Given information are incorrect'), 'default', array('class' => 'alert alert-danger'));
 		}
 		$this->redirect($this->referer());
 	}
@@ -176,14 +176,14 @@ class FilesController extends UploaderAppController {
 				'Aco' => array(
 					'className' => 'Aco',
 					'foreignKey' => 'foreign_key'
-				) 
+				)
 			)
 		));
 
 		$this->UploadedFile->order = 'UploadedFile.is_folder DESC';
 
 		if (is_null($folderId)) {
-			$files = $this->UploadedFile->find('rootDirectories'); 
+			$files = $this->UploadedFile->find('rootDirectories');
 		} else {
 			$files = $this->UploadedFile->findAllByParent_id($folderId);
 		}
@@ -211,14 +211,14 @@ class FilesController extends UploaderAppController {
 					array('model' => 'User', 'foreign_key' => Configure::write('sd.SuperAdmin.roleId')),
 					array('model' => 'UploadedFile', 'foreign_key' => $this->UploadedFile->id)
 				);
-				$this->Session->setFlash(__('Le dossier a correctement été créé'), 'default', array('class' => 'alert'));
+				$this->Session->setFlash(__d('uploader', 'Le dossier a correctement été créé'), 'default', array('class' => 'alert'));
 			} else {
 				$errors = $this->UploadedFile->invalidFields();
 				$errorMessage = '';
 				foreach ($errors as $error) {
 					$errorMessage .= implode('<br> ', array_unique($error));
 				}
-				$this->Session->setFlash(__('Il y a des erreurs dans les données du formulaire') . '<br>' . $errorMessage, 'default', array('class' => 'alert alert-danger'));
+				$this->Session->setFlash(__d('uploader', 'Il y a des erreurs dans les données du formulaire') . '<br>' . $errorMessage, 'default', array('class' => 'alert alert-danger'));
 			}
 		}
 		$this->redirect(array('action' => 'browse'));
@@ -227,9 +227,9 @@ class FilesController extends UploaderAppController {
 	public function createFolder($parentId) {
 		if ($this->request->is('post')) {
 			if ($this->UploadedFile->addFolder($this->request->data, $parentId, $this->Auth->user('id'))) {
-				$this->Session->setFlash(__('Le dossier a correctement été créé'), 'default', array('class' => 'alert'));
+				$this->Session->setFlash(__d('uploader', 'Le dossier a correctement été créé'), 'default', array('class' => 'alert'));
 			} else {
-				$this->Session->setFlash(__('Il y a des erreurs dans les données du formulaire'), 'default', array('class' => 'alert alert-danger'));
+				$this->Session->setFlash(__d('uploader', 'Il y a des erreurs dans les données du formulaire'), 'default', array('class' => 'alert alert-danger'));
 			}
 		}
 		$this->redirect(array('action' => 'browse', $parentId));
@@ -245,7 +245,7 @@ class FilesController extends UploaderAppController {
 
 	public function downloadZipFolder($folderId) {
 		$folder = $this->UploadedFile->findById($folderId);
-		if (!empty($folder)) {		
+		if (!empty($folder)) {
 			$this->response->download($folder['UploadedFile']['filename'] . '.zip');
 			$this->response->body($this->UploadedFile->createZip($folderId));
 			$this->response->send();
@@ -258,7 +258,7 @@ class FilesController extends UploaderAppController {
  * @param $originalFilename : Correspond au nom original du fichier pour le cas ou
  * l'utilisateur upload une nouvelle version du fichier en passant par "Uploader une nouvelle version"
  *
- */	
+ */
 	public function upload($folderId, $originalFilename = null) {
 		$folderId = $folderId === 'null' ? null : $folderId;
 		if ($this->Plupload->isPluploadRequest()) {
@@ -269,7 +269,7 @@ class FilesController extends UploaderAppController {
 					$error = $this->UploadedFile->FileStorage->invalidFields();
 					if (isset($error['file'][0])) {
 						$response = $this->Plupload->generateJsonMessage(array(
-							'error' => array('code' => 104, 'message' => $error['file'][0]) 
+							'error' => array('code' => 104, 'message' => $error['file'][0])
 						));
 					}
 				}

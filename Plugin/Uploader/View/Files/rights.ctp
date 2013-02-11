@@ -1,6 +1,6 @@
 <div class="rights uploader">
 	<div class="add-right">
-		<?= 
+		<?=
 			$this->Form->create('User', array('url' => array(
 				'controller' => 'Files',
 				'action' => 'toggleRight',
@@ -9,19 +9,19 @@
 			$this->Chosen->select(
 				'user_id',
 				$usersNotInFolder,
-				array('data-placeholder' => __('Select user'))
+				array('data-placeholder' => __d('uploader', 'Select user'))
 			) .
-			$this->Form->submit(__('Add user'), array('class' => 'btn')) .
+			$this->Form->submit(__d('uploader', 'Add user'), array('class' => 'btn')) .
 			$this->Form->end();
 		?>
 	</div>
  	<table class="table table-hover">
 		<tr>
-			<td><?= __('Name') ?></td>
-			<td><?= __('Lecture') ?></td>
-			<td><?= __('Upload') ?></td>
-			<td><?= __('Suppression') ?></td>
-			<td><?= __('Actions') ?></td>
+			<td><?= __d('uploader', 'Name') ?></td>
+			<td><?= __d('uploader', 'Lecture') ?></td>
+			<td><?= __d('uploader', 'Upload') ?></td>
+			<td><?= __d('uploader', 'Suppression') ?></td>
+			<td><?= __d('uploader', 'Actions') ?></td>
 		</tr>
 		<?php foreach ($superAdmins as $superAdmin): ?>
 		<tr>
@@ -44,7 +44,7 @@
 					$aro['User']['id'],
 					$aro['User']['role_id'],
 					$folder['User']['id']
-				); 
+				);
 				$listRolesToPrint = array(
 					Configure::read('sd.Admin.roleId'),
 					Configure::read('sd.Utilisateur.roleId'),
@@ -110,7 +110,7 @@
 
 						<?php if ($hasRightToChangeRight): ?>
 							<?= $this->Html->link(
-								__('Supprimer l\'utilisateur de ce dossier'),
+								__d('uploader', 'Supprimer l\'utilisateur de ce dossier'),
 								array(
 									'action' => 'removeRight',
 									$aro['ArosAco']['aco_id'],
@@ -122,5 +122,5 @@
 				</tr>
 			<?php endif ?>
 		<?php endforeach ?>
-	</table>		
+	</table>
 </div>

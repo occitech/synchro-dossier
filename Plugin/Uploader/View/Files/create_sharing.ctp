@@ -3,17 +3,17 @@
 
 	<?= $this->Form->input(
 		'UploadedFile.filename',
-		array('label' => __('Folder name'))
+		array('label' => __d('uploader', 'Folder name'))
 	);?>
-	
+
 	<?= $this->Form->input(
 		'SdAlertEmail.subscribe',
 		array(
-			'label' => __('Inscription aux Alertes email'),
+			'label' => __d('uploader', 'Inscription aux Alertes email'),
 			'type' => 'checkbox'
 		)
 	); ?>
 
-	<?= $this->Form->submit(__('Create')); ?>
+	<?= $this->Form->submit(__d('uploader', 'Create')); ?>
 	<?= $this->Form->end(); ?>
 </div>

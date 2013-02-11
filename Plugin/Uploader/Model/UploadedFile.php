@@ -4,6 +4,8 @@ App::uses('Security', 'Utility');
 
 class UploadedFile extends UploaderAppModel {
 
+	public $validationDomain = 'uploader';
+
 	public $actsAs = array(
 		'Tree',
 		'Acl' => array('type' => 'controlled'),
@@ -257,7 +259,7 @@ class UploadedFile extends UploaderAppModel {
 		foreach ($files as $f) {
 			if ($f['remote_path'] != null) {
 				$content = StorageManager::adapter($f['adapter'])->read($f['remote_path']);
-				StorageManager::adapter('Zip')->write($f['real_path'], $content);	
+				StorageManager::adapter('Zip')->write($f['real_path'], $content);
 			}
 		}
 		$content = file_get_contents($zipfile);
@@ -336,7 +338,7 @@ class UploadedFile extends UploaderAppModel {
 		$hashFilename = Security::hash($fileInfos['name']);
 		$path = $this->_getPathFile($userId, $this->id, $version, $hashFilename);
 		StorageManager::adapter(Configure::read('FileStorage.adapter'))->write($path, $content);
-		return $path;	
+		return $path;
 	}
 
 	protected function _isANewVersion($filename, $parentId) {
@@ -355,11 +357,11 @@ class UploadedFile extends UploaderAppModel {
 	protected function _uploadNewFileVersion($data, $userId, $parentId, $originalFilename) {
 		$fileInfos = $data['file'];
 		$isValid = true;
-		
+
 		if (!is_null($originalFilename)) {
 			$isValid = $this->_isNewVersionValidFile($data['file']['name'], $originalFilename);
 			if (!$isValid) {
-				$this->FileStorage->invalidate('file', __('Le fichier doit avoir la même extension que le fichier d\'origine'));
+				$this->FileStorage->invalidate('file', __d('uploader', 'Le fichier doit avoir la même extension que le fichier d\'origine'));
 			}
 			$fileInfos['name'] = $originalFilename;
 		}
@@ -400,13 +402,13 @@ class UploadedFile extends UploaderAppModel {
 				$hasError = false;
 				break;
 			case UPLOAD_ERR_INI_SIZE:
-				$this->FileStorage->invalidate('file', __('La taille du fichier dépasse la limite autorisée'));
+				$this->FileStorage->invalidate('file', __d('uploader', 'La taille du fichier dépasse la limite autorisée'));
 				break;
 			case UPLOAD_ERR_NO_FILE:
-				$this->FileStorage->invalidate('file', __('Aucun fichier n\'a été uploadé'));
+				$this->FileStorage->invalidate('file', __d('uploader', 'Aucun fichier n\'a été uploadé'));
 				break;
 			default:
-				$this->FileStorage->invalidate('file', __('Il y a eu une erreur pendant l\'upload de votre fichier'));
+				$this->FileStorage->invalidate('file', __d('uploader', 'Il y a eu une erreur pendant l\'upload de votre fichier'));
 				break;
 		}
 		return $hasError;

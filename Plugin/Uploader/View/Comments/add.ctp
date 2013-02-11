@@ -2,7 +2,7 @@
 
 <?= $this->Form->input('Comment.body', array('label' => false, 'class' => 'span7')); ?>
 
-<?= $this->Form->submit(__('Poster votre commentaire'), array('class' => 'btn')); ?>
+<?= $this->Form->submit(__d('uploader', 'Poster votre commentaire'), array('class' => 'btn')); ?>
 
 
 <?= $this->Form->end(); ?>

@@ -10,12 +10,12 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th><?= __('Fichier'); ?></th>
-				<th><?= __('Auteur'); ?></th>
-				<th><?= __('Date') ?></th>
-				<th><?= __('Taille') ?></th>
-				<th><?= __('Type') ?></th>
-				<th><?= __('Actions') ?></th>
+				<th><?= __d('uploader', 'Fichier'); ?></th>
+				<th><?= __d('uploader', 'Auteur'); ?></th>
+				<th><?= __d('uploader', 'Date') ?></th>
+				<th><?= __d('uploader', 'Taille') ?></th>
+				<th><?= __d('uploader', 'Type') ?></th>
+				<th><?= __d('uploader', 'Actions') ?></th>
 			</tr>
 		</thead>
 		<tbody>
@@ -65,7 +65,7 @@
 							<?php endif ?>
 						</td>
 
-						<td>					
+						<td>
 							<?php if (!$file['UploadedFile']['is_folder']): ?>
 								<?= $this->File->mimeType($lastVersion['mime_type']); ?>
 							<?php endif ?>
@@ -76,11 +76,11 @@
 							<?php if ($file['UploadedFile']['is_folder']): ?>
 								<?php if (!empty($file['ChildUploadedFile'])): ?>
 									<?= $this->Html->link(
-										__('<i class="icon-download-alt"></i>'),
+										__d('uploader', '<i class="icon-download-alt"></i>'),
 										array('controller' => 'files', 'action' => 'downloadZipFolder', $file['UploadedFile']['id']),
 										array(
 											'rel' => 'tooltip',
-											'title' => __('Download folder as zipfile'),
+											'title' => __d('uploader', 'Download folder as zipfile'),
 											'escape' => false
 										)
 									); ?>
@@ -90,7 +90,7 @@
 									'#renameFolderModal',
 									array(
 										'rel' => 'tooltip',
-										'title' => __('Renommer le dossier'),
+										'title' => __d('uploader', 'Renommer le dossier'),
 										'role' => 'button',
 										'data-toggle' => 'modal',
 										'class' => 'rename-folder',
@@ -101,11 +101,11 @@
 								); ?>
 								<?php if (is_null($folderId) && $this->UploaderAcl->userCan($file['Aco'], 'change_right')): ?>
 									<?= $this->Html->link(
-										__('<i class="icon-user"></i>'),
+										__d('uploader', '<i class="icon-user"></i>'),
 										array('controller' => 'files', 'action' => 'rights', $file['UploadedFile']['id']),
 										array(
 											'rel' => 'tooltip',
-											'title' => __('Gérer les droits'),
+											'title' => __d('uploader', 'Gérer les droits'),
 											'escape' => false
 										)
 									); ?>
@@ -120,7 +120,7 @@
 									),
 									array(
 										'rel' => 'tooltip',
-										'title' => __('Download'),
+										'title' => __d('uploader', 'Download'),
 										'escape' => false
 									)
 								); ?>
@@ -136,7 +136,7 @@
 											$file['UploadedFile']['filename']
 										)),
 										'rel' => 'tooltip',
-										'title' => __('New version'),
+										'title' => __d('uploader', 'New version'),
 										'role' => 'button',
 										'data-toggle' => 'modal',
 										'data-filename' => $file['UploadedFile']['filename'],
@@ -155,7 +155,7 @@
 										)),
 										'role' => 'button',
 										'data-toggle' => 'modal',
-										'title' => __('Commentaires'),
+										'title' => __d('uploader', 'Commentaires'),
 										'class' => 'comments',
 										'escape' => false
 									)
@@ -169,7 +169,7 @@
 							<?php $fileVersions = array_reverse($file['FileStorage']); ?>
 							<?php array_shift($fileVersions); ?>
 							<?php foreach ($fileVersions as $fileVersion): ?>
-								<tr style="display:none;" class="versions-<?= $file['UploadedFile']['id'] ?> sub-version">	
+								<tr style="display:none;" class="versions-<?= $file['UploadedFile']['id'] ?> sub-version">
 									<td>
 										V<?= $version--; ?>
 										<?= $this->Html->link(
@@ -186,7 +186,7 @@
 									<td><?= $this->File->size($fileVersion['filesize']); ?></td>
 									<td></td>
 									<td></td>
-								</tr>			
+								</tr>
 							<?php endforeach ?>
 					<?php endif ?>
 

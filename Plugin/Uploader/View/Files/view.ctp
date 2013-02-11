@@ -1,11 +1,11 @@
 <div>
 	<div>
-		<?php echo $this->Html->link(__('..'), array('controller' => 'files', 'action' => 'browse', $file['UploadedFile']['parent_id'])) ?>
+		<?php echo $this->Html->link(__d('uploader', '..'), array('controller' => 'files', 'action' => 'browse', $file['UploadedFile']['parent_id'])) ?>
 	</div>
 
 	<div>
 		<?php echo $this->Html->link(
-			__('Ajouter une version'),
+			__d('uploader', 'Ajouter une version'),
 			array(
 				'controller' => 'files',
 				'action' => 'upload',
@@ -33,7 +33,7 @@
 				</td>
 				<td>
 					<?php echo $this->Html->link(
-						__('Download'),
+						__d('uploader', 'Download'),
 						array(
 							'controller' => 'files',
 							'action' => 'download',
