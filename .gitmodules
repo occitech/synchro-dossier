@@ -19,3 +19,6 @@
 [submodule "Plugin/Chosen"]
 	path = Plugin/Chosen
 	url = git://github.com/occitech/chosen-cakephp.git
+[submodule "Plugin/DebugKit"]
+	path = Plugin/DebugKit
+	url = git://github.com/cakephp/debug_kit
