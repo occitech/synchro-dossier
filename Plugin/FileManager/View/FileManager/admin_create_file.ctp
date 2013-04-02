@@ -1,8 +1,8 @@
 <?php
 $this->Html
 	->addCrumb('', '/admin', array('icon' => 'home'))
-	->addCrumb(__('File Manager'), array('plugin' => 'file_manager', 'controller' => 'file_manager', 'action' => 'browse'))
-	->addCrumb(__('Create File'), $this->here);
+	->addCrumb(__d('croogo', 'File Manager'), array('plugin' => 'file_manager', 'controller' => 'file_manager', 'action' => 'browse'))
+	->addCrumb(__d('croogo', 'Create File'), $this->here);
 
 echo $this->Form->create('FileManager', array(
 	'url' => $this->Html->url(array(
@@ -12,9 +12,9 @@ echo $this->Form->create('FileManager', array(
 ));
 
 ?>
-<h2 class="hidden-desktop"><?php echo __('Create file'); ?> </h2>
+<h2 class="hidden-desktop"><?php echo __d('croogo', 'Create file'); ?> </h2>
 <div class="breadcrumb">
-	<a href="#"><?php echo __('You are here') . ' '; ?> </a> <span class="divider"> &gt; </span>
+	<a href="#"><?php echo __d('croogo', 'You are here') . ' '; ?> </a> <span class="divider"> &gt; </span>
 	<?php $breadcrumb = $this->FileManager->breadcrumb($path); ?>
 	<?php foreach ($breadcrumb as $pathname => $p) : ?>
 		<?php echo $this->FileManager->linkDirectory($pathname, $p); ?>
@@ -28,8 +28,10 @@ echo $this->Form->create('FileManager', array(
 	<div class="span8">
 
 		<ul class="nav nav-tabs">
-			<li><a href="#filemanager-createfile" data-toggle="tab"><?php echo __('File'); ?></a></li>
-			<?php echo $this->Croogo->adminTabs(); ?>
+		<?php
+			echo $this->Croogo->adminTab(__d('croogo', 'File'), '#filemanager-createfile');
+			echo $this->Croogo->adminTabs();
+		?>
 		</ul>
 
 		<div class="tab-content">
@@ -37,7 +39,7 @@ echo $this->Form->create('FileManager', array(
 			<?php
 				echo $this->Form->input('FileManager.name', array(
 					'type' => 'text',
-					'placeholder' => __('Filename'),
+					'label' => __d('croogo', 'Filename'),
 					'class' => 'span10',
 				));
 			?>
@@ -48,9 +50,9 @@ echo $this->Form->create('FileManager', array(
 	</div>
 	<div class="span4">
 		<?php
-		echo $this->Html->beginBox(__('Publishing')) .
-			$this->Form->button(__('Save'), array('button' => 'default')) .
-			$this->Html->link(__('Cancel'), array('action' => 'index'), array('button' => 'danger')) .
+		echo $this->Html->beginBox(__d('croogo', 'Publishing')) .
+			$this->Form->button(__d('croogo', 'Save'), array('button' => 'default')) .
+			$this->Html->link(__d('croogo', 'Cancel'), array('action' => 'index'), array('button' => 'danger')) .
 			$this->Html->endBox();
 		?>
 	</div>

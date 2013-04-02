@@ -1,9 +1,9 @@
 <?php
 $this->Html
 	->addCrumb('', '/admin', array('icon' => 'home'))
-	->addCrumb(__('Extensions'), array('plugin' => 'extensions', 'controller' => 'extensions_plugins', 'action' => 'index'))
-	->addCrumb(__('Plugins'), array('plugin' => 'extensions', 'controller' => 'extensions_plugins', 'action' => 'index'))
-	->addCrumb(__('Upload'), $this->here);
+	->addCrumb(__d('croogo', 'Extensions'), array('plugin' => 'extensions', 'controller' => 'extensions_plugins', 'action' => 'index'))
+	->addCrumb(__d('croogo', 'Plugins'), array('plugin' => 'extensions', 'controller' => 'extensions_plugins', 'action' => 'index'))
+	->addCrumb(__d('croogo', 'Upload'), $this->here);
 
 echo $this->Form->create('Plugin', array(
 	'url' => array(
@@ -20,7 +20,9 @@ echo $this->Form->create('Plugin', array(
 	<div class="span8">
 
 		<ul class="nav nav-tabs">
-			<li><a href="#plugin-upload" data-toggle="tab"><?php echo __('Upload'); ?></a></li>
+		<?php
+			echo $this->Croogo->adminTab(__d('croogo', 'Upload'), '#plugin-upload');
+		?>
 		</ul>
 
 		<div class="tab-content">
@@ -38,9 +40,9 @@ echo $this->Form->create('Plugin', array(
 	<div class="span4">
 	<?php
 		echo $this->Html->beginBox('Publishing') .
-			$this->Form->button(__('Upload'), array('button' => 'default')) .
+			$this->Form->button(__d('croogo', 'Upload'), array('button' => 'default')) .
 			$this->Form->end() .
-			$this->Html->link(__('Cancel'), array('action' => 'index'), array('button' => 'danger')) .
+			$this->Html->link(__d('croogo', 'Cancel'), array('action' => 'index'), array('button' => 'danger')) .
 			$this->Html->endBox();
 
 		echo $this->Croogo->adminBoxes();

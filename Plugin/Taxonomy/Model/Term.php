@@ -1,4 +1,5 @@
 <?php
+
 App::uses('TaxonomyAppModel', 'Taxonomy.Model');
 
 /**
@@ -30,7 +31,7 @@ class Term extends TaxonomyAppModel {
  * @access public
  */
 	public $actsAs = array(
-		'Cached' => array(
+		'Croogo.Cached' => array(
 			'prefix' => array(
 				'term_',
 				'node_',

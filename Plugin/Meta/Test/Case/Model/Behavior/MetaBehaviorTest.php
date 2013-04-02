@@ -1,13 +1,13 @@
 <?php
 App::uses('Node', 'Nodes.Model');
-App::uses('CroogoTestCase', 'TestSuite');
+App::uses('CroogoTestCase', 'Croogo.TestSuite');
 
 class MetaBehaviorTest extends CroogoTestCase {
 
 	public $fixtures = array(
-		'aco',
-		'aro',
-		'aros_aco',
+		'plugin.croogo.aco',
+		'plugin.croogo.aro',
+		'plugin.croogo.aros_aco',
 		'plugin.blocks.block',
 		'plugin.comments.comment',
 		'plugin.contacts.contact',
@@ -78,18 +78,21 @@ class MetaBehaviorTest extends CroogoTestCase {
 				),
 			),
 		);
-		$this->assertEqual($this->Node->prepareData($data), array(
-			'Meta' => array(
-				'0' => array(
-					'key' => 'key1',
-					'value' => 'value1',
-				),
-				'1' => array(
-					'key' => 'key2',
-					'value' => 'value2',
+		$this->assertEquals(
+			array(
+				'Meta' => array(
+					'0' => array(
+						'key' => 'key1',
+						'value' => 'value1',
+					),
+					'1' => array(
+						'key' => 'key2',
+						'value' => 'value2',
+					),
 				),
 			),
-		));
+			$this->Node->prepareData($data)
+		);
 	}
 
 }

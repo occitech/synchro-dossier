@@ -1,14 +1,16 @@
 <?php $this->extend('/Common/admin_index'); ?>
 
 <?php $this->start('actions'); ?>
-	<li>
-		<?php
-			echo $this->Html->link(
-				__('New Tab'),
-				array('action' => 'add')
-			);
-		?>
-	</li>
+<?php
+	echo $this->Croogo->adminAction(
+		__d('croogo', 'New Tab'),
+		array('action' => 'add')
+	);
+	echo $this->Croogo->adminAction(
+		__d('croogo', 'Chooser Example'),
+		array('action' => 'chooser')
+	);
+?>
 <?php $this->end(); ?>
 
-<p><?php echo __('content here'); ?></p>
+<p><?php echo __d('croogo', 'content here'); ?></p>

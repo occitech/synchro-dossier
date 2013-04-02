@@ -5,25 +5,27 @@ $this->name = 'translate';
 
 $this->Html
 	->addCrumb('', '/admin', array('icon' => 'home'))
-	->addCrumb(__('Translate'), $this->here)
+	->addCrumb(__d('croogo', 'Translate'), $this->here)
 	->addCrumb($modelAlias)
 	->addCrumb($record[$modelAlias]['title'], array('plugin' => 'nodes', 'controller' => 'nodes', 'action' => 'edit', $record[$modelAlias]['id']));
 
 ?>
 <?php $this->start('actions'); ?>
-<li><?php
-echo $this->Html->link(
-	__('Translate in a new language'),
-	array(
-		'plugin' => 'settings',
-		'controller' => 'languages',
-		'action'=>'select',
-		$record[$modelAlias]['id'],
-		$modelAlias
-	),
-	array('button' => 'default')
-);
-?></li>
+<?php
+	echo $this->Croogo->adminAction(
+		__d('croogo', 'Translate in a new language'),
+		array(
+			'plugin' => 'settings',
+			'controller' => 'languages',
+			'action' => 'select',
+			$record[$modelAlias]['id'],
+			$modelAlias
+		),
+		array(
+			'button' => false,
+		)
+	);
+?>
 <?php $this->end(); ?>
 
 <?php if (count($translations) > 0): ?>
@@ -31,10 +33,10 @@ echo $this->Html->link(
 	<?php
 		$tableHeaders = $this->Html->tableHeaders(array(
 			'',
-			//__('Id'),
-			__('Title'),
-			__('Locale'),
-			__('Actions'),
+			//__d('croogo', 'Id'),
+			__d('croogo', 'Title'),
+			__d('croogo', 'Locale'),
+			__d('croogo', 'Actions'),
 		));
 	?>
 		<thead>
@@ -51,7 +53,7 @@ echo $this->Html->link(
 				'locale' => $translation[$runtimeModelAlias]['locale'],
 			), array(
 				'icon' => 'pencil',
-				'tooltip' => __('Edit this item'),
+				'tooltip' => __d('croogo', 'Edit this item'),
 			));
 			$actions[] = $this->Croogo->adminRowAction('', array(
 				'action' => 'delete',
@@ -60,8 +62,8 @@ echo $this->Html->link(
 				$translation[$runtimeModelAlias]['locale'],
 			), array(
 				'icon' => 'trash',
-				'tooltip' => __('Remove this item'),
-			) , __('Are you sure?'));
+				'tooltip' => __d('croogo', 'Remove this item'),
+			) , __d('croogo', 'Are you sure?'));
 
 			$actions = $this->Html->div('item-actions', implode(' ', $actions));
 			$rows[] = array(
@@ -76,5 +78,5 @@ echo $this->Html->link(
 	?>
 	</table>
 <?php else: ?>
-	<p><?php echo __('No translations available.'); ?></p>
+	<p><?php echo __d('croogo', 'No translations available.'); ?></p>
 <?php endif; ?>

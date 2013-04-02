@@ -31,7 +31,7 @@ class User extends UsersAppModel {
  * @var string
  * @access public
  */
-	public $order = 'name ASC';
+	public $order = 'User.name ASC';
 
 /**
  * Behaviors used by the Model
@@ -41,7 +41,7 @@ class User extends UsersAppModel {
  */
 	public $actsAs = array(
 		'Acl' => array(
-			'className' => 'CroogoAcl',
+			'className' => 'Croogo.CroogoAcl',
 			'type' => 'requester',
 		),
 		'Search.Searchable',
@@ -126,6 +126,7 @@ class User extends UsersAppModel {
  * @access public
  */
 	public $filterArgs = array(
+		'chooser' => array('type' => null),
 		'name' => array('type' => 'like', 'field' => array('User.name', 'User.username')),
 		'role_id' => array('type' => 'value'),
 	);
@@ -165,7 +166,7 @@ class User extends UsersAppModel {
  * @return boolean
  */
 	public function beforeDelete($cascade = true) {
-		$this->Role->Behaviors->attach('Aliasable');
+		$this->Role->Behaviors->attach('Croogo.Aliasable');
 		$adminRoleId = $this->Role->byAlias('admin');
 
 		$current = AuthComponent::user();
@@ -218,7 +219,7 @@ class User extends UsersAppModel {
 	public function validIdentical($check) {
 		if (isset($this->data['User']['password'])) {
 			if ($this->data['User']['password'] != $check['verify_password']) {
-				return __('Passwords do not match. Please, try again.');
+				return __d('croogo', 'Passwords do not match. Please, try again.');
 			}
 		}
 		return true;

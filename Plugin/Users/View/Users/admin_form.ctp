@@ -4,7 +4,7 @@ $this->extend('/Common/admin_edit');
 
 $this->Html
 	->addCrumb($this->Html->icon('home'), '/admin')
-	->addCrumb(__('Users'), array('plugin' => 'users', 'controller' => 'users', 'action' => 'index'));
+	->addCrumb(__d('croogo', 'Users'), array('plugin' => 'users', 'controller' => 'users', 'action' => 'index'));
 
 if ($this->request->params['action'] == 'admin_edit') {
 	$this->Html->addCrumb($this->data['User']['name'], array(
@@ -14,13 +14,14 @@ if ($this->request->params['action'] == 'admin_edit') {
 }
 
 if ($this->request->params['action'] == 'admin_add') {
-	$this->Html->addCrumb(__('Add'), array('plugin' => 'users','controller' => 'users', 'action' => 'add'));
+	$this->Html->addCrumb(__d('croogo', 'Add'), array('plugin' => 'users','controller' => 'users', 'action' => 'add'));
 }
 ?>
 <?php $this->start('actions'); ?>
 <?php if ($this->request->params['action'] == 'admin_edit'): ?>
-	<li><?php echo $this->Html->link(__('Reset password'), array('action' => 'reset_password', $this->params['pass']['0']), array(
-	'class' => 'btn')); ?></li>
+<?php
+	echo $this->Croogo->adminAction(__d('croogo', 'Reset password'), array('action' => 'reset_password', $this->params['pass']['0']));
+?>
 <?php endif; ?>
 <?php $this->end(); ?>
 
@@ -30,8 +31,10 @@ if ($this->request->params['action'] == 'admin_add') {
 	<div class="span8">
 
 		<ul class="nav nav-tabs">
-			<li><a href="#user-main" data-toggle="tab"><?php echo __('User'); ?></a></li>
-			<?php echo $this->Croogo->adminTabs(); ?>
+		<?php
+			echo $this->Croogo->adminTab(__d('croogo', 'User'), '#user-main');
+			echo $this->Croogo->adminTabs();
+		?>
 		</ul>
 
 		<div class="tab-content">
@@ -39,22 +42,22 @@ if ($this->request->params['action'] == 'admin_add') {
 			<div id="user-main" class="tab-pane">
 			<?php
 				echo $this->Form->input('id');
-				echo $this->Form->input('role_id', array('label' => __('Role')));
+				echo $this->Form->input('role_id', array('label' => __d('croogo', 'Role')));
 				$this->Form->inputDefaults(array(
 					'class' => 'span10',
 					'label' => false,
 				));
 				echo $this->Form->input('username', array(
-					'placeholder' => __('Username'),
+					'label' => __d('croogo', 'Username'),
 				));
 				echo $this->Form->input('name', array(
-					'placeholder' => __('Name'),
+					'label' => __d('croogo', 'Name'),
 				));
 				echo $this->Form->input('email', array(
-					'placeholder' => __('Email'),
+					'label' => __d('croogo', 'Email'),
 				));
 				echo $this->Form->input('website', array(
-					'placeholder' => __('Website'),
+					'label' => __d('croogo', 'Website'),
 				));
 			?>
 			</div>
@@ -65,14 +68,14 @@ if ($this->request->params['action'] == 'admin_add') {
 
 	<div class="span4">
 	<?php
-		echo $this->Html->beginBox(__('Publishing')) .
-			$this->Form->button(__('Save'), array('button' => 'default')) .
+		echo $this->Html->beginBox(__d('croogo', 'Publishing')) .
+			$this->Form->button(__d('croogo', 'Save'), array('button' => 'default')) .
 			$this->Html->link(
-			__('Cancel'), array('action' => 'index'),
+			__d('croogo', 'Cancel'), array('action' => 'index'),
 			array('button' => 'danger')) .
 
 			$this->Form->input('status', array(
-				'label' => __('Status'),
+				'label' => __d('croogo', 'Status'),
 				'class' => false,
 			)) .
 

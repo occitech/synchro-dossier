@@ -1,4 +1,5 @@
 <?php
+
 App::uses('BlocksAppController', 'Blocks.Controller');
 
 /**
@@ -30,7 +31,15 @@ class RegionsController extends BlocksAppController {
  * @access public
  */
 	public $components = array(
-		'Search.Prg'
+		'Search.Prg' => array(
+			'presetForm' => array(
+				'paramType' => 'querystring',
+			),
+			'commonProcess' => array(
+				'paramType' => 'querystring',
+				'filterEmpty' => true,
+			),
+		),
 	);
 
 /**
@@ -39,9 +48,7 @@ class RegionsController extends BlocksAppController {
  * @var array
  * @access public
  */
-	public $presetVars = array(
-		'title' => array('type' => 'value'),
-	);
+	public $presetVars = true;
 
 /**
  * Models used by the Controller
@@ -58,13 +65,13 @@ class RegionsController extends BlocksAppController {
  * @access public
  */
 	public function admin_index() {
-		$this->set('title_for_layout', __('Region'));
+		$this->set('title_for_layout', __d('croogo', 'Region'));
 		$this->Prg->commonProcess();
 		$searchFields = array('title');
 
 		$this->Region->recursive = 0;
 		$this->paginate['Region']['order'] = 'Region.title ASC';
-		$this->set('regions', $this->paginate($this->Region->parseCriteria($this->passedArgs)));
+		$this->set('regions', $this->paginate($this->Region->parseCriteria($this->request->query)));
 		$this->set('displayFields', $this->Region->displayFields());
 		$this->set('searchFields', $searchFields);
 	}
@@ -76,15 +83,15 @@ class RegionsController extends BlocksAppController {
  * @access public
  */
 	public function admin_add() {
-		$this->set('title_for_layout', __('Add Region'));
+		$this->set('title_for_layout', __d('croogo', 'Add Region'));
 
 		if (!empty($this->request->data)) {
 			$this->Region->create();
 			if ($this->Region->save($this->request->data)) {
-				$this->Session->setFlash(__('The Region has been saved'), 'default', array('class' => 'success'));
+				$this->Session->setFlash(__d('croogo', 'The Region has been saved'), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The Region could not be saved. Please, try again.'), 'default', array('class' => 'error'));
+				$this->Session->setFlash(__d('croogo', 'The Region could not be saved. Please, try again.'), 'default', array('class' => 'error'));
 			}
 		}
 	}
@@ -97,18 +104,18 @@ class RegionsController extends BlocksAppController {
  * @access public
  */
 	public function admin_edit($id = null) {
-		$this->set('title_for_layout', __('Edit Region'));
+		$this->set('title_for_layout', __d('croogo', 'Edit Region'));
 
 		if (!$id && empty($this->request->data)) {
-			$this->Session->setFlash(__('Invalid Region'), 'default', array('class' => 'error'));
+			$this->Session->setFlash(__d('croogo', 'Invalid Region'), 'default', array('class' => 'error'));
 			$this->redirect(array('action' => 'index'));
 		}
 		if (!empty($this->request->data)) {
 			if ($this->Region->save($this->request->data)) {
-				$this->Session->setFlash(__('The Region has been saved'), 'default', array('class' => 'success'));
+				$this->Session->setFlash(__d('croogo', 'The Region has been saved'), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('The Region could not be saved. Please, try again.'), 'default', array('class' => 'error'));
+				$this->Session->setFlash(__d('croogo', 'The Region could not be saved. Please, try again.'), 'default', array('class' => 'error'));
 			}
 		}
 		if (empty($this->request->data)) {
@@ -125,11 +132,11 @@ class RegionsController extends BlocksAppController {
  */
 	public function admin_delete($id = null) {
 		if (!$id) {
-			$this->Session->setFlash(__('Invalid id for Region'), 'default', array('class' => 'error'));
+			$this->Session->setFlash(__d('croogo', 'Invalid id for Region'), 'default', array('class' => 'error'));
 			$this->redirect(array('action' => 'index'));
 		}
 		if ($this->Region->delete($id)) {
-			$this->Session->setFlash(__('Region deleted'), 'default', array('class' => 'success'));
+			$this->Session->setFlash(__d('croogo', 'Region deleted'), 'default', array('class' => 'success'));
 			$this->redirect(array('action' => 'index'));
 		}
 	}

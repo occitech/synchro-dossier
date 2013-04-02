@@ -1,6 +1,6 @@
 <?php
 App::uses('UsersController', 'Users.Controller');
-App::uses('CroogoControllerTestCase', 'TestSuite');
+App::uses('CroogoControllerTestCase', 'Croogo.TestSuite');
 
 /**
  * UsersController Test
@@ -13,9 +13,9 @@ class UsersControllerTest extends CroogoControllerTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'aco',
-		'aro',
-		'aros_aco',
+		'plugin.croogo.aco',
+		'plugin.croogo.aro',
+		'plugin.croogo.aros_aco',
 		'plugin.blocks.block',
 		'plugin.comments.comment',
 		'plugin.contacts.contact',
@@ -48,9 +48,10 @@ class UsersControllerTest extends CroogoControllerTestCase {
 		$this->UsersController = $this->generate('Users.Users', array(
 			'methods' => array(
 				'redirect',
+				'onAdminLoginFailure',
 			),
 			'components' => array(
-				'Auth' => array('user'),
+				'Auth' => array('user', 'identify', 'login'),
 				'Session',
 				'Security',
 			),
@@ -59,6 +60,15 @@ class UsersControllerTest extends CroogoControllerTestCase {
 			->staticExpects($this->any())
 			->method('user')
 			->will($this->returnCallback(array($this, 'authUserCallback')));
+
+		$this->controller->Auth
+			->staticExpects($this->any())
+			->method('identify')
+			->will($this->returnCallback(array($this, 'authIdentifyFalse')));
+	}
+
+	public function authIdentifyFalse() {
+		return false;
 	}
 
 /**
@@ -80,6 +90,17 @@ class UsersControllerTest extends CroogoControllerTestCase {
 		$this->testAction('/admin/users/users/index');
 		$this->assertNotEmpty($this->vars['displayFields']);
 		$this->assertNotEmpty($this->vars['users']);
+		$this->assertEquals(3, count($this->vars['users']));
+	}
+
+/**
+ * testAdminIndexSearch
+ *
+ * @return void
+ */
+	public function testAdminIndexSearch() {
+		$this->testAction('/admin/users/users/index?name=admin');
+		$this->assertEquals(1, count($this->vars['users']));
 	}
 
 /**
@@ -306,6 +327,34 @@ class UsersControllerTest extends CroogoControllerTestCase {
 			)
 		);
 		$this->assertContains('Passwords do not match', $this->contents);
+	}
+
+/**
+ * testAdminLoginFailureEvent
+ *
+ * @return void
+ */
+	public function testAdminLoginFailureEvent() {
+		$this->controller->Auth->request = $this->controller->request;
+		$this->controller->Auth->response = $this->controller->response;
+		$this->controller->Auth->Session = $this->controller->Session;
+		$this->controller->expects($this->once())
+			->method('onAdminLoginFailure')
+			->will($this->returnValue(true));
+		$this->testAction(
+			'/admin/users/users/login',
+			array(
+				'method' => 'POST',
+				'return' => 'result',
+				'data' => array(
+					'User' => array(
+						'username' => 'orange',
+						'password' => 'banana',
+						'verify_password' => 'banana',
+					)
+				)
+			)
+		);
 	}
 
 }

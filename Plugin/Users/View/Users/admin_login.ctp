@@ -6,19 +6,26 @@
 			'label' => false,
 		));
 		echo $this->Form->input('username', array(
-			'placeholder' => __('Username'),
+			'label' => __d('croogo', 'Username'),
 			'before' => '<span class="add-on"><i class="icon-user"></i></span>',
 			'div' => 'input-prepend text',
 			'class' => 'span11',
 		));
 		echo $this->Form->input('password', array(
-			'placeholder' => 'Password',
+			'label' => 'Password',
 			'before' => '<span class="add-on"><i class="icon-key"></i></span>',
 			'div' => 'input-prepend password',
 			'class' => 'span11',
 		));
-		echo $this->Form->button(__('Log In'));
-		echo $this->Html->link(__('Forgot password?'), array(
+		if (Configure::read('Site.autoLoginDuration')):
+			echo $this->Form->input('remember', array(
+				'label' => __d('croogo', 'Remember me?'),
+				'type' => 'checkbox',
+				'default' => false,
+			));
+		endif;
+		echo $this->Form->button(__d('croogo', 'Log In'));
+		echo $this->Html->link(__d('croogo', 'Forgot password?'), array(
 			'admin' => false,
 			'controller' => 'users',
 			'action' => 'forgot',

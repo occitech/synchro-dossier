@@ -4,26 +4,21 @@ $this->Html->script(array('Nodes.nodes'), false);
 
 $this->Html
 	->addCrumb('', '/admin', array('icon' => 'home'))
-	->addCrumb(__('Content'), $this->here);
+	->addCrumb(__d('croogo', 'Content'), $this->here);
 
 ?>
 <?php $this->start('actions'); ?>
-	<li>
-		<?php echo $this->Html->link(
-			__('Create content'),
-			array('action'=>'create'),
-			array('button' => 'default')
-		); ?>
-	</li>
+<?php
+	echo $this->Croogo->adminAction(
+		__d('croogo', 'Create content'),
+		array('action' => 'create'),
+		array('button' => 'success')
+	);
+?>
 <?php $this->end(); ?>
 <?php
 
-if (isset($this->params['named'])) {
-	foreach ($this->params['named'] as $nn => $nv) {
-		$this->Paginator->options['url'][] = $nn . ':' . $nv;
-	}
-}
-echo $this->element('admin/nodes_filter');
+echo $this->element('admin/nodes_search');
 
 echo $this->Form->create(
 	'Node',
@@ -70,7 +65,7 @@ echo $this->Form->create(
 						?>
 						</span>
 						<?php if ($node['Node']['promote']): ?>
-						<span class="label label-info"><?php echo __('promoted'); ?></span>
+						<span class="label label-info"><?php echo __d('croogo', 'promoted'); ?></span>
 						<?php endif ?>
 					</td>
 					<td>
@@ -93,12 +88,12 @@ echo $this->Form->create(
 							echo $this->Croogo->adminRowActions($node['Node']['id']);
 							echo ' ' . $this->Croogo->adminRowAction('',
 								array('action' => 'edit', $node['Node']['id']),
-								array('icon' => 'pencil', 'tooltip' => __('Edit this item'))
+								array('icon' => 'pencil', 'tooltip' => __d('croogo', 'Edit this item'))
 							);
 							echo ' ' . $this->Croogo->adminRowAction('',
 								'#Node' . $node['Node']['id'] . 'Id',
-								array('icon' => 'trash', 'tooltip' => __('Remove this item'), 'rowAction' => 'delete'),
-								__('Are you sure?')
+								array('icon' => 'trash', 'tooltip' => __d('croogo', 'Remove this item'), 'rowAction' => 'delete'),
+								__d('croogo', 'Are you sure?')
 							);
 						?>
 						</div>
@@ -113,14 +108,14 @@ echo $this->Form->create(
 			<div id="bulk-action" class="control-group">
 			<?php
 				echo $this->Form->input('Node.action', array(
-					'label' => __('Applying to selected'),
+					'label' => __d('croogo', 'Applying to selected'),
 					'div' => 'input inline',
 					'options' => array(
-						'publish' => __('Publish'),
-						'unpublish' => __('Unpublish'),
-						'promote' => __('Promote'),
-						'unpromote' => __('Unpromote'),
-						'delete' => __('Delete'),
+						'publish' => __d('croogo', 'Publish'),
+						'unpublish' => __d('croogo', 'Unpublish'),
+						'promote' => __d('croogo', 'Promote'),
+						'unpromote' => __d('croogo', 'Unpromote'),
+						'delete' => __d('croogo', 'Delete'),
 					),
 					'empty' => true,
 				));
@@ -128,11 +123,11 @@ echo $this->Form->create(
 				<div class="controls">
 				<?php
 					$jsVarName = uniqid('confirmMessage_');
-					echo $this->Form->button(__('Submit'), array(
+					echo $this->Form->button(__d('croogo', 'Submit'), array(
 						'type' => 'button',
 						'onclick' => sprintf('return Nodes.confirmProcess(app.%s)', $jsVarName),
 					));
-					$this->Js->set($jsVarName, __('%s selected items?'));
+					$this->Js->set($jsVarName, __d('croogo', '%s selected items?'));
 				?>
 				</div>
 			</div>

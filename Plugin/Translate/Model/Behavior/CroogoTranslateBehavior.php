@@ -1,4 +1,8 @@
 <?php
+
+App::uses('ModelBehavior', 'Model');
+App::uses('AppModel', 'Model');
+
 /**
  * CroogoTranslate Behavior
  *
@@ -49,7 +53,7 @@ class CroogoTranslateBehavior extends ModelBehavior {
 		$db = ConnectionManager::getDataSource($model->useDbConfig);
 		if (!$db->connected) {
 			trigger_error(
-				__('Datasource %s for CroogoTranslateBehavior of model %s is not connected', $model->useDbConfig, $model->alias),
+				__d('croogo', 'Datasource %s for CroogoTranslateBehavior of model %s is not connected', $model->useDbConfig, $model->alias),
 				E_USER_ERROR
 			);
 			return false;
@@ -281,7 +285,7 @@ if (!defined('CAKEPHP_UNIT_TEST_EXECUTION')) {
 		public $displayField = 'field';
 
 		public $actsAs = array(
-			'Cached' => array(
+			'Croogo.Cached' => array(
 				'prefix' => array(
 					'',
 				),

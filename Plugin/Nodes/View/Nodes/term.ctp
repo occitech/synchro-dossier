@@ -3,16 +3,12 @@
 
 	<?php
 		if (count($nodes) == 0) {
-			__('No items found.');
-		} else {
-			foreach ($this->params['named'] as $nn => $nv) {
-				$this->Paginator->options['url'][$nn] = $nv;
-			}
+			echo __d('croogo', 'No items found.');
 		}
 	?>
 
 	<?php
-		foreach ($nodes as $node) {
+		foreach ($nodes as $node):
 			$this->Nodes->set($node);
 	?>
 	<div id="node-<?php echo $this->Nodes->field('id'); ?>" class="node node-type-<?php echo $this->Nodes->field('type'); ?>">
@@ -24,7 +20,7 @@
 		?>
 	</div>
 	<?php
-		}
+		endforeach;
 	?>
 
 	<div class="paging"><?php echo $this->Paginator->numbers(); ?></div>

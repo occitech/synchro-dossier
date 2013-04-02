@@ -5,7 +5,7 @@ $this->Html->script(array('Menus.links'), false);
 
 $this->Html
 	->addCrumb('', '/admin', array('icon' => 'home'))
-	->addCrumb(__('Menus'), array('plugin' => 'menus', 'controller' => 'menus', 'action' => 'index'));
+	->addCrumb(__d('croogo', 'Menus'), array('plugin' => 'menus', 'controller' => 'menus', 'action' => 'index'));
 
 if ($this->request->params['action'] == 'admin_add') {
 	$this->Html
@@ -13,7 +13,7 @@ if ($this->request->params['action'] == 'admin_add') {
 			'plugin' => 'menus', 'controller' => 'links', 'action' => 'index',
 			'?' => array('menu_id' => $menuId))
 		)
-		->addCrumb(__('Add'), $this->here);
+		->addCrumb(__d('croogo', 'Add'), $this->here);
 	$formUrl = array(
 		'controller' => 'links', 'action' => 'add', 'menu' => $menuId
 	);
@@ -37,10 +37,12 @@ echo $this->Form->create('Link', array('url' => $formUrl));
 	<div class="span8">
 
 		<ul class="nav nav-tabs">
-			<li><a href="#link-basic" data-toggle="tab"><?php echo __('Link'); ?></a></li>
-			<li><a href="#link-access" data-toggle="tab"><?php echo __('Access'); ?></a></li>
-			<li><a href="#link-misc" data-toggle="tab"><?php echo __('Misc.'); ?></a></li>
-			<?php echo $this->Croogo->adminTabs(); ?>
+		<?php
+			echo $this->Croogo->adminTab(__d('croogo', 'Link'), '#link-basic');
+			echo $this->Croogo->adminTab(__d('croogo', 'Access'), '#link-access');
+			echo $this->Croogo->adminTab(__d('croogo', 'Misc.'), '#link-misc');
+			echo $this->Croogo->adminTabs();
+		?>
 		</ul>
 
 		<div class="tab-content">
@@ -51,7 +53,7 @@ echo $this->Form->create('Link', array('url' => $formUrl));
 					'selected' => $menuId,
 				));
 				echo $this->Form->input('parent_id', array(
-					'title' => __('Parent'),
+					'title' => __d('croogo', 'Parent'),
 					'options' => $parentLinks,
 					'empty' => true,
 				));
@@ -60,20 +62,25 @@ echo $this->Form->create('Link', array('url' => $formUrl));
 				));
 				echo $this->Form->input('title', array(
 					'label' => false,
-					'placeholder' => __('Title'),
+					'label' => __d('croogo', 'Title'),
 				));
 				echo $this->Form->input('link', array(
 					'label' => false,
-					'placeholder' => __('Link'),
+					'label' => __d('croogo', 'Link'),
 				));
-				echo $this->Html->link(__('Link to a Node'), Router::url(array(
+				echo $this->Html->link(__d('croogo', 'Link to a Node'), Router::url(array(
 					'plugin' => 'nodes',
 					'controller' => 'nodes',
 					'action' => 'index',
-					'links' => 1,
-				), true) . '?KeepThis=true&TB_iframe=true&height=400&width=600',
+					'?' => array(
+						'chooser' => 1,
+						'KeepThis' => true,
+						'TB_iframe' => true,
+						'height' => 400,
+						'width' => 600,
+					)), true),
 					array(
-						'class' => 'thickbox',
+						'class' => 'link chooser',
 					)
 				);
 			?>
@@ -91,23 +98,23 @@ echo $this->Form->create('Link', array('url' => $formUrl));
 			<?php
 				echo $this->Form->input('class', array(
 					'label' => false,
-					'placeholder' => __('Class'),
+					'label' => __d('croogo', 'Class'),
 				));
 				echo $this->Form->input('description', array(
 					'label' => false,
-					'placeholder' => __('Description'),
+					'label' => __d('croogo', 'Description'),
 				));
 				echo $this->Form->input('rel', array(
 					'label' => false,
-					'placeholder' => __('Rel'),
+					'label' => __d('croogo', 'Rel'),
 				));
 				echo $this->Form->input('target', array(
 					'label' => false,
-					'placeholder' => __('Target'),
+					'label' => __d('croogo', 'Target'),
 				));
 				echo $this->Form->input('params', array(
 					'label' => false,
-					'placeholder' => __('Params'),
+					'label' => __d('croogo', 'Params'),
 				));
 			?>
 			</div>
@@ -119,12 +126,12 @@ echo $this->Form->create('Link', array('url' => $formUrl));
 
 	<div class="span4">
 	<?php
-		echo $this->Html->beginBox(__('Publishing')) .
-			$this->Form->button(__('Apply'), array('name' => 'apply', 'button' => 'default')) .
-			$this->Form->button(__('Save'), array('button' => 'default')) .
-			$this->Html->link(__('Cancel'), array('action' => 'index'), array('button' => 'danger')) .
+		echo $this->Html->beginBox(__d('croogo', 'Publishing')) .
+			$this->Form->button(__d('croogo', 'Apply'), array('name' => 'apply', 'button' => 'default')) .
+			$this->Form->button(__d('croogo', 'Save'), array('button' => 'default')) .
+			$this->Html->link(__d('croogo', 'Cancel'), array('action' => 'index'), array('button' => 'danger')) .
 			$this->Form->input('status', array(
-				'label' => __('Status'),
+				'label' => __d('croogo', 'Status'),
 				'class' => false,
 			)) .
 			$this->Html->endBox();
@@ -133,3 +140,10 @@ echo $this->Form->create('Link', array('url' => $formUrl));
 	</div>
 </div>
 <?php echo $this->Form->end(); ?>
+<?php
+$script =<<<EOF
+$('.link.chooser').itemChooser({
+	fields: [{ type: "Node", target: "#LinkLink", attr: "rel" }]
+});
+EOF;
+$this->Js->buffer($script);
