@@ -3,7 +3,6 @@
 		<a class="brand" href="#"><?= __('Espace client'); ?></a>
 		<ul class="nav">
 			<li class="active"><?= $this->Html->link(__('Accueil'), '/'); ?></li>
-			<li><?= $this->Html->link(__('Aide en ligne'), '#'); ?></li>
 		</ul>
 		<ul class="nav pull-right">
 			<?php if ($this->Session->read('Auth.User') != array()): ?>
