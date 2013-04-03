@@ -1,7 +1,7 @@
 <div class="navbar">
 	<div class="navbar-inner">
-		<a class="brand" href="#"><?= __('Espace client'); ?></a>
 		<ul class="nav">
+			<li><?= $this->Html->link(__('Espace client'), '/', array('class' => 'brand')); ?></li>
 			<li class="active"><?= $this->Html->link(__('Accueil'), '/'); ?></li>
 		</ul>
 		<ul class="nav pull-right">
