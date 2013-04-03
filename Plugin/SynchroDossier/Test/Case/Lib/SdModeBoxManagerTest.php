@@ -1,6 +1,6 @@
 <?php
 
-App::uses('CroogoTestCase', 'TestSuite');
+App::uses('CroogoTestCase', 'Croogo.TestSuite');
 App::uses('SdModeBoxManagerTest', 'SynchroDossier.Lib');
 App::uses('UploadedFile', 'Uploader.Model');
 App::uses('CakeEvent', 'Event');

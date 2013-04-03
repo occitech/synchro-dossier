@@ -1,7 +1,7 @@
 <?php
 
 App::uses('Controller', 'Controller');
-App::uses('CroogoTestCase', 'TestSuite');
+App::uses('CroogoTestCase', 'Croogo.TestSuite');
 App::uses('View', 'View');
 App::uses('FileHelper', 'Uploader.View/Helper');
 
@@ -22,17 +22,17 @@ class FileHelperTest extends CroogoTestCase {
 		$result = $this->File->size(841, 'o');
 		$this->assertEqual('1 Ko', $result);
 	}
-	
+
 	public function testSizeOctectToKo() {
 		$result = $this->File->size(8000, 'o');
 		$this->assertEqual('8 Ko', $result);
 	}
-	
+
 	public function testSizeOctectToMo() {
 		$result = $this->File->size(8000000, 'o');
 		$this->assertEqual('7.6 Mo', $result);
 	}
-	
+
 	public function testSizeOctectToGo() {
 		$result = $this->File->size(8000000000, 'o');
 		$this->assertEqual('7.45 Go', $result);
