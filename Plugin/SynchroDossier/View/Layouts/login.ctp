@@ -2,7 +2,7 @@
 <html lang="en">
 	<head>
 		<meta charset="utf-8">
-		<title><?php echo $title_for_layout; ?> - <?php echo __('Croogo'); ?></title>
+		<title><?php echo $title_for_layout; ?> - <?php echo __(Configure::read('Site.title')); ?></title>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
 		
 		<?php
