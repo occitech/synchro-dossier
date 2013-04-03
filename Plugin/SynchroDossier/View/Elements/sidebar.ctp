@@ -66,7 +66,7 @@
 		</li>	
 
 		<?php if (!empty($SynchroDossier_aroAccessFolder) && isset($folderId)): ?>
-			<?php if ($this->UploaderAcl->userCan('change_right')): ?>
+			<?php if ($this->UploaderAcl->userCan($folderAco['Aco'], 'change_right')): ?>
 				<li class="nav-header">
 					<?= __('Utilisateurs du dossier'); ?>
 						<span style="float: right;">
