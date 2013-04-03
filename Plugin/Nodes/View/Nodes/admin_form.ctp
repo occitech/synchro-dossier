@@ -5,12 +5,12 @@ $this->Html->script(array('Nodes.nodes'), false);
 
 $this->Html
 	->addCrumb('', '/admin', array('icon' => 'home'))
-	->addCrumb(__('Content'), array('controller' => 'nodes', 'action' => 'index'));
+	->addCrumb(__d('croogo', 'Content'), array('controller' => 'nodes', 'action' => 'index'));
 
 if ($this->request->params['action'] == 'admin_add') {
 	$formUrl = array('action' => 'add', $typeAlias);
 	$this->Html
-		->addCrumb(__('Create'), array('controller' => 'nodes', 'action' => 'create'))
+		->addCrumb(__d('croogo', 'Create'), array('controller' => 'nodes', 'action' => 'create'))
 		->addCrumb($type['Type']['title'], $this->here);
 }
 
@@ -26,9 +26,11 @@ echo $this->Form->create('Node', array('url' => $formUrl));
 	<div class="span8">
 
 		<ul class="nav nav-tabs">
-			<li><a href="#node-main" data-toggle="tab"><?php echo __($type['Type']['title']); ?></a></li>
-			<li><a href="#node-access" data-toggle="tab"><?php echo __('Access'); ?></a></li>
-			<?php echo $this->Croogo->adminTabs(); ?>
+		<?php
+			echo $this->Croogo->adminTab(__d('croogo', $type['Type']['title']), '#node-main');
+			echo $this->Croogo->adminTab(__d('croogo', 'Access'), '#node-access');
+			echo $this->Croogo->adminTabs();
+		?>
 		</ul>
 
 		<div class="tab-content">
@@ -42,19 +44,19 @@ echo $this->Form->create('Node', array('url' => $formUrl));
 				));
 				echo $this->Form->input('title', array(
 					'label' => false,
-					'placeholder' => __('Title'),
+					'label' => __d('croogo', 'Title'),
 				));
 				echo $this->Form->input('slug', array(
 					'label' => false,
 					'class' => 'span10 slug',
-					'placeholder' => __('Slug'),
+					'label' => __d('croogo', 'Slug'),
 				));
 				echo $this->Form->input('excerpt', array(
 					'label' => false,
-					'placeholder' => __('Excerpt'),
+					'label' => __d('croogo', 'Excerpt'),
 				));
 				echo $this->Form->input('body', array(
-					'label' => __('Body'),
+					'label' => __d('croogo', 'Body'),
 				));
 			?>
 			</div>
@@ -71,22 +73,20 @@ echo $this->Form->create('Node', array('url' => $formUrl));
 	</div>
 	<div class="span4">
 	<?php
-		echo $this->Html->beginBox(__('Publishing')) .
-			$this->Form->button(__('Apply'), array('name' => 'apply', 'class' => 'btn')) .
-			$this->Form->button(__('Save'), array('class' => 'btn btn-primary')) .
-			$this->Html->link(__('Cancel'), array('action' => 'index'), array('class' => 'cancel btn btn-danger')) .
+		echo $this->Html->beginBox(__d('croogo', 'Publishing')) .
+			$this->Form->button(__d('croogo', 'Apply'), array('name' => 'apply', 'class' => 'btn')) .
+			$this->Form->button(__d('croogo', 'Save'), array('class' => 'btn btn-primary')) .
+			$this->Html->link(__d('croogo', 'Cancel'), array('action' => 'index'), array('class' => 'cancel btn btn-danger')) .
 			$this->Form->input('status', array(
-				'label' => __('Published'),
-				'checked' => 'checked',
+				'label' => __d('croogo', 'Published'),
 				'class' => false,
 			)) .
 			$this->Form->input('promote', array(
-				'label' => __('Promoted to front page'),
-				'checked' => 'checked',
+				'label' => __d('croogo', 'Promoted to front page'),
 				'class' => false,
 			)) .
 			$this->Form->input('user_id', array(
-				'label' => __('Publish as '),
+				'label' => __d('croogo', 'Publish as '),
 			)) .
 			$this->Form->input('created', array(
 				'type' => 'text',

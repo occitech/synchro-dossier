@@ -1,4 +1,5 @@
 <?php
+App::uses('AppHelper', 'View/Helper');
 /**
  * Example Helper
  *
@@ -21,7 +22,7 @@ class ExampleHelper extends AppHelper {
  */
 	public $helpers = array(
 		'Html',
-		'Layout',
+		'Croogo.Layout',
 		'Nodes' => array('className' => 'Nodes.Nodes'),
 	);
 

@@ -4,7 +4,7 @@ $this->set('className', 'translate');
 
 $this->Html
 	->addCrumb('', '/admin', array('icon' => 'home'))
-	->addCrumb(__('Translate'), $this->here)
+	->addCrumb(__d('croogo', 'Translate'), $this->here)
 	->addCrumb($modelAlias)
 	->addCrumb($this->data[$modelAlias]['title']);
 
@@ -20,8 +20,10 @@ echo $this->Form->create($modelAlias, array('url' => array(
 <div class="row-fluid">
 	<div class="span8">
 		<ul class="nav nav-tabs">
-			<li><a href="#translate-main" data-toggle="tab"><?php echo __('Translate'); ?></a></li>
-			<?php echo $this->Croogo->adminTabs(); ?>
+		<?php
+			echo $this->Croogo->adminTab(__d('croogo', 'Translate'), '#translate-main');
+			echo $this->Croogo->adminTabs();
+		?>
 		</ul>
 
 		<div class="tab-content">
@@ -40,9 +42,9 @@ echo $this->Form->create($modelAlias, array('url' => array(
 		</div>
 	</div>
 	<div class="span4">
-		<?php echo $this->Html->beginBox(__('Publishing')) .
-			$this->Form->button(__('Save'), array('class' => 'btn')) .
-			$this->Html->link(__('Cancel'), array('action' => 'index', $this->request->params['pass'][0], $this->request->params['pass'][1]), array('class' => 'cancel btn btn-danger')) .
+		<?php echo $this->Html->beginBox(__d('croogo', 'Publishing')) .
+			$this->Form->button(__d('croogo', 'Save'), array('class' => 'btn')) .
+			$this->Html->link(__d('croogo', 'Cancel'), array('action' => 'index', $this->request->params['pass'][0], $this->request->params['pass'][1]), array('class' => 'cancel btn btn-danger')) .
 			$this->Html->endBox(); ?>
 	</div>
 </div>

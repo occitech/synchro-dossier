@@ -1,33 +1,25 @@
 <?php
 
+if (!$this->request->is('ajax') && isset($this->request->params['admin'])):
+	$this->Html->script('Comments.admin', array('inline' => false));
+endif;
+
 $this->extend('/Common/admin_index');
 
 $this->Html
 	->addCrumb($this->Html->icon('home'), '/admin')
-	->addCrumb(__('Content'), array('plugin' => 'nodes', 'controller' => 'nodes', 'action' => 'index'))
-	->addCrumb(__('Comments'), array('plugin' => 'comments', 'controller' => 'comments', 'action' => 'index'));
+	->addCrumb(__d('croogo', 'Content'), array('plugin' => 'nodes', 'controller' => 'nodes', 'action' => 'index'))
+	->addCrumb(__d('croogo', 'Comments'), array('plugin' => 'comments', 'controller' => 'comments', 'action' => 'index'));
 
 if (isset($criteria['Comment.status'])) {
 	if ($criteria['Comment.status'] == '1') {
-		$this->Html->addCrumb(__('Published'), $this->here);
-		$this->viewVars['title_for_layout'] = __('Comments: Published');
+		$this->Html->addCrumb(__d('croogo', 'Published'), $this->here);
+		$this->viewVars['title_for_layout'] = __d('croogo', 'Comments: Published');
 	} else {
-		$this->Html->addCrumb(__('Approval'), $this->here);
-		$this->viewVars['title_for_layout'] = __('Comments: Approval');
+		$this->Html->addCrumb(__d('croogo', 'Approval'), $this->here);
+		$this->viewVars['title_for_layout'] = __d('croogo', 'Comments: Approval');
 	}
 }
-
-$script =<<<EOF
-$(".comment-view").on("click", function() {
-	var el= \$(this)
-	var modal = \$('#comment-modal');
-	$('#comment-modal')
-	.find('.modal-header h3').html(el.data("title")).end()
-	.find('.modal-body').html('<pre>' + el.data('content') + '</pre>').end()
-	.modal('toggle');
-});
-EOF;
-$this->Js->buffer($script);
 
 echo $this->element('admin/modal', array(
 	'id' => 'comment-modal',
@@ -36,24 +28,16 @@ echo $this->element('admin/modal', array(
 
 ?>
 <?php $this->start('actions'); ?>
-	<li>
-	<?php
-		echo $this->Html->link(
-			__('Published'),
-			array('action'=>'index', 'status' => '1'),
-			array('button' => 'default')
-		);
-	?>
-	</li>
-	<li>
-	<?php
-		echo $this->Html->link(
-			__('Approval'),
-			array('action'=>'index', 'status' => '0'),
-			array('button' => 'default')
-		);
-	?>
-	</li>
+<?php
+	echo $this->Croogo->adminAction(
+		__d('croogo', 'Published'),
+		array('action' => 'index', '?' => array('status' => '1'))
+	);
+	echo $this->Croogo->adminAction(
+		__d('croogo', 'Approval'),
+		array('action' => 'index', '?' => array('status' => '0'))
+	);
+?>
 <?php $this->end(); ?>
 
 <?php echo $this->Form->create('Comment', array('url' => array('controller' => 'comments', 'action' => 'process'))); ?>
@@ -68,7 +52,7 @@ echo $this->element('admin/modal', array(
 		$this->Paginator->sort('node_id'),
 		'',
 		$this->Paginator->sort('created'),
-		__('Actions'),
+		__d('croogo', 'Actions'),
 	));
 ?>
 	<thead>
@@ -82,12 +66,12 @@ echo $this->element('admin/modal', array(
 		$actions[] = $this->Croogo->adminRowActions($comment['Comment']['id']);
 		$actions[] = $this->Croogo->adminRowAction('',
 			array('action' => 'edit', $comment['Comment']['id']),
-			array('icon' => 'pencil', 'tooltip' => __('Edit this item'))
+			array('icon' => 'pencil', 'tooltip' => __d('croogo', 'Edit this item'))
 		);
 		$actions[] = $this->Croogo->adminRowAction('',
 			'#Comment' . $comment['Comment']['id'] . 'Id',
-			array('icon' => 'trash', 'tooltip' => __('Remove this item'), 'rowAction' => 'delete'),
-			__('Are you sure?')
+			array('icon' => 'trash', 'tooltip' => __d('croogo', 'Remove this item'), 'rowAction' => 'delete'),
+			__d('croogo', 'Are you sure?')
 		);
 
 		$actions = $this->Html->div('item-actions', implode(' ', $actions));
@@ -106,7 +90,7 @@ echo $this->element('admin/modal', array(
 				'type' => $comment['Node']['type'],
 				'slug' => $comment['Node']['slug'],
 			)),
-			$this->Html->link($this->Html->image('/img/icons/comment.png'), '#',
+			$this->Html->link($this->Html->image('/croogo/img/icons/comment.png'), '#',
 				array(
 					'class' => 'comment-view',
 					'data-title' => $title,
@@ -122,22 +106,22 @@ echo $this->element('admin/modal', array(
 ?>
 
 </table>
-	<div class="row-fluid">
-		<div id="bulk-action" class="control-group">
-			<?php
-				echo $this->Form->input('Comment.action', array(
-					'label' => false,
-					'div' => 'input inline',
-					'options' => array(
-						'publish' => __('Publish'),
-						'unpublish' => __('Unpublish'),
-						'delete' => __('Delete'),
-					),
-					'empty' => true,
-				));
-			?>
-			<div class="controls">
-			<?php echo $this->Form->end(__('Submit')); ?>
-			</div>
+<div class="row-fluid">
+	<div id="bulk-action" class="control-group">
+		<?php
+			echo $this->Form->input('Comment.action', array(
+				'label' => false,
+				'div' => 'input inline',
+				'options' => array(
+					'publish' => __d('croogo', 'Publish'),
+					'unpublish' => __d('croogo', 'Unpublish'),
+					'delete' => __d('croogo', 'Delete'),
+				),
+				'empty' => true,
+			));
+		?>
+		<div class="controls">
+		<?php echo $this->Form->end(__d('croogo', 'Submit')); ?>
+		</div>
 	</div>
 </div>

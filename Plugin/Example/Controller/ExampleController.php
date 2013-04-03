@@ -1,5 +1,7 @@
 <?php
 
+App::uses('ExampleAppController', 'Example.Controller');
+
 /**
  * Example Controller
  *
@@ -36,7 +38,16 @@ class ExampleController extends ExampleAppController {
  * @return void
  */
 	public function admin_index() {
-		$this->set('title_for_layout', __('Example'));
+		$this->set('title_for_layout', __d('croogo', 'Example'));
+	}
+
+/**
+ * admin_chooser
+ *
+ * @return void
+ */
+	public function admin_chooser() {
+		$this->set('title_for_layout', __d('croogo', 'Chooser Example'));
 	}
 
 /**
@@ -45,7 +56,7 @@ class ExampleController extends ExampleAppController {
  * @return void
  */
 	public function index() {
-		$this->set('title_for_layout', __('Example'));
+		$this->set('title_for_layout', __d('croogo', 'Example'));
 		$this->set('exampleVariable', 'value here');
 	}
 

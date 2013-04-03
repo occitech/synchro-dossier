@@ -1,6 +1,6 @@
 <?php
 
-App::uses('CroogoTestCase', 'TestSuite');
+App::uses('CroogoTestCase', 'Croogo.TestSuite');
 App::uses('SdQuotaManager', 'SynchroDossier.Lib');
 App::uses('CakeEvent', 'Event');
 

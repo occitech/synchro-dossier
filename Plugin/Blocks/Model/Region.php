@@ -1,4 +1,5 @@
 <?php
+
 App::uses('BlocksAppModel', 'Blocks.Model');
 
 /**
@@ -31,7 +32,7 @@ class Region extends BlocksAppModel {
  */
 	public $actsAs = array(
 		'Search.Searchable',
-		'Cached' => array(
+		'Croogo.Cached' => array(
 			'prefix' => array(
 				'region_',
 				'croogo_regions',
@@ -71,6 +72,7 @@ class Region extends BlocksAppModel {
  * @access public
  */
 	public $filterArgs = array(
+		'chooser' => array('type' => null),
 		'title' => array('type' => 'like', 'field' => array('Region.title'))
 	);
 

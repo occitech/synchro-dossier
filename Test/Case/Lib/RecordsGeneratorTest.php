@@ -1,7 +1,7 @@
 <?php
 
 App::uses('RecordsGenerator', 'Lib');
-App::uses('CroogoTestCase', 'TestSuite');
+App::uses('CroogoTestCase', 'Croogo.TestSuite');
 
 class RecordsGeneratorTest extends CroogoTestCase {
 

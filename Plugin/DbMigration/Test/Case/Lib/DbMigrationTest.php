@@ -1,6 +1,6 @@
 <?php
 
-App::uses('CroogoTestCase', 'TestSuite');
+App::uses('CroogoTestCase', 'Croogo.TestSuite');
 App::uses('DbMigration', 'DbMigration.Lib');
 App::uses('Shell', 'Console');
 
@@ -27,11 +27,11 @@ class DbMigrationTest extends CroogoTestCase {
 		'plugin.db_migration.sd_alert_email',
 	);
 
-	protected function _rmContentDir($dir) { 
-		if (is_dir($dir)) { 
-			$contents = scandir($dir); 
-			foreach ($contents as $content) { 
-				if ($content != "." && $content != "..") { 
+	protected function _rmContentDir($dir) {
+		if (is_dir($dir)) {
+			$contents = scandir($dir);
+			foreach ($contents as $content) {
+				if ($content != "." && $content != "..") {
 					if (is_dir($dir."/".$content)) {
 						$this->_rmContentDir($dir."/".$content);
 					} else {
@@ -39,8 +39,8 @@ class DbMigrationTest extends CroogoTestCase {
 					}
 				}
 			}
-			reset($contents); 
-		} 
+			reset($contents);
+		}
 	}
 
 	public function setUp() {
@@ -87,7 +87,7 @@ class DbMigrationTest extends CroogoTestCase {
 			case 'root':
 				return 'Occitech';
 			default:
-				return 'Utilisateur';				
+				return 'Utilisateur';
 		}
 	}
 

@@ -2,7 +2,7 @@
 
 App::uses('SdUser', 'SdUsers.Model');
 App::uses('Controller', 'Controller');
-App::uses('CroogoTestCase', 'TestSuite');
+App::uses('CroogoTestCase', 'Croogo.TestSuite');
 App::uses('AclCachedAuthorize', 'Acl.Controller/Component/Auth');
 App::uses('AuthComponent', 'Controller/Component');
 App::uses('AclComponent', 'Controller/Component');
@@ -85,7 +85,7 @@ class SdUserTest extends CroogoTestCase {
 
 		$this->SdUser->add($data, $creatorId, $roleId);
 
-		$result = $this->Aro->find('first', array('order' => 'id DESC'));		
+		$result = $this->Aro->find('first', array('order' => 'id DESC'));
 
 		$expected = array(
 			'id' => '10',
@@ -123,7 +123,7 @@ class SdUserTest extends CroogoTestCase {
 				'Aro' => array(
 					'className' => 'Aro',
 					'foreignKey' => 'foreign_key'
- 				) 
+				)
 			)
 		));
 

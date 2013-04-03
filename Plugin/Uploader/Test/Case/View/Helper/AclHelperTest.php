@@ -1,6 +1,6 @@
 <?php
 
-App::uses('CroogoTestCase', 'TestSuite');
+App::uses('CroogoTestCase', 'Croogo.TestSuite');
 App::uses('View', 'View');
 App::uses('AclHelper', 'Uploader.View/Helper');
 

@@ -3,7 +3,7 @@
 Croogo::hookHelper('*', 'Comments.Comments');
 
 CroogoNav::add('content.children.comments', array(
-	'title' => __('Comments'),
+	'title' => __d('croogo', 'Comments'),
 	'url' => array(
 		'admin' => true,
 		'plugin' => 'comments',
@@ -12,23 +12,27 @@ CroogoNav::add('content.children.comments', array(
 	),
 	'children' => array(
 		'published' => array(
-			'title' => __('Published'),
+			'title' => __d('croogo', 'Published'),
 			'url' => array(
 				'admin' => true,
 				'plugin' => 'comments',
 				'controller' => 'comments',
 				'action' => 'index',
-				'status' => '1',
+				'?' => array(
+					'status' => '1',
+				),
 			),
 		),
 		'approval' => array(
-			'title' => __('Approval'),
+			'title' => __d('croogo', 'Approval'),
 			'url' => array(
 				'admin' => true,
 				'plugin' => 'comments',
 				'controller' => 'comments',
 				'action' => 'index',
-				'status' => '0',
+				'?' => array(
+					'status' => '0',
+				),
 			),
 		),
 	),

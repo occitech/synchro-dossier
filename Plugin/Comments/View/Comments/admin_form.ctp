@@ -4,8 +4,8 @@ $this->extend('/Common/admin_edit');
 
 $this->Html
 	->addCrumb('', '/admin', array('icon' => 'home'))
-	->addCrumb(__('Content'), array('plugin' => 'nodes', 'controller' => 'nodes', 'action' => 'index'))
-	->addCrumb(__('Comments'), array('plugin' => 'comments', 'controller' => 'comments', 'action' => 'index'))
+	->addCrumb(__d('croogo', 'Content'), array('plugin' => 'nodes', 'controller' => 'nodes', 'action' => 'index'))
+	->addCrumb(__d('croogo', 'Comments'), array('plugin' => 'comments', 'controller' => 'comments', 'action' => 'index'))
 	->addCrumb($this->request->data['Comment']['id'], $this->here);
 
 echo $this->Form->create('Comment');
@@ -15,8 +15,10 @@ echo $this->Form->create('Comment');
 	<div class="span8">
 
 		<ul class="nav nav-tabs">
-			<li><a href="#comment-main" data-toggle="tab"><?php echo __('Comment'); ?></a></li>
-			<?php echo $this->Croogo->adminTabs(); ?>
+		<?php
+			echo $this->Croogo->adminTab(__d('croogo', 'Comment'), '#comment-main');
+			echo $this->Croogo->adminTabs();
+		?>
 		</ul>
 
 		<div class="tab-content">
@@ -28,10 +30,10 @@ echo $this->Form->create('Comment');
 					'class' => 'span10',
 				));
 				echo $this->Form->input('title', array(
-					'placeholder' => __('Title'),
+					'label' => __d('croogo', 'Title'),
 				));
 				echo $this->Form->input('body', array(
-					'placeholder' => __('Body'),
+					'label' => __d('croogo', 'Body'),
 				));
 			?>
 			</div>
@@ -42,24 +44,24 @@ echo $this->Form->create('Comment');
 
 	<div class="span4">
 		<?php
-			echo $this->Html->beginBox(__('Publishing')) .
-				$this->Form->button(__('Save'), array('button' => 'default')) .
+			echo $this->Html->beginBox(__d('croogo', 'Publishing')) .
+				$this->Form->button(__d('croogo', 'Save'), array('button' => 'default')) .
 				$this->Html->link(
-					__('Cancel'),
+					__d('croogo', 'Cancel'),
 					array('action' => 'index'),
 					array('button' => 'danger')
 				) .
 				$this->Form->input('status', array(
-					'placeholder' => __('Published'),
+					'label' => __d('croogo', 'Published'),
 					'class' => false,
 				)) .
 				$this->Html->endBox();
 
-			echo $this->Html->beginBox(__('Contact')) .
-				$this->Form->input('name', array('label' => __('Name'), 'class' => 'span12')) .
-				$this->Form->input('email', array('label' => __('Email'), 'class' => 'span12')) .
-				$this->Form->input('website', array('label' => __('Website'), 'class' => 'span12')) .
-				$this->Form->input('ip', array('disabled' => 'disabled', 'label' => __('Ip'))) .
+			echo $this->Html->beginBox(__d('croogo', 'Contact')) .
+				$this->Form->input('name', array('label' => __d('croogo', 'Name'), 'class' => 'span12')) .
+				$this->Form->input('email', array('label' => __d('croogo', 'Email'), 'class' => 'span12')) .
+				$this->Form->input('website', array('label' => __d('croogo', 'Website'), 'class' => 'span12')) .
+				$this->Form->input('ip', array('disabled' => 'disabled', 'label' => __d('croogo', 'Ip'))) .
 				$this->Html->endBox();
 
 			echo $this->Croogo->adminBoxes();

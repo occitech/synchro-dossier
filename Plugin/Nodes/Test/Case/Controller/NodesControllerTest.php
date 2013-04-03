@@ -1,6 +1,6 @@
 <?php
 App::uses('NodesController', 'Nodes.Controller');
-App::uses('CroogoControllerTestCase', 'TestSuite');
+App::uses('CroogoControllerTestCase', 'Croogo.TestSuite');
 
 class TestNodesController extends NodesController {
 
@@ -42,9 +42,9 @@ class TestNodesController extends NodesController {
 class NodesControllerTest extends CroogoControllerTestCase {
 
 	public $fixtures = array(
-		'aco',
-		'aro',
-		'aros_aco',
+		'plugin.croogo.aco',
+		'plugin.croogo.aro',
+		'plugin.croogo.aros_aco',
 		'plugin.blocks.block',
 		'plugin.comments.comment',
 		'plugin.contacts.contact',
@@ -111,7 +111,35 @@ class NodesControllerTest extends CroogoControllerTestCase {
 	public function testAdminIndex() {
 		$this->testAction('/admin/nodes/index');
 		$this->assertNotEmpty($this->vars['nodes']);
+		$this->assertEquals(2, count($this->vars['nodes']));
 		$this->assertNotEmpty($this->vars['nodes'][0]['Node']);
+		$this->assertNotEmpty($this->vars['nodes'][0]['User']);
+		$this->assertArrayHasKey('CustomFields', $this->vars['nodes'][0]);
+	}
+
+/**
+ * testAdminIndexSearch
+ *
+ * @return void
+ */
+	public function testAdminIndexSearch() {
+		$this->testAction('/admin/nodes/index?filter=about');
+		$this->assertEquals(1, count($this->vars['nodes']));
+		$this->assertEquals(2, $this->vars['nodes'][0]['Node']['id']);
+		$this->assertArrayHasKey('CustomFields', $this->vars['nodes'][0]);
+	}
+
+/**
+ * testAdminIndex - from popups
+ *
+ * @return void
+ */
+	public function testAdminLinks() {
+		$this->testAction('/admin/nodes/nodes/index/links:1/filter:about');
+		$this->assertEquals('admin_popup', $this->controller->View->layout);
+		$this->assertNotEmpty($this->vars['nodes']);
+		$this->assertNotEmpty($this->vars['nodes'][0]['Node']);
+		$this->assertEquals('about', $this->vars['nodes'][0]['Node']['slug']);
 		$this->assertNotEmpty($this->vars['nodes'][0]['User']);
 		$this->assertArrayHasKey('CustomFields', $this->vars['nodes'][0]);
 	}
@@ -131,6 +159,7 @@ class NodesControllerTest extends CroogoControllerTestCase {
 					'type' => 'blog',
 					'token_key' => 1,
 					'body' => '',
+					'created' => '',
 				),
 				'Role' => array(
 					'Role' => array(),
@@ -139,6 +168,55 @@ class NodesControllerTest extends CroogoControllerTestCase {
 		));
 		$newBlog = $this->NodesController->Node->findBySlug('new-blog');
 		$this->assertEqual($newBlog['Node']['title'], 'New Blog');
+		$this->assertNotEmpty($newBlog['Node']['created']);
+		$this->assertNotEquals('0000-00-00 00:00:00', $newBlog['Node']['created']);
+	}
+
+/**
+ * testAdminAddCustomCreated
+ *
+ * @return void
+ */
+	public function testAdminAddCustomCreated() {
+		$this->expectFlashAndRedirect('Node has been saved');
+		$title = 'New Blog (custom created value)';
+		$slug = 'new-blog-custom-created-value';
+		$this->testAction('/admin/nodes/nodes/add', array(
+			'data' => array(
+				'Node' => array(
+					'title' => $title,
+					'slug' => $slug,
+					'type' => 'blog',
+					'token_key' => 1,
+					'body' => '',
+					'created' => '2012-03-24 01:02:03',
+				),
+				'Role' => array(
+					'Role' => array(),
+				),
+			),
+		));
+		$newBlog = $this->NodesController->Node->findBySlug($slug);
+		$this->assertEqual($newBlog['Node']['title'], $title);
+		$this->assertNotEmpty($newBlog['Node']['created'], '2012-03-24 01:02:03');
+	}
+
+/**
+ * testAdminProcessWithInvalidAction
+ *
+ * @return void
+ */
+	public function testAdminProcessWithInvalidAction() {
+		$this->setExpectedException('InvalidArgumentException');
+		$this->testAction('/admin/nodes/nodes/process', array(
+			'data' => array(
+				'Node' => array(
+					'action' => 'avadakadavra',
+					'1' => 0,
+					'2' => 1,
+				),
+			),
+		));
 	}
 
 /**
@@ -215,6 +293,10 @@ class NodesControllerTest extends CroogoControllerTestCase {
  * @return void
  */
 	public function testViewFallback() {
+		App::build(array(
+			'View' => array(CakePlugin::path('Croogo') . 'Test' . DS . 'test_app' . DS . 'View' . DS . 'Themed' . DS . 'Mytheme' . DS),
+		), App::PREPEND);
+
 		$request = new CakeRequest('/admin/nodes/nodes/delete/1');
 		$response = new CakeResponse();
 		$this->Nodes = new TestNodesController($request, $response);
@@ -228,6 +310,70 @@ class NodesControllerTest extends CroogoControllerTestCase {
 
 		$result = $this->Nodes->viewFallback(array('view_1', 'view_blog'));
 		$this->assertContains('view_1.ctp in Mytheme', $result->body());
+	}
+
+/**
+ * testViewFallback from plugin controller that extends NodesController
+ *
+ * @return void
+ */
+	public function testViewFallbackInPlugins() {
+		CakePlugin::load('TestPlugin');
+		$this->Nodes = $this->getMock('TestNodesController',
+			array('render'), array(new CakeRequest(), new CakeResponse())
+		);
+		$this->Nodes->theme = null;
+		$this->Nodes->plugin = 'TestPlugin';
+		$this->Nodes
+			->expects($this->once())
+			->method('render')
+			->with(
+				$this->equalTo('index_event')
+			);
+		$this->Nodes->viewFallback(array('index_event'));
+		unset($this->Nodes);
+	}
+
+/**
+ * testViewFallback from plugin controller that extends NodesController
+ * with an active theme
+ *
+ * @return void
+ */
+	public function testViewFallbackInPluginsWithTheme() {
+		CakePlugin::load('TestPlugin');
+		$this->Nodes = $this->getMock('TestNodesController',
+			array('render'), array(new CakeRequest(), new CakeResponse())
+		);
+		$this->Nodes->theme = 'Mytheme';
+		$this->Nodes->plugin = 'TestPlugin';
+		$this->Nodes
+			->expects($this->once())
+			->method('render')
+			->with(
+				$this->equalTo('index_blog')
+			);
+		$this->Nodes->viewFallback(array('index_blog'));
+		unset($this->Nodes);
+	}
+
+/**
+ * testViewFallback correctly use views from Nodes plugin
+ *
+ * @return void
+ */
+	public function testViewFallbackToCorePlugins() {
+		CakePlugin::load('TestPlugin');
+		$this->Nodes = $this->getMock('TestNodesController',
+			array('render'), array(new CakeRequest(), new CakeResponse())
+		);
+		$this->Nodes->theme = null;
+		$this->Nodes->plugin = 'TestPlugin';
+		$this->Nodes
+			->expects($this->never())
+			->method('render');
+		$this->Nodes->viewFallback(array('view_1', 'view_blog'));
+		unset($this->Nodes);
 	}
 
 }

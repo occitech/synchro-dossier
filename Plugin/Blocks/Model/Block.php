@@ -1,4 +1,5 @@
 <?php
+
 App::uses('BlocksAppModel', 'Blocks.Model');
 
 /**
@@ -30,19 +31,19 @@ class Block extends BlocksAppModel {
  * @access public
  */
 	public $actsAs = array(
-		'Encoder',
-		'Ordered' => array(
+		'Croogo.Encoder',
+		'Croogo.Ordered' => array(
 			'field' => 'weight',
 			'foreign_key' => false,
 		),
-		'Cached' => array(
+		'Croogo.Cached' => array(
 			'prefix' => array(
 				'block_',
 				'blocks_',
 				'croogo_blocks_',
 			),
 		),
-		'Params',
+		'Croogo.Params',
 		'Search.Searchable',
 	);
 
@@ -76,6 +77,7 @@ class Block extends BlocksAppModel {
  * @access public
  */
 	public $filterArgs = array(
+		'chooser' => array('type' => null),
 		'title' => array('type' => 'like', 'field' => array('Block.title', 'Block.alias')),
 		'region_id' => array('type' => 'value'),
 	);

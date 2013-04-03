@@ -1,4 +1,7 @@
 <?php
+
+App::uses('Component', 'Controller');
+
 /**
  * AclFilter Component
  *
@@ -41,6 +44,12 @@ class AclFilterComponent extends Component {
  * @return void
  */
 	protected function _configure() {
+		if (!$this->_Collection->loaded('Acl.AclAutoLogin')) {
+			$this->_Collection->load('Acl.AclAutoLogin');
+		}
+		if (!$this->_Collection->loaded('Cookie')) {
+			$this->_Collection->load('Cookie');
+		}
 		//Configure AuthComponent
 		$this->_controller->Auth->authenticate = array(
 			AuthComponent::ALL => array(
@@ -53,6 +62,7 @@ class AclFilterComponent extends Component {
 					'User.status' => 1,
 				),
 			),
+			'Acl.Cookie',
 			'Form',
 		);
 		$this->_controller->Auth->authorize = array(
@@ -149,14 +159,24 @@ class AclFilterComponent extends Component {
 		$authorized = $allowedActions = array();
 		foreach ($permissions as $permission) {
 			$path = $Acl->Aco->getPath($permission['Permission']['aco_id']);
-			if (count($path) == 4) {
+			if (empty($path)) {
+				continue;
+			}
+			$acos = count($path);
+			if ($acos == 4) {
 				// plugin controller/action
 				$controller = $path[2]['Aco']['alias'];
 				$action = $path[3]['Aco']['alias'];
-			} else {
+			} else if ($acos == 3) {
 				// app controller/action
 				$controller = $path[1]['Aco']['alias'];
 				$action = $path[2]['Aco']['alias'];
+			} else {
+				$this->log(sprintf(
+					'Incomplete path for aco_id = %s:',
+					$permission['Permission']['id']
+				));
+				$this->log($path);
 			}
 			$allowedActions[$controller][] = $action;
 			$authorized[] = implode('/', Hash::extract($path, '{n}.Aco.alias'));

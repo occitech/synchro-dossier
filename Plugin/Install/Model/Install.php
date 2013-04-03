@@ -28,7 +28,6 @@ class Install extends InstallAppModel {
  */
 	protected $_CroogoPlugin = null;
 
-
 /**
  * Create admin user
  *
@@ -41,7 +40,7 @@ class Install extends InstallAppModel {
 		}
 		$User = ClassRegistry::init('Users.User');
 		$Role = ClassRegistry::init('Users.Role');
-		$Role->Behaviors->attach('Aliasable');
+		$Role->Behaviors->attach('Croogo.Aliasable');
 		unset($User->validate['email']);
 		$user['User']['name'] = $user['User']['username'];
 		$user['User']['email'] = '';
@@ -66,7 +65,7 @@ class Install extends InstallAppModel {
 	public function setupDatabase() {
 		$plugins = Configure::read('Core.corePlugins');
 
-		$migrationsSucceed =  true;
+		$migrationsSucceed = true;
 		foreach ($plugins as $plugin) {
 			$migrationsSucceed = $this->runMigrations($plugin);
 			if (!$migrationsSucceed) {
@@ -74,7 +73,7 @@ class Install extends InstallAppModel {
 			}
 		}
 
-		if ($migrationsSucceed) {		
+		if ($migrationsSucceed) {
 			$path = App::pluginPath('Install') . DS . 'Config' . DS . 'Data' . DS;
 			$dataObjects = App::objects('class', $path);
 			foreach ($dataObjects as $data) {

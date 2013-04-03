@@ -1,4 +1,7 @@
 <?php
+
+App::uses('AppHelper', 'View/Helper');
+
 /**
  * FileManager Helper
  *
@@ -110,6 +113,13 @@ class FileManagerHelper extends AppHelper {
 	}
 
 /**
+ * adminAction
+ */
+	public function adminAction($title, $url, $path, $pathKey = 'path') {
+		return $this->Html->tag('li', $this->link($title, $url, $path, $pathKey));
+	}
+
+/**
  * Generate anchor tag for a file/directory
  *
  * @param string $title link title
@@ -126,7 +136,7 @@ class FileManagerHelper extends AppHelper {
 		}
 
 		if (isset($url['action']) && ($url['action'] == 'delete_directory' || $url['action'] == 'delete_file')) {
-			$output = $this->Form->postLink($title, $url, array('data' => compact('path')), __('Are you sure?'));
+			$output = $this->Form->postLink($title, $url, array('data' => compact('path')), __d('croogo', 'Are you sure?'));
 		} else {
 			$output = '<a class="' . $class . '" href="' . $this->Html->url($url) . "?{$pathKey}=" . urlencode($path) . '">' . $title . '</a>';
 		}
@@ -141,7 +151,11 @@ class FileManagerHelper extends AppHelper {
  * @return string
  */
 	public function linkDirectory($title, $path) {
-		$output = $this->link($title, array('controller' => 'file_manager', 'action' => 'browse'), $path);
+		$output = $this->link($title, array(
+			'plugin' => 'file_manager',
+			'controller' => 'file_manager',
+			'action' => 'browse',
+		), $path);
 		return $output;
 	}
 

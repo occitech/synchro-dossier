@@ -1,7 +1,9 @@
 <?php
 
+App::uses('Controller', 'Controller');
 App::uses('File', 'Utility');
 App::uses('InstallManager','Install.Lib');
+
 /**
  * Install Controller
  *
@@ -17,7 +19,7 @@ App::uses('InstallManager','Install.Lib');
 class InstallController extends Controller {
 
 /**
- * No components required
+ * Components
  *
  * @var array
  * @access public
@@ -37,7 +39,7 @@ class InstallController extends Controller {
 		'Form' => array(
 			'className' => 'CroogoForm',
 		),
-		'Layout',
+		'Croogo.Layout',
 	);
 
 /**
@@ -57,7 +59,8 @@ class InstallController extends Controller {
  * Generate assets
  */
 	protected function _generateAssets() {
-		if (!file_exists(CSS . 'croogo-bootstrap.css')) {
+		$file = CakePlugin::path('Croogo') . 'webroot' . DS . 'css' . DS . 'croogo-bootstrap.css';
+		if (!file_exists($file)) {
 			App::uses('AssetGenerator', 'Install.Lib');
 			$generator = new AssetGenerator();
 			try {
@@ -91,7 +94,7 @@ class InstallController extends Controller {
  */
 	public function index() {
 		$this->_check();
-		$this->set('title_for_layout', __('Installation: Welcome'));
+		$this->set('title_for_layout', __d('croogo', 'Installation: Welcome'));
 	}
 
 /**
@@ -106,7 +109,7 @@ class InstallController extends Controller {
  */
 	public function database() {
 		$this->_check();
-		$this->set('title_for_layout', __('Step 1: Database'));
+		$this->set('title_for_layout', __d('croogo', 'Step 1: Database'));
 
 		if (Configure::read('Install.installed')) {
 			$this->redirect(array('action' => 'adminuser'));
@@ -114,7 +117,9 @@ class InstallController extends Controller {
 
 		if (!empty($this->request->data)) {
 			$InstallManager = new InstallManager();
-			$result = $InstallManager->createDatabaseFile($this->request->data);
+			$result = $InstallManager->createDatabaseFile(array(
+				'Install' => $this->request->data,
+			));
 			if ($result !== true) {
 				$this->Session->setFlash($result, 'default', array('class' => 'error'));
 			} else {
@@ -131,11 +136,22 @@ class InstallController extends Controller {
  */
 	public function data() {
 		$this->_check();
-		$this->set('title_for_layout', __('Step 2: Build database'));
+		$this->set('title_for_layout', __d('croogo', 'Step 2: Build database'));
+
+		$this->loadModel('Install.Install');
+		$ds = $this->Install->getDataSource();
+		$ds->cacheSources = false;
+		$sources = $ds->listSources();
+		if (!empty($sources)) {
+			$this->Session->setFlash(
+				__d('croogo', 'Warning: Database "%s" is not empty.', $ds->config['database']),
+				'default', array('class' => 'error')
+			);
+		}
+
 		if (isset($this->params['named']['run'])) {
-			$this->loadModel('Install.Install');
 			$this->Install->setupDatabase();
-			
+
 			$InstallManager = new InstallManager();
 			$result = $InstallManager->createCroogoFile();
 
@@ -158,7 +174,9 @@ class InstallController extends Controller {
 			$this->loadModel('Users.User');
 			$this->User->set($this->request->data);
 			if ($this->User->validates()) {
-				if ($this->Install->addAdminUser($this->request->data)) {
+				$user = $this->Install->addAdminUser($this->request->data);
+				if ($user) {
+					$this->Session->write('Install.user', $user);
 					$this->redirect(array('action' => 'finish'));
 				}
 			}
@@ -174,12 +192,12 @@ class InstallController extends Controller {
  * @access public
  */
 	public function finish($token = null) {
-		$this->set('title_for_layout', __('Installation successful'));
+		$this->set('title_for_layout', __d('croogo', 'Installation successful'));
 		$this->_check();
 
 		$InstallManager = new InstallManager();
 		$result = $InstallManager->createSettingsFile();
-		
+
 		$urlBlogAdd = Router::url(array(
 			'plugin' => 'nodes',
 			'admin' => true,
@@ -195,7 +213,8 @@ class InstallController extends Controller {
 			'Site',
 		));
 
-		$this->set('user', $install);
+		$this->set('user', $this->Session->read('Install.user'));
+		$this->Session->destroy();
 		$this->set(compact('urlBlogAdd', 'urlSettings'));
 	}
 

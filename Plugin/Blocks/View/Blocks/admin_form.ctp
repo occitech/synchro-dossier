@@ -4,13 +4,13 @@ $this->extend('/Common/admin_edit');
 
 $this->Html
 	->addCrumb($this->Html->icon('home'), '/admin')
-	->addCrumb(__('Blocks'), array('plugin' => 'blocks', 'controller' => 'blocks', 'action' => 'index'));
+	->addCrumb(__d('croogo', 'Blocks'), array('plugin' => 'blocks', 'controller' => 'blocks', 'action' => 'index'));
 
 if ($this->request->params['action'] == 'admin_edit') {
 	$this->Html->addCrumb($this->request->data['Block']['title'], $this->here);
 }
 if ($this->request->params['action'] == 'admin_add') {
-	$this->Html->addCrumb(__('Add'), $this->here);
+	$this->Html->addCrumb(__d('croogo', 'Add'), $this->here);
 }
 
 echo $this->Form->create('Block');
@@ -20,11 +20,13 @@ echo $this->Form->create('Block');
 	<div class="span8">
 
 		<ul class="nav nav-tabs">
-			<li><a href="#block-basic" data-toggle="tab"><?php echo __('Block'); ?></a></li>
-			<li><a href="#block-access" data-toggle="tab"><?php echo __('Access'); ?></a></li>
-			<li><a href="#block-visibilities" data-toggle="tab"><?php echo __('Visibilities'); ?></span></a></li>
-			<li><a href="#block-params" data-toggle="tab"><?php echo __('Params'); ?></a></li>
-			<?php echo $this->Croogo->adminTabs(); ?>
+		<?php
+			echo $this->Croogo->adminTab(__d('croogo', 'Block'), '#block-basic');
+			echo $this->Croogo->adminTab(__d('croogo', 'Access'), '#block-access');
+			echo $this->Croogo->adminTab(__d('croogo', 'Visibilities'), '#block-visibilities');
+			echo $this->Croogo->adminTab(__d('croogo', 'Params'), '#block-params');
+			echo $this->Croogo->adminTabs();
+		?>
 		</ul>
 
 		<div class="tab-content">
@@ -37,25 +39,25 @@ echo $this->Form->create('Block');
 					'class' => 'span10',
 				));
 				echo $this->Form->input('title', array(
-					'placeholder' => __('Title'),
+					'label' => __d('croogo', 'Title'),
 				));
 
 				echo $this->Form->input('alias', array(
-					'placeholder' => __('Alias'),
-					'rel' => __('unique name for your block'),
+					'label' => __d('croogo', 'Alias'),
+					'rel' => __d('croogo', 'unique name for your block'),
 				));
 				echo $this->Form->input('region_id', array(
-					'placeholder' => __('Region'),
-					'rel' => __('if you are not sure, choose \'none\''),
+					'label' => __d('croogo', 'Region'),
+					'rel' => __d('croogo', 'if you are not sure, choose \'none\''),
 				));
 				echo $this->Form->input('body', array(
-					'placeholder' => __('Body'),
+					'label' => __d('croogo', 'Body'),
 				));
 				echo $this->Form->input('class', array(
-					'placeholder' => __('Class')
+					'label' => __d('croogo', 'Class')
 				));
 				echo $this->Form->input('element', array(
-					'placeholder' => __('Element')
+					'label' => __d('croogo', 'Element')
 				));
 			?>
 			</div>
@@ -71,8 +73,8 @@ echo $this->Form->create('Block');
 			<div id="block-visibilities" class="tab-pane">
 			<?php
 				echo $this->Form->input('Block.visibility_paths', array(
-					'placeholder' => __('Visibility Paths'),
-					'rel' => __('Enter one URL per line. Leave blank if you want this Block to appear in all pages.')
+					'label' => __d('croogo', 'Visibility Paths'),
+					'rel' => __d('croogo', 'Enter one URL per line. Leave blank if you want this Block to appear in all pages.')
 				));
 			?>
 			</div>
@@ -80,7 +82,7 @@ echo $this->Form->create('Block');
 			<div id="block-params" class="tab-pane">
 			<?php
 				echo $this->Form->input('Block.params', array(
-					'placeholder' => __('Params'),
+					'label' => __d('croogo', 'Params'),
 				));
 			?>
 			</div>
@@ -91,16 +93,16 @@ echo $this->Form->create('Block');
 
 	<div class="span4">
 		<?php
-		echo $this->Html->beginBox(__('Publishing')) .
-			$this->Form->button(__('Apply'), array('name' => 'apply', 'button' => 'default')) .
-			$this->Form->button(__('Save'), array('button' => 'default')) .
-			$this->Html->link(__('Cancel'), array('action' => 'index'), array('button' => 'danger')) .
+		echo $this->Html->beginBox(__d('croogo', 'Publishing')) .
+			$this->Form->button(__d('croogo', 'Apply'), array('name' => 'apply', 'button' => 'default')) .
+			$this->Form->button(__d('croogo', 'Save'), array('button' => 'default')) .
+			$this->Html->link(__d('croogo', 'Cancel'), array('action' => 'index'), array('button' => 'danger')) .
 			$this->Form->input('status', array(
-				'label' => __('Status'),
+				'label' => __d('croogo', 'Status'),
 				'class' => false,
 			)) .
 			$this->Form->input('show_title', array(
-				'label' => __('Show title ?'),
+				'label' => __d('croogo', 'Show title ?'),
 				'class' => false,
 			)) .
 			$this->Html->endBox();

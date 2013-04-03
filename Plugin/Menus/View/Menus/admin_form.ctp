@@ -4,14 +4,14 @@ $this->extend('/Common/admin_edit');
 
 $this->Html
 	->addCrumb('', '/admin', array('icon' => 'home'))
-	->addCrumb(__('Menus'), array('plugin' => 'menus', 'controller' => 'menus', 'action' => 'index'));
+	->addCrumb(__d('croogo', 'Menus'), array('plugin' => 'menus', 'controller' => 'menus', 'action' => 'index'));
 
 if ($this->request->params['action'] == 'admin_edit') {
 	$this->Html->addCrumb($this->request->data['Menu']['title'], $this->here);
 }
 
 if ($this->request->params['action'] == 'admin_add') {
-	$this->Html->addCrumb(__('Add'), $this->here);
+	$this->Html->addCrumb(__d('croogo', 'Add'), $this->here);
 }
 
 echo $this->Form->create('Menu');
@@ -21,9 +21,11 @@ echo $this->Form->create('Menu');
 	<div class="span8">
 
 		<ul class="nav nav-tabs">
-			<li><a href="#menu-basic" data-toggle="tab"><?php echo __('Menu'); ?></a></li>
-			<li><a href="#menu-misc" data-toggle="tab"><?php echo __('Misc.'); ?></a></li>
-			<?php echo $this->Croogo->adminTabs(); ?>
+		<?php
+			echo $this->Croogo->adminTab(__d('croogo', 'Menu'), '#menu-basic');
+			echo $this->Croogo->adminTab(__d('croogo', 'Misc.'), '#menu-misc');
+			echo $this->Croogo->adminTabs();
+		?>
 		</ul>
 
 		<div class="tab-content">
@@ -36,15 +38,15 @@ echo $this->Form->create('Menu');
 				));
 				echo $this->Form->input('title', array(
 					'label' => false,
-					'placeholder' => __('Title'),
+					'label' => __d('croogo', 'Title'),
 				));
 				echo $this->Form->input('alias', array(
 					'label' => false,
-					'placeholder' => __('Alias'),
+					'label' => __d('croogo', 'Alias'),
 				));
 				echo $this->Form->input('description', array(
 					'label' => false,
-					'placeholder' => __('Description'),
+					'label' => __d('croogo', 'Description'),
 				));
 			?>
 			</div>
@@ -53,7 +55,7 @@ echo $this->Form->create('Menu');
 			<?php
 				echo $this->Form->input('params', array(
 					'label' => false,
-					'placeholder' => __('Params'),
+					'label' => __d('croogo', 'Params'),
 				));
 			?>
 			</div>
@@ -65,9 +67,9 @@ echo $this->Form->create('Menu');
 	<div class="span4">
 		<?php
 		echo $this->Html->beginBox('Publishing') .
-			$this->Form->button(__('Apply'), array('name' => 'apply', 'button' => 'default')) .
-			$this->Form->button(__('Save'), array('button' => 'default')) .
-			$this->Html->link(__('Cancel'), array('action' => 'index'), array('button' => 'danger')) .
+			$this->Form->button(__d('croogo', 'Apply'), array('name' => 'apply', 'button' => 'default')) .
+			$this->Form->button(__d('croogo', 'Save'), array('button' => 'default')) .
+			$this->Html->link(__d('croogo', 'Cancel'), array('action' => 'index'), array('button' => 'danger')) .
 			$this->Html->endBox();
 
 		$this->Croogo->adminBoxes();
