@@ -1,5 +1,4 @@
 <?php $this->extend('/Common/admin_index'); ?>
-
 <?php echo $this->Form->create('User', array('url' => array('controller' => 'sd_users', 'action' => 'process'))); ?>
 <div class="row-fluid">
 	<div class="span12">

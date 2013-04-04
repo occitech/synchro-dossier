@@ -6,15 +6,21 @@ class SdUsersController extends SdUsersAppController {
 
 	public $uses = array('SdUsers.SdUser');
 	public $components = array('SdUsers.Roles');
+	public $helpers = array(
+		'Form' => array('className' => 'Croogo.CroogoForm'),
+		'Html' => array('className' => 'Croogo.CroogoHtml'),
+		'Croogo.Layout',
+		'Menus.Menus',
+	);
 
-	public function admin_index() {
+	public function index() {
 		$this->loadModel('Uploader.UploaderAclAco');
 		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
 		$users = $this->paginate();
 		$this->set(compact('users', 'can'));
 	}
 
-	public function admin_add() {
+	public function add() {
 		if (!empty($this->request->data)) {
 			$userId = $this->Auth->user('id');
 			$roleId = $this->Auth->user('role_id');
@@ -29,7 +35,7 @@ class SdUsersController extends SdUsersAppController {
 		$this->set('roles', $this->SdUser->Role->find('list'));
 	}
 
-	public function admin_edit($userId) {
+	public function edit($userId) {
 		if ($this->request->data) {
 			$roleId = $this->Auth->user('role_id');
 			if ($this->SdUser->edit($this->request->data, $roleId)) {
@@ -44,7 +50,7 @@ class SdUsersController extends SdUsersAppController {
 		$this->set('roles', $this->SdUser->Role->find('list'));
 	}
 
-	public function admin_delete($id = null) {
+	public function delete($id = null) {
 		$httpCode = null;
 		if (is_null($id)) {
 			$httpCode = 404;

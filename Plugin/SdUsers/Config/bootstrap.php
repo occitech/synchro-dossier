@@ -42,7 +42,7 @@ $adminMenu = array(
 	'url' => array(
 		'plugin' => 'sd_users',
 		'controller' => 'sd_users',
-		'action' => 'admin_index',
+		'action' => 'index',
 	),
 	'children' => array(
 		'list' => array(
@@ -50,7 +50,7 @@ $adminMenu = array(
 			'url' => array(
 				'plugin' => 'sd_users',
 				'controller' => 'sd_users',
-				'action' => 'admin_index',
+				'action' => 'index',
 			),
 		),
 		'add' => array(
@@ -58,7 +58,7 @@ $adminMenu = array(
 			'url' => array(
 				'plugin' => 'sd_users',
 				'controller' => 'sd_users',
-				'action' => 'admin_add',
+				'action' => 'add',
 			),
 		),
 	),
