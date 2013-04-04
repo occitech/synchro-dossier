@@ -13,7 +13,7 @@ class RolesComponent extends Component {
 
 	public function beforeRender(&$Controller) {
 		if ($Controller instanceof SdUsersController) {
-			if (in_array($Controller->action, array('admin_add', 'admin_edit'))) {
+			if (in_array($Controller->action, array('add', 'edit'))) {
 				$this->__restrictAllowedRoles($Controller);
 			}
 		}
