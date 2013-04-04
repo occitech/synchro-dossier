@@ -1,3 +1,15 @@
+<?php
+	$this->start('navbar');
+		echo $this->element('SynchroDossier.navbar');
+	$this->end();
+?>
+<?php $this->start('sidebar'); ?>
+	<?php if (isset($can)): ?>
+		<?= $this->element('SynchroDossier.sidebar', array('can' => $can)); ?>
+	<?php endif ?>
+<?php $this->end();	?>
+
+
 <div class="rights uploader">
 	<div class="add-right">
 		<?=
