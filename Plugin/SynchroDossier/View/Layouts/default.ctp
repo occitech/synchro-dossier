@@ -35,14 +35,17 @@
 				<?= $this->element('sdHeader'); ?>
 			<?php endif ?>
 		</header>
-		<?= $this->element('SynchroDossier.navbar'); ?>
+		<?= $this->fetch('navbar') ?>
 		<div id="content-container" class="container-fluid">
 			<div class="row-fluid">
-				<?php if (isset($can)): ?>				
-					<div class="sidebar well">
-						<?= $this->element('SynchroDossier.sidebar', array('can' => $can)); ?>
-					</div>
-				<?php endif ?>
+			<?php
+				$sidebar = $this->fetch('sidebar');
+				if (trim($sidebar) != ''):
+			?>
+				<div class="sidebar well">
+					<?= $sidebar; ?>
+				</div>
+			<? endif; ?>
 				<div id="content" class="clearfix">
 					<div id="inner-content" class="span12">
 						<?= $this->Layout->sessionFlash(); ?>

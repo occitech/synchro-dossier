@@ -1,4 +1,8 @@
-<?php $this->extend('/Common/admin_edit'); ?>
+<?php
+	$this->start('navbar');
+		echo $this->element('SynchroDossier.navbar'); 
+	$this->end();
+?>
 <?= $this->Form->create('SdUser');?>
 
 <div class="row-fluid">
@@ -6,12 +10,12 @@
 
 	<?= $this->Html->beginBox(__('User Login')); ?>
 		<?php if (isset($this->request->data['User']['id'])): ?>
-				<?= $this->Form->hidden('User.id'); ?>
+			<?= $this->Form->hidden('User.id'); ?>
 		<?php endif ?>
 		<?=
 			$this->Form->input('User.role_id', array('placeholder' => __('Role'))) .
 			$this->Form->input('User.email', array('placeholder' => __('Email'))) .
-			$this->Form->input('User.password', array('placeholder' => __('Mot de passe'), 'type' => 'text'));
+			$this->Form->input('User.password', array('placeholder' => __('Mot de passe')));
 		?>
 	<?= $this->Html->endBox();?>
 
@@ -25,8 +29,6 @@
 			$this->Form->input('Profile.society', array('placeholder' => __('Société'), 'label' => __('Société')));
 		?>
 	<?= $this->Html->endBox(); ?>
-
-		<?php echo $this->Croogo->adminTabs(); ?>
 	</div>
 
 	<div class="span4">

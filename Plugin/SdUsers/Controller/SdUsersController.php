@@ -8,9 +8,7 @@ class SdUsersController extends SdUsersAppController {
 	public $components = array('SdUsers.Roles');
 	public $helpers = array(
 		'Form' => array('className' => 'Croogo.CroogoForm'),
-		'Html' => array('className' => 'Croogo.CroogoHtml'),
-		'Croogo.Layout',
-		'Menus.Menus',
+		'Html' => array('className' => 'Croogo.CroogoHtml')
 	);
 
 	public function index() {
