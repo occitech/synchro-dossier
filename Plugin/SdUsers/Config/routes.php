@@ -8,7 +8,7 @@ CroogoRouter::connect('/users', array(
 	'plugin' => 'sd_users', 'controller' => 'sd_users', 'action' => 'index'
 ));
 
-CroogoRouter::connect('/users/edit', array(
+CroogoRouter::connect('/users/edit/*', array(
 	'plugin' => 'sd_users', 'controller' => 'sd_users', 'action' => 'edit'
 ));
 
