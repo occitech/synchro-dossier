@@ -27,10 +27,15 @@ $authConfig = array(
 			'User.status' => 1,
 		),
 	),
-	'Form',
+	'Form'
 );
 
 Configure::write('Acl.Auth.authenticate', $authConfig);
+Configure::write('Acl.Auth.loginRedirect', array(
+	'plugin' => 'uploader',
+	'controller' => 'files',
+	'action' => 'browse',
+));
 
 $adminMenu = array(
 	'icon' => array('file', 'large'),
