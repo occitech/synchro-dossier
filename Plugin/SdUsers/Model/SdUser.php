@@ -38,6 +38,10 @@ class SdUser extends User {
 		'Profile' => array(
 			'className' => 'SdUsers.Profile',
 			'dependent' => true
+		),
+		'Aro' => array(
+			'className' => 'Aro',
+			'foreignKey' => 'foreign_key'
 		)
 	);
 
@@ -120,14 +124,6 @@ class SdUser extends User {
 	}
 
 	public function getAllRights($userId) {
-		$this->bindModel(array(
-			'hasOne' => array(
-				'Aro' => array(
-					'className' => 'Aro',
-					'foreignKey' => 'foreign_key'
- 				) 
-			)
-		));
 
 		$result = $this->find('first', array(
 			'noRoleChecking' => '',
