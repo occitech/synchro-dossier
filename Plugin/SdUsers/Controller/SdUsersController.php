@@ -43,7 +43,10 @@ class SdUsersController extends SdUsersAppController {
 				$this->Session->setFlash(__('L\'utilisateur ne peux pas être modifié'), 'default', array('class' => 'error'));
 			}
 		} else {
-			$this->request->data = $this->SdUser->read(null, $userId);
+			$this->request->data = $this->SdUser->find('first', array(
+				'conditions' => array('User.' . $this->SdUser->primaryKey => $userId),
+				'noRoleChecking' => true
+			));			
 		}
 		$this->set('roles', $this->SdUser->Role->find('list'));
 	}
