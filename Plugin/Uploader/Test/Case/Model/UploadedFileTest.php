@@ -525,4 +525,39 @@ class UploadedFileTest extends OccitechCakeTestCase {
 
 		$this->assertFalse($result);
 	}
+
+	public function testRemoveFolder() {
+		$result = $this->UploadedFile->remove(3, 1);
+		$this->assertTrue($result);
+
+		$folderDeleted = $this->UploadedFile->find('first', array(
+			'conditions' => array('UploadedFile.filename' => 'Fruits', 'UploadedFile.parent_id' => 1)
+		));
+		$fileDeleted1 = $this->UploadedFile->find('first', array(
+			'conditions' => array('UploadedFile.filename' => 'Fraises.jpg', 'UploadedFile.parent_id' => 3)
+		));
+		$fileDeleted2 = $this->UploadedFile->find('first', array(
+			'conditions' => array('UploadedFile.filename' => 'pommes.jpg', 'UploadedFile.parent_id' => 3)
+		));
+
+		$this->assertTrue(empty($folderDeleted));
+		$this->assertTrue(empty($fileDeleted1));
+		$this->assertTrue(empty($fileDeleted2));
+	}
+
+	public function testRemoveFolder_ShouldRemoveNestedFolder() {
+		$result = $this->UploadedFile->remove(1, null);
+		$this->assertTrue($result);
+
+		$foldersExists = $this->UploadedFile->find('all', array(
+			'conditions' => array('UploadedFile.parent_id' => 1)
+		));
+
+		$this->assertFalse(!empty($foldersExists));
+	}
+
+	public function testRemoveFolder_ShouldThrowExceptionIfFileIdIsNotAFolder() {
+		$this->setExpectedException('InvalidArgumentException');
+		$this->UploadedFile->remove(5, 1);
+	}
 }

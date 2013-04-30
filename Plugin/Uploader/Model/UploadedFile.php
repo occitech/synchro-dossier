@@ -472,4 +472,16 @@ class UploadedFile extends UploaderAppModel {
 
 		return $this->download($fileStorage['FileStorage']['id']);
 	}
+
+	public function remove($fileId, $userId) {
+		$folder = $this->findById($fileId);
+		if (!empty($folder)) {
+			if (!$folder[$this->alias]['is_folder']) {
+				throw new InvalidArgumentException(__('Current id %s is not a folder', $fileId));
+			}
+		}
+		$success = $this->delete($fileId);
+
+		return $success;;
+	}
 }
