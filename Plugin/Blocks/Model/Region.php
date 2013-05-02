@@ -8,7 +8,7 @@ App::uses('BlocksAppModel', 'Blocks.Model');
  * PHP version 5
  *
  * @category Blocks.Model
- * @package  Croogo
+ * @package  Croogo.Blocks.Model
  * @version  1.0
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -33,11 +33,8 @@ class Region extends BlocksAppModel {
 	public $actsAs = array(
 		'Search.Searchable',
 		'Croogo.Cached' => array(
-			'prefix' => array(
-				'region_',
-				'croogo_regions',
-				'block_',
-				'croogo_blocks_',
+			'groups' => array(
+				'blocks',
 			),
 		),
 	);

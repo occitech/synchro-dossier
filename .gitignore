@@ -4,7 +4,6 @@ Config/settings.json
 Vendor/Simpletest/
 View/Themed/
 webroot/uploads/
-uploads/
 *.bak
 *.swp
 

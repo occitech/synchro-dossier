@@ -3,6 +3,7 @@
 App::uses('AppHelper', 'View/Helper');
 
 /**
+ * @package Croogo.Croogo.View.Helper
  * @link http://bakery.cakephp.org/articles/view/recaptcha-component-helper-for-cakephp
  */
 class RecaptchaHelper extends AppHelper {

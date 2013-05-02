@@ -1,8 +1,9 @@
 <?php
+
 /**
  * Croogo
  *
- * @package  Croogo
+ * @package  Croogo.Croogo.Lib
  * @version  1.0
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -243,6 +244,20 @@ class Croogo {
 		}
 		$path = '/' . str_replace(Router::url('/', true), '', $absoluteUrl);
 		return $path;
+	}
+
+/**
+ * Merge Configuration
+ *
+ * @param string $key Configure key
+ * @param array $config New configuration to merge
+ * @param return array Array of merged configurations
+ */
+	public static function mergeConfig($key, $config) {
+		$values = Configure::read($key);
+		$values = Hash::merge((array)$values, $config);
+		Configure::write($key, $values);
+		return $values;
 	}
 
 }

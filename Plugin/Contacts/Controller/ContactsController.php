@@ -9,7 +9,7 @@ App::uses('ContactsAppController', 'Contacts.Controller');
  * PHP version 5
  *
  * @category Controller
- * @package  Croogo
+ * @package  Croogo.Contacts.Controller
  * @version  1.0
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -142,7 +142,7 @@ class ContactsController extends ContactsAppController {
 				'Contact.status' => 1,
 			),
 			'cache' => array(
-				'name' => 'contact_' . $alias,
+				'name' => $alias,
 				'config' => 'contacts_view',
 			),
 		));
@@ -254,8 +254,12 @@ class ContactsController extends ContactsAppController {
  */
 	protected function _send_email($continue, $contact) {
 		$email = new CakeEmail();
-		if ($contact['Contact']['message_notify'] && $continue === true) {
-			$siteTitle = Configure::read('Site.title');
+		if (!$contact['Contact']['message_notify'] || $continue !== true) {
+			return $continue;
+		}
+
+		$siteTitle = Configure::read('Site.title');
+		try {
 			$email->from($this->request->data['Message']['email'])
 				->to($contact['Contact']['email'])
 				->subject(__d('croogo', '[%s] %s', $siteTitle, $contact['Contact']['title']))
@@ -269,6 +273,9 @@ class ContactsController extends ContactsAppController {
 			if (!$email->send()) {
 				$continue = false;
 			}
+		} catch (SocketException $e) {
+			$this->log(sprintf('Error sending contact notification: %s', $e->getMessage()));
+			$continue = false;
 		}
 
 		return $continue;
