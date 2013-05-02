@@ -66,6 +66,29 @@ class SdUserTest extends CroogoTestCase {
 		$this->assertEqual($creatorId, $lastUserAdded['User']['creator_id']);
 	}
 
+	public function testAdd_FillUsernameField() {
+		$creatorId = 3;
+		$roleId = 1;
+		$data = array(
+			'User' => array(
+				'role_id' => '6',
+				'username' => '',
+				'email' => 'coucou@coucou.com',
+				'status' => '1'
+			),
+			'Profile' => array(
+				'name' => 'sdfsqfsdf',
+				'firstname' => 'sdf',
+				'society' => 'qsqssdf'
+			)
+		);
+		$result = $this->SdUser->add($data, $creatorId, $roleId);
+		$lastUserAdded = $this->SdUser->find('first', array('order' => 'User.id DESC'));
+
+		$this->assertTrue($result);
+		$this->assertTrue(!empty($lastUserAdded['User']['username']));
+	}
+
 	public function testAdd_AroCorrectlyAdded() {
 		$creatorId = 3;
 		$roleId = 1;
