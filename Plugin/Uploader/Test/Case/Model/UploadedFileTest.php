@@ -19,6 +19,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		'plugin.uploader.uploaded_file',
 		'plugin.uploader.file_storage',
 		'plugin.uploader.user',
+		'plugin.uploader.profile',
 		'plugin.uploader.role',
 		'plugin.uploader.aco',
 		'plugin.uploader.aro',
