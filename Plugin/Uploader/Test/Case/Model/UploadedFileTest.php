@@ -19,6 +19,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		'plugin.uploader.uploaded_file',
 		'plugin.uploader.file_storage',
 		'plugin.uploader.user',
+		'plugin.uploader.profile',
 		'plugin.uploader.role',
 		'plugin.uploader.aco',
 		'plugin.uploader.aro',
@@ -31,20 +32,20 @@ class UploadedFileTest extends OccitechCakeTestCase {
 /**
  * Remove content of the folder and all subfolder !
  */
-	protected function _rmContentDir($dir) { 
-		if (is_dir($dir)) { 
-			$contents = scandir($dir); 
-			foreach ($contents as $content) { 
-				if ($content != "." && $content != "..") { 
+	protected function _rmContentDir($dir) {
+		if (is_dir($dir)) {
+			$contents = scandir($dir);
+			foreach ($contents as $content) {
+				if ($content != "." && $content != "..") {
 					if (filetype($dir."/".$content) == "dir") {
 						$this->_rmContentDir($dir."/".$content);
 					} else {
 						unlink($dir."/".$content);
 					}
-				} 
-			} 
-			reset($contents); 
-		} 
+				}
+			}
+			reset($contents);
+		}
 	}
 
 	protected function _runProtectedMethod($name, $args = array()) {
@@ -148,7 +149,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$data = array('UploadedFile' => array('filename' => 'MygreatFile'));
 
 		$result = $this->UploadedFile->addFolder($data, $parentId, $userId);
-		$this->assertEqual($result['UploadedFile']['filename'], 'MygreatFile');	
+		$this->assertEqual($result['UploadedFile']['filename'], 'MygreatFile');
 	}
 
 	public function testAddFolderFilenameError() {
@@ -176,7 +177,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$expectedData = $data;
 		$expectedData['UploadedFile']['id'] = 7;
 		$user['id'] = 1;
-		
+
 		$callbackForNewMessage = $this->expectEventDispatched(
 			'Model.UploadedFile.AfterSharingCreation',
 			$this->isInstanceOf($this->UploadedFile),
@@ -201,7 +202,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
  */
 	public function testGetThreadedFolders_AllFolders() {
 		$result = $this->UploadedFile->getThreadedAllFolders();
-		
+
 		$this->assertEqual(count($result), 2);
 	}
 
@@ -237,12 +238,12 @@ class UploadedFileTest extends OccitechCakeTestCase {
 
 	public function testGetFoldersPathFolderNotExist() {
 		$result = $this->_runProtectedMethod('_getFoldersPath', array(18));
-		$this->assertEqual($result, false);		
+		$this->assertEqual($result, false);
 	}
 
 	public function testGetFoldersPathFileGiven() {
 		$result = $this->_runProtectedMethod('_getFoldersPath', array(7));
-		$this->assertEqual($result, false);		
+		$this->assertEqual($result, false);
 	}
 
 /**
@@ -272,7 +273,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$result = $this->UploadedFile->find('first', array('conditions' => array('UploadedFile.filename' => 'Fraise.jpg')));
 		$this->assertEqual($result['UploadedFile']['id'], 4);
 		$this->assertEqual($result['UploadedFile']['current_version'], 1);
-		$this->assertEqual($result['UploadedFile']['user_id'], 1);		
+		$this->assertEqual($result['UploadedFile']['user_id'], 1);
 	}
 
 	public function testUploadFileNotExist() {
@@ -282,7 +283,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->data['file']['name'] = 'Newfile.jpg';
 		$filename = Security::hash('Newfile.jpg');
 		$this->UploadedFile->upload($this->data, $user, 1);
-		
+
 		$result = $this->UploadedFile->find('first', array('order' => 'UploadedFile.id desc'));
 		$this->assertEqual($result['UploadedFile']['id'], 7);
 		$this->assertEqual($result['UploadedFile']['filename'], 'Newfile.jpg');
