@@ -565,5 +565,33 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->UploadedFile->removeFolder(5, 1);
 	}
 
+	public function testRemoveFolder_DeleteFilesInFileSystem() {
+		$files = $this->UploadedFile->_getFoldersPath(3);
+		unset($files[3]);
+		if (!is_dir(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . '1' . DS . '5')) {
+			mkdir(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . '1' . DS . '5');
+		}
+
+		foreach ($files as $file) {
+			touch(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . $file['remote_path']);
+		}
+
+		$success = $this->UploadedFile->removeFolder(3, 1);
+		$this->assertTrue($success);
+
+		foreach ($files as $file) {
+			$this->assertFalse(is_file(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . $file));
+		}
+	}
+
+	public function testRemoveFolder_ShouldThrowExceptionIfInvalidId() {
+		$this->setExpectedException('NotFoundException');
+		$this->UploadedFile->removeFolder(42, 1);
+	}
+
+	public function testRemoveFolder_WhenNotOwner() {
+		$result = $this->UploadedFile->removeFolder(1, 4);
+		$this->assertFalse($result);
+	}
 
 }
