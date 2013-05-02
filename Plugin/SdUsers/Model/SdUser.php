@@ -90,7 +90,7 @@ class SdUser extends User {
 		$data[$this->alias]['creator_id'] = $creatorId;
 		$data[$this->alias]['status'] = 1;
 		if (empty($data[$this->alias]['username'])) {
-			$data[$this->alias]['username'] = sprintf('%s.%s', $data[$this->Profile->alias]['name'], $data[$this->Profile->alias]['firstname']);
+			$data[$this->alias]['username'] = strtolower(sprintf('%s.%s', $data[$this->Profile->alias]['name'], $data[$this->Profile->alias]['firstname']));
 		}
 		$data[$this->alias]['name'] = sprintf('%s %s', $data[$this->Profile->alias]['name'], $data[$this->Profile->alias]['firstname']);
 		return $this->saveAssociated($data);
