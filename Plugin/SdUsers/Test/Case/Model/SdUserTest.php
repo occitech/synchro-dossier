@@ -87,6 +87,8 @@ class SdUserTest extends CroogoTestCase {
 
 		$this->assertTrue($result);
 		$this->assertTrue(!empty($lastUserAdded['User']['username']));
+
+		$this->assertEquals('sdfsqfsdf.sdf', $lastUserAdded['User']['username']);
 	}
 
 	public function testAdd_AroCorrectlyAdded() {
@@ -180,7 +182,7 @@ class SdUserTest extends CroogoTestCase {
 			)
 		);
 		$result = $this->SdUser->add($data, $creatorId, $roleId);
-		$this->assertFalse($result);
+		$this->assertTrue($result);
 	}
 
 	public function testEdit_Ok() {

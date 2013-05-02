@@ -89,7 +89,10 @@ class SdUser extends User {
 		$data[$this->alias]['activation_key'] = md5(uniqid());
 		$data[$this->alias]['creator_id'] = $creatorId;
 		$data[$this->alias]['status'] = 1;
-		$data[$this->alias]['name'] = $data[$this->Profile->alias]['name'] . ' ' . $data[$this->Profile->alias]['firstname'];
+		if (empty($data[$this->alias]['username'])) {
+			$data[$this->alias]['username'] = sprintf('%s.%s', $data[$this->Profile->alias]['name'], $data[$this->Profile->alias]['firstname']);
+		}
+		$data[$this->alias]['name'] = sprintf('%s %s', $data[$this->Profile->alias]['name'], $data[$this->Profile->alias]['firstname']);
 		return $this->saveAssociated($data);
 	}
 
