@@ -27,7 +27,7 @@
  * PHP version 5
  *
  * @category Component
- * @package  Acl
+ * @package  Croogo.Acl.Controller.Component
  * @version  1.0
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -90,7 +90,7 @@ class RowLevelAclComponent extends Component {
 		$Permission = $this->_controller->Acl->Aro->Permission;
 		$Role = ClassRegistry::init('Users.Role');
 		$roles = $Role->find('list', array(
-			'cache' => array('name' => 'roles', 'config' => 'nodes_index'),
+			'cache' => array('name' => 'roles', 'config' => 'permissions'),
 		));
 		$modelClass = $this->_controller->modelClass;
 		$aco = array('model' => $modelClass, 'foreign_key' => $id);

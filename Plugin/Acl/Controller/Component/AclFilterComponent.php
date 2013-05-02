@@ -8,7 +8,7 @@ App::uses('Component', 'Controller');
  * PHP version 5
  *
  * @category Component
- * @package  Croogo
+ * @package  Croogo.Acl.Controller.Component
  * @version  1.0
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -32,10 +32,26 @@ class AclFilterComponent extends Component {
 	public function initialize(Controller $controller) {
 		$this->_controller = $controller;
 
-		if (Configure::read('Access Control.multiRole')) {
+		if ($this->_config('multiRole')) {
 			Croogo::hookAdminTab('Users/admin_add', 'Roles', 'Acl.admin/roles');
 			Croogo::hookAdminTab('Users/admin_edit', 'Roles', 'Acl.admin/roles');
 		}
+	}
+
+/**
+ * Helper function to retrieve value from `Access Control` settings
+ *
+ * @return mixed null when config key is not found
+ */
+	protected function _config($key) {
+		static $config = null;
+		if (empty($config)) {
+			$config = Configure::read('Access Control');
+		}
+		if (array_key_exists($key, $config)) {
+			return $config[$key];
+		}
+		return null;
 	}
 
 /**
@@ -62,9 +78,29 @@ class AclFilterComponent extends Component {
 					'User.status' => 1,
 				),
 			),
-			'Acl.Cookie',
-			'Form',
 		);
+		if ($this->_config('autoLoginDuration')) {
+			if (!function_exists('mcrypt_encrypt')) {
+				$notice = __d('croogo', '"AutoLogin" (Remember Me) disabled since mcrypt_encrypt is not available');
+				$this->log($notice, LOG_CRIT);
+				if (isset($this->_controller->request->params['admin'])) {
+					$this->_controller->Session->setFlash($notice, 'default', null, array('class', 'error'));
+				}
+				if (isset($this->_controller->Setting)) {
+					$Setting = $this->_controller->Setting;
+				} else {
+					$Setting = ClassRegistry::init('Settings.Setting');
+				}
+				$Setting->write('Access Control.autoLoginDuration', '');
+			}
+			$this->_controller->Auth->authenticate[] = 'Acl.Cookie';
+		}
+		if ($this->_config('multiColumn')) {
+			$this->_controller->Auth->authenticate[] = 'Acl.MultiColumn';
+		} else {
+			$this->_controller->Auth->authenticate[] = 'Form';
+		}
+
 		$this->_controller->Auth->authorize = array(
 			AuthComponent::ALL => array(
 				'actionPath' => 'controllers',
@@ -72,6 +108,16 @@ class AclFilterComponent extends Component {
 			),
 			'Acl.AclCached',
 		);
+
+		$this->configureLoginActions();
+	}
+
+/**
+ * Load login actions configurations
+ *
+ * @return void
+ */
+	public function configureLoginActions() {
 		$this->_controller->Auth->loginAction = array(
 			'plugin' => 'users',
 			'controller' => 'users',
@@ -87,10 +133,25 @@ class AclFilterComponent extends Component {
 			'controller' => 'users',
 			'action' => 'index',
 		);
+		$this->_controller->Auth->unauthorizedRedirect = array(
+			'plugin' => 'users',
+			'controller' => 'users',
+			'action' => 'login',
+		);
 
 		$config = Configure::read('Acl');
 		if (!empty($config['Auth']) && is_array($config['Auth'])) {
+			$isAdminRequest = !empty($this->_controller->request->params['admin']);
+			$authActions = array(
+				'loginAction', 'loginRedirect', 'logoutRedirect',
+				'unauthorizedRedirect',
+			);
 			foreach ($config['Auth'] as $property => $value) {
+				$isAdminRoute = !empty($value['admin']);
+				$isAuthAction = in_array($property, $authActions);
+				if (!is_string($value) && $isAdminRequest !== $isAdminRoute && $isAuthAction) {
+					continue;
+				}
 				$this->_controller->Auth->{$property} = $value;
 			}
 		}
@@ -153,8 +214,8 @@ class AclFilterComponent extends Component {
 				'Permission._read' => 1,
 				'Permission._update' => 1,
 				'Permission._delete' => 1,
-				)
-			));
+			)
+		));
 
 		$authorized = $allowedActions = array();
 		foreach ($permissions as $permission) {

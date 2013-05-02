@@ -1,27 +1,12 @@
-[submodule "locale"]
+[submodule "Locale"]
 	path = Locale
 	url = git://github.com/croogo/locale.git
-[submodule "Plugin/Migrations"]
+[submodule "Migrations"]
 	path = Plugin/Migrations
 	url = git://github.com/CakeDC/migrations.git
-[submodule "Plugin/Search"]
+[submodule "Search"]
 	path = Plugin/Search
 	url = git://github.com/CakeDC/search.git
-[submodule "Plugin/FileStorage"]
-	path = Plugin/FileStorage
-	url = git://github.com/burzum/FileStorage.git
-[submodule "Plugin/Plupload"]
-	path = Plugin/Plupload
-	url = git://github.com/occitech/CakePHP-Plupload-Plugin.git
-[submodule "Plugin/SynchroDossier/webroot/bootstrap"]
-	path = Plugin/SynchroDossier/webroot/bootstrap
-	url = git://github.com/twitter/bootstrap.git
-[submodule "Plugin/Chosen"]
-	path = Plugin/Chosen
-	url = git://github.com/occitech/chosen-cakephp.git
-[submodule "Plugin/DebugKit"]
-	path = Plugin/DebugKit
-	url = git://github.com/cakephp/debug_kit
-[submodule "Plugin/Ckeditor"]
+[submodule "Ckeditor"]
 	path = Plugin/Ckeditor
 	url = git://github.com/croogo/Ckeditor.git

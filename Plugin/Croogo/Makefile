@@ -1,5 +1,5 @@
 BOOTSTRAP_TAG=v2.2.0
-FONTAWESOME_TAG=master
+FONTAWESOME_TAG=v3.0.2
 
 REPO_FONTAWESOME=git://github.com/FortAwesome/Font-Awesome.git
 REPO_BOOTSTRAP=git://github.com/twitter/bootstrap
@@ -16,8 +16,11 @@ CROOGO_RESPONSIVE_CSS=croogo-bootstrap-responsive.css
 BOOTSTRAP_JS=croogo-bootstrap.js
 
 DATE=$(shell date +%I:%M%p)
-COMPILE=recess --compile
-COMPILE=lessc # we can use lessc since sometimes it gives better error messages
+ifeq ($(RELEASE), true)
+	COMPILE=recess --compress
+else
+	COMPILE=lessc # for debugging as it provides better error messages
+endif
 
 CHECK=\033[32m✔\033[39m
 HR=\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#\#
@@ -28,10 +31,10 @@ all: css js assets
 	@echo "Done."
 
 webroot/fontAwesome:
-	git clone ${REPO_FONTAWESOME} webroot/fontAwesome
+	git clone -b ${FONTAWESOME_TAG} ${REPO_FONTAWESOME} webroot/fontAwesome
 
 webroot/bootstrap:
-	git clone ${REPO_BOOTSTRAP} webroot/bootstrap
+	git clone -b ${BOOTSTRAP_TAG} ${REPO_BOOTSTRAP} webroot/bootstrap
 
 deps: webroot/fontAwesome webroot/bootstrap
 
@@ -45,16 +48,19 @@ css: deps
 	@echo "${HR}"
 	@echo "Compiling..."
 	@${COMPILE} ${CROOGO_LESS} > "${CSS_DIR}"/"${CROOGO_CSS}"
-	@echo "File: ${CSS_DIR}/${CROOGO_CSS} ${CHECK}"
+	@DIR=${CSS_DIR} && echo "File: $${DIR#${CURDIR}/}/${CROOGO_CSS} ${CHECK}"
 	@${COMPILE} ${CROOGO_RESPONSIVE_LESS} > "${CSS_DIR}"/"${CROOGO_RESPONSIVE_CSS}"
-	@echo "File: ${CSS_DIR}/${CROOGO_RESPONSIVE_CSS} ${CHECK}"
+	@DIR=${CSS_DIR} && echo "File: $${DIR#${CURDIR}/}/${CROOGO_RESPONSIVE_CSS} ${CHECK}"
 
 js: webroot/bootstrap
 	@( \
 	cd webroot/bootstrap ; \
 	cat js/bootstrap-transition.js js/bootstrap-alert.js js/bootstrap-button.js js/bootstrap-carousel.js js/bootstrap-collapse.js js/bootstrap-dropdown.js js/bootstrap-modal.js js/bootstrap-tooltip.js js/bootstrap-popover.js js/bootstrap-scrollspy.js js/bootstrap-tab.js js/bootstrap-typeahead.js js/bootstrap-affix.js > "${JS_DIR}"/"${BOOTSTRAP_JS}" \
 	)
-	@echo "File: ${JS_DIR}/${BOOTSTRAP_JS} ${CHECK}"
+	@if [ ! -z "${RELEASE}" ]; then \
+		uglifyjs --overwrite -nc "${JS_DIR}"/"${BOOTSTRAP_JS}" ;\
+	fi
+	@DIR=${JS_DIR} && echo "File: $${DIR#${CURDIR}/}/${BOOTSTRAP_JS} ${CHECK}"
 
 assets:
 	@echo "${HR}"
@@ -64,7 +70,8 @@ assets:
 	fi
 	@for file in webroot/fontAwesome/font/* ; do \
 		cp $${file} webroot/font/ ; \
-		echo "Copied: webroot/fontAwesome/font/`basename $${file}` ${CHECK}" ;\
+		chmod 644 webroot/font/`basename $${file}` ; \
+		echo "Copied: webroot/font/`basename $${file}` ${CHECK}" ;\
 	done
 
 clean:

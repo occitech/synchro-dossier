@@ -3,7 +3,7 @@
 /**
  * UpgradeTask
  *
- * @package  Console.Command.Task
+ * @package  Croogo.Croogo.Console.Command.Task
  * @since    1.5
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -81,6 +81,9 @@ class UpgradeTask extends AppShell {
 			->addSubCommand('links', array(
 				'help' => __d('croogo', 'Update Links in database'),
 			))
+			->addSubCommand('first_migrations', array(
+				'help' => __d('croogo', 'Create first migration records'),
+			))
 			->addSubCommand('all', array(
 				'help' => __d('croogo', 'Run all upgrade tasks'),
 			));
@@ -112,6 +115,11 @@ class UpgradeTask extends AppShell {
 			if ($version = file_get_contents(APP . 'VERSION.txt')) {
 				$Setting->write('Croogo.version', $version);
 			}
+			$Setting->write('Access Control.multiColumn', '', array(
+				'title' => 'Allow login by username or email',
+				'input_type' => 'checkbox',
+				'editable' => true,
+			));
 			$Setting->write('Access Control.multiRole', 0, array(
 				'title' => 'Enable Multiple Roles',
 				'input_type' => 'checkbox',
@@ -122,7 +130,7 @@ class UpgradeTask extends AppShell {
 				'input_type' => 'checkbox',
 				'editable' => true,
 			));
-			$Setting->write('Site.autoLoginDuration', '+1 week', array(
+			$Setting->write('Access Control.autoLoginDuration', '+1 week', array(
 				'title' => '"Remember Me" Cookie Lifetime',
 				'description' => 'Eg: +1 day, +1 week',
 				'input_type' => 'text',
@@ -189,9 +197,21 @@ class UpgradeTask extends AppShell {
 	public function bootstraps() {
 		$this->_loadSettingsPlugin();
 
-		// activate/move Wysiwyg before Ckeditor/Tinymce
 		$bootstraps = Configure::read('Hook.bootstraps');
-		$plugins = array_flip(explode(',', $bootstraps));
+		$plugins = explode(',', $bootstraps);
+
+		$plugins = $this->_bootstrapReorderByDependency($plugins);
+		$plugins = $this->_bootstrapSetupEditor($plugins);
+
+		$this->Setting->write('Hook.bootstraps', join(',', $plugins));
+		$this->out(__d('croogo', 'Hook.bootstraps updated'));
+	}
+
+/**
+ * Activate/move Wysiwyg before Ckeditor/Tinymce when appropriate
+ */
+	protected function _bootstrapSetupEditor($plugins) {
+		$plugins = array_flip($plugins);
 		if (empty($plugins['Ckeditor']) && empty($plugins['Tinymce'])) {
 			return;
 		}
@@ -217,9 +237,73 @@ class UpgradeTask extends AppShell {
 
 		asort($plugins);
 		$plugins = array_flip($plugins);
-		$this->Setting->write('Hook.bootstraps', join(',', $plugins));
+		return $plugins;
+	}
 
-		$this->out(__d('croogo', 'Hook.bootstraps updated'));
+/**
+ * Re-order plugins based on dependencies:
+ * for e.g, Ckeditor depends on Wysiwyg
+ * if in Hook.bootstraps Ckeditor appears before Wysiwyg,
+ * we will reorder it so that it loads right after Wysiwyg
+ */
+	protected function _bootstrapReorderByDependency($plugins) {
+		$pluginsOrdered = $plugins;
+		foreach ($plugins as $p) {
+			$jsonPath = APP . 'Plugin' . DS . $p . DS . 'Config' . DS . 'plugin.json';
+			if (file_exists($jsonPath)) {
+				$pluginData = json_decode(file_get_contents($jsonPath), true);
+				if (isset($pluginData['dependencies']['plugins'])) {
+					foreach ($pluginData['dependencies']['plugins'] as $d) {
+						$k = array_search($p, $pluginsOrdered);
+						$dk = array_search($d, $pluginsOrdered);
+						if ($dk > $k) {
+							unset($pluginsOrdered[$k]);
+							$pluginsOrdered = array_slice($pluginsOrdered, 0, $k + 1, true) +
+								array($p => $p) +
+								array_slice($pluginsOrdered, $k + 1, count($pluginsOrdered) - 1, true);
+							$pluginsOrdered = array_values($pluginsOrdered);
+						}
+					}
+				}
+			}
+		}
+		return $pluginsOrdered;
+	}
+
+/**
+ * create schema_migrations record for $plugin
+ */
+	protected function _createFirstMigration($plugin) {
+		static $Migration;
+		if (empty($Migration)) {
+			$Migration = ClassRegistry::init(array(
+				'class' => 'AppModel',
+				'table' => 'schema_migrations',
+			));
+		}
+		$className = 'FirstMigration' . $plugin;
+		$migration = $Migration->findByClass($className);
+		if (!empty($migration)) {
+			return true;
+		}
+		$Migration->create();
+		return $Migration->save(array(
+			'class' => $className,
+			'type' => $plugin,
+		));
+	}
+
+/**
+ * Create default FirstMigration records for installations using croogo_data.sql
+ */
+	public function first_migrations() {
+		foreach ((array)Configure::read('Core.corePlugins') as $plugin) {
+			$result = $this->_createFirstMigration($plugin);
+			if (!$result) {
+				$this->error(sprintf('Unable to setup FirstMigration records for %s', $plugin));
+			}
+		}
+		$this->success('FirstMigration default records created');
 	}
 
 /**

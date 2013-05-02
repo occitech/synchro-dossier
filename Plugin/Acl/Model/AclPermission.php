@@ -8,7 +8,7 @@ App::uses('Permission', 'Model');
  * PHP version 5
  *
  * @category Model
- * @package  Croogo
+ * @package  Croogo.Acl.Model
  * @version  1.0
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -55,7 +55,7 @@ class AclPermission extends Permission {
  * afterSave
  */
 	public function afterSave($created) {
-		Cache::clearGroup('permissions', 'permissions');
+		Cache::clearGroup('acl', 'permissions');
 	}
 
 /**

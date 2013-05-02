@@ -1,16 +1,20 @@
-<?php $this->extend('/Common/admin_index'); ?>
-
+<?php
+$this->extend('/Common/admin_index');
+$this->Html
+	->addCrumb('', '/admin', array('icon' => 'home'))
+	->addCrumb('Example', array('controller' => 'example', 'action' => 'index'));
+?>
 <?php $this->start('actions'); ?>
 <?php
 	echo $this->Croogo->adminAction(
-		__d('croogo', 'New Tab'),
+		'New Tab',
 		array('action' => 'add')
 	);
 	echo $this->Croogo->adminAction(
-		__d('croogo', 'Chooser Example'),
+		'Chooser Example',
 		array('action' => 'chooser')
 	);
 ?>
 <?php $this->end(); ?>
 
-<p><?php echo __d('croogo', 'content here'); ?></p>
+<p><?php echo 'content here'; ?></p>

@@ -1,26 +1,18 @@
 <?php
 
-App::uses('Helper', 'View/Helper');
+App::uses('Helper', 'View');
 
 /**
  * Acl Helper
  *
  * @category Helper
- * @package  Croogo
+ * @package  Croogo.Acl
  * @version  1.4
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
  * @link     http://www.croogo.org
  */
 class AclHelper extends Helper {
-
-/**
- * Other helpers used by this helper
- *
- * @var array
- * @access public
- */
-	public $helpers = array();
 
 /**
  * Cached actions per Role
@@ -48,8 +40,9 @@ class AclHelper extends Helper {
 	}
 
 /**
- * Generate allowed actions for current logged in Role
+ * Returns an array of allowed actions for current logged in Role
  *
+ * @param integer $roleId Role id
  * @return array
  */
 	public function getAllowedActionsByRoleId($roleId) {
@@ -64,6 +57,8 @@ class AclHelper extends Helper {
 /**
  * Check if url is allowed for the Role
  *
+ * @param integer $roleId Role id
+ * @param $url array
  * @return boolean
  */
 	public function linkIsAllowedByRoleId($roleId, $url) {
@@ -76,7 +71,7 @@ class AclHelper extends Helper {
 			array(':controller', ':action', ':plugin/'),
 			array(Inflector::camelize($url['controller']), $url['action'], $plugin),
 			'controllers/' . $path
-			);
+		);
 		$linkAction = str_replace('//', '/', $path);
 		if (in_array($linkAction, $this->getAllowedActionsByRoleId($roleId))) {
 			return true;
@@ -85,8 +80,9 @@ class AclHelper extends Helper {
 	}
 
 /**
- * Generate allowed actions for current logged in User
+ * Returns an array of allowed actions for current logged in User
  *
+ * @param integer $userId Role id
  * @return array
  */
 	public function getAllowedActionsByUserId($roleId) {
@@ -107,7 +103,7 @@ class AclHelper extends Helper {
  */
 	public function linkIsAllowedByUserId($userId, $url) {
 		if (is_array($url)) {
-			if (isset($url['admin']) && $url['admin'] == true && strpos($url['action'], 'admin_') == -1) {
+			if (isset($url['admin']) && $url['admin'] == true && strpos($url['action'], 'admin_') === false) {
 				$url['action'] = 'admin_' . $url['action'];
 			}
 			$plugin = empty($url['plugin']) ? null : Inflector::camelize($url['plugin']) . '/';

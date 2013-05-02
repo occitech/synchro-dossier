@@ -11,7 +11,7 @@ App::uses('MigrationVersion', 'Migrations.Lib');
  * PHP version 5
  *
  * @category Component
- * @package  Croogo
+ * @package  Croogo.Extensions.Lib
  * @version  1.4
  * @since    1.4
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
@@ -168,6 +168,7 @@ class CroogoPlugin extends Object {
 					$pluginData['active'] = $this->isActive($alias);
 					$pluginData['needMigration'] = $this->needMigration($alias, $pluginData['active']);
 				} else {
+					$this->log('plugin.json exists but cannot be decoded.');
 					$pluginData = array();
 				}
 				return $pluginData;
@@ -498,7 +499,7 @@ class CroogoPlugin extends Object {
 				if (isset($pluginActivation) && method_exists($pluginActivation, 'onActivation')) {
 					$pluginActivation->onActivation($this->_Controller);
 				}
-				Cache::delete('EventHandlers', 'setting_write_configuration');
+				Cache::delete('EventHandlers', 'cached_settings');
 				return true;
 			} else {
 				return __d('croogo', 'Plugin "%s" depends on "%s" plugin.', $plugin, $missingPlugin);
@@ -525,7 +526,7 @@ class CroogoPlugin extends Object {
 				$pluginActivation->onDeactivation($this->_Controller);
 			}
 			CroogoPlugin::unload($plugin);
-			Cache::delete('EventHandlers', 'setting_write_configuration');
+			Cache::delete('EventHandlers', 'cached_settings');
 			return true;
 		} else {
 			return __d('croogo', 'Plugin could not be deactivated. Please, try again.');

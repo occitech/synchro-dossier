@@ -9,7 +9,7 @@ App::uses('UsersAppController', 'Users.Controller');
  * PHP version 5
  *
  * @category Controller
- * @package  Croogo
+ * @package  Croogo.Users.Controller
  * @version  1.0
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -76,7 +76,7 @@ class UsersController extends UsersAppController {
 		$cacheName = 'auth_failed_' . $this->request->data['User'][$field];
 		$cacheValue = Cache::read($cacheName, 'users_login');
 		if (Cache::read($cacheName, 'users_login') >= Configure::read('User.failed_login_limit')) {
-			$this->Session->setFlash(__('You have reached maximum limit for failed login attempts. Please try again after a few minutes.'), 'default', array('class' => 'error'));
+			$this->Session->setFlash(__d('croogo', 'You have reached maximum limit for failed login attempts. Please try again after a few minutes.'), 'default', array('class' => 'error'));
 			return $this->redirect(array('action' => $this->request->params['action']));
 		}
 		return true;
@@ -262,6 +262,22 @@ class UsersController extends UsersAppController {
 		$this->set('title_for_layout', __d('croogo', 'Users'));
 	}
 
+	protected function _sendEmail() {
+		try {
+			$email = new CakeEmail();
+			$email->from(Configure::read('Site.title') . ' ' .
+				'<croogo@' . preg_replace('#^www\.#', '', strtolower($_SERVER['SERVER_NAME'])) . '>')
+				->to($this->request->data['User']['email'])
+				->subject(__d('croogo', '[%s] Please activate your account', Configure::read('Site.title')))
+				->template('Users.register')
+				->theme($this->theme)
+				->viewVars(array('user' => $this->request->data))
+				->send();
+		} catch (SocketException $e) {
+			$this->log(sprintf('Error sending user activation notification: %s', $e->getMessage()));
+		}
+	}
+
 /**
  * Add
  *
@@ -281,15 +297,7 @@ class UsersController extends UsersAppController {
 			if ($this->User->save($this->request->data)) {
 				Croogo::dispatchEvent('Controller.Users.registrationSuccessful', $this);
 				$this->request->data['User']['password'] = null;
-				$email = new CakeEmail();
-				$email->from(Configure::read('Site.title') . ' ' .
-					'<croogo@' . preg_replace('#^www\.#', '', strtolower($_SERVER['SERVER_NAME'])) . '>')
-					->to($this->request->data['User']['email'])
-					->subject(__d('croogo', '[%s] Please activate your account', Configure::read('Site.title')))
-					->template('Users.register')
-					->theme($this->theme)
-					->viewVars(array('user' => $this->request->data))
-					->send();
+				$this->_sendEmail();
 
 				$this->Session->setFlash(__d('croogo', 'You have successfully registered an account. An email has been sent with further instructions.'), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'login'));
@@ -462,7 +470,10 @@ class UsersController extends UsersAppController {
  * @return void
  * @access public
  */
-	public function view($username) {
+	public function view($username = null) {
+		if ($username == null) {
+			$username = $this->Auth->user('username');
+		}
 		$user = $this->User->findByUsername($username);
 		if (!isset($user['User']['id'])) {
 			$this->Session->setFlash(__d('croogo', 'Invalid User.'), 'default', array('class' => 'error'));

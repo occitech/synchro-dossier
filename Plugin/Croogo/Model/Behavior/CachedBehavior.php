@@ -8,7 +8,7 @@ App::uses('ModelBehavior', 'Model');
  * PHP version 5
  *
  * @category Behavior
- * @package  Croogo
+ * @package  Croogo.Croogo.Model.Behavior
  * @version  1.0
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -28,7 +28,8 @@ class CachedBehavior extends ModelBehavior {
 			$config = array($config);
 		}
 
-		$this->settings[$model->alias] = $config;
+		$default = array('config' => 'default', 'prefix' => null, 'groups' => array());
+		$this->settings[$model->alias] = Hash::merge($default, $config);
 	}
 
 /**
@@ -59,12 +60,10 @@ class CachedBehavior extends ModelBehavior {
  * @return void
  */
 	protected function _deleteCachedFiles(Model $model) {
-		foreach ($this->settings[$model->alias]['prefix'] as $prefix) {
-			$files = glob(TMP . 'cache' . DS . 'queries' . DS . 'cake_' . $prefix . '*');
-			if (is_array($files) && count($files) > 0) {
-				foreach ($files as $file) {
-					unlink($file);
-				}
+		foreach ($this->settings[$model->alias]['groups'] as $group) {
+			$configs = CroogoCache::groupConfigs($group);
+			foreach ($configs[$group] as $config) {
+				Cache::clearGroup($group, $config);
 			}
 		}
 	}
