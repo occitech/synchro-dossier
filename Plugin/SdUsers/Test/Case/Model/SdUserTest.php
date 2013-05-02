@@ -62,7 +62,7 @@ class SdUserTest extends CroogoTestCase {
 		$lastUserAdded = $this->SdUser->find('first', array('order' => 'User.id DESC'));
 
 		$this->assertTrue($result);
-		$this->assertEqual($this->SdUser->find('count'), 4);
+		$this->assertEqual($this->SdUser->find('count', array('noRoleChecking' => true)), 4);
 		$this->assertEqual($creatorId, $lastUserAdded['User']['creator_id']);
 	}
 

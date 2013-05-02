@@ -73,9 +73,9 @@ class SdUser extends User {
 
 	public function beforeFind($queryData) {
 		if (!array_key_exists('noRoleChecking', $queryData)) {
-			$queryData['conditions'] += array(
+			$queryData['conditions'] = Hash::merge((array) $queryData['conditions'], array(
 				$this->alias . '.role_id !=' =>  Configure::read('sd.Occitech.roleId')
-			);
+			));
 		} else {
 			unset($queryData['noRoleChecking']);
 		}
