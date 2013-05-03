@@ -57,4 +57,37 @@ class SdUsersController extends SdUsersAppController {
 		}
 		$this->redirect(array('action' => 'index'), $httpCode);
 	}
+
+	public function profile($id) {
+		$user = $this->SdUser->find('first', array('conditions' => array('User.id' => $id),'noRoleChecking' => true));
+		$returnUrl = array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse');
+		$isAdmin = $this->Auth->user('Role.title') == ROLE_USER_ID;
+		$UploadedFile = ClassRegistry::init('Uploader.UploadedFile');
+
+		if (empty($user)) {
+			$this->Session->setFlash(__('User #%s Not Found', $id));
+			$this->redirect($returnUrl, 404);
+		}
+
+		if ($this->Auth->user('id') != $user['User']['id'] && $this->Auth->user('Role.title') == ROLE_USER_ID) {
+			$this->Session->setFlash(__('You cannot access others users profiles'));
+			$this->redirect($returnUrl, 403);
+		}
+
+		$this->set('title_for_layout', __('Your Profile'));
+
+		if ($this->request->is('post') || $this->request->is('put')) {
+			if ($this->SdUser->save($this->request->data)) {
+				$flashMessage = __('User informations successfully updated');
+			} else {
+				$flashMessage = __('A problem occurs when updating user informations. Please retry.');
+			}
+			$this->Session->setFlash($flashMessage);
+			$this->redirect($returnUrl);
+		}
+
+		$folders = $UplaodedFile->
+
+		$this->set(compact('isAdmin', 'user', 'folders'));
+	}
 }
