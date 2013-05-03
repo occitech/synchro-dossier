@@ -154,4 +154,27 @@ class SdUser extends User {
 
 		return $result;
 	}
+
+	public function canChangePassword($id, $oldPassword, $newPassword, $newPasswordConfirmation) {
+		$this->id = $id;
+		if (!$this->exists()) {
+			throw new NotFoundException(__('User #%s was not found', $id));
+		}
+
+		if (empty($newPassword)) {
+			throw new InvalidArgumentException(__('Empty password is not allowed'));
+		}
+
+		$success = false;
+		$oldPasswordSaved = $this->field('password');
+
+		if ($oldPasswordSaved === Security::hash($oldPassword, null, true)) {
+			if ($newPassword === $newPasswordConfirmation) {
+				$success = (bool) $this->saveField('password', $newPassword);
+			}
+		}
+
+		return $success;
+	}
+
 }
