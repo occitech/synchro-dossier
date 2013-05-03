@@ -40,13 +40,13 @@ class SynchroDossierHelper extends AppHelper {
 				$subfolderOutput = '';
 				if (isset($folder['children']) && count($folder['children']) > 0) {
 					$subfolderOutput .= $this->displayTreeFolders($folder['children']);
-					$subfolderOutput = $this->Html->tag('ul', $subfolderOutput, array('class' => 'hidden'));
+					$subfolderOutput = $this->Html->tag('ul', $subfolderOutput, array());
 				}
 				$link = $this->Html->link(
 					$folder['UploadedFile']['filename'],
 					array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse', $folder['UploadedFile']['id'])
 				);
-				$output .= $this->Html->tag('li', $link . $subfolderOutput);
+				$output .= $this->Html->tag('li', $link . "\n" . $subfolderOutput);
 			}
 		}
 
