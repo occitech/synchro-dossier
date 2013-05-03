@@ -49,7 +49,6 @@ class SynchroDossierComponent extends Component {
 		if (!is_null($controller->Auth->user())) {
 			$UploadedFileModel = ClassRegistry::init('Uploader.UploadedFile');
 			$UploadedFileModel->recursive = 1;
-			$rootFolders = $UploadedFileModel->findAllByParent_idAndIs_folder(null, 1);
 			$allFolders = $UploadedFileModel->getThreadedAllFolders();
 			$controller->set('SynchroDossier_allFolders', $allFolders);
 		}
