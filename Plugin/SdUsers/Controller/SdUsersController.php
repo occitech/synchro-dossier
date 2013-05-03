@@ -75,7 +75,7 @@ class SdUsersController extends SdUsersAppController {
 		}
 
 		$this->set('title_for_layout', __('Your Profile'));
-
+		$this->helpers[] = 'Uploader.UploaderAcl';
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->SdUser->save($this->request->data)) {
 				$flashMessage = __('User informations successfully updated');
@@ -86,7 +86,7 @@ class SdUsersController extends SdUsersAppController {
 			$this->redirect($returnUrl);
 		}
 
-		$folders = $UplaodedFile->
+		$folders = $UploadedFile->getThreadedAllFolders();
 
 		$this->set(compact('isAdmin', 'user', 'folders'));
 	}

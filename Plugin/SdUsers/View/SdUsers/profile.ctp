@@ -16,18 +16,23 @@
 
 	<h3><?= __d('sdusers', 'Your Folders') ?></h3>
 	<?php if (!empty($folders)): ?>
-		<table>
+		<table class="table table-stripped">
 			<thead>
 				<th><?= __d('uploader', 'Dossier'); ?></th>
 				<th><?= __d('uploader', 'Date') ?></th>
-				<th><?= __d('uploader', 'Taille') ?></th>
 				<th><?= __d('uploader', 'Type') ?></th>
 				<th><?= __d('uploader', 'Actions') ?></th>
 			</thead>
 		<?php foreach ($folders as $folder): ?>
+			<?php foreach ($folder['children'] as $child): ?>
+				<?php if ($this->UploaderAcl->userCan($child['Aco'],'read')): ?>
+					<td><?= $child['UploadedFile']['filename']; ?></td>
+					<td><?= $child['UploadedFile']['created']; ?></td>
+				<?php endif; ?>
+			<?php endforeach ?>
 			<?php if ($this->UploaderAcl->userCan($folder['Aco'],'read')): ?>
-				<td><?= $folder['UploadedFile']['filename']; ?></td>
-				<td><?= $folder['UploadedFile']['date']; ?></td>
+					<td><?= $folder['UploadedFile']['filename']; ?></td>
+					<td><?= $folder['UploadedFile']['created']; ?></td>
 			<?php endif ?>
 		<?php endforeach ?>
 		</table>
