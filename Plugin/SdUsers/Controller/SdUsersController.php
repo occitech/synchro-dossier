@@ -69,7 +69,7 @@ class SdUsersController extends SdUsersAppController {
 		$user = $this->SdUser->find('first', array('conditions' => array('User.id' => $id),'noRoleChecking' => true));
 		$returnUrl = array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse');
 		$isAdmin = $this->Auth->user('Role.title') == ROLE_USER_ID;
-		$UploadedFile = ClassRegistry::init('Uploader.UploadedFile');
+
 
 		if (empty($user)) {
 			$this->Session->setFlash(__('User #%s Not Found', $id));
@@ -93,13 +93,87 @@ class SdUsersController extends SdUsersAppController {
 			$this->redirect($returnUrl);
 		}
 
-		$folders = $UploadedFile->find('threaded', array(
+		$folders = $this->__getFolders();
+		$emailsAlerts = $this->__getUserAlertEmails($user['User']['id'] , $folders);
+
+		$this->set(compact('isAdmin', 'user', 'folders', 'emailsAlerts'));
+	}
+
+	public function manageAlertEmail($userId, $folderId, $register = true) {
+		$SdAlertEmail = ClassRegistry::init('SynchroDossier.sdAlertEmail');
+		$_methodToCall = '';
+		$data = array('user_id' => $userId, 'uploaded_file_id' => $folderId);
+
+		if ($register) {
+			$_methodToCall = 'save';
+		} else {
+			$_methodToCall = 'deleteAll';
+		}
+
+		$success = $SdAlertEmail->{$_methodToCall}($data);
+
+		if ($success) {
+			if ($register) {
+				$messageFlash = __d('sdusers', 'You are successfully subscribed to email alert for folder #%s', $folderId);
+			} else {
+				$messageFlash = __d('sdusers', 'You have successfully cancel your subscription to folder #%s', $folderId);
+			}
+		} else {
+			if ($register) {
+				$messageFlash = __d('sdusers', 'Something went wrong when subscribing to folder #%s ', $folderId);
+			} else {
+				$messageFlash = __d('sdusers', 'Something went wrong when canceling your subscription to folder #%s ', $folderId);
+			}
+		}
+
+		$this->Session->setFlash($messageFlash);
+		$this->redirect(array('action' => 'profile', $userId));
+	}
+
+	public function changeUserPassword() {
+		if ($this->request->is('post') || $this->request->is('put')) {
+			$userId = $this->request->data['User']['id'];
+			$oldPassword = $this->request->data['User']['oldPassword'];
+			$newPassword = $this->request->data['User']['newPassword'];
+			$confirmationPassword = $this->request->data['User']['confirmationPassword'];
+
+			$success = $this->SdUser->changePassword($userId, $oldPassword, $newPassword, $confirmationPassword);
+
+			if ($success) {
+				$messageFlash = __d('sdusers', 'Password has been successfully changed');
+			} else {
+				$messageFlash = __d('sdusers', 'Something went wrong when updating password');
+			}
+
+			$this->Session->setFlash($messageFlash);
+			$this->redirect(array(
+				'plugin' => 'sd_users',
+				'controller' => 'sd_users',
+				'action' => 'profile',
+				$userId
+			));
+		} else {
+			$this->redirect($this->referer(), 405);
+		}
+
+	}
+
+	private function __getFolders() {
+		return ClassRegistry::init('Uploader.UploadedFile')->find('all', array(
 			'conditions' => array('UploadedFile.is_folder' => true),
 			'recursive' => -1,
 			'contain' => array('Aco.Aro.Permission'),
 
 		));
 
-		$this->set(compact('isAdmin', 'user', 'folders'));
+	}
+
+	private function __getUserAlertEmails($userId, $folders){
+		return  ClassRegistry::init('SynchroDossier.SdAlertEmail')->find('all', array(
+			'conditions' => array(
+				'SdAlertEmail.user_id' => $userId,
+				'SdAlertEmail.uploaded_file_id' => Hash::extract($folders, '{n}.UploadedFile.id')
+			)
+		));
 	}
 }

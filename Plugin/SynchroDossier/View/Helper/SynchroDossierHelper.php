@@ -6,6 +6,8 @@ class SynchroDossierHelper extends AppHelper {
 
 	public $helpers = array(
 		'Html',
+		'Session',
+		'Form',
 		'Uploader.UploaderAcl'
 	);
 
@@ -52,4 +54,71 @@ class SynchroDossierHelper extends AppHelper {
 
 		return $output;
 	}
+
+	public function displayRights($aroData){
+		$labelsRights = '';
+		$_rights = array(
+			'_read' => __d('synchrodossier', 'Read'),
+			'_write' => __d('synchrodossier', 'Write'),
+			'_delete' => __d('synchrodossier', 'Delete'),
+			'_create' => __d('synchrodossier', 'Create'),
+			'_change_right' => __d('synchrodossier', 'Change Right')
+		);
+
+		foreach ($aroData as $aro) {
+			if ($aro['foreign_key'] == $this->Session->read('Auth.User.id')) {
+				$permissions = $aro['Permission'];
+
+				foreach ($_rights as $key => $label) {
+					if (!empty($permissions[$key])) {
+						$labelsRights .= '<li>' . $label . '</li>' . "\n";
+					}
+				}
+			}
+		}
+
+		return $this->Html->tag('ul', $labelsRights, array('class' => 'user-rights'));
+	}
+
+	public function displaySubscriptionInput($folderData, $userId, $alertEmails = array()) {
+		$folderId = $folderData['UploadedFile']['id'];
+
+		$options = array(
+			'label' => __d('synchrodossier', 'Subscribe to email alert'),
+			'value' => 1,
+			'type' => 'checkbox',
+			'data-folder-id' => $folderId,
+			'data-subscribed-text' =>  __d('synchrodossier', 'Unsubscribe to email alert'),
+		);
+
+		if (!empty($alertEmails)) {
+			if (in_array($folderId, Hash::extract($alertEmails, '{n}.SdAlertEmail.uploaded_file_id'))) {
+				$temp = $options['label'];
+				$options['label'] = $options['data-subscribed-text'];
+				$options['data-subscribed-text'] = $temp;
+				$options['value'] = 0;
+			}
+		}
+
+		return $this->Html->link(
+			$options['label'],
+			array(
+				'plugin' => 'sd_users',
+				'controller' => 'sd_users',
+				'action' => 'manageAlertEmail',
+				$userId,
+				$folderId,
+				$options['value']
+			),
+			$options,
+			__d(
+				'synchrodossier',
+				'You\'re about to %s to email alert for folder #%s, Are you sure ?',
+				$options['value'] ? 'subscribe' : 'unsubscribe',
+				$folderId
+			)
+		);
+
+	}
+
 }
