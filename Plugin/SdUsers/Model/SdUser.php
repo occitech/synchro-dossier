@@ -155,7 +155,7 @@ class SdUser extends User {
 		return $result;
 	}
 
-	public function canChangePassword($id, $oldPassword, $newPassword, $newPasswordConfirmation) {
+	public function changePassword($id, $oldPassword, $newPassword, $newPasswordConfirmation) {
 		$this->id = $id;
 		if (!$this->exists()) {
 			throw new NotFoundException(__('User #%s was not found', $id));

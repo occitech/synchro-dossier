@@ -240,7 +240,7 @@ class SdUserTest extends CroogoTestCase {
 /**
  * Test: changePassword();
  */
-	public function testCanChangePassword(){
+	public function testChangePassword(){
 		$userId = 2;
 		$this->SdUser->id = $userId;
 		$success = (bool) $this->SdUser->saveField('password', 'password');
@@ -250,12 +250,12 @@ class SdUserTest extends CroogoTestCase {
 		$newPassword = 'new-password';
 		$newPasswordConfirmation = 'new-password';
 
-		$this->assertTrue($this->SdUser->canChangePassword($userId, $oldPassword, $newPassword, $newPasswordConfirmation));
+		$this->assertTrue($this->SdUser->changePassword($userId, $oldPassword, $newPassword, $newPasswordConfirmation));
 		$this->SdUser->id = $userId;
 		$this->assertEquals(Security::hash($newPassword, null, true), $this->SdUser->field('password'));
 	}
 
-	public function testCanChangePassword_WhenInvalidUserId() {
+	public function testChangePassword_WhenInvalidUserId() {
 		$this->setExpectedException('NotFoundException');
 
 		$userId = 42;
@@ -263,17 +263,17 @@ class SdUserTest extends CroogoTestCase {
 		$newPassword = 'new-password';
 		$newPasswordConfirmation = 'new-password';
 
-		$this->SdUser->canChangePassword($userId, $oldPassword, $newPassword, $newPasswordConfirmation);
+		$this->SdUser->changePassword($userId, $oldPassword, $newPassword, $newPasswordConfirmation);
 	}
 
-	public function testCanChangePassword_WhenEmptyNewPassword() {
+	public function testChangePassword_WhenEmptyNewPassword() {
 		$this->setExpectedException('InvalidArgumentException');
 		$userId = 2;
 		$oldPassword = 'password';
 		$newPassword = '';
 		$newPasswordConfirmation = '';
 
-		$this->SdUser->canChangePassword($userId, $oldPassword, $newPassword, $newPasswordConfirmation);
+		$this->SdUser->changePassword($userId, $oldPassword, $newPassword, $newPasswordConfirmation);
 	}
 
 }
