@@ -7,6 +7,13 @@ class SdUsersController extends SdUsersAppController {
 	public $uses = array('SdUsers.SdUser');
 	public $components = array('SdUsers.Roles');
 
+	public function beforeRender() {
+		$this->helpers[] = 'Uploader.UploaderAcl';
+
+		$userRights = $this->SdUser->getAllRights($this->Auth->user('id'));
+		$this->set(compact('userRights'));
+	}
+
 	public function admin_index() {
 		$this->loadModel('Uploader.UploaderAclAco');
 		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
@@ -86,7 +93,12 @@ class SdUsersController extends SdUsersAppController {
 			$this->redirect($returnUrl);
 		}
 
-		$folders = $UploadedFile->getThreadedAllFolders();
+		$folders = $UploadedFile->find('threaded', array(
+			'conditions' => array('UploadedFile.is_folder' => true),
+			'recursive' => -1,
+			'contain' => array('Aco.Aro.Permission'),
+
+		));
 
 		$this->set(compact('isAdmin', 'user', 'folders'));
 	}

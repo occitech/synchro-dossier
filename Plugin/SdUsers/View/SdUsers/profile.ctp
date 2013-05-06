@@ -24,16 +24,16 @@
 				<th><?= __d('uploader', 'Actions') ?></th>
 			</thead>
 		<?php foreach ($folders as $folder): ?>
+		<?php if ($this->UploaderAcl->userCan($folder['Aco'],'read')): ?>
+				<td><?= $folder['UploadedFile']['filename']; ?></td>
+				<td><?= $folder['UploadedFile']['created']; ?></td>
+		<?php endif ?>
 			<?php foreach ($folder['children'] as $child): ?>
 				<?php if ($this->UploaderAcl->userCan($child['Aco'],'read')): ?>
 					<td><?= $child['UploadedFile']['filename']; ?></td>
 					<td><?= $child['UploadedFile']['created']; ?></td>
 				<?php endif; ?>
 			<?php endforeach ?>
-			<?php if ($this->UploaderAcl->userCan($folder['Aco'],'read')): ?>
-					<td><?= $folder['UploadedFile']['filename']; ?></td>
-					<td><?= $folder['UploadedFile']['created']; ?></td>
-			<?php endif ?>
 		<?php endforeach ?>
 		</table>
 	<?php endif ?>
