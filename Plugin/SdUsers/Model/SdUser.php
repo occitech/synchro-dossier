@@ -157,7 +157,12 @@ class SdUser extends User {
 
 	public function changePassword($id, $oldPassword, $newPassword, $newPasswordConfirmation) {
 		$this->id = $id;
-		if (!$this->exists()) {
+		$user = $this->find('first', array(
+			'conditions' => array($this->escapefield() => $id),
+			'noRoleChecking' => true
+		));
+
+		if (empty($user)) {
 			throw new NotFoundException(__('User #%s was not found', $id));
 		}
 
@@ -166,15 +171,17 @@ class SdUser extends User {
 		}
 
 		$success = false;
-		$oldPasswordSaved = $this->field('password');
+		$oldPasswordSaved = $user[$this->alias]['password'];
 
 		if ($oldPasswordSaved === Security::hash($oldPassword, null, true)) {
 			if ($newPassword === $newPasswordConfirmation) {
-				$success = (bool) $this->saveField('password', $newPassword);
+				$success = (bool) $this->saveField('password', $newPassword, true);
 			}
 		}
-
 		return $success;
 	}
 
+	public function parentNode() {
+	    return null;
+	}
 }
