@@ -175,9 +175,7 @@ class SdUser extends User {
 
 		if ($oldPasswordSaved === Security::hash($oldPassword, null, true)) {
 			if ($newPassword === $newPasswordConfirmation) {
-				$this->Behaviors->disable('Acl');
-				$success = (bool) $this->saveField('password', $newPassword);
-				$this->Behaviors->enable('Acl');
+				$success = (bool) $this->saveField('password', $newPassword, true);
 			}
 		}
 		return $success;
