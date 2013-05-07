@@ -66,9 +66,10 @@ class SdUsersController extends SdUsersAppController {
 	}
 
 	public function profile($id) {
+
 		$user = $this->SdUser->find('first', array('conditions' => array('User.id' => $id),'noRoleChecking' => true));
 		$returnUrl = array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse');
-		$isAdmin = $this->Auth->user('Role.title') == ROLE_USER_ID;
+		$isAdmin = $this->Auth->user('User.role_id') != ROLE_USER_ID;
 
 
 		if (empty($user)) {
@@ -84,7 +85,7 @@ class SdUsersController extends SdUsersAppController {
 		$this->set('title_for_layout', __('Your Profile'));
 		$this->helpers[] = 'Uploader.UploaderAcl';
 		if ($this->request->is('post') || $this->request->is('put')) {
-			if ($this->SdUser->save($this->request->data)) {
+			if ($this->SdUser->saveAssociated($this->request->data)) {
 				$flashMessage = __('User informations successfully updated');
 			} else {
 				$flashMessage = __('A problem occurs when updating user informations. Please retry.');

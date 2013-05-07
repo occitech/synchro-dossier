@@ -17,12 +17,28 @@
 				</dl>
 				<?php else: ?>
 					<?= $this->Form->create('User'); ?>
-						<?= $this->Form->hidden('id', array('value' => $user['User']['id'])) ?>
-						<?= $this->Form->input('firstname', array('label' => __d('sdusers', 'Firstname'), 'type' => 'text')); ?>
-						<?= $this->Form->input('lastname', array('label' => __d('sdusers', 'Lastname'), 'type' => 'text')); ?>
-						<?= $this->Form->input('society', array('label' => __d('sdusers', 'Society'), 'type' => 'text')); ?>
-						<?= $this->Form->input('email', array('label' => __d('sdusers', 'Email'), 'type' => 'email')); ?>
-					<?= $this->Form->end(__d('sdusers', 'Modifier les informations')) ?>
+						<?= $this->Form->hidden('User.id', array('value' => $user['User']['id'])) ?>
+						<?= $this->Form->input('Profile.firstname', array(
+							'label' => __d('sdusers', 'Firstname'),
+							'type' => 'text',
+							'value' => $user['Profile']['firstname']
+						)); ?>
+						<?= $this->Form->input('Profile.name', array(
+							'label' => __d('sdusers', 'Lastname'),
+							'type' => 'text',
+							'value' => $user['Profile']['name']
+						)); ?>
+						<?= $this->Form->input('Profile.society', array(
+							'label' => __d('sdusers', 'Society'),
+							'type' => 'text',
+							'value' => $user['Profile']['society']
+						)); ?>
+						<?= $this->Form->input('User.email', array(
+							'label' => __d('sdusers', 'Email'),
+							'type' => 'email',
+							'value' => $user['User']['email']
+						)); ?>
+					<?= $this->Form->end(__d('sdusers', 'Update user informations')) ?>
 				<?php endif; ?>
 		</div>
 	</div>
