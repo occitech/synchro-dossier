@@ -38,7 +38,10 @@
 							'type' => 'email',
 							'value' => $user['User']['email']
 						)); ?>
-					<?= $this->Form->end(__d('sdusers', 'Update user informations')) ?>
+					<?= $this->Form->end(array(
+						'label' => __d('sdusers', 'Update user informations'),
+						'class' => 'btn'
+					)) ?>
 				<?php endif; ?>
 		</div>
 	</div>
