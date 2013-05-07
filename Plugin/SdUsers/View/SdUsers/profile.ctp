@@ -65,7 +65,7 @@
 				</thead>
 				<tbody>
 			<?php foreach ($folders as $folder): ?>
-			<?php if ($this->UploaderAcl->userCan($folder['Aco'],'read')): ?>
+				<?php if ($this->UploaderAcl->userCan($folder['Aco'],'read')): ?>
 					<tr>
 						<td><?= $folder['UploadedFile']['filename']; ?></td>
 						<td><?= $folder['UploadedFile']['created']; ?></td>
@@ -73,11 +73,11 @@
 						<td><?= $this->SynchroDossier->displayRights($folder['Aco']['Aro'])?></td>
 						<td><?php echo $this->SynchroDossier->displaySubscriptionInput($folder, $user['User']['id'], $emailsAlerts);?></td>
 					</tr>
-			<?php endif ?>
+				<?php endif; ?>
 			<?php endforeach ?>
 				</tbody>
 			</table>
-		<?php endif ?>
+		<?php endif; ?>
 		</div>
 	</div>
 </div>
