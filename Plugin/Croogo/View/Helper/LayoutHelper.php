@@ -8,7 +8,7 @@ App::uses('AppHelper', 'View/Helper');
  * PHP version 5
  *
  * @category Helper
- * @package  Croogo
+ * @package  Croogo.Croogo.View.Helper
  * @version  1.0
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -173,11 +173,20 @@ class LayoutHelper extends AppHelper {
  */
 	public function status($value) {
 		if ($value == 1) {
-			$output = $this->Html->image('/croogo/img/icons/tick.png');
+			$icon = 'ok';
+			$class = 'green';
 		} else {
-			$output = $this->Html->image('/croogo/img/icons/cross.png');
+			$icon = 'remove';
+			$class = 'red';
 		}
-		return $output;
+		if (method_exists($this->Html, 'icon')) {
+			return $this->Html->icon($icon, compact('class'));
+		} else {
+			if (empty($this->_View->CroogoHtml)) {
+				$this->_View->Helpers->load('Croogo.CroogoHtml');
+			}
+			return $this->_View->CroogoHtml->icon($icon, compact('class'));
+		}
 	}
 
 /**
@@ -385,10 +394,7 @@ class LayoutHelper extends AppHelper {
 			if (!is_string($helper) || in_array($helper, $this->coreHelpers)) {
 				continue;
 			}
-			if (strstr($helper, '.')) {
-				$helperE = explode('.', $helper);
-				$helper = $helperE['1'];
-			}
+			list(, $helper) = pluginSplit($helper);
 			if (isset($this->_View->{$helper}) && method_exists($this->_View->{$helper}, $methodName)) {
 				$output .= $this->_View->{$helper}->$methodName();
 			}

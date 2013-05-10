@@ -8,7 +8,7 @@ App::uses('Node', 'Nodes.Model');
  * PHP version 5
  *
  * @category FileManager.Model
- * @package  FileManager
+ * @package  Croogo.FileManager.Model
  * @version  1.0
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -91,6 +91,9 @@ class Attachment extends Node {
 	public function save($data = null, $validate = true, $fieldList = array()) {
 		if (isset($data[$this->alias]['file']['tmp_name'])) {
 			$data = $this->_saveUploadedFile($data);
+		}
+		if (!$data) {
+			return $this->invalidate('file', __d('croogo', 'Error during file upload'));
 		}
 		return parent::save($data, $validate, $fieldList);
 	}

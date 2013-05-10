@@ -8,7 +8,7 @@ App::uses('MenusAppModel', 'Menus.Model');
  * PHP version 5
  *
  * @category Model
- * @package  Menus
+ * @package  Croogo.Menus.Model
  * @version  1.0
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -34,10 +34,8 @@ class Link extends MenusAppModel {
 		'Croogo.Encoder',
 		'Tree',
 		'Croogo.Cached' => array(
-			'prefix' => array(
-				'link_',
-				'menu_',
-				'croogo_menu_',
+			'groups' => array(
+				'menus',
 			),
 		),
 		'Croogo.Params',

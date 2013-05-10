@@ -1,8 +1,9 @@
 <?php
+
 /**
  * CroogoNav
  *
- * @package  Croogo
+ * @package  Croogo.Croogo.Lib
  * @since    1.4
  * @author   Rachman Chavik <rchavik@xintesa.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -38,6 +39,7 @@ class CroogoNav extends Object {
  * _setupOptions
  *
  * @param array $options
+ * @return void
  */
 	protected static function _setupOptions(&$options) {
 		$options = self::_merge(self::$_defaults, $options);
@@ -83,7 +85,7 @@ class CroogoNav extends Object {
 	protected static function _replace(&$target, $path, $options) {
 		$pathE = explode('.', $path);
 		$path = array_shift($pathE);
-		$fragment = join ('.', $pathE);
+		$fragment = join('.', $pathE);
 		if (!empty($pathE)) {
 			self::_replace($target[$path], $fragment, $options);
 		} else {

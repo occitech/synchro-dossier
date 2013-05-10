@@ -7,5 +7,15 @@
 			echo $this->Form->input('password', array('label' => __('Mot de passe')));
 		?>
 		</fieldset>
-	<?php echo $this->Form->end('Submit');?>
+		<?php echo $this->Form->end(array(
+			'label' => __('Se connecter'),
+			'class' => 'btn',
+			'div' => array('class' => 'actions'),
+			'after' =>
+				 $this->Html->link(
+					__('Mot de passe oublié ?'),
+					array('plugin' => 'users', 'controller' => 'users', 'action' => 'forgot'),
+					array('class' => 'btn-small')
+				)
+		));?>
 </div>

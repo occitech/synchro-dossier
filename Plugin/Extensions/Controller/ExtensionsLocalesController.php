@@ -10,7 +10,7 @@ App::uses('ExtensionsAppController', 'Extensions.Controller');
  * PHP version 5
  *
  * @category Controller
- * @package  Croogo
+ * @package  Croogo.Extensions.Controller
  * @version  1.0
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -169,7 +169,7 @@ class ExtensionsLocalesController extends ExtensionsAppController {
 			$this->redirect(array('action' => 'index'));
 		}
 
-		$poFile =  APP . 'Locale' . DS . $locale . DS . 'LC_MESSAGES' . DS . 'croogo.po';
+		$poFile = APP . 'Locale' . DS . $locale . DS . 'LC_MESSAGES' . DS . 'croogo.po';
 
 		if (!file_exists($poFile)) {
 			$this->Session->setFlash(__d('croogo', 'The file %s does not exist.', basename($poFile)), 'default', array('class' => 'error'));
