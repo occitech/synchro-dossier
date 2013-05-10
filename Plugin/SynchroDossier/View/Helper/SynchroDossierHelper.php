@@ -52,4 +52,22 @@ class SynchroDossierHelper extends AppHelper {
 
 		return $output;
 	}
+
+	public function routeIsActive($route) {
+		$isActive = true;
+		$_keysToCheck = array('plugin', 'controller', 'action');
+		$currentRoute = $this->request->params;
+		$routeArr = $route;
+
+		if (!is_array($route)) {
+			$routeArr = Router::parse($route);
+		}
+
+		foreach ($_keysToCheck as $key) {
+			$isActive = $isActive && $route[$key] == $currentRoute[$key];
+		}
+
+		return $isActive;
+	}
+
 }
