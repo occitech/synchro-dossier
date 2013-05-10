@@ -6,7 +6,7 @@
  * PHP version 5
  *
  * @category Component
- * @package  Nodes
+ * @package  Croogo.Nodes.Controller.Component
  * @version  1.0
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -92,7 +92,7 @@ class NodesComponent extends Component {
 				'order' => $options['order'],
 				'limit' => $options['limit'],
 				'cache' => array(
-					'prefix' => 'croogo_nodes_' . $alias . '_',
+					'name' => 'nodes_' . $alias,
 					'config' => 'croogo_nodes',
 				),
 			));

@@ -120,6 +120,18 @@
 										)
 									); ?>
 								<?php endif ?>
+								<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
+									<?= $this->Html->link(
+										__d('uploader', '<i class="icon-remove"></i>'),
+										array('controller' => 'files', 'action' => 'delete', $file['UploadedFile']['id']),
+										array(
+											'rel' => 'tooltip',
+											'title' => __d('uploader', 'Supprimer le dossier'),
+											'escape' => false
+										),
+										__d('uploader', 'You are about to delete folder #%s. Are you sure ?', $file['UploadedFile']['id'])
+									); ?>
+								<?php endif ?>
 							<?php else: ?>
 								<?= $this->Html->link(
 									'<i class="icon-download-alt"></i>',

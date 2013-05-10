@@ -3,6 +3,10 @@
 App::uses('Component', 'Controller');
 
 /**
+ * Recaptcha Component
+ *
+ * @package Croogo.Croogo.Controller.Component
+ * @category Component
  * @link http://bakery.cakephp.org/articles/view/recaptcha-component-helper-for-cakephp
  */
 class RecaptchaComponent extends Component {

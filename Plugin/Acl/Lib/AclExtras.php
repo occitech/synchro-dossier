@@ -26,8 +26,7 @@ App::uses('Shell', 'Console');
 /**
  * Shell for ACO extras
  *
- * @package		acl_extras
- * @subpackage	acl_extras.Console.Command
+ * @package Croogo.Acl.Lib
  */
 class AclExtras extends Object {
 
@@ -203,6 +202,7 @@ class AclExtras extends Object {
 			$pluginRoot = $this->_checkNode($path, $plugin, $root['Aco']['id']);
 			$this->_updateControllers($pluginRoot, $controllers, $plugin);
 		}
+		Cache::clearGroup('acl', 'permissions');
 		if ($this->_clean) {
 			$this->out(__d('croogo', '<success>Aco Sync Complete</success>'));
 		} else {
@@ -309,6 +309,31 @@ class AclExtras extends Object {
 	}
 
 /**
+ * Get a list of registered callback methods
+ */
+	protected function _getCallbacks($className) {
+		$reflection = new ReflectionClass($className);
+		$method = $reflection->getMethod('implementedEvents');
+		if (version_compare(phpversion(), '5.4', '>=')) {
+			$object = $reflection->newInstanceWithoutConstructor();
+		} else {
+			$object = unserialize(
+				sprintf('O:%d:"%s":0:{}', strlen($className), $className)
+			);
+		}
+		$implementedEvents = $method->invoke($object);
+		foreach ($implementedEvents as $event => $callable) {
+			if (is_string($callable)) {
+				$callbacks[] = $callable;
+			}
+			if (is_array($callable) && isset($callable['callable'])) {
+				$callbacks[] = $callable['callable'];
+			}
+		}
+		return $callbacks;
+	}
+
+/**
  * Check and Add/delete controller Methods
  *
  * @param string $controller
@@ -318,6 +343,7 @@ class AclExtras extends Object {
  */
 	protected function _checkMethods($className, $controllerName, $node, $pluginPath = false) {
 		$excludes = array('afterConstruct', 'securityError');
+		$excludes += $this->_getCallbacks($className);
 		$baseMethods = get_class_methods('Controller');
 		$actions = get_class_methods($className);
 		$methods = array_diff($actions, $baseMethods);

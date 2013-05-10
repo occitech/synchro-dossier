@@ -11,7 +11,7 @@ App::uses('AppModel', 'Model');
  * TranslateBehavior used to return nothing in that case.
  *
  * @category Behavior
- * @package  Croogo
+ * @package  Croogo.Translate.Model.Behavior
  * @version  1.0
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -273,8 +273,7 @@ class CroogoTranslateBehavior extends ModelBehavior {
 
 if (!defined('CAKEPHP_UNIT_TEST_EXECUTION')) {
 /**
- * @package	 cake
- * @subpackage  cake.cake.libs.model.behaviors
+ * @package	 Croogo.Translate.Model.Behavior
  */
 	class I18nModel extends AppModel {
 
@@ -285,11 +284,8 @@ if (!defined('CAKEPHP_UNIT_TEST_EXECUTION')) {
 		public $displayField = 'field';
 
 		public $actsAs = array(
-			'Croogo.Cached' => array(
-				'prefix' => array(
-					'',
-				),
-			),
+			'Croogo.Cached' => array(),
 		);
 	}
+
 }
