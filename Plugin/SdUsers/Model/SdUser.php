@@ -4,12 +4,17 @@ App::uses('User', 'Users.Model');
 
 class SdUser extends User {
 
+	const ROLE_OCCITECH_ID		= 1;
+	const ROLE_SUPERADMIN_ID	= 4;
+	const ROLE_ADMIN_ID			= 5;
+	const ROLE_UTILISATEUR_ID	= 6;
+
 	public $displayField = 'username';
 
 	public $useTable = 'users';
-	
+
 	public $order = 'User.name ASC';
-	
+
 	public $alias = 'User';
 
 	public $findMethods = array(
@@ -67,6 +72,8 @@ class SdUser extends User {
 			'rule' => 'validIdentical',
 		),
 	);
+
+
 
 	protected function _addValidateRuleAboutRole($creatorRoleId) {
 		$this->validator()->add('role_id', array(
