@@ -38,6 +38,37 @@ foreach ($rolesInfos as $roleName => $infos) {
 	Configure::write('sd.' . $infos['roleId'] . '.authorizeRoleCreation', $infos['authorizeRoleCreation']);
 }
 
-Croogo::hookHelper('SynchroDossier', 'SdUsers.SdUsers');
-Croogo::hookHelper('Files', 'SdUsers.SdUsers');
-Croogo::hookHelper('Users', 'SdUsers.SdUsers');
+$adminMenu = array(
+	'icon' => array('user', 'large'),
+	'title' => __('Utilisateurs'),
+	'url' => array(
+		'plugin' => 'sd_users',
+		'controller' => 'sd_users',
+		'action' => 'admin_index',
+	),
+	'children' => array(
+		'list' => array(
+			'title' => __('Liste'),
+			'url' => array(
+				'plugin' => 'sd_users',
+				'controller' => 'sd_users',
+				'action' => 'admin_index',
+			),
+		),
+		'add' => array(
+			'title' => __('Ajouter'),
+			'url' => array(
+				'plugin' => 'sd_users',
+				'controller' => 'sd_users',
+				'action' => 'admin_add',
+			),
+		),
+	),
+);
+CroogoNav::add('sdUsers', $adminMenu);
+
+$controllerNamesNeedingSdUsersHelper = array('SynchroDossierApp', 'SdUsersApp', 'Users' , 'Files');
+
+foreach ($controllerNamesNeedingSdUsersHelper as $controllerName) {
+	Croogo::hookHelper($controllerName, 'SdUsers.SdUsers');
+}

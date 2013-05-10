@@ -249,4 +249,44 @@ class SdUserTest extends CroogoTestCase {
 
 		$this->assertEqual(count($result['Aro']['Aco']), 2);
 	}
+
+/**
+ * Test: changePassword();
+ */
+	public function testChangePassword(){
+		$userId = 2;
+		$this->SdUser->id = $userId;
+		$success = (bool) $this->SdUser->saveField('password', 'password');
+		$this->assertTrue($success);
+
+		$oldPassword = 'password';
+		$newPassword = 'new-password';
+		$newPasswordConfirmation = 'new-password';
+
+		$this->assertTrue($this->SdUser->changePassword($userId, $oldPassword, $newPassword, $newPasswordConfirmation));
+		$this->SdUser->id = $userId;
+		$this->assertEquals(Security::hash($newPassword, null, true), $this->SdUser->field('password'));
+	}
+
+	public function testChangePassword_WhenInvalidUserId() {
+		$this->setExpectedException('NotFoundException');
+
+		$userId = 42;
+		$oldPassword = 'password';
+		$newPassword = 'new-password';
+		$newPasswordConfirmation = 'new-password';
+
+		$this->SdUser->changePassword($userId, $oldPassword, $newPassword, $newPasswordConfirmation);
+	}
+
+	public function testChangePassword_WhenEmptyNewPassword() {
+		$this->setExpectedException('InvalidArgumentException');
+		$userId = 2;
+		$oldPassword = 'password';
+		$newPassword = '';
+		$newPasswordConfirmation = '';
+
+		$this->SdUser->changePassword($userId, $oldPassword, $newPassword, $newPasswordConfirmation);
+	}
+
 }
