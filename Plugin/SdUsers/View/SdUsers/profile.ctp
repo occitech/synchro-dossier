@@ -1,3 +1,8 @@
+<?php
+	$this->start('navbar');
+		echo $this->element('SynchroDossier.navbar');
+	$this->end();
+?>
 <div class="users">
 	<h2><?php echo $title_for_layout; ?></h2>
 
