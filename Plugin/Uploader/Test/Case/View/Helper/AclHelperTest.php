@@ -2,7 +2,7 @@
 
 App::uses('CroogoTestCase', 'Croogo.TestSuite');
 App::uses('View', 'View');
-App::uses('AclHelper', 'Uploader.View/Helper');
+App::uses('UploaderAclHelper', 'Uploader.View/Helper');
 
 class AclHelperTest extends CroogoTestCase {
 
@@ -19,7 +19,7 @@ class AclHelperTest extends CroogoTestCase {
 				)
 			)
 		);
-		$this->Acl = new AclHelper($this->View);
+		$this->Acl = new UploaderAclHelper($this->View);
 	}
 
 	public function tearDown() {
@@ -72,7 +72,7 @@ class AclHelperTest extends CroogoTestCase {
 			'rght' => 8
 		);
 
-		$this->Acl = new AclHelper($this->View);
+		$this->Acl = new UploaderAclHelper($this->View);
 		$result = $this->Acl->userCan($uploadedFile, 'read');
 
 		$this->assertTrue($result);
@@ -111,7 +111,7 @@ class AclHelperTest extends CroogoTestCase {
 			'rght' => 3
 		);
 
-		$this->Acl = new AclHelper($this->View);
+		$this->Acl = new UploaderAclHelper($this->View);
 
 		$result = $this->Acl->userCan($uploadedFile, 'read');
 
@@ -163,7 +163,7 @@ class AclHelperTest extends CroogoTestCase {
 			'rght' => 4
 		);
 
-		$this->Acl = new AclHelper($this->View);
+		$this->Acl = new UploaderAclHelper($this->View);
 
 		$result = $this->Acl->userCan($uploadedFile, 'read');
 
@@ -216,7 +216,7 @@ class AclHelperTest extends CroogoTestCase {
 			'rght' => 8
 		);
 
-		$this->Acl = new AclHelper($this->View);
+		$this->Acl = new UploaderAclHelper($this->View);
 
 		$result = $this->Acl->userCan($uploadedFile, 'read');
 
