@@ -62,8 +62,21 @@ class SdUserTest extends CroogoTestCase {
 		$lastUserAdded = $this->SdUser->find('first', array('order' => 'User.id DESC'));
 
 		$this->assertTrue($result);
-		$this->assertEqual($this->SdUser->find('count', array('noRoleChecking' => true)), 4);
+		$this->_assertCountSdUsers(4, array('noRoleChecking' => true));
 		$this->assertEqual($creatorId, $lastUserAdded['User']['creator_id']);
+	}
+
+	protected function _assertCountSdUsers($expected, $parameters=array()) {
+		$parameters['fields'] = array($this->SdUser->primaryKey);
+		$result = $this->SdUser->find('all', $parameters);
+		$resultCount = $this->_countUniqueUsers($result);
+		$this->assertEqual($expected, $resultCount);
+	}
+
+	protected function _countUniqueUsers($result) {
+		$uniqueIds = array_unique(Hash::extract($result, '{n}.User.' . $this->SdUser->primaryKey));
+		return count($uniqueIds);
+
 	}
 
 	public function testAdd_FillUsernameField() {
@@ -203,7 +216,7 @@ class SdUserTest extends CroogoTestCase {
 			)
 		);
 		$this->assertTrue($this->SdUser->edit($data, $roleId));
-		$this->assertEqual($this->SdUser->find('count'), 3);
+		$this->_assertCountSdUsers(3);
 	}
 
 /**
@@ -211,7 +224,7 @@ class SdUserTest extends CroogoTestCase {
  */
 	public function testFindCreatedBy_TwoResultNedded() {
 		$result = $this->SdUser->find('createdBy', array('creatorId' => 1));
-		$this->assertEqual(count($result), 2);
+		$this->assertEqual($this->_countUniqueUsers($result), 2);
 	}
 
 	public function testFindCreatedBy_NoResult() {
@@ -224,7 +237,7 @@ class SdUserTest extends CroogoTestCase {
  */
 	public function testFindSuperAdmin() {
 		$result = $this->SdUser->find('superAdmin');
-		$this->assertEqual(count($result), 1);
+		$this->assertEqual($this->_countUniqueUsers($result), 1);		
 	}
 
 /**
