@@ -53,7 +53,7 @@ class SdUsersController extends SdUsersAppController {
 			$this->request->data = $this->SdUser->find('first', array(
 				'conditions' => array('User.' . $this->SdUser->primaryKey => $userId),
 				'noRoleChecking' => true
-			));			
+			));
 		}
 		$this->set('roles', $this->SdUser->Role->find('list'));
 	}
@@ -76,7 +76,7 @@ class SdUsersController extends SdUsersAppController {
 
 		$user = $this->SdUser->find('first', array('conditions' => array('User.id' => $id),'noRoleChecking' => true));
 		$returnUrl = array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse');
-		$isAdmin = $this->Auth->user('User.role_id') != ROLE_USER_ID;
+		$isAdmin = $this->Auth->user('User.role_id') != SdUser::ROLE_UTILISATEUR_ID;
 
 
 		if (empty($user)) {
@@ -84,7 +84,7 @@ class SdUsersController extends SdUsersAppController {
 			$this->redirect($returnUrl, 404);
 		}
 
-		if ($this->Auth->user('id') != $user['User']['id'] && $this->Auth->user('Role.title') == ROLE_USER_ID) {
+		if ($this->Auth->user('id') != $user['User']['id'] && $this->Auth->user('Role.title') == SdUser::ROLE_UTILISATEUR_ID) {
 			$this->Session->setFlash(__('You cannot access others users profiles'));
 			$this->redirect($returnUrl, 403);
 		}

@@ -66,3 +66,9 @@ $adminMenu = array(
 	),
 );
 CroogoNav::add('sdUsers', $adminMenu);
+
+$controllerNamesNeedingSdUsersHelper = array('SynchroDossierApp', 'SdUsersApp', 'Users' , 'Files');
+
+foreach ($controllerNamesNeedingSdUsersHelper as $controllerName) {
+	Croogo::hookHelper($controllerName, 'SdUsers.SdUsers');
+}

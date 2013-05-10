@@ -4,10 +4,10 @@ App::uses('User', 'Users.Model');
 
 class SdUser extends User {
 
-	const ROLE_OCCITECH_ID		= 1;
-	const ROLE_SUPERADMIN_ID	= 4;
-	const ROLE_ADMIN_ID			= 5;
-	const ROLE_UTILISATEUR_ID	= 6;
+	const ROLE_OCCITECH_ID	 	= 1;
+	const ROLE_SUPERADMIN_ID 	= 4;
+	const ROLE_ADMIN_ID		 	= 5;
+	const ROLE_UTILISATEUR_ID 	= 6;
 
 	public $displayField = 'username';
 
