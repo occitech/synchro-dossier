@@ -2,7 +2,12 @@
 	<div class="navbar-inner">
 		<ul class="nav">
 			<li><?= $this->Html->link(__('Espace client'), '/', array('class' => 'brand')); ?></li>
-			<li class="active"><?= $this->Html->link(__('Accueil'), '/'); ?></li>
+			<li <?php if($this->SynchroDossier->routeIsActive(array(
+				'plugin' => 'uploader',
+				'controller' => 'files',
+				'action' => 'browse'
+			))) {echo 'class="active"';}?>><?= $this->Html->link(__('Accueil'), '/'); ?></li>
+
 			<?php if ($this->SdUsers->isAdmin()): ?>
 				<li <?php if($this->SynchroDossier->routeIsActive(array(
 					'plugin' => 'sd_users',
