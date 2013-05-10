@@ -68,3 +68,4 @@ $adminMenu = array(
 CroogoNav::add('sdUsers', $adminMenu);
 Croogo::hookHelper('SynchroDossier', 'SdUsers.SdUsers');
 Croogo::hookHelper('Files', 'SdUsers.SdUsers');
+Croogo::hookHelper('Users', 'SdUsers.SdUsers');
