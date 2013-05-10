@@ -15,7 +15,3 @@ CroogoRouter::connect('/', array(
 	'plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse'
 ));
 Router::promote();
-
-CroogoRouter::connect('/', array(
-	'plugin' => 'users', 'controller' => 'users', 'action' => 'index'
-));

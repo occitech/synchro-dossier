@@ -1,3 +1,4 @@
+
 <div>
 	<div>
 		<?php echo $this->Html->link(__d('uploader', '..'), array('controller' => 'files', 'action' => 'browse', $file['UploadedFile']['parent_id'])) ?>

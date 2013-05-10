@@ -1,11 +1,13 @@
 <?php
 Croogo::hookComponent('Users', 'SdUsers.Login');
 
+App::uses('User', 'Users.Model');
+App::uses('SdUser', 'SdUsers.Model');
 // Information about Sd roles
-$OccitechId = 1;
-$SuperAdminRoleId = 4;
-$AdminRoleId = 5;
-$UtilisateurRoleId = 6;
+$OccitechId = SdUser::ROLE_OCCITECH_ID;
+$SuperAdminRoleId = SdUser::ROLE_SUPERADMIN_ID;
+$AdminRoleId = SdUser::ROLE_ADMIN_ID;
+$UtilisateurRoleId = SdUser::ROLE_UTILISATEUR_ID;
 
 $rolesInfos = array(
 	'Occitech' => array(
@@ -36,31 +38,6 @@ foreach ($rolesInfos as $roleName => $infos) {
 	Configure::write('sd.' . $infos['roleId'] . '.authorizeRoleCreation', $infos['authorizeRoleCreation']);
 }
 
-$adminMenu = array(
-	'icon' => array('user', 'large'),
-	'title' => __('Utilisateurs'),
-	'url' => array(
-		'plugin' => 'sd_users',
-		'controller' => 'sd_users',
-		'action' => 'admin_index',
-	),
-	'children' => array(
-		'list' => array(
-			'title' => __('Liste'),
-			'url' => array(
-				'plugin' => 'sd_users',
-				'controller' => 'sd_users',
-				'action' => 'admin_index',
-			),
-		),
-		'add' => array(
-			'title' => __('Ajouter'),
-			'url' => array(
-				'plugin' => 'sd_users',
-				'controller' => 'sd_users',
-				'action' => 'admin_add',
-			),
-		),
-	),
-);
-CroogoNav::add('sdUsers', $adminMenu);
+Croogo::hookHelper('SynchroDossier', 'SdUsers.SdUsers');
+Croogo::hookHelper('Files', 'SdUsers.SdUsers');
+Croogo::hookHelper('Users', 'SdUsers.SdUsers');

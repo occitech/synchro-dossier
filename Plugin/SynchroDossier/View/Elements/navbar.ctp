@@ -2,7 +2,23 @@
 	<div class="navbar-inner">
 		<ul class="nav">
 			<li><?= $this->Html->link(__('Espace client'), '/', array('class' => 'brand')); ?></li>
-			<li class="active"><?= $this->Html->link(__('Accueil'), '/'); ?></li>
+			<li <?php if($this->SynchroDossier->routeIsActive(array(
+				'plugin' => 'uploader',
+				'controller' => 'files',
+				'action' => 'browse'
+			))) {echo 'class="active"';}?>><?= $this->Html->link(__('Accueil'), '/'); ?></li>
+
+			<?php if ($this->SdUsers->isAdmin()): ?>
+				<li <?php if($this->SynchroDossier->routeIsActive(array(
+					'plugin' => 'sd_users',
+					'controller' => 'sd_users',
+					'action' => 'index'
+				))) {echo 'class="active"';}?>><?= $this->Html->link(__('Liste des Utilisateurs'), array(
+					'plugin' => 'sd_users',
+					'controller' => 'sd_users',
+					'action' => 'index'
+				)); ?></li>
+			<?php endif ?>
 		</ul>
 		<ul class="nav pull-right">
 			<?php if ($this->Session->read('Auth.User') != array()): ?>
@@ -10,6 +26,9 @@
 					<a href="#">
 						<?= __('Bonjour ') . $this->Session->read('Auth.User.username'); ?>
 					</a>
+				</li>
+				<li>
+					<?php echo $this->Html->link(__("Profil"), array('plugin' => 'sd_users', 'controller' => 'sd_users', 'action' => 'edit', $this->Session->read('Auth.User.id'))); ?>
 				</li>
 				<li>
 					<?php echo $this->Html->link(__("Déconnexion"), array('plugin' => 'users', 'controller' => 'users', 'action' => 'logout')); ?>

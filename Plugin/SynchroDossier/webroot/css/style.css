@@ -10,7 +10,7 @@
 	padding-left: 45px;
 }
 
-a {
+footer a, a {
 	color: black;
 }
 
@@ -68,4 +68,14 @@ footer {
 	border-top: 1px #E3E3E3 solid;
 	border-bottom: 1px #E3E3E3 solid;
 	background-color: whiteSmoke;
+    color: #333333;
+}
+
+#content-container {
+  background: none;
+}
+ 
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+	content:none;
 }
