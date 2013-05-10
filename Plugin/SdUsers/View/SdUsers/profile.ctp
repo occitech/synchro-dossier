@@ -21,8 +21,18 @@
 					<dd><?= $user['User']['email'] ?></dd>
 				</dl>
 				<?php else: ?>
-					<?= $this->Form->create('User'); ?>
+					<?= $this->Form->create('User', array(
+						'url' => array(
+							'plugin' => 'sd_users',
+							'controller' => 'sd_users',
+							'action' => 'profile',
+							$user['User']['id']
+						),
+						'type' => 'file'
+					)); ?>
 						<?= $this->Form->hidden('User.id', array('value' => $user['User']['id'])) ?>
+						<?= $this->Form->hidden('Profile.user_id', array('value' => $user['User']['id'])) ?>
+						<?= $this->Form->hidden('Profile.id', array('value' => $user['Profile']['id'])) ?>
 						<?= $this->Form->input('Profile.firstname', array(
 							'label' => __d('sdusers', 'Firstname'),
 							'type' => 'text',

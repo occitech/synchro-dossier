@@ -73,6 +73,8 @@ class SdUsersController extends SdUsersAppController {
 	}
 
 	public function profile($id) {
+		$this->set('title_for_layout', __('Your Profile'));
+		$this->helpers[] = 'Uploader.UploaderAcl';
 
 		$user = $this->SdUser->find('first', array('conditions' => array('User.id' => $id),'noRoleChecking' => true));
 		$returnUrl = array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse');
@@ -88,22 +90,20 @@ class SdUsersController extends SdUsersAppController {
 			$this->Session->setFlash(__('You cannot access others users profiles'));
 			$this->redirect($returnUrl, 403);
 		}
-
-		$this->set('title_for_layout', __('Your Profile'));
-		$this->helpers[] = 'Uploader.UploaderAcl';
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->SdUser->saveAssociated($this->request->data)) {
 				$flashMessage = __('User informations successfully updated');
+				$class = array('class' => 'success');
 			} else {
 				$flashMessage = __('A problem occurs when updating user informations. Please retry.');
+				$class = array('class' => 'error');
 			}
-			$this->Session->setFlash($flashMessage);
-			$this->redirect($returnUrl);
+			$this->Session->setFlash($flashMessage, 'default', $class);
+			$this->redirect(array('action' => 'profile', $id));
 		}
 
 		$folders = $this->__getFolders();
 		$emailsAlerts = $this->__getUserAlertEmails($user['User']['id'] , $folders);
-
 		$this->set(compact('isAdmin', 'user', 'folders', 'emailsAlerts'));
 	}
 
@@ -149,11 +149,14 @@ class SdUsersController extends SdUsersAppController {
 
 			if ($success) {
 				$messageFlash = __d('sdusers', 'Password has been successfully changed');
+				$class = array('class' => 'success');
 			} else {
 				$messageFlash = __d('sdusers', 'Something went wrong when updating password');
+				$class = array('class' => 'success');
 			}
 
-			$this->Session->setFlash($messageFlash);
+			$this->Session->setFlash($messageFlash, 'default', $class);
+
 			$this->redirect(array(
 				'plugin' => 'sd_users',
 				'controller' => 'sd_users',
