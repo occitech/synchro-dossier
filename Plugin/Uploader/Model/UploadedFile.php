@@ -279,6 +279,50 @@ class UploadedFile extends UploaderAppModel {
 		return $this->save($data);
 	}
 
+	public function removeFolder($folderId, $userId) {
+		$canDelete = $success = false;
+		$authorizedUserIds = $authorizedUsers= array();
+
+		$this->contain(array('Aco','Aco.Aro', 'User'));
+		$folder = $this->findById($folderId);
+		$userData = $this->User->find('first', array(
+			'conditions' => array('User.id' => $userId),
+			'noRoleChecking' => true
+		));
+
+		$this->__throwExceptionsIfNeeded($userData, $folder, $userId, $folderId);
+
+		$authorizedUserIds = $this->__getAuthorizedUserIds($folder);
+
+		if (in_array($userId, $authorizedUserIds)) {
+			$success = $this->delete($folderId);
+		}
+
+		return $success;
+	}
+
+	private function __getAuthorizedUserIds($folderData) {
+		$authorizedUsers = array_filter((array) $folderData['Aco']['Aro'], function($item) {
+			if ($item['model'] === 'User' && !empty($item['Permission']['_delete'])) {
+				return true;
+			}
+		});
+
+		return Hash::extract($authorizedUsers, '{n}.foreign_key');
+	}
+
+	private function __throwExceptionsIfNeeded($userData, $folderData, $userId, $folderId) {
+		if (empty($userData)) {
+			throw new NotFoundException(__d('uploader', 'Invalid user with id#%s', $userId));
+		}
+		if (empty($folderData)) {
+			throw new NotFoundException(__d('uploader', 'Invalid Folder with id#%s', $folderId));
+		}
+		if (!$folderData[$this->alias]['is_folder']) {
+			throw new InvalidArgumentException(__d('uploader', 'Current id %s is not a folder', $folderId));
+		}
+	}
+
 /////////////////////////
 /// Methods for files ///
 /////////////////////////
@@ -472,4 +516,5 @@ class UploadedFile extends UploaderAppModel {
 
 		return $this->download($fileStorage['FileStorage']['id']);
 	}
+
 }

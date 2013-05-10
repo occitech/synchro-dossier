@@ -8,7 +8,7 @@ App::uses('BlocksAppModel', 'Blocks.Model');
  * PHP version 5
  *
  * @category Blocks.Model
- * @package  Croogo
+ * @package  Croogo.Blocks.Model
  * @version  1.0
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -37,10 +37,8 @@ class Block extends BlocksAppModel {
 			'foreign_key' => false,
 		),
 		'Croogo.Cached' => array(
-			'prefix' => array(
-				'block_',
-				'blocks_',
-				'croogo_blocks_',
+			'groups' => array(
+				'blocks',
 			),
 		),
 		'Croogo.Params',
