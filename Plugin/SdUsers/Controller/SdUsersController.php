@@ -6,6 +6,10 @@ class SdUsersController extends SdUsersAppController {
 
 	public $uses = array('SdUsers.SdUser');
 	public $components = array('SdUsers.Roles');
+	public $helpers = array(
+		'Form' => array('className' => 'Croogo.CroogoForm'),
+		'Html' => array('className' => 'Croogo.CroogoHtml')
+	);
 
 	public function beforeRender() {
 		$this->helpers[] = 'Uploader.UploaderAcl';
@@ -14,14 +18,14 @@ class SdUsersController extends SdUsersAppController {
 		$this->set(compact('userRights'));
 	}
 
-	public function admin_index() {
+	public function index() {
 		$this->loadModel('Uploader.UploaderAclAco');
 		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
 		$users = $this->paginate();
 		$this->set(compact('users', 'can'));
 	}
 
-	public function admin_add() {
+	public function add() {
 		if (!empty($this->request->data)) {
 			$userId = $this->Auth->user('id');
 			$roleId = $this->Auth->user('role_id');
@@ -36,7 +40,7 @@ class SdUsersController extends SdUsersAppController {
 		$this->set('roles', $this->SdUser->Role->find('list'));
 	}
 
-	public function admin_edit($userId) {
+	public function edit($userId) {
 		if ($this->request->data) {
 			$roleId = $this->Auth->user('role_id');
 			if ($this->SdUser->edit($this->request->data, $roleId)) {
@@ -46,12 +50,15 @@ class SdUsersController extends SdUsersAppController {
 				$this->Session->setFlash(__('L\'utilisateur ne peux pas être modifié'), 'default', array('class' => 'error'));
 			}
 		} else {
-			$this->request->data = $this->SdUser->read(null, $userId);
+			$this->request->data = $this->SdUser->find('first', array(
+				'conditions' => array('User.' . $this->SdUser->primaryKey => $userId),
+				'noRoleChecking' => true
+			));			
 		}
 		$this->set('roles', $this->SdUser->Role->find('list'));
 	}
 
-	public function admin_delete($id = null) {
+	public function delete($id = null) {
 		$httpCode = null;
 		if (is_null($id)) {
 			$httpCode = 404;

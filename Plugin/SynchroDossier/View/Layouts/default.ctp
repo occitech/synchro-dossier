@@ -6,12 +6,15 @@
 		
 		<?php
 		echo $this->Html->css(array(
+			'/croogo/css/croogo-bootstrap',
+			'/croogo/css/croogo-bootstrap-responsive',
 			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css',
 			'SynchroDossier.smoothness/jquery-ui-1.9.2.custom.min',
 			'SynchroDossier.style',
 			'style'
 		));
 		echo $this->Html->script(array(
+			'/croogo/js/croogo-bootstrap.js',
 			'SynchroDossier.jquery.1.8.3.min',
 			'SynchroDossier.jquery-ui-1.9.2.custom.min',
 			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js',
@@ -32,14 +35,17 @@
 				<?= $this->element('sdHeader'); ?>
 			<?php endif ?>
 		</header>
-		<?= $this->element('SynchroDossier.navbar'); ?>
+		<?= $this->fetch('navbar') ?>
 		<div id="content-container" class="container-fluid">
 			<div class="row-fluid">
-				<?php if (isset($can)): ?>				
-					<div class="sidebar well">
-						<?= $this->element('SynchroDossier.sidebar', array('can' => $can)); ?>
-					</div>
-				<?php endif ?>
+			<?php
+				$sidebar = $this->fetch('sidebar');
+				if (trim($sidebar) != ''):
+			?>
+				<div class="sidebar well">
+					<?= $sidebar; ?>
+				</div>
+			<? endif; ?>
 				<div id="content" class="clearfix">
 					<div id="inner-content" class="span12">
 						<?= $this->Layout->sessionFlash(); ?>
