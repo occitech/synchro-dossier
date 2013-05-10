@@ -1,11 +1,13 @@
 <?php
 Croogo::hookComponent('Users', 'SdUsers.Login');
 
+App::uses('User', 'Users.Model');
+App::uses('SdUser', 'SdUsers.Model');
 // Information about Sd roles
-$OccitechId = 1;
-$SuperAdminRoleId = 4;
-$AdminRoleId = 5;
-$UtilisateurRoleId = 6;
+$OccitechId = SdUser::ROLE_OCCITECH_ID;
+$SuperAdminRoleId = SdUser::ROLE_SUPERADMIN_ID;
+$AdminRoleId = SdUser::ROLE_ADMIN_ID;
+$UtilisateurRoleId = SdUser::ROLE_UTILISATEUR_ID;
 
 $rolesInfos = array(
 	'Occitech' => array(
@@ -64,3 +66,5 @@ $adminMenu = array(
 	),
 );
 CroogoNav::add('sdUsers', $adminMenu);
+Croogo::hookHelper('SynchroDossier', 'SdUsers.SdUsers');
+Croogo::hookHelper('Files', 'SdUsers.SdUsers');
