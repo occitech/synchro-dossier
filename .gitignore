@@ -19,3 +19,11 @@ tmp/
 !./Plugin/Example
 !./Plugin/Install
 !./Plugin/Translate
+uploads/
+Config/croogo.php
+Plugin/Croogo/webroot/js/croogo-bootstrap.js
+Plugin/Croogo/webroot/fontAwesome/
+# Plugin/Croogo/webroot/font/
+Plugin/Croogo/webroot/css/croogo-bootstrap.css
+Plugin/Croogo/webroot/css/croogo-bootstrap-responsive.css
+Plugin/Croogo/webroot/bootstrap/
