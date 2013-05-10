@@ -19,6 +19,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		'plugin.uploader.uploaded_file',
 		'plugin.uploader.file_storage',
 		'plugin.uploader.user',
+		'plugin.uploader.roles_user',
 		'plugin.uploader.profile',
 		'plugin.uploader.role',
 		'plugin.uploader.aco',
@@ -566,7 +567,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 	}
 
 	public function testRemoveFolder_DeleteFilesInFileSystem() {
-		$files = $this->UploadedFile->_getFoldersPath(3);
+		$files = $this->_runProtectedMethod('_getFoldersPath', array(3));
 		unset($files[3]);
 		if (!is_dir(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . '1' . DS . '5')) {
 			mkdir(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . '1' . DS . '5');

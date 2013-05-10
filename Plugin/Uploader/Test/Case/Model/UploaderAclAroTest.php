@@ -17,6 +17,7 @@ class UploaderAclAroTest extends CakeTestCase {
 		'plugin.uploader.file_storage',
 		'plugin.uploader.user',
 		'plugin.uploader.role',
+		'plugin.uploader.roles_user',
 		'plugin.uploader.aros_aco',
 		'plugin.uploader.aco',
 		'plugin.uploader.aro'
