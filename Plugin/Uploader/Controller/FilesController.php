@@ -1,5 +1,6 @@
 <?php
 
+App::uses('UploaderAppController', 'Uploader.Controller');
 App::uses('UploadedFile', 'Uploader.Model');
 App::uses('UploaderAclAco', 'Uploader.Model');
 
