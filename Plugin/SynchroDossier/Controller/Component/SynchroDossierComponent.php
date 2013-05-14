@@ -58,7 +58,9 @@ class SynchroDossierComponent extends Component {
 		if ($this->canViewQuota) {
 			$SdInformationModel = ClassRegistry::init('SynchroDossier.SdInformation');
 			$quota = $SdInformationModel->find('first');
-			$quota = $quota['SdInformation'];
+			if (array_key_exists('SdInformation', $quota)) {
+				$quota = $quota['SdInformation'];
+			}
 		} else {
 			$quota = array();
 		}
