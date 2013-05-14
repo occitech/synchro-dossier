@@ -184,7 +184,4 @@ class SdUser extends User {
 		return $success;
 	}
 
-	public function parentNode() {
-	    return null;
-	}
 }

@@ -106,6 +106,23 @@ class UserFixture extends CakeTestFixture {
 			'updated' => '2012-10-31 17:21:32',
 			'created' => '2012-10-31 17:21:32'
 		),
+		array(
+			'id' => '5',
+			'role_id' => '4',
+			'creator_id' => '3',
+			'username' => 'spadm2',
+			'password' => '102307eeb5d160ab5a1040437de4f7575ca508b4',
+			'name' => 'spadm2',
+			'email' => 'spadm2@spadm2.com',
+			'website' => '',
+			'activation_key' => '9354921ba996586aad6eb6c2f1977f5e',
+			'image' => null,
+			'bio' => null,
+			'timezone' => '0',
+			'status' => 1,
+			'updated' => '2012-11-02 12:30:36',
+			'created' => '2012-11-02 12:30:36'
+		)
 	);
 
 }

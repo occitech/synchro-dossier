@@ -1,4 +1,3 @@
-;<?php die() ?>
 ;/**
 ; * Short description for file.
 ; *
