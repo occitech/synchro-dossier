@@ -275,7 +275,6 @@ class FilesController extends UploaderAppController {
 					}
 				}
 			}
-			die($response);
 		} elseif($this->request->is('post')) {
 			$uploadOk = $this->UploadedFile->upload(
 				$this->request->data['FileStorage'],
