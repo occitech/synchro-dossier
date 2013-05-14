@@ -250,3 +250,6 @@ msgstr ""
 msgid "Ce nom est déjà utilisé par un autre dossier"
 msgstr ""
 
+#:  View/Files/rights.ctp: super admins rights
+msgid "This User has all rights on this folder"
+msgstr "Cet utilisateur a tous les droits sur ce dossier"

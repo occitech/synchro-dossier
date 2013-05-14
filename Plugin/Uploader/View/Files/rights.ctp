@@ -43,10 +43,7 @@
 					<?= $superAdmin['Role']['title']; ?>
 				</span>
 			</td>
-			<td><?= $this->Layout->status(1); ?></td>
-			<td><?= $this->Layout->status(1); ?></td>
-			<td><?= $this->Layout->status(1); ?></td>
-			<td></td>
+			<td colspan="4"><?= __('This User has all rights on this folder'); ?></td>
 		</tr>
 		<?php endforeach ?>
 
