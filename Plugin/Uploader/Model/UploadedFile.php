@@ -259,13 +259,14 @@ class UploadedFile extends UploaderAppModel {
 		foreach ($files as $f) {
 			if ($f['remote_path'] != null) {
 				$content = StorageManager::adapter($f['adapter'])->read($f['remote_path']);
-				StorageManager::adapter('Zip')->write($f['real_path'], $content);
+				StorageManager::adapter('Zip')->write($this->sluggifyFilename($f['real_path']), $content);
 			}
 		}
 		$content = file_get_contents($zipfile);
 		unlink($zipfile);
 		return $content;
 	}
+
 
 	public function rename($data) {
 		$fileInfos = $this->findById($data[$this->alias]['id']);
@@ -326,6 +327,26 @@ class UploadedFile extends UploaderAppModel {
 /////////////////////////
 /// Methods for files ///
 /////////////////////////
+	public function sluggifyFilename($filenamewithExtension) {
+		$temporaryFilename = explode('.', strrev($filenamewithExtension));
+		$extension = null;
+
+		if (!empty($temporaryFilename) && $temporaryFilename[0] !== strrev($filenamewithExtension)) {
+			$extension = strrev($temporaryFilename[0]);
+			unset($temporaryFilename[0]);
+			$filename = strrev(implode('.', $temporaryFilename));
+		} else {
+			$filename = $filenamewithExtension;
+		}
+
+		$normalizedFilename = Inflector::slug($filename, '-');
+
+		if (!empty($extension)) {
+			$normalizedFilename .= '.' . $extension;
+		}
+
+		return $normalizedFilename;
+	}
 
 	protected function _findRootDirectories($state, $query, $results = array()) {
 		if ($state == 'before') {
