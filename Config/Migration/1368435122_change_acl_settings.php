@@ -38,7 +38,7 @@ class ChangeAclSettings extends CakeMigration {
 		$success = true;
 		if ($direction === 'up') {
 
-			$Setting = $this->generateModel('Setting');
+			$Setting = ClassRegistry::init('Settings.Setting');
 			$aclSettings = $Setting->find('all', array('conditions' => array('key' => array(
 				'Access Control.multiRole',
 				'Access Control.rowLevel',
