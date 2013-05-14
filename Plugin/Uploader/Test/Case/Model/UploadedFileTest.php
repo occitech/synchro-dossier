@@ -595,4 +595,27 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->assertFalse($result);
 	}
 
+/**
+ * test sluggifyFilename method
+ */
+	public function testSluggifyFilename() {
+		$hasardousEncodingString = 'héllô lès côpaïns.pdf';
+		$expected = 'hello-les-copains.pdf';
+
+		$this->assertEquals($expected, $this->UploadedFile->sluggifyFilename($hasardousEncodingString));
+	}
+
+	public function testSluggifyFilenameWithoutExtension() {
+		$hasardousEncodingString = 'héllô lès côpaïns';
+		$expected = 'hello-les-copains';
+
+		$this->assertEquals($expected, $this->UploadedFile->sluggifyFilename($hasardousEncodingString));
+	}
+
+	public function testSluggifyFilenameWithDotsSeparator() {
+		$hasardousEncodingString = 'héllô.lès.côpaïns.pdf';
+		$expected = 'hello-les-copains.pdf';
+
+		$this->assertEquals($expected, $this->UploadedFile->sluggifyFilename($hasardousEncodingString));
+	}
 }
