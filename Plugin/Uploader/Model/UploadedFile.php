@@ -282,9 +282,7 @@ class UploadedFile extends UploaderAppModel {
 
 	public function removeFolder($folderId, $userId) {
 		$canDelete = $success = false;
-		$authorizedUserIds = $authorizedUsers= array();
 
-		$this->contain(array('Aco','Aco.Aro', 'User'));
 		$folder = $this->findById($folderId);
 		$userData = $this->User->find('first', array(
 			'conditions' => array('User.id' => $userId),
@@ -293,23 +291,17 @@ class UploadedFile extends UploaderAppModel {
 
 		$this->__throwExceptionsIfNeeded($userData, $folder, $userId, $folderId);
 
-		$authorizedUserIds = $this->__getAuthorizedUserIds($folder);
+		$canDelete = ClassRegistry::init('Permission')->check(
+			array('model' => 'User', 'foreign_key' => $userId),
+			array('model' => 'UploadedFile', 'foreign_key' => $folderId),
+			'delete'
+		);
 
-		if (in_array($userId, $authorizedUserIds)) {
+		if ($canDelete) {
 			$success = $this->delete($folderId);
 		}
 
 		return $success;
-	}
-
-	private function __getAuthorizedUserIds($folderData) {
-		$authorizedUsers = array_filter((array) $folderData['Aco']['Aro'], function($item) {
-			if ($item['model'] === 'User' && !empty($item['Permission']['_delete'])) {
-				return true;
-			}
-		});
-
-		return Hash::extract($authorizedUsers, '{n}.foreign_key');
 	}
 
 	private function __throwExceptionsIfNeeded($userData, $folderData, $userId, $folderId) {

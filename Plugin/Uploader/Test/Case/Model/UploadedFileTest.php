@@ -595,6 +595,13 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->assertFalse($result);
 	}
 
+	public function tesAdminCanRemoveAnyFolder() {
+			$this->UploadedFile->id = 1;
+			$this->assertTrue((bool) $this->UploadedFile->saveField('user_id', 4));
+			$result = $this->UploadedFile->removeFolder(1, 1);
+			$this->assertTrue($result);
+	}
+
 /**
  * test sluggifyFilename method
  */
