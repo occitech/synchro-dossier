@@ -86,7 +86,7 @@ class SdUsersController extends SdUsersAppController {
 			$this->redirect($returnUrl, 404);
 		}
 
-		if ($this->Auth->user('id') != $user['User']['id'] && $this->Auth->user('Role.title') == SdUser::ROLE_UTILISATEUR_ID) {
+		if ($this->Auth->user('id') != $user['User']['id'] && $this->Auth->user('User.role_id') == SdUser::ROLE_UTILISATEUR_ID) {
 			$this->Session->setFlash(__d('sd_users', 'You cannot access others users profiles'));
 			$this->redirect($returnUrl, 403);
 		}
