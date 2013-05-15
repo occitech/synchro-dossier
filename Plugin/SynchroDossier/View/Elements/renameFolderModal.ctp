@@ -1,7 +1,7 @@
 <div id="renameFolderModal" class="modal hide fade" tabindex="-1" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h3 id="myModalLabel"><?= __d('SynchroDossier', 'Renommez le dossier'); ?></h3>
+		<h3 id="myModalLabel"><?= __d('synchro_dossier', 'Renommez le dossier'); ?></h3>
 	</div>
 	<div class="modal-body no-overflow-y">
 		<div class="uploader">
@@ -13,7 +13,7 @@
 					'action' => 'rename',
 					$folderId
 				)
-			)); ?>		
+			)); ?>
 
 			<?= $this->Form->hidden('id'); ?>
 			<?= $this->Form->input('UploadedFile.filename', array(
@@ -23,7 +23,7 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<?= $this->Form->submit(__d('SynchroDossier', 'Renommez'), array('class' => 'btn')); ?>
+		<?= $this->Form->submit(__d('synchro_dossier', 'Renommez'), array('class' => 'btn')); ?>
 		<?= $this->Form->end(); ?>
 	</div>
 </div>

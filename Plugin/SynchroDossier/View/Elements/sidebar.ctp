@@ -1,17 +1,17 @@
 	<ul class="nav nav-list">
 		<?php if ($can['canCreateUser']()): ?>
 			<li class="nav-header">
-				<?= __d('SynchroDossier', 'Votre Quota'); ?>
+				<?= __d('synchro_dossier', 'Votre Quota'); ?>
 			</li>
 			<li>
 				<?= $this->SynchroDossier->displayQuota(); ?>
 			</li>
 		<?php endif ?>
 		<li class="nav-header">
-			<?= __d('SynchroDossier', 'Mes Dossiers'); ?>
+			<?= __d('synchro_dossier', 'Mes Dossiers'); ?>
 			<?php if ($can['canCreateUser']()): ?>
 				<span style="float: right;">
-					<a href="#addSharingModal" role="button" data-toggle="modal" rel="tooltip" title="<?= __d('SynchroDossier', 'Ajoutez un dossier'); ?>">
+					<a href="#addSharingModal" role="button" data-toggle="modal" rel="tooltip" title="<?= __d('synchro_dossier', 'Ajoutez un dossier'); ?>">
 						<i class="icon-plus-sign"></i>
 					</a>
 				</span>
@@ -24,12 +24,12 @@
 		</div>
 
 		<li class="nav-header">
-			<?= __d('SynchroDossier', 'Actions') ?>
+			<?= __d('synchro_dossier', 'Actions') ?>
 		</li>
 		<?php if ($can['canCreateUser']()): ?>
 			<li>
 				<?= $this->Html->link(
-					__d('SynchroDossier', 'Créez un utilisateur'),
+					__d('synchro_dossier', 'Créez un utilisateur'),
 					array(
 						'plugin' => 'sd_users',
 						'controller' => 'sd_users',
@@ -44,7 +44,7 @@
 			<?php if ($this->UploaderAcl->userCan($folderAco['Aco'], 'create')): ?>
 				<li>
 					<?= $this->Html->link(
-						__d('SynchroDossier', 'Créez un sous dossier'),
+						__d('synchro_dossier', 'Créez un sous dossier'),
 						'#createFolderModal',
 						array(
 							'class' => 'btn',
@@ -58,16 +58,16 @@
 		<?php endif ?>
 
 		<li class="nav-header">
-			<?= __d('SynchroDossier', 'Recherche') ?>
+			<?= __d('synchro_dossier', 'Recherche') ?>
 		</li>
 		<li class="search">
 			<?= $this->element('Uploader.search'); ?>
-		</li>	
+		</li>
 
 		<?php if (!empty($SynchroDossier_aroAccessFolder) && isset($folderId)): ?>
 			<?php if ($this->UploaderAcl->userCan($folderAco['Aco'], 'change_right')): ?>
 				<li class="nav-header">
-					<?= __d('SynchroDossier', 'Utilisateurs du dossier'); ?>
+					<?= __d('synchro_dossier', 'Utilisateurs du dossier'); ?>
 						<span style="float: right;">
 							<?= $this->Html->link(
 								'<i class="icon-plus-sign"></i>',
@@ -75,7 +75,7 @@
 								array(
 									'data-toggle' => 'modal',
 									'rel' => 'tooltip',
-									'title' => __d('SynchroDossier', 'Ajoutez un utilisateur à ce dossier'),
+									'title' => __d('synchro_dossier', 'Ajoutez un utilisateur à ce dossier'),
 									'escape' => false
 								)
 							); ?>

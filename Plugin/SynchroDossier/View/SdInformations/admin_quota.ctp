@@ -4,7 +4,7 @@
 	<div class="span8">
 
 		<ul class="nav nav-tabs">
-			<li><a href="#quota-main" data-toggle="tab"><span><?php echo __d('SynchroDossier', 'Quota'); ?></span></a></li>
+			<li><a href="#quota-main" data-toggle="tab"><span><?php echo __d('synchro_dossier', 'Quota'); ?></span></a></li>
 			<?php echo $this->Croogo->adminTabs(); ?>
 		</ul>
 
@@ -12,8 +12,8 @@
 			<div id="quota-main" class="tab-pane">
 			<?=
 				$this->Form->hidden('SdInformation.id').
-				$this->Form->input('SdInformation.quota_mb', array('label' => __d('SynchroDossier', 'Quota (Mo) : '), 'type' => 'text')) .
-				__d('SynchroDossier', 'Quota utilisé : ') . $usedQuota . ' M';
+				$this->Form->input('SdInformation.quota_mb', array('label' => __d('synchro_dossier', 'Quota (Mo) : '), 'type' => 'text')) .
+				__d('synchro_dossier', 'Quota utilisé : ') . $usedQuota . ' M';
 			?>
 			</div>
 
@@ -22,9 +22,9 @@
 	</div>
 	<div class="span4">
 	<?php
-		echo $this->Html->beginBox(__d('SynchroDossier', 'Publishing')) .
-			$this->Form->button(__d('SynchroDossier', 'Sauver'), array('button' => 'default')) .
-			$this->Html->link(__d('SynchroDossier', 'Annuler'), array('action' => 'index'), array(
+		echo $this->Html->beginBox(__d('synchro_dossier', 'Publishing')) .
+			$this->Form->button(__d('synchro_dossier', 'Sauver'), array('button' => 'default')) .
+			$this->Html->link(__d('synchro_dossier', 'Annuler'), array('action' => 'index'), array(
 				'button' => 'danger')
 			).
 			$this->Html->endBox();

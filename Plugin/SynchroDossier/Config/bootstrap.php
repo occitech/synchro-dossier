@@ -39,7 +39,7 @@ Configure::write('Acl.Auth.loginRedirect', array(
 
 $adminMenu = array(
 	'icon' => array('file', 'large'),
-	'title' => __d('SynchroDossier', 'SynchroDossier'),
+	'title' => __d('synchro_dossier', 'SynchroDossier'),
 	'url' => array(
 		'admin' => true,
 		'plugin' => 'synchro_dossier',
@@ -48,7 +48,7 @@ $adminMenu = array(
 	),
 	'children' => array(
 		'list' => array(
-			'title' => __d('SynchroDossier', 'Quota'),
+			'title' => __d('synchro_dossier', 'Quota'),
 			'url' => array(
 				'admin' => true,
 				'plugin' => 'synchro_dossier',
@@ -61,9 +61,9 @@ $adminMenu = array(
 
 CroogoNav::add('synchro', $adminMenu);
 
-Configure::write('sd.mail.quotaExceeded.subject', __d('SynchroDossier', 'Synchro-Dossier - Quota dépassé'));
+Configure::write('sd.mail.quotaExceeded.subject', __d('synchro_dossier', 'Synchro-Dossier - Quota dépassé'));
 Configure::write('sd.mail.quotaExceeded.from', array('admin@synchro-dossier.fr' => 'Synchro Dossier'));
-Configure::write('sd.mail.alertEmailNewUpload.subject', __d('SynchroDossier', 'Synchro-Dossier - Nouveaux fichiers envoyés'));
+Configure::write('sd.mail.alertEmailNewUpload.subject', __d('synchro_dossier', 'Synchro-Dossier - Nouveaux fichiers envoyés'));
 Configure::write('sd.mail.alertEmailNewUpload.from', array('admin@synchro-dossier.fr' => 'Synchro Dossier'));
 
 Configure::write('sd.config.useSsl', false);

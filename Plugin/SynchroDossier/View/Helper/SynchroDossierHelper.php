@@ -50,19 +50,19 @@ class SynchroDossierHelper extends AppHelper {
 				);
 				$output .= $this->Html->tag('li', $link . "\n" . $subfolderOutput);
 			}
-		}
 
+		}
 		return $output;
 	}
 
 	public function displayRights($aroData){
 		$labelsRights = '';
 		$_rights = array(
-			'_read' => __d('SynchroDossier', 'Read'),
-			'_write' => __d('SynchroDossier', 'Write'),
-			'_delete' => __d('SynchroDossier', 'Delete'),
-			'_create' => __d('SynchroDossier', 'Create'),
-			'_change_right' => __d('SynchroDossier', 'Change Right')
+			'_read' => __d('synchro_dossier', 'Read'),
+			'_write' => __d('synchro_dossier', 'Write'),
+			'_delete' => __d('synchro_dossier', 'Delete'),
+			'_create' => __d('synchro_dossier', 'Create'),
+			'_change_right' => __d('synchro_dossier', 'Change Right')
 		);
 
 		foreach ($aroData as $aro) {
@@ -84,11 +84,11 @@ class SynchroDossierHelper extends AppHelper {
 		$folderId = $folderData['UploadedFile']['id'];
 
 		$options = array(
-			'label' => __d('SynchroDossier', 'Subscribe to email alert'),
+			'label' => __d('synchro_dossier', 'Subscribe to email alert'),
 			'value' => 1,
 			'type' => 'checkbox',
 			'data-folder-id' => $folderId,
-			'data-subscribed-text' =>  __d('SynchroDossier', 'Unsubscribe to email alert'),
+			'data-subscribed-text' =>  __d('synchro_dossier', 'Unsubscribe to email alert'),
 		);
 
 		if (!empty($alertEmails)) {

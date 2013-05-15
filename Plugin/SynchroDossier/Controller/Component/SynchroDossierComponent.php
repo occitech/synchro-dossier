@@ -12,7 +12,7 @@ class SynchroDossierComponent extends Component {
 		$this->__checkSsl($controller);
 		$this->setCanViewQuota($controller);
 		$controller->Auth->loginRedirect = array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse');
-		$controller->Auth->authError = __d('SynchroDossier', 'Pour accéder à cette page vous devez vous connecter');
+		$controller->Auth->authError = __d('synchro_dossier', 'Pour accéder à cette page vous devez vous connecter');
 	}
 
 	public function beforeRender(Controller $controller) {

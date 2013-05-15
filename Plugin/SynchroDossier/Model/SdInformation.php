@@ -15,7 +15,7 @@ class SdInformation extends SynchroDossierAppModel {
 			'quota_mb' => array(
 				'comparison' => array(
 					'rule' => array('comparison', '>', 0),
-					'message' => __d('SynchroDossier', 'Quota must be highter than 0'),
+					'message' => __d('synchro_dossier', 'Quota must be highter than 0'),
 					'required' => true
 				),
 			),
