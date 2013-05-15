@@ -1,6 +1,6 @@
 <?= $this->Form->create('Comment'); ?>
 
-<?= $this->Form->input('Comment.body', array('label' => false, 'class' => 'span7')); ?>
+<?= $this->Form->input('Comment.body', array('label' => false, 'class' => 'span5')); ?>
 
 <?= $this->Form->submit(__d('uploader', 'Poster votre commentaire'), array('class' => 'btn')); ?>
 
