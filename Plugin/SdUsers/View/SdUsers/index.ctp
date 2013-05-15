@@ -10,11 +10,11 @@
 		<table class="table table-striped">
 			<?php
 				$tableHeaders =  $this->Html->tableHeaders(array(
-					$this->Paginator->sort('name', __d('SdUsers', 'Nom')),
-					$this->Paginator->sort('firstname', __d('SdUsers', 'Prénom')),
-					$this->Paginator->sort('email', __d('SdUsers', 'Email')),
-					$this->Paginator->sort('role', __d('SdUsers', 'Role')),
-					__d('SdUsers', 'Actions'),
+					$this->Paginator->sort('name', __d('sd_users', 'Nom')),
+					$this->Paginator->sort('firstname', __d('sd_users', 'Prénom')),
+					$this->Paginator->sort('email', __d('sd_users', 'Email')),
+					$this->Paginator->sort('role', __d('sd_users', 'Role')),
+					__d('sd_users', 'Actions'),
 				));
 				echo $tableHeaders;
 				$rows = array();
@@ -22,20 +22,20 @@
 					$actions  = $this->Html->link(
 						'',
 						'mailto:' . $user['User']['email'],
-						array('icon' => 'envelope', 'tooltip' => __d('SdUsers', 'Envoyer un email à cet utilisateur'))
+						array('icon' => 'envelope', 'tooltip' => __d('sd_users', 'Envoyer un email à cet utilisateur'))
 					);
 					$actions .= ' ' . $this->Croogo->adminRowActions($user['User']['id']);
 					if ($can['canUpdateUser']($user['User'])) :
 						$actions .= ' ' . $this->Html->link(
 							'',
 							array('action' => 'edit', $user['User']['id']),
-							array('icon' => 'pencil', 'tooltip' => __d('SdUsers', 'Modifier cet utilisateur'))
+							array('icon' => 'pencil', 'tooltip' => __d('sd_users', 'Modifier cet utilisateur'))
 						);
 						$actions .= ' ' . $this->Form->postLink(
 							'',
 							array('action' => 'delete',	$user['User']['id']),
-							array('icon' => 'remove', 'tooltip' => __d('SdUsers', 'Supprimer cet utilisateur'), 'class' => 'red'),
-							__d('SdUsers', 'Are you sure?')
+							array('icon' => 'remove', 'tooltip' => __d('sd_users', 'Supprimer cet utilisateur'), 'class' => 'red'),
+							__d('sd_users', 'Are you sure?')
 						);
 
 					endif;

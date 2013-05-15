@@ -23,7 +23,7 @@ class Profile extends SdUsersAppModel {
 		$this->validate = array(
 			'name' => array(
 				'rule' => 'notEmpty',
-				'message' => __d('SdUsers', 'Ce champ ne peut pas être laissé vide')
+				'message' => __d('sd_users', 'Ce champ ne peut pas être laissé vide')
 			)
 		);
 
