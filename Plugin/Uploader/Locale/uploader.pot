@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2013-05-15 12:44+0200\n"
+"POT-Creation-Date: 2013-05-15 15:10+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -155,7 +155,7 @@ msgid "Type"
 msgstr ""
 
 #: View/Files/browse.ctp:28
-#: View/Files/rights.ctp:36
+#: View/Files/rights.ctp:37
 msgid "Actions"
 msgstr ""
 
@@ -226,35 +226,39 @@ msgstr ""
 msgid "Rename"
 msgstr ""
 
-#: View/Files/rights.ctp:24
+#: View/Files/rights.ctp:14
+msgid "Rights management for folder \"%s\""
+msgstr ""
+
+#: View/Files/rights.ctp:25
 msgid "Select user"
 msgstr ""
 
-#: View/Files/rights.ctp:26
+#: View/Files/rights.ctp:27
 msgid "Add user"
 msgstr ""
 
-#: View/Files/rights.ctp:32
+#: View/Files/rights.ctp:33
 msgid "Name"
 msgstr ""
 
-#: View/Files/rights.ctp:33
+#: View/Files/rights.ctp:34
 msgid "Lecture"
 msgstr ""
 
-#: View/Files/rights.ctp:34
+#: View/Files/rights.ctp:35
 msgid "Upload"
 msgstr ""
 
-#: View/Files/rights.ctp:35
+#: View/Files/rights.ctp:36
 msgid "Suppression"
 msgstr ""
 
-#: View/Files/rights.ctp:46
+#: View/Files/rights.ctp:47
 msgid "This User has all rights on this folder"
 msgstr ""
 
-#: View/Files/rights.ctp:122
+#: View/Files/rights.ctp:123
 msgid "Supprimer l'utilisateur de ce dossier"
 msgstr ""
 

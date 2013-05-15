@@ -4,9 +4,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Uploader\n"
-"POT-Creation-Date: 2013-02-11 06:35+0100\n"
-"PO-Revision-Date: 2013-02-11 06:46+0100\n"
-"Last-Translator: Pierre Martin <contact@pierre-martin.fr>\n"
+"POT-Creation-Date: 2013-05-15 15:10+0200\n"
+"PO-Revision-Date: 2013-05-15 15:15+0100\n"
+"Last-Translator: Damien Biasotto <damien.biasotto@gmail.com>\n"
 "Language-Team: Occitech\n"
 "Language: \n"
 "MIME-Version: 1.0\n"
@@ -15,39 +15,59 @@ msgstr ""
 "Plural-Forms: nplurals=2;plural=n>1;\n"
 "X-Poedit-Language: English\n"
 
-#: Controller/FilesController.php:71
+#: Controller/FilesController.php:72
 msgid "Vous ne pouvez pas donner de droit à un sous dossier. Nous vous avons donc redirigé sur la page permettant de donner les droits au dossier racine. Les droits s'appliqueront aussi au sous dossier"
 msgstr "You cannot define rights on a subdirectory. You have been redirected to a page allowing you to define rights onthe root folder. They will also be applied to subdirectories"
 
-#: Controller/FilesController.php:124
+#: Controller/FilesController.php:125
 msgid "There was an error while deleting the right. Thank you try again or contact an administrator"
 msgstr "There was an error while deleting the right. Thank you try again or contact an administrator"
 
-#: Controller/FilesController.php:161
+#: Controller/FilesController.php:162
 msgid "Given information are incorrect"
 msgstr "Given information are incorrect"
 
-#: Controller/FilesController.php:214;230
+#: Controller/FilesController.php:215;231
 msgid "Le dossier a correctement été créé"
 msgstr "Directory has been created successfully"
 
-#: Controller/FilesController.php:221;232
+#: Controller/FilesController.php:222;233
 msgid "Il y a des erreurs dans les données du formulaire"
 msgstr "There are errors with submitted data"
 
-#: Model/UploadedFile.php:364
+#: Controller/FilesController.php:322
+msgid "Folder #%s was successfully deleted"
+msgstr ""
+
+#: Controller/FilesController.php:325
+msgid "You cannot delete folder #%s"
+msgstr ""
+
+#: Model/UploadedFile.php:309
+msgid "Invalid user with id#%s"
+msgstr ""
+
+#: Model/UploadedFile.php:312
+msgid "Invalid Folder with id#%s"
+msgstr ""
+
+#: Model/UploadedFile.php:315
+msgid "Current id %s is not a folder"
+msgstr ""
+
+#: Model/UploadedFile.php:421
 msgid "Le fichier doit avoir la même extension que le fichier d'origine"
 msgstr "The file must have the same extension than the original one"
 
-#: Model/UploadedFile.php:405
+#: Model/UploadedFile.php:462
 msgid "La taille du fichier dépasse la limite autorisée"
 msgstr "File size exceeds the authorized limit"
 
-#: Model/UploadedFile.php:408
+#: Model/UploadedFile.php:465
 msgid "Aucun fichier n'a été uploadé"
 msgstr "No file was uploaded"
 
-#: Model/UploadedFile.php:411
+#: Model/UploadedFile.php:468
 msgid "Il y a eu une erreur pendant l'upload de votre fichier"
 msgstr "There was an error while uploading your file"
 
@@ -115,61 +135,73 @@ msgstr "Max date"
 msgid "Rechercher"
 msgstr "Search"
 
-#: View/Files/browse.ctp:13
+#: View/Files/browse.ctp:23
 msgid "Fichier"
 msgstr "File"
 
-#: View/Files/browse.ctp:14
+#: View/Files/browse.ctp:24
 msgid "Auteur"
 msgstr "Author"
 
-#: View/Files/browse.ctp:15
+#: View/Files/browse.ctp:25
 msgid "Date"
 msgstr "Date"
 
-#: View/Files/browse.ctp:16
+#: View/Files/browse.ctp:26
 msgid "Taille"
 msgstr "Size"
 
-#: View/Files/browse.ctp:17
+#: View/Files/browse.ctp:27
 msgid "Type"
 msgstr "Type"
 
-#: View/Files/browse.ctp:18
-#: View/Files/rights.ctp:24
+#: View/Files/browse.ctp:28
+#: View/Files/rights.ctp:37
 msgid "Actions"
 msgstr "Actions"
 
-#: View/Files/browse.ctp:79
+#: View/Files/browse.ctp:89
 msgid "<i class=\"icon-download-alt\"></i>"
 msgstr "<i class=\"icon-download-alt\"></i>"
 
-#: View/Files/browse.ctp:83
+#: View/Files/browse.ctp:93
 msgid "Download folder as zipfile"
 msgstr "Download folder as zipfile"
 
-#: View/Files/browse.ctp:93
+#: View/Files/browse.ctp:103
 msgid "Renommer le dossier"
 msgstr "Rename directory"
 
-#: View/Files/browse.ctp:104
+#: View/Files/browse.ctp:114
 msgid "<i class=\"icon-user\"></i>"
 msgstr "<i class=\"icon-user\"></i>"
 
-#: View/Files/browse.ctp:108
+#: View/Files/browse.ctp:118
 msgid "Gérer les droits"
 msgstr "Manage rights"
 
-#: View/Files/browse.ctp:123
-#: View/Files/view.ctp:36
+#: View/Files/browse.ctp:125
+msgid "<i class=\"icon-remove\"></i>"
+msgstr "<i class=\"icon-remove\"></i>"
+
+#: View/Files/browse.ctp:129
+msgid "Supprimer le dossier"
+msgstr "Delete folder"
+
+#: View/Files/browse.ctp:132
+msgid "You are about to delete folder #%s. Are you sure ?"
+msgstr ""
+
+#: View/Files/browse.ctp:145
+#: View/Files/view.ctp:37
 msgid "Download"
 msgstr "Download"
 
-#: View/Files/browse.ctp:139
+#: View/Files/browse.ctp:161
 msgid "New version"
 msgstr "New version"
 
-#: View/Files/browse.ctp:158
+#: View/Files/browse.ctp:180
 msgid "Commentaires"
 msgstr "Comments"
 
@@ -195,31 +227,39 @@ msgstr "Search results"
 msgid "Rename"
 msgstr "Rename"
 
-#: View/Files/rights.ctp:12
+#: View/Files/rights.ctp:14
+msgid "Rights management for folder \"%s\""
+msgstr ""
+
+#: View/Files/rights.ctp:25
 msgid "Select user"
 msgstr "Select user"
 
-#: View/Files/rights.ctp:14
+#: View/Files/rights.ctp:27
 msgid "Add user"
 msgstr "Add user"
 
-#: View/Files/rights.ctp:20
+#: View/Files/rights.ctp:33
 msgid "Name"
 msgstr "Name"
 
-#: View/Files/rights.ctp:21
+#: View/Files/rights.ctp:34
 msgid "Lecture"
 msgstr "Read"
 
-#: View/Files/rights.ctp:22
+#: View/Files/rights.ctp:35
 msgid "Upload"
 msgstr "Upload"
 
-#: View/Files/rights.ctp:23
+#: View/Files/rights.ctp:36
 msgid "Suppression"
 msgstr "Delete"
 
-#: View/Files/rights.ctp:113
+#: View/Files/rights.ctp:47
+msgid "This User has all rights on this folder"
+msgstr "This User has all rights on this folder"
+
+#: View/Files/rights.ctp:123
 msgid "Supprimer l'utilisateur de ce dossier"
 msgstr "Delete this user from this directory"
 
@@ -227,11 +267,11 @@ msgstr "Delete this user from this directory"
 msgid "You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support."
 msgstr "You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support."
 
-#: View/Files/view.ctp:3
+#: View/Files/view.ctp:4
 msgid ".."
 msgstr ".."
 
-#: View/Files/view.ctp:8
+#: View/Files/view.ctp:9
 msgid "Ajouter une version"
 msgstr "Add a version"
 
@@ -252,9 +292,4 @@ msgstr "This field cannot be left empty"
 #: for field filename
 msgid "Ce nom est déjà utilisé par un autre dossier"
 msgstr "This name is already in use for another directory"
-
-
-#:  View/Files/rights.ctp: super admins rights
-msgid "This User has all rights on this folder"
-msgstr ""
 
