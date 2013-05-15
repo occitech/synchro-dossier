@@ -7,7 +7,6 @@ App::uses('UploaderAclAco', 'Uploader.Model');
 class FilesController extends UploaderAppController {
 
 	public $uses = array('Uploader.UploadedFile');
-
 	public $components = array(
 		'Plupload.Plupload',
 		'Search.Prg',
@@ -16,7 +15,9 @@ class FilesController extends UploaderAppController {
 			'settings' => array(
 				'actionMap' => array(
 					'browse' 			=> 'read',
+					'preview' 			=> 'read',
 					'createFolder' 		=> 'create',
+					'delete' 			=> 'delete',
 					'rename' 			=> 'create',
 					'downloadZipFolder' => 'read',
 					'upload' 			=> 'create',
