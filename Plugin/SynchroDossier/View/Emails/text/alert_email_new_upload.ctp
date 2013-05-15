@@ -1,14 +1,14 @@
-<?= __('Bonjour,'); ?>
+<?= __d('SynchroDossier', 'Bonjour,'); ?>
 
-<?= __(
+<?= __d('SynchroDossier', 
 	'L\'un de vos utilisateurs (dont l\'adresse email est \'%s\') vient d\'envoyer de nouveaux fichiers sur votre espace de stockage',
 	$user['email']
 ); ?>
 
-<?= __('Voici la liste des fichiers envoyés'); ?>
+<?= __d('SynchroDossier', 'Voici la liste des fichiers envoyés'); ?>
 
 <?php foreach ($files as $file): ?>
- * <?= __('Nom : '); ?><?= $file['UploadedFile']['filename']; ?> (<?= $this->File->size($file['UploadedFile']['size']); ?>)
+ * <?= __d('SynchroDossier', 'Nom : '); ?><?= $file['UploadedFile']['filename']; ?> (<?= $this->File->size($file['UploadedFile']['size']); ?>)
 <?php endforeach ?>
 
-<?= __('Cordialement'); ?>
+<?= __d('SynchroDossier', 'Cordialement'); ?>

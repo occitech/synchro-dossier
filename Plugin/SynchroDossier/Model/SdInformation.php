@@ -8,18 +8,18 @@ class SdInformation extends SynchroDossierAppModel {
 
 	public $useTable = 'sd_information';
 
-	public $validate = array(
-		'quota_mb' => array(
-			'comparison' => array(
-				'rule' => array('comparison', '>', 0),
-				'message' => 'Quota must be highter than 0',
-				'required' => true
-			),
-		),
-	);
 
 	public function __construct($id = false, $table = null, $ds = null) {
 		parent::__construct($id, $table, $ds);
+		$this->validate = array(
+			'quota_mb' => array(
+				'comparison' => array(
+					'rule' => array('comparison', '>', 0),
+					'message' => __d('SynchroDossier', 'Quota must be highter than 0'),
+					'required' => true
+				),
+			),
+		);
 
 		$this->virtualFields['remaining_quota'] =
 			 $this->alias . '.quota_mb - ' . $this->alias . '.current_quota_mb';

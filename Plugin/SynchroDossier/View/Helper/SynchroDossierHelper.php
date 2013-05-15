@@ -58,11 +58,11 @@ class SynchroDossierHelper extends AppHelper {
 	public function displayRights($aroData){
 		$labelsRights = '';
 		$_rights = array(
-			'_read' => __d('synchrodossier', 'Read'),
-			'_write' => __d('synchrodossier', 'Write'),
-			'_delete' => __d('synchrodossier', 'Delete'),
-			'_create' => __d('synchrodossier', 'Create'),
-			'_change_right' => __d('synchrodossier', 'Change Right')
+			'_read' => __d('SynchroDossier', 'Read'),
+			'_write' => __d('SynchroDossier', 'Write'),
+			'_delete' => __d('SynchroDossier', 'Delete'),
+			'_create' => __d('SynchroDossier', 'Create'),
+			'_change_right' => __d('SynchroDossier', 'Change Right')
 		);
 
 		foreach ($aroData as $aro) {
@@ -84,11 +84,11 @@ class SynchroDossierHelper extends AppHelper {
 		$folderId = $folderData['UploadedFile']['id'];
 
 		$options = array(
-			'label' => __d('synchrodossier', 'Subscribe to email alert'),
+			'label' => __d('SynchroDossier', 'Subscribe to email alert'),
 			'value' => 1,
 			'type' => 'checkbox',
 			'data-folder-id' => $folderId,
-			'data-subscribed-text' =>  __d('synchrodossier', 'Unsubscribe to email alert'),
+			'data-subscribed-text' =>  __d('SynchroDossier', 'Unsubscribe to email alert'),
 		);
 
 		if (!empty($alertEmails)) {
@@ -112,7 +112,7 @@ class SynchroDossierHelper extends AppHelper {
 			),
 			$options,
 			__d(
-				'synchrodossier',
+				'SynchroDossier',
 				'You\'re about to %s to email alert for folder #%s, Are you sure ?',
 				$options['value'] ? 'subscribe' : 'unsubscribe',
 				$folderId

@@ -1,19 +1,19 @@
-<?= __('Bonjour,'); ?>
+<?= __d('SynchroDossier', 'Bonjour,'); ?>
 
-<?= __('L\'un de vos utilisateurs (dont l\'adresse email est \'%s\')
+<?= __d('SynchroDossier', 'L\'un de vos utilisateurs (dont l\'adresse email est \'%s\')
 a essayé d\'envoyer un fichier dont la taille dépasse le quota restant dans votre
 espace de stockage.', $user['email']); ?>
 
 
-<?= __('Voici les informations du fichier que l\'utilisateur a essayé d\'envoyer :'); ?>
+<?= __d('SynchroDossier', 'Voici les informations du fichier que l\'utilisateur a essayé d\'envoyer :'); ?>
 
- * <?= __('Nom : '); ?><?= $data['file']['name']; ?>
+ * <?= __d('SynchroDossier', 'Nom : '); ?><?= $data['file']['name']; ?>
 
- * <?= __('Taille : '); ?> <?= $this->File->size($data['file']['size']); ?>
+ * <?= __d('SynchroDossier', 'Taille : '); ?> <?= $this->File->size($data['file']['size']); ?>
 
 
-<?= __('Pour que vos utilisateurs puissent de nouveau envoyer des fichiers vous devez
+<?= __d('SynchroDossier', 'Pour que vos utilisateurs puissent de nouveau envoyer des fichiers vous devez
 augmenter votre quota ou supprimer des fichiers.'); ?>
 
 
-<?= __('Cordialement'); ?>
+<?= __d('SynchroDossier', 'Cordialement'); ?>
