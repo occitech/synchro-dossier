@@ -21,8 +21,9 @@ public function beforeFilter() {
 				'fields' => array('Language.alias')
 			)
 		);
-		$this->set('userLang', $userSetting['Language']['alias']);
-		$sessionConfig['lang'] = $userSetting['Language']['alias'];
+		if (isset($userSetting['Language'])) {
+			$sessionConfig['lang'] = $userSetting['Language']['alias'];
+		}
 	}
 	$this->Session->write('Config', $sessionConfig);
 	Configure::write('Config.language', $sessionConfig['lang']);
