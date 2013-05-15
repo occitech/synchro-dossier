@@ -8,7 +8,7 @@ class AppController extends CroogoAppController {
 		parent::beforeFilter();
 		$sessionConfig = array_merge(
 			array('lang'=> Configure::read('Config.language')),
-			$this->Session->read('Config')
+			(array) $this->Session->read('Config')
 		);
 		if ($this->Auth->loggedIn() && CakePlugin::loaded('SdUsers')) {
 			$userId = $this->Auth->user('id');
