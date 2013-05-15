@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2013-02-11 06:35+0100\n"
+"POT-Creation-Date: 2013-05-15 12:44+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,39 +14,59 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Controller/FilesController.php:71
+#: Controller/FilesController.php:72
 msgid "Vous ne pouvez pas donner de droit à un sous dossier. Nous vous avons donc redirigé sur la page permettant de donner les droits au dossier racine. Les droits s'appliqueront aussi au sous dossier"
 msgstr ""
 
-#: Controller/FilesController.php:124
+#: Controller/FilesController.php:125
 msgid "There was an error while deleting the right. Thank you try again or contact an administrator"
 msgstr ""
 
-#: Controller/FilesController.php:161
+#: Controller/FilesController.php:162
 msgid "Given information are incorrect"
 msgstr ""
 
-#: Controller/FilesController.php:214;230
+#: Controller/FilesController.php:215;231
 msgid "Le dossier a correctement été créé"
 msgstr ""
 
-#: Controller/FilesController.php:221;232
+#: Controller/FilesController.php:222;233
 msgid "Il y a des erreurs dans les données du formulaire"
 msgstr ""
 
-#: Model/UploadedFile.php:364
+#: Controller/FilesController.php:322
+msgid "Folder #%s was successfully deleted"
+msgstr ""
+
+#: Controller/FilesController.php:325
+msgid "You cannot delete folder #%s"
+msgstr ""
+
+#: Model/UploadedFile.php:309
+msgid "Invalid user with id#%s"
+msgstr ""
+
+#: Model/UploadedFile.php:312
+msgid "Invalid Folder with id#%s"
+msgstr ""
+
+#: Model/UploadedFile.php:315
+msgid "Current id %s is not a folder"
+msgstr ""
+
+#: Model/UploadedFile.php:421
 msgid "Le fichier doit avoir la même extension que le fichier d'origine"
 msgstr ""
 
-#: Model/UploadedFile.php:405
+#: Model/UploadedFile.php:462
 msgid "La taille du fichier dépasse la limite autorisée"
 msgstr ""
 
-#: Model/UploadedFile.php:408
+#: Model/UploadedFile.php:465
 msgid "Aucun fichier n'a été uploadé"
 msgstr ""
 
-#: Model/UploadedFile.php:411
+#: Model/UploadedFile.php:468
 msgid "Il y a eu une erreur pendant l'upload de votre fichier"
 msgstr ""
 
@@ -114,61 +134,73 @@ msgstr ""
 msgid "Rechercher"
 msgstr ""
 
-#: View/Files/browse.ctp:13
+#: View/Files/browse.ctp:23
 msgid "Fichier"
 msgstr ""
 
-#: View/Files/browse.ctp:14
+#: View/Files/browse.ctp:24
 msgid "Auteur"
 msgstr ""
 
-#: View/Files/browse.ctp:15
+#: View/Files/browse.ctp:25
 msgid "Date"
 msgstr ""
 
-#: View/Files/browse.ctp:16
+#: View/Files/browse.ctp:26
 msgid "Taille"
 msgstr ""
 
-#: View/Files/browse.ctp:17
+#: View/Files/browse.ctp:27
 msgid "Type"
 msgstr ""
 
-#: View/Files/browse.ctp:18
-#: View/Files/rights.ctp:24
+#: View/Files/browse.ctp:28
+#: View/Files/rights.ctp:36
 msgid "Actions"
 msgstr ""
 
-#: View/Files/browse.ctp:79
+#: View/Files/browse.ctp:89
 msgid "<i class=\"icon-download-alt\"></i>"
 msgstr ""
 
-#: View/Files/browse.ctp:83
+#: View/Files/browse.ctp:93
 msgid "Download folder as zipfile"
 msgstr ""
 
-#: View/Files/browse.ctp:93
+#: View/Files/browse.ctp:103
 msgid "Renommer le dossier"
 msgstr ""
 
-#: View/Files/browse.ctp:104
+#: View/Files/browse.ctp:114
 msgid "<i class=\"icon-user\"></i>"
 msgstr ""
 
-#: View/Files/browse.ctp:108
+#: View/Files/browse.ctp:118
 msgid "Gérer les droits"
 msgstr ""
 
-#: View/Files/browse.ctp:123
-#: View/Files/view.ctp:36
+#: View/Files/browse.ctp:125
+msgid "<i class=\"icon-remove\"></i>"
+msgstr ""
+
+#: View/Files/browse.ctp:129
+msgid "Supprimer le dossier"
+msgstr ""
+
+#: View/Files/browse.ctp:132
+msgid "You are about to delete folder #%s. Are you sure ?"
+msgstr ""
+
+#: View/Files/browse.ctp:145
+#: View/Files/view.ctp:37
 msgid "Download"
 msgstr ""
 
-#: View/Files/browse.ctp:139
+#: View/Files/browse.ctp:161
 msgid "New version"
 msgstr ""
 
-#: View/Files/browse.ctp:158
+#: View/Files/browse.ctp:180
 msgid "Commentaires"
 msgstr ""
 
@@ -194,31 +226,35 @@ msgstr ""
 msgid "Rename"
 msgstr ""
 
-#: View/Files/rights.ctp:12
+#: View/Files/rights.ctp:24
 msgid "Select user"
 msgstr ""
 
-#: View/Files/rights.ctp:14
+#: View/Files/rights.ctp:26
 msgid "Add user"
 msgstr ""
 
-#: View/Files/rights.ctp:20
+#: View/Files/rights.ctp:32
 msgid "Name"
 msgstr ""
 
-#: View/Files/rights.ctp:21
+#: View/Files/rights.ctp:33
 msgid "Lecture"
 msgstr ""
 
-#: View/Files/rights.ctp:22
+#: View/Files/rights.ctp:34
 msgid "Upload"
 msgstr ""
 
-#: View/Files/rights.ctp:23
+#: View/Files/rights.ctp:35
 msgid "Suppression"
 msgstr ""
 
-#: View/Files/rights.ctp:113
+#: View/Files/rights.ctp:46
+msgid "This User has all rights on this folder"
+msgstr ""
+
+#: View/Files/rights.ctp:122
 msgid "Supprimer l'utilisateur de ce dossier"
 msgstr ""
 
@@ -226,11 +262,11 @@ msgstr ""
 msgid "You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support."
 msgstr ""
 
-#: View/Files/view.ctp:3
+#: View/Files/view.ctp:4
 msgid ".."
 msgstr ""
 
-#: View/Files/view.ctp:8
+#: View/Files/view.ctp:9
 msgid "Ajouter une version"
 msgstr ""
 
@@ -250,6 +286,3 @@ msgstr ""
 msgid "Ce nom est déjà utilisé par un autre dossier"
 msgstr ""
 
-#:  View/Files/rights.ctp: super admins rights
-msgid "This User has all rights on this folder"
-msgstr "Cet utilisateur a tous les droits sur ce dossier"

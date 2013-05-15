@@ -43,7 +43,7 @@
 					<?= $superAdmin['Role']['title']; ?>
 				</span>
 			</td>
-			<td colspan="4"><?= __('This User has all rights on this folder'); ?></td>
+			<td colspan="4"><?= __d('uploader', 'This User has all rights on this folder'); ?></td>
 		</tr>
 		<?php endforeach ?>
 
