@@ -6,6 +6,7 @@ class SdUsersController extends SdUsersAppController {
 
 	public $uses = array('SdUsers.SdUser');
 	public $components = array('SdUsers.Roles');
+	public $paginate;
 	public $helpers = array(
 		'Form' => array('className' => 'Croogo.CroogoForm'),
 		'Html' => array('className' => 'Croogo.CroogoHtml')
@@ -21,6 +22,10 @@ class SdUsersController extends SdUsersAppController {
 	public function index() {
 		$this->loadModel('Uploader.UploaderAclAco');
 		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
+		if ($this->Auth->user('role_id') == SdUser::ROLE_ADMIN_ID) {
+			$this->paginate['findType'] = 'createdBy';
+			$this->paginate['creatorId'] = $this->Auth->user('id');
+		}
 		$users = $this->paginate();
 		$this->set(compact('users', 'can'));
 	}
@@ -86,7 +91,7 @@ class SdUsersController extends SdUsersAppController {
 			$this->redirect($returnUrl, 404);
 		}
 
-		if ($this->Auth->user('id') != $user['User']['id'] && $this->Auth->user('User.role_id') == SdUser::ROLE_UTILISATEUR_ID) {
+		if ($this->Auth->user('id') != $user['User']['id'] && $this->Auth->user('role_id') == SdUser::ROLE_UTILISATEUR_ID) {
 			$this->Session->setFlash(__d('sd_users', 'You cannot access others users profiles'));
 			$this->redirect($returnUrl, 403);
 		}
