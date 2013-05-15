@@ -1,13 +1,12 @@
 # LANGUAGE translation of CakePHP Application
 # Copyright YEAR NAME <EMAIL@ADDRESS>
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "POT-Creation-Date: 2013-05-15 12:20+0200\n"
-"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
-"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2013-05-15 13:17+0100\n"
+"Last-Translator: Damien Biasotto <damien.biasotto@gmail.com>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -16,200 +15,210 @@ msgstr ""
 
 #: Config/bootstrap.php:42
 msgid "SynchroDossier"
-msgstr ""
+msgstr "SynchroDossier"
 
 #: Config/bootstrap.php:51
 #: View/SdInformations/admin_quota.ctp:7
 msgid "Quota"
-msgstr ""
+msgstr "Quota"
 
 #: Config/bootstrap.php:64
 msgid "Synchro-Dossier - Quota dépassé"
-msgstr ""
+msgstr "Synchro-Dossier - Quota exceeded"
 
 #: Config/bootstrap.php:66
 msgid "Synchro-Dossier - Nouveaux fichiers envoyés"
-msgstr ""
+msgstr "Synchro-Dossier - New files sent."
 
 #: Controller/SdInformationsController.php:9
 msgid "Quota mis à jour"
-msgstr ""
+msgstr "Quota updated"
 
 #: Controller/Component/SynchroDossierComponent.php:15
 msgid "Pour accéder à cette page vous devez vous connecter"
-msgstr ""
+msgstr "To access this page you have to log in"
 
 #: Lib/SdQuotaManager.php:28
 msgid "Il n'y a plus de place pour ce dossier"
-msgstr ""
+msgstr "There is no more free space for this folder. "
 
 #: Lib/SdQuotaManager.php:29
 msgid "Désolé, l'envoie de fichier n'est actuellement pas disponible."
-msgstr ""
+msgstr "Sorry, file sending is not available."
 
 #: Lib/SdQuotaManager.php:30
 msgid "Le quota est atteint, vous devez contacter un SuperAdmin, ou supprimer des fichiers."
-msgstr ""
+msgstr "Quota reached, you have to contact a SuperAdmin, or delete some files."
 
 #: Lib/SdQuotaManager.php:31
 msgid "Le quota est atteint, vous devez commander plus de quota ou supprimer des fichiers."
-msgstr ""
+msgstr "Quota reached, you have to order quota increase or delete some files."
 
 #: Model/SdInformation.php:18
 msgid "Quota must be highter than 0"
-msgstr ""
+msgstr "Quota must be highter than 0"
 
 #: View/Elements/addNewVersionModal.ctp:4
 msgid "Ajoutez une nouvelle version de"
-msgstr ""
+msgstr "Add a new version of"
 
 #: View/Elements/addNewVersionModal.ctp:14
 msgid "Ajoutez une nouvelle version"
-msgstr ""
+msgstr "Add a new version"
 
 #: View/Elements/addSharingModal.ctp:4;22
 msgid "Créez un dossier"
-msgstr ""
+msgstr "Create a folder"
 
 #: View/Elements/addSharingModal.ctp:16
 msgid "Nom du dossier"
-msgstr ""
+msgstr "Folder name"
 
 #: View/Elements/createFolderModal.ctp:4
 #: View/Elements/sidebar.ctp:47
 msgid "Créez un sous dossier"
-msgstr ""
+msgstr "Create a subfolder"
 
 #: View/Elements/createFolderModal.ctp:20
 msgid "Nom du sous dossier"
-msgstr ""
+msgstr "Subfolder name"
 
 #: View/Elements/createFolderModal.ctp:26
 msgid "Créez le sous dossier"
-msgstr ""
+msgstr "Create the subfolder"
 
 #: View/Elements/formCommentModal.ctp:4
 msgid "Commentaires"
-msgstr ""
+msgstr "Comments"
 
 #: View/Elements/navbar.ctp:4
 msgid "Espace client"
-msgstr ""
+msgstr "Customer area"
 
 #: View/Elements/navbar.ctp:9
 msgid "Accueil"
-msgstr ""
+msgstr "Home"
 
 #: View/Elements/navbar.ctp:16
 msgid "Liste des Utilisateurs"
-msgstr ""
+msgstr "Users list"
 
 #: View/Elements/navbar.ctp:27
 msgid "Bonjour %s"
-msgstr ""
+msgstr "Welcome %s"
 
 #: View/Elements/navbar.ctp:39
 msgid "Profil"
-msgstr ""
+msgstr "Profile"
 
 #: View/Elements/navbar.ctp:47
 msgid "Déconnexion"
-msgstr ""
+msgstr "Logout"
 
 #: View/Elements/navbar.ctp:51
 msgid "Connexion"
-msgstr ""
+msgstr "Login"
 
 #: View/Elements/renameFolderModal.ctp:4
 msgid "Renommez le dossier"
-msgstr ""
+msgstr "Rename the folder"
 
 #: View/Elements/renameFolderModal.ctp:26
 msgid "Renommez"
-msgstr ""
+msgstr "Rename"
 
 #: View/Elements/sidebar.ctp:4
 msgid "Votre Quota"
-msgstr ""
+msgstr "Your Quota"
 
 #: View/Elements/sidebar.ctp:11
 msgid "Mes Dossiers"
-msgstr ""
+msgstr "My Folders"
 
 #: View/Elements/sidebar.ctp:14
 msgid "Ajoutez un dossier"
-msgstr ""
+msgstr "Add a folder"
 
 #: View/Elements/sidebar.ctp:27
 msgid "Actions"
-msgstr ""
+msgstr "Actions"
 
 #: View/Elements/sidebar.ctp:32
 msgid "Créez un utilisateur"
-msgstr ""
+msgstr "Create a user"
 
 #: View/Elements/sidebar.ctp:61
 msgid "Recherche"
-msgstr ""
+msgstr "Search"
 
 #: View/Elements/sidebar.ctp:70
 msgid "Utilisateurs du dossier"
-msgstr ""
+msgstr "Folder users"
 
 #: View/Elements/sidebar.ctp:78
 msgid "Ajoutez un utilisateur à ce dossier"
-msgstr ""
+msgstr "Add a user to this folder"
 
 #: View/Emails/html/alert_email_new_upload.ctp:1
 #: View/Emails/html/quota_exceeded.ctp:1
 #: View/Emails/text/alert_email_new_upload.ctp:1
 #: View/Emails/text/quota_exceeded.ctp:1
 msgid "Bonjour,"
-msgstr ""
+msgstr "Welcome,"
 
 #: View/Emails/html/alert_email_new_upload.ctp:3
 #: View/Emails/text/alert_email_new_upload.ctp:3
 msgid "L'un de vos utilisateurs (dont l'adresse email est '%s') vient d'envoyer de nouveaux fichiers sur votre espace de stockage"
-msgstr ""
+msgstr "One of your users (which email address is '%s') just send new files on your storage"
 
 #: View/Emails/html/alert_email_new_upload.ctp:8
 #: View/Emails/text/alert_email_new_upload.ctp:8
 msgid "Voici la liste des fichiers envoyés"
-msgstr ""
+msgstr "Here is the list of files sent "
 
 #: View/Emails/html/alert_email_new_upload.ctp:11
 #: View/Emails/html/quota_exceeded.ctp:10
 #: View/Emails/text/alert_email_new_upload.ctp:11
 #: View/Emails/text/quota_exceeded.ctp:10
 msgid "Nom : "
-msgstr ""
+msgstr "Name :"
 
 #: View/Emails/html/alert_email_new_upload.ctp:14
 #: View/Emails/html/quota_exceeded.ctp:19
 #: View/Emails/text/alert_email_new_upload.ctp:14
 #: View/Emails/text/quota_exceeded.ctp:19
 msgid "Cordialement"
-msgstr ""
+msgstr "Cordially"
 
 #: View/Emails/html/quota_exceeded.ctp:3
 #: View/Emails/text/quota_exceeded.ctp:3
-msgid "L'un de vos utilisateurs (dont l'adresse email est '%s')\na essayé d'envoyer un fichier dont la taille dépasse le quota restant dans votre\nespace de stockage."
+msgid ""
+"L'un de vos utilisateurs (dont l'adresse email est '%s')\n"
+"a essayé d'envoyer un fichier dont la taille dépasse le quota restant dans votre\n"
+"espace de stockage."
 msgstr ""
+"One of your users (which email address is '%s')\n"
+" just try to send a file which size exceeded remaining quota\n"
+" in your storage."
 
 #: View/Emails/html/quota_exceeded.ctp:8
 #: View/Emails/text/quota_exceeded.ctp:8
 msgid "Voici les informations du fichier que l'utilisateur a essayé d'envoyer :"
-msgstr ""
+msgstr "Here are file informations that user try to sent :"
 
 #: View/Emails/html/quota_exceeded.ctp:12
 #: View/Emails/text/quota_exceeded.ctp:12
 msgid "Taille : "
-msgstr ""
+msgstr "Size :"
 
 #: View/Emails/html/quota_exceeded.ctp:15
 #: View/Emails/text/quota_exceeded.ctp:15
-msgid "Pour que vos utilisateurs puissent de nouveau envoyer des fichiers vous devez\naugmenter votre quota ou supprimer des fichiers."
+msgid ""
+"Pour que vos utilisateurs puissent de nouveau envoyer des fichiers vous devez\n"
+"augmenter votre quota ou supprimer des fichiers."
 msgstr ""
+"In order that your users could send files again, you have to\n"
+" increase your quota or delete some files."
 
 #: View/Helper/SynchroDossierHelper.php:61
 msgid "Read"
@@ -249,7 +258,7 @@ msgstr ""
 
 #: View/SdInformations/admin_quota.ctp:16
 msgid "Quota utilisé : "
-msgstr ""
+msgstr "Quota used:"
 
 #: View/SdInformations/admin_quota.ctp:25
 msgid "Publishing"
@@ -257,9 +266,9 @@ msgstr ""
 
 #: View/SdInformations/admin_quota.ctp:26
 msgid "Sauver"
-msgstr ""
+msgstr "Save"
 
 #: View/SdInformations/admin_quota.ctp:27
 msgid "Annuler"
-msgstr ""
+msgstr "Cancel"
 
