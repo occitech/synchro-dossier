@@ -215,7 +215,7 @@ msgstr ""
 
 #: View/SdUsers/profile.ctp:11
 msgid "Personal Informations:"
-msgstr ""
+msgstr "Informations Personnelles:"
 
 #: View/SdUsers/profile.ctp:14
 msgid "Name:"
