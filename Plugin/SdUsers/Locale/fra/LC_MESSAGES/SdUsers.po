@@ -1,13 +1,12 @@
 # LANGUAGE translation of CakePHP Application
 # Copyright YEAR NAME <EMAIL@ADDRESS>
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "POT-Creation-Date: 2013-05-15 12:37+0200\n"
-"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
-"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2013-05-15 13:09+0100\n"
+"Last-Translator: Salvan Grégory <gregory@occi-tech.com>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
@@ -56,43 +55,43 @@ msgstr ""
 
 #: Controller/SdUsersController.php:85
 msgid "User #%s Not Found"
-msgstr ""
+msgstr "Impossible de trouver l'utilisateur #%s"
 
 #: Controller/SdUsersController.php:90
 msgid "You cannot access others users profiles"
-msgstr ""
+msgstr "Vous ne pouvez accéder au profile d'autres utilisateurs"
 
 #: Controller/SdUsersController.php:95
 msgid "User informations successfully updated"
-msgstr ""
+msgstr "Succès de la mise à jour des informations utilisateur"
 
 #: Controller/SdUsersController.php:98
 msgid "A problem occurs when updating user informations. Please retry."
-msgstr ""
+msgstr "Il y a eu un problème lors de la mise à jour des informations de l'utilisateur. Veuillez réessayer."
 
 #: Controller/SdUsersController.php:125
 msgid "You are successfully subscribed to email alert for folder #%s"
-msgstr ""
+msgstr "Vous venez de vous inscrire aux alertes mail pour le dossier #%s"
 
 #: Controller/SdUsersController.php:127
 msgid "You have successfully cancel your subscription to folder #%s"
-msgstr ""
+msgstr "Vous ne recevrez plus d'alertes mail pour le dossier #%s"
 
 #: Controller/SdUsersController.php:131
 msgid "Something went wrong when subscribing to folder #%s "
-msgstr ""
+msgstr "Une erreur s'est produite lors de la souscription aux alertes mail pour le dossier #%s"
 
 #: Controller/SdUsersController.php:133
 msgid "Something went wrong when canceling your subscription to folder #%s "
-msgstr ""
+msgstr "Une erreur s'est produite lors de la désinscription aux alertes mail pour le dossier #%s"
 
 #: Controller/SdUsersController.php:151
 msgid "Password has been successfully changed"
-msgstr ""
+msgstr "Le mot de passe a été mis à jour avec succès"
 
 #: Controller/SdUsersController.php:154
 msgid "Something went wrong when updating password"
-msgstr ""
+msgstr "Une erreur s'est produite lors de la mise à jour du mot de passe"
 
 #: Model/Profile.php:26
 msgid "Ce champ ne peut pas être laissé vide"
@@ -100,15 +99,15 @@ msgstr ""
 
 #: Model/SdUser.php:59
 msgid "Please provide a valid email address."
-msgstr ""
+msgstr "Veuillez saisir une adresse mail valide."
 
 #: Model/SdUser.php:64
 msgid "Email address already in use."
-msgstr ""
+msgstr "L'adresse mail est déjà utilisé"
 
 #: Model/SdUser.php:71
 msgid "Passwords must be at least 6 characters long."
-msgstr ""
+msgstr "Les mots de passe doivent avoir au moins 6 caractères"
 
 #: Model/SdUser.php:84
 msgid "Vous ne pouvez pas créer d'utilisateur de ce groupe"
@@ -116,15 +115,15 @@ msgstr ""
 
 #: Model/SdUser.php:172
 msgid "User #%s was not found"
-msgstr ""
+msgstr "L'utilisateur #%s introuvable"
 
 #: Model/SdUser.php:176
 msgid "Empty password is not allowed"
-msgstr ""
+msgstr "Un mot de passe vide n'est pas autorisé"
 
 #: View/SdUsers/edit.ctp:11
 msgid "User Login"
-msgstr ""
+msgstr "Connection Utilisateur"
 
 #: View/SdUsers/edit.ctp:16
 #: View/SdUsers/index.ctp:16
@@ -144,7 +143,7 @@ msgstr ""
 
 #: View/SdUsers/edit.ctp:22
 msgid "Profile"
-msgstr ""
+msgstr "Profil"
 
 #: View/SdUsers/edit.ctp:27
 #: View/SdUsers/index.ctp:13
@@ -163,11 +162,11 @@ msgstr ""
 #: View/SdUsers/edit.ctp:31
 #: View/SdUsers/profile.ctp:57
 msgid "Language"
-msgstr ""
+msgstr "Langue"
 
 #: View/SdUsers/edit.ctp:40
 msgid "Publishing"
-msgstr ""
+msgstr "Publication"
 
 #: View/SdUsers/edit.ctp:41
 msgid "Sauver"
@@ -195,7 +194,7 @@ msgstr ""
 
 #: View/SdUsers/index.ctp:38
 msgid "Are you sure?"
-msgstr ""
+msgstr "Êtes vous sur ?"
 
 #: View/SdUsers/login.ctp:2
 msgid "Connexion utilisateur"
@@ -215,19 +214,19 @@ msgstr ""
 
 #: View/SdUsers/profile.ctp:11
 msgid "Personal Informations:"
-msgstr ""
+msgstr "Informations Personnelles"
 
 #: View/SdUsers/profile.ctp:14
 msgid "Name:"
-msgstr ""
+msgstr "Nom:"
 
 #: View/SdUsers/profile.ctp:16
 msgid "Firstname:"
-msgstr ""
+msgstr "Prénom:"
 
 #: View/SdUsers/profile.ctp:18
 msgid "Society:"
-msgstr ""
+msgstr "Société:"
 
 #: View/SdUsers/profile.ctp:20
 msgid "Email:"
@@ -235,39 +234,39 @@ msgstr ""
 
 #: View/SdUsers/profile.ctp:37
 msgid "Firstname"
-msgstr ""
+msgstr "Prénom"
 
 #: View/SdUsers/profile.ctp:42
 msgid "Lastname"
-msgstr ""
+msgstr "Nom"
 
 #: View/SdUsers/profile.ctp:47
 msgid "Society"
-msgstr ""
+msgstr "Société"
 
 #: View/SdUsers/profile.ctp:62
 msgid "Update user informations"
-msgstr ""
+msgstr "Mettre à jour les informations utilisateur"
 
 #: View/SdUsers/profile.ctp:74;91
 msgid "Change your password"
-msgstr ""
+msgstr "Modifier votre mot de passe"
 
 #: View/SdUsers/profile.ctp:77
 msgid "Old password"
-msgstr ""
+msgstr "Ancien mot de passe"
 
 #: View/SdUsers/profile.ctp:82
 msgid "New password"
-msgstr ""
+msgstr "Nouveau mot de passe"
 
 #: View/SdUsers/profile.ctp:87
 msgid "Confirm new password"
-msgstr ""
+msgstr "Confirmer le nouveau mot de passe"
 
 #: View/SdUsers/profile.ctp:95
 msgid "Your Folders"
-msgstr ""
+msgstr "Vos Dossiers"
 
 #: View/SdUsers/profile.ctp:99
 msgid "Dossier"
@@ -279,13 +278,13 @@ msgstr ""
 
 #: View/SdUsers/profile.ctp:101
 msgid "Creator"
-msgstr ""
+msgstr "Créateur"
 
 #: View/SdUsers/profile.ctp:102
 msgid "Rights"
-msgstr ""
+msgstr "Droits"
 
 #: View/SdUsers/profile.ctp:103
 msgid "Notifications"
-msgstr ""
+msgstr "Alertes"
 

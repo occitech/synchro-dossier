@@ -1,14 +1,13 @@
 # LANGUAGE translation of CakePHP Application
 # Copyright YEAR NAME <EMAIL@ADDRESS>
 #
-#, fuzzy
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
 "POT-Creation-Date: 2013-05-15 12:37+0200\n"
-"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
-"Last-Translator: NAME <EMAIL@ADDRESS>\n"
-"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"PO-Revision-Date: 2013-05-15 13:17+0100\n"
+"Last-Translator: Salvan Grégory <gregory@occi-tech.com>\n"
+"Language-Team: LANGUAGE <equipe@occi-tech.com>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=utf-8\n"
 "Content-Transfer-Encoding: 8bit\n"
@@ -16,39 +15,39 @@ msgstr ""
 
 #: Config/bootstrap.php:43
 msgid "Utilisateurs"
-msgstr ""
+msgstr "Users"
 
 #: Config/bootstrap.php:51
 msgid "Liste"
-msgstr ""
+msgstr "List"
 
 #: Config/bootstrap.php:59
 msgid "Ajouter"
-msgstr ""
+msgstr "Add"
 
 #: Controller/SdUsersController.php:33
 msgid "L'utilisateur à été enregistré"
-msgstr ""
+msgstr "User has been saved"
 
 #: Controller/SdUsersController.php:36
 msgid "L'utilisateur ne peux pas être ajouté"
-msgstr ""
+msgstr "User can't be added"
 
 #: Controller/SdUsersController.php:47
 msgid "L'utilisateur à été mis à jour"
-msgstr ""
+msgstr "User informations updated"
 
 #: Controller/SdUsersController.php:50
 msgid "L'utilisateur ne peux pas être modifié"
-msgstr ""
+msgstr "User informations can't be updated"
 
 #: Controller/SdUsersController.php:67
 msgid "L'utilisateur à été supprimé"
-msgstr ""
+msgstr "User was deleted"
 
 #: Controller/SdUsersController.php:69
 msgid "L'utilisateur ne peux pas être supprimé"
-msgstr ""
+msgstr "User can't be deleted"
 
 #: Controller/SdUsersController.php:76
 msgid "Your Profile"
@@ -96,7 +95,7 @@ msgstr ""
 
 #: Model/Profile.php:26
 msgid "Ce champ ne peut pas être laissé vide"
-msgstr ""
+msgstr "This field must not be empty"
 
 #: Model/SdUser.php:59
 msgid "Please provide a valid email address."
@@ -112,7 +111,7 @@ msgstr ""
 
 #: Model/SdUser.php:84
 msgid "Vous ne pouvez pas créer d'utilisateur de ce groupe"
-msgstr ""
+msgstr "You can't create users for this group"
 
 #: Model/SdUser.php:172
 msgid "User #%s was not found"
@@ -140,7 +139,7 @@ msgstr ""
 #: View/SdUsers/edit.ctp:18
 #: View/SdUsers/login.ctp:7
 msgid "Mot de passe"
-msgstr ""
+msgstr "Password"
 
 #: View/SdUsers/edit.ctp:22
 msgid "Profile"
@@ -149,16 +148,16 @@ msgstr ""
 #: View/SdUsers/edit.ctp:27
 #: View/SdUsers/index.ctp:13
 msgid "Nom"
-msgstr ""
+msgstr "Last Name"
 
 #: View/SdUsers/edit.ctp:28
 #: View/SdUsers/index.ctp:14
 msgid "Prénom"
-msgstr ""
+msgstr "First Name"
 
 #: View/SdUsers/edit.ctp:29
 msgid "Société"
-msgstr ""
+msgstr "Society"
 
 #: View/SdUsers/edit.ctp:31
 #: View/SdUsers/profile.ctp:57
@@ -171,11 +170,11 @@ msgstr ""
 
 #: View/SdUsers/edit.ctp:41
 msgid "Sauver"
-msgstr ""
+msgstr "Save"
 
 #: View/SdUsers/edit.ctp:42
 msgid "Annuler"
-msgstr ""
+msgstr "Cancel"
 
 #: View/SdUsers/index.ctp:17
 msgid "Actions"
@@ -183,15 +182,15 @@ msgstr ""
 
 #: View/SdUsers/index.ctp:25
 msgid "Envoyer un email à cet utilisateur"
-msgstr ""
+msgstr "Send an email to this user"
 
 #: View/SdUsers/index.ctp:32
 msgid "Modifier cet utilisateur"
-msgstr ""
+msgstr "Modify this user"
 
 #: View/SdUsers/index.ctp:37
 msgid "Supprimer cet utilisateur"
-msgstr ""
+msgstr "Delete this user"
 
 #: View/SdUsers/index.ctp:38
 msgid "Are you sure?"
@@ -199,19 +198,19 @@ msgstr ""
 
 #: View/SdUsers/login.ctp:2
 msgid "Connexion utilisateur"
-msgstr ""
+msgstr "User Login"
 
 #: View/SdUsers/login.ctp:6
 msgid "Adresse email"
-msgstr ""
+msgstr "Email Address"
 
 #: View/SdUsers/login.ctp:11
 msgid "Se connecter"
-msgstr ""
+msgstr "Login"
 
 #: View/SdUsers/login.ctp:16
 msgid "Mot de passe oublié ?"
-msgstr ""
+msgstr "Forgotten Password"
 
 #: View/SdUsers/profile.ctp:11
 msgid "Personal Informations:"
@@ -271,7 +270,7 @@ msgstr ""
 
 #: View/SdUsers/profile.ctp:99
 msgid "Dossier"
-msgstr ""
+msgstr "Folder"
 
 #: View/SdUsers/profile.ctp:100
 msgid "Date"
