@@ -56,19 +56,19 @@ class SdUser extends User {
 			'email' => array(
 				'email' => array(
 					'rule' => 'email',
-					'message' => __d('SdUsers', 'Please provide a valid email address.'),
+					'message' => __d('sd_users', 'Please provide a valid email address.'),
 					'last' => true,
 				),
 				'isUnique' => array(
 					'rule' => 'isUnique',
-					'message' => __d('SdUsers', 'Email address already in use.'),
+					'message' => __d('sd_users', 'Email address already in use.'),
 					'last' => true,
 					'required' => true
 				),
 			),
 			'password' => array(
 				'rule' => array('minLength', 6),
-				'message' => __d('SdUsers', 'Passwords must be at least 6 characters long.'),
+				'message' => __d('sd_users', 'Passwords must be at least 6 characters long.'),
 			),
 			'verify_password' => array(
 				'rule' => 'validIdentical',
@@ -81,7 +81,7 @@ class SdUser extends User {
 	protected function _addValidateRuleAboutRole($creatorRoleId) {
 		$this->validator()->add('role_id', array(
 			'rule' => array('inList', Configure::read('sd.' .  $creatorRoleId . '.authorizeRoleCreation')),
-			'message' => __d('SdUsers', 'Vous ne pouvez pas créer d\'utilisateur de ce groupe')
+			'message' => __d('sd_users', 'Vous ne pouvez pas créer d\'utilisateur de ce groupe')
 		));
 	}
 
@@ -169,11 +169,11 @@ class SdUser extends User {
 		));
 
 		if (empty($user)) {
-			throw new NotFoundException(__d('SdUsers', 'User #%s was not found', $id));
+			throw new NotFoundException(__d('sd_users', 'User #%s was not found', $id));
 		}
 
 		if (empty($newPassword)) {
-			throw new InvalidArgumentException(__d('SdUsers', 'Empty password is not allowed'));
+			throw new InvalidArgumentException(__d('sd_users', 'Empty password is not allowed'));
 		}
 
 		$success = false;
