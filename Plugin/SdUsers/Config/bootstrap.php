@@ -38,34 +38,6 @@ foreach ($rolesInfos as $roleName => $infos) {
 	Configure::write('sd.' . $infos['roleId'] . '.authorizeRoleCreation', $infos['authorizeRoleCreation']);
 }
 
-$adminMenu = array(
-	'icon' => array('user', 'large'),
-	'title' => __d('sd_users', 'Utilisateurs'),
-	'url' => array(
-		'plugin' => 'sd_users',
-		'controller' => 'sd_users',
-		'action' => 'admin_index',
-	),
-	'children' => array(
-		'list' => array(
-			'title' => __d('sd_users', 'Liste'),
-			'url' => array(
-				'plugin' => 'sd_users',
-				'controller' => 'sd_users',
-				'action' => 'admin_index',
-			),
-		),
-		'add' => array(
-			'title' => __d('sd_users', 'Ajouter'),
-			'url' => array(
-				'plugin' => 'sd_users',
-				'controller' => 'sd_users',
-				'action' => 'admin_add',
-			),
-		),
-	),
-);
-CroogoNav::add('sdUsers', $adminMenu);
 
 $controllerNamesNeedingSdUsersHelper = array('SynchroDossierApp', 'SdUsersApp', 'Users' , 'Files');
 
