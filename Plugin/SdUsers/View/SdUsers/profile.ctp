@@ -53,6 +53,11 @@
 							'type' => 'email',
 							'value' => $user['User']['email']
 						)); ?>
+						<?= $this->Form->input('Profile.language_id', array(
+							'label' => __d('sdusers', 'Language'),
+							'type' => 'select',
+							'selected' => $user['Profile']['language_id'],
+						)); ?>
 					<?= $this->Form->end(array(
 						'label' => __d('sdusers', 'Update user informations'),
 						'class' => 'btn'

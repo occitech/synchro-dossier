@@ -8,7 +8,8 @@ App::uses('SdUsersAppModel', 'SdUsers.Model');
 class Profile extends SdUsersAppModel {
 
 	public $belongsTo = array(
-		'User' => array('className' => 'Users.User')
+		'User' => array('className' => 'Users.User'),
+		'Language' => array('className' => 'Settings.Language')
 	);
 
 	public $validate = array(
@@ -17,4 +18,5 @@ class Profile extends SdUsersAppModel {
 			'message' => 'Ce champ ne peut pas être laissé vide'
 		)
 	);
+
 }

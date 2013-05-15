@@ -26,7 +26,11 @@
 		<?=
 			$this->Form->input('Profile.name', array('placeholder' => __('Nom'), 'label' => __('Nom'))) .
 			$this->Form->input('Profile.firstname', array('placeholder' => __('Prénom'), 'label' => __('Prénom'))) .
-			$this->Form->input('Profile.society', array('placeholder' => __('Société'), 'label' => __('Société')));
+			$this->Form->input('Profile.society', array('placeholder' => __('Société'), 'label' => __('Société'))) .
+			$this->Form->input('Profile.language_id', array(
+				'placeholder' => __d('sdusers', 'Language'), 'label' => __d('sdusers', 'Language'),
+				'type' => 'select',
+			));
 		?>
 	<?= $this->Html->endBox(); ?>
 	</div>
