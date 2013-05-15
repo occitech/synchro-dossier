@@ -74,8 +74,12 @@ footer {
 #content-container {
   background: none;
 }
- 
+
 [class^="icon-"]:before,
 [class*=" icon-"]:before {
 	content:none;
+}
+
+.modal.fade.in{
+	top:50%;
 }
