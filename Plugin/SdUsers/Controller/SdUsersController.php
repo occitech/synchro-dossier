@@ -83,7 +83,7 @@ class SdUsersController extends SdUsersAppController {
 
 		$user = $this->SdUser->find('first', array('conditions' => array('User.id' => $id),'noRoleChecking' => true));
 		$returnUrl = array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse');
-		$isAdmin = $this->Auth->user('User.role_id') != SdUser::ROLE_UTILISATEUR_ID;
+		$isAdmin = $this->Auth->user('role_id') != SdUser::ROLE_UTILISATEUR_ID;
 
 
 		if (empty($user)) {
