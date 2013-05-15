@@ -8,16 +8,16 @@
 
 	<div class="row">
 		<div class="span12">
-			<h3><?= __d('sdusers', 'Personal Informations:') ?></h3>
+			<h3><?= __d('SdUsers', 'Personal Informations:') ?></h3>
 				<?php if (!$isAdmin): ?>
 				<dl class="users-informations--list">
-					<dt><?= __d('sdusers', 'Name:') ?></dt>
+					<dt><?= __d('SdUsers', 'Name:') ?></dt>
 					<dd><?= $user['Profile']['name'] ?></dd>
-					<dt><?= __d('sdusers', 'Firstname:') ?></dt>
+					<dt><?= __d('SdUsers', 'Firstname:') ?></dt>
 					<dd><?= $user['Profile']['firstname'] ?></dd>
-					<dt><?= __d('sdusers', 'Society:') ?></dt>
+					<dt><?= __d('SdUsers', 'Society:') ?></dt>
 					<dd><?= $user['Profile']['society'] ?></dd>
-					<dt><?= __d('sdusers', 'Email:') ?></dt>
+					<dt><?= __d('SdUsers', 'Email:') ?></dt>
 					<dd><?= $user['User']['email'] ?></dd>
 				</dl>
 				<?php else: ?>
@@ -34,32 +34,32 @@
 						<?= $this->Form->hidden('Profile.user_id', array('value' => $user['User']['id'])) ?>
 						<?= $this->Form->hidden('Profile.id', array('value' => $user['Profile']['id'])) ?>
 						<?= $this->Form->input('Profile.firstname', array(
-							'label' => __d('sdusers', 'Firstname'),
+							'label' => __d('SdUsers', 'Firstname'),
 							'type' => 'text',
 							'value' => $user['Profile']['firstname']
 						)); ?>
 						<?= $this->Form->input('Profile.name', array(
-							'label' => __d('sdusers', 'Lastname'),
+							'label' => __d('SdUsers', 'Lastname'),
 							'type' => 'text',
 							'value' => $user['Profile']['name']
 						)); ?>
 						<?= $this->Form->input('Profile.society', array(
-							'label' => __d('sdusers', 'Society'),
+							'label' => __d('SdUsers', 'Society'),
 							'type' => 'text',
 							'value' => $user['Profile']['society']
 						)); ?>
 						<?= $this->Form->input('User.email', array(
-							'label' => __d('sdusers', 'Email'),
+							'label' => __d('SdUsers', 'Email'),
 							'type' => 'email',
 							'value' => $user['User']['email']
 						)); ?>
 						<?= $this->Form->input('Profile.language_id', array(
-							'label' => __d('sdusers', 'Language'),
+							'label' => __d('SdUsers', 'Language'),
 							'type' => 'select',
 							'selected' => $user['Profile']['language_id'],
 						)); ?>
 					<?= $this->Form->end(array(
-						'label' => __d('sdusers', 'Update user informations'),
+						'label' => __d('SdUsers', 'Update user informations'),
 						'class' => 'btn'
 					)) ?>
 				<?php endif; ?>
@@ -71,36 +71,36 @@
 		'inputDefaults' => array('div' => array('class' => 'span3'))
 	)); ?>
 
-		<legend><?= __d('sdusers', 'Change your password') ?></legend>
+		<legend><?= __d('SdUsers', 'Change your password') ?></legend>
 		<?= $this->Form->hidden('id', array('value' => $user['User']['id'])); ?>
 		<?= $this->Form->input('oldPassword', array(
-			'label' => __d('sdusers', 'Old password'),
+			'label' => __d('SdUsers', 'Old password'),
 			'type' => 'password',
 			'required' => true
 		)) ?>
 		<?= $this->Form->input('newPassword', array(
-			'label' => __d('sdusers', 'New password'),
+			'label' => __d('SdUsers', 'New password'),
 			'type' => 'password',
 			'required' => true
 		)) ?>
 		<?= $this->Form->input('confirmationPassword', array(
-			'label' => __d('sdusers', 'Confirm new password'),
+			'label' => __d('SdUsers', 'Confirm new password'),
 			'type' => 'password',
 			'required' => true
 		)) ?>
-	<?= $this->Form->end(array('label' => __d('sdusers', 'Change your password'), 'class' => 'btn', 'div' => array('class' => 'span3'))) ?>
+	<?= $this->Form->end(array('label' => __d('SdUsers', 'Change your password'), 'class' => 'btn', 'div' => array('class' => 'span3'))) ?>
 
 	<div class="row">
 		<div class="span12">
-		<h3><?= __d('sdusers', 'Your Folders') ?></h3>
+		<h3><?= __d('SdUsers', 'Your Folders') ?></h3>
 		<?php if (!empty($folders)): ?>
 			<table class="table table-stripped">
 				<thead>
-					<th><?= __d('sdusers', 'Dossier'); ?></th>
-					<th><?= __d('sdusers', 'Date') ?></th>
-					<th><?= __d('sdusers', 'Creator') ?></th>
-					<th><?= __d('sdusers', 'Rights') ?></th>
-					<th><?= __d('sdusers', 'Notifications') ?></th>
+					<th><?= __d('SdUsers', 'Dossier'); ?></th>
+					<th><?= __d('SdUsers', 'Date') ?></th>
+					<th><?= __d('SdUsers', 'Creator') ?></th>
+					<th><?= __d('SdUsers', 'Rights') ?></th>
+					<th><?= __d('SdUsers', 'Notifications') ?></th>
 				</thead>
 				<tbody>
 			<?php foreach ($folders as $folder): ?>

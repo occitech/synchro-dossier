@@ -8,27 +8,27 @@
 <div class="row-fluid">
 	<div class="span8">
 
-	<?= $this->Html->beginBox(__('User Login')); ?>
+	<?= $this->Html->beginBox(__d('SdUsers', 'User Login')); ?>
 		<?php if (isset($this->request->data['User']['id'])): ?>
 			<?= $this->Form->hidden('User.id'); ?>
 		<?php endif ?>
 		<?=
-			$this->Form->input('User.role_id', array('placeholder' => __('Role'))) .
-			$this->Form->input('User.email', array('placeholder' => __('Email'))) .
-			$this->Form->input('User.password', array('placeholder' => __('Mot de passe')));
+			$this->Form->input('User.role_id', array('placeholder' => __d('SdUsers', 'Role'))) .
+			$this->Form->input('User.email', array('placeholder' => __d('SdUsers', 'Email'))) .
+			$this->Form->input('User.password', array('placeholder' => __d('SdUsers', 'Mot de passe')));
 		?>
 	<?= $this->Html->endBox();?>
 
-	<?= $this->Html->beginBox(__('Profile'))?>
+	<?= $this->Html->beginBox(__d('SdUsers', 'Profile'))?>
 		<?php if (isset($this->request->data['Profile']['id'])): ?>
 			<?= $this->Form->hidden('Profile.id'); ?>
 		<?php endif ?>
 		<?=
-			$this->Form->input('Profile.name', array('placeholder' => __('Nom'), 'label' => __('Nom'))) .
-			$this->Form->input('Profile.firstname', array('placeholder' => __('Prénom'), 'label' => __('Prénom'))) .
-			$this->Form->input('Profile.society', array('placeholder' => __('Société'), 'label' => __('Société'))) .
+			$this->Form->input('Profile.name', array('placeholder' => __d('SdUsers', 'Nom'), 'label' => __d('SdUsers', 'Nom'))) .
+			$this->Form->input('Profile.firstname', array('placeholder' => __d('SdUsers', 'Prénom'), 'label' => __d('SdUsers', 'Prénom'))) .
+			$this->Form->input('Profile.society', array('placeholder' => __d('SdUsers', 'Société'), 'label' => __d('SdUsers', 'Société'))) .
 			$this->Form->input('Profile.language_id', array(
-				'placeholder' => __d('sdusers', 'Language'), 'label' => __d('sdusers', 'Language'),
+				'placeholder' => __d('SdUsers', 'Language'), 'label' => __d('SdUsers', 'Language'),
 				'type' => 'select',
 			));
 		?>
@@ -37,9 +37,9 @@
 
 	<div class="span4">
 	<?php
-		echo $this->Html->beginBox(__('Publishing')) .
-			$this->Form->button(__('Sauver'), array('button' => 'default')) .
-			$this->Html->link(__('Annuler'), array('action' => 'index'), array(
+		echo $this->Html->beginBox(__d('SdUsers', 'Publishing')) .
+			$this->Form->button(__d('SdUsers', 'Sauver'), array('button' => 'default')) .
+			$this->Html->link(__d('SdUsers', 'Annuler'), array('action' => 'index'), array(
 				'button' => 'danger')
 			).
 			$this->Html->endBox();

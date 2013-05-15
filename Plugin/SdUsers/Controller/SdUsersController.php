@@ -30,10 +30,10 @@ class SdUsersController extends SdUsersAppController {
 			$userId = $this->Auth->user('id');
 			$roleId = $this->Auth->user('role_id');
 			if ($this->SdUser->add($this->request->data, $userId, $roleId)) {
-				$this->Session->setFlash(__('L\'utilisateur à été enregistré'), 'default', array('class' => 'success'));
+				$this->Session->setFlash(__d('SdUsers', 'L\'utilisateur à été enregistré'), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('L\'utilisateur ne peux pas être ajouté'), 'default', array('class' => 'error'));
+				$this->Session->setFlash(__d('SdUsers', 'L\'utilisateur ne peux pas être ajouté'), 'default', array('class' => 'error'));
 				unset($this->request->data['User']['password']);
 			}
 		}
@@ -44,10 +44,10 @@ class SdUsersController extends SdUsersAppController {
 		if ($this->request->data) {
 			$roleId = $this->Auth->user('role_id');
 			if ($this->SdUser->edit($this->request->data, $roleId)) {
-				$this->Session->setFlash(__('L\'utilisateur à été mis à jour'), 'default', array('class' => 'success'));
+				$this->Session->setFlash(__d('SdUsers', 'L\'utilisateur à été mis à jour'), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__('L\'utilisateur ne peux pas être modifié'), 'default', array('class' => 'error'));
+				$this->Session->setFlash(__d('SdUsers', 'L\'utilisateur ne peux pas être modifié'), 'default', array('class' => 'error'));
 			}
 		} else {
 			$this->request->data = $this->SdUser->find('first', array(
@@ -64,16 +64,16 @@ class SdUsersController extends SdUsersAppController {
 			$httpCode = 404;
 		} else {
 			if ($this->SdUser->delete($id)) {
-				$this->Session->setFlash(__('L\'utilisateur à été supprimé'), 'default', array('class' => 'success'));
+				$this->Session->setFlash(__d('SdUsers', 'L\'utilisateur à été supprimé'), 'default', array('class' => 'success'));
 			} else {
-				$this->Session->setFlash(__('L\'utilisateur ne peux pas être supprimé'), 'default', array('class' => 'error'));
+				$this->Session->setFlash(__d('SdUsers', 'L\'utilisateur ne peux pas être supprimé'), 'default', array('class' => 'error'));
 			}
 		}
 		$this->redirect(array('action' => 'index'), $httpCode);
 	}
 
 	public function profile($id) {
-		$this->set('title_for_layout', __('Your Profile'));
+		$this->set('title_for_layout', __d('SdUsers', 'Your Profile'));
 		$this->helpers[] = 'Uploader.UploaderAcl';
 
 		$user = $this->SdUser->find('first', array('conditions' => array('User.id' => $id),'noRoleChecking' => true));
@@ -82,20 +82,20 @@ class SdUsersController extends SdUsersAppController {
 
 
 		if (empty($user)) {
-			$this->Session->setFlash(__('User #%s Not Found', $id));
+			$this->Session->setFlash(__d('SdUsers', 'User #%s Not Found', $id));
 			$this->redirect($returnUrl, 404);
 		}
 
 		if ($this->Auth->user('id') != $user['User']['id'] && $this->Auth->user('Role.title') == SdUser::ROLE_UTILISATEUR_ID) {
-			$this->Session->setFlash(__('You cannot access others users profiles'));
+			$this->Session->setFlash(__d('SdUsers', 'You cannot access others users profiles'));
 			$this->redirect($returnUrl, 403);
 		}
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->SdUser->saveAssociated($this->request->data)) {
-				$flashMessage = __('User informations successfully updated');
+				$flashMessage = __d('SdUsers', 'User informations successfully updated');
 				$class = array('class' => 'success');
 			} else {
-				$flashMessage = __('A problem occurs when updating user informations. Please retry.');
+				$flashMessage = __d('SdUsers', 'A problem occurs when updating user informations. Please retry.');
 				$class = array('class' => 'error');
 			}
 			$this->Session->setFlash($flashMessage, 'default', $class);
@@ -122,15 +122,15 @@ class SdUsersController extends SdUsersAppController {
 
 		if ($success) {
 			if ($register) {
-				$messageFlash = __d('sdusers', 'You are successfully subscribed to email alert for folder #%s', $folderId);
+				$messageFlash = __d('SdUsers', 'You are successfully subscribed to email alert for folder #%s', $folderId);
 			} else {
-				$messageFlash = __d('sdusers', 'You have successfully cancel your subscription to folder #%s', $folderId);
+				$messageFlash = __d('SdUsers', 'You have successfully cancel your subscription to folder #%s', $folderId);
 			}
 		} else {
 			if ($register) {
-				$messageFlash = __d('sdusers', 'Something went wrong when subscribing to folder #%s ', $folderId);
+				$messageFlash = __d('SdUsers', 'Something went wrong when subscribing to folder #%s ', $folderId);
 			} else {
-				$messageFlash = __d('sdusers', 'Something went wrong when canceling your subscription to folder #%s ', $folderId);
+				$messageFlash = __d('SdUsers', 'Something went wrong when canceling your subscription to folder #%s ', $folderId);
 			}
 		}
 
@@ -148,10 +148,10 @@ class SdUsersController extends SdUsersAppController {
 			$success = $this->SdUser->changePassword($userId, $oldPassword, $newPassword, $confirmationPassword);
 
 			if ($success) {
-				$messageFlash = __d('sdusers', 'Password has been successfully changed');
+				$messageFlash = __d('SdUsers', 'Password has been successfully changed');
 				$class = array('class' => 'success');
 			} else {
-				$messageFlash = __d('sdusers', 'Something went wrong when updating password');
+				$messageFlash = __d('SdUsers', 'Something went wrong when updating password');
 				$class = array('class' => 'success');
 			}
 

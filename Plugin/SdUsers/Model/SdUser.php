@@ -50,35 +50,38 @@ class SdUser extends User {
 		)
 	);
 
-	public $validate = array(
-		'email' => array(
+
+	public function __construct($id = false, $table = null, $ds = null) {
+		$this->validate = array(
 			'email' => array(
-				'rule' => 'email',
-				'message' => 'Please provide a valid email address.',
-				'last' => true,
+				'email' => array(
+					'rule' => 'email',
+					'message' => __d('SdUsers', 'Please provide a valid email address.'),
+					'last' => true,
+				),
+				'isUnique' => array(
+					'rule' => 'isUnique',
+					'message' => __d('SdUsers', 'Email address already in use.'),
+					'last' => true,
+					'required' => true
+				),
 			),
-			'isUnique' => array(
-				'rule' => 'isUnique',
-				'message' => 'Email address already in use.',
-				'last' => true,
-				'required' => true
+			'password' => array(
+				'rule' => array('minLength', 6),
+				'message' => __d('SdUsers', 'Passwords must be at least 6 characters long.'),
 			),
-		),
-		'password' => array(
-			'rule' => array('minLength', 6),
-			'message' => 'Passwords must be at least 6 characters long.',
-		),
-		'verify_password' => array(
-			'rule' => 'validIdentical',
-		),
-	);
+			'verify_password' => array(
+				'rule' => 'validIdentical',
+			),
+		);
 
-
+		parent::__construct($id, $table, $ds);
+	}
 
 	protected function _addValidateRuleAboutRole($creatorRoleId) {
 		$this->validator()->add('role_id', array(
 			'rule' => array('inList', Configure::read('sd.' .  $creatorRoleId . '.authorizeRoleCreation')),
-			'message' => __('Vous ne pouvez pas créer d\'utilisateur de ce groupe')
+			'message' => __d('SdUsers', 'Vous ne pouvez pas créer d\'utilisateur de ce groupe')
 		));
 	}
 
@@ -166,11 +169,11 @@ class SdUser extends User {
 		));
 
 		if (empty($user)) {
-			throw new NotFoundException(__('User #%s was not found', $id));
+			throw new NotFoundException(__d('SdUsers', 'User #%s was not found', $id));
 		}
 
 		if (empty($newPassword)) {
-			throw new InvalidArgumentException(__('Empty password is not allowed'));
+			throw new InvalidArgumentException(__d('SdUsers', 'Empty password is not allowed'));
 		}
 
 		$success = false;

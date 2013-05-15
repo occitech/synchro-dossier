@@ -19,4 +19,15 @@ class Profile extends SdUsersAppModel {
 		)
 	);
 
+	public function __construct($id = false, $table = null, $ds = null) {
+		$this->validate = array(
+			'name' => array(
+				'rule' => 'notEmpty',
+				'message' => __d('SdUsers', 'Ce champ ne peut pas être laissé vide')
+			)
+		);
+
+		parent::__construct($id, $table, $ds);
+	}
+
 }
