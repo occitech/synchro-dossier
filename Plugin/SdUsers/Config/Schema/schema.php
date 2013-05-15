@@ -1,5 +1,5 @@
 <?php 
-class SdUserSchema extends CakeSchema {
+class SdUsersSchema extends CakeSchema {
 
 	public function before($event = array()) {
 		return true;
