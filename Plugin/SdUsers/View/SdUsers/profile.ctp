@@ -9,60 +9,29 @@
 	<div class="row">
 		<div class="span12">
 			<h3><?= __d('sd_users', 'Personal Informations:') ?></h3>
-				<?php if (!$isAdmin): ?>
-				<dl class="users-informations--list">
-					<dt><?= __d('sd_users', 'Name:') ?></dt>
-					<dd><?= $user['Profile']['name'] ?></dd>
-					<dt><?= __d('sd_users', 'Firstname:') ?></dt>
-					<dd><?= $user['Profile']['firstname'] ?></dd>
-					<dt><?= __d('sd_users', 'Society:') ?></dt>
-					<dd><?= $user['Profile']['society'] ?></dd>
-					<dt><?= __d('sd_users', 'Email:') ?></dt>
-					<dd><?= $user['User']['email'] ?></dd>
-				</dl>
-				<?php else: ?>
-					<?= $this->Form->create('User', array(
-						'url' => array(
-							'plugin' => 'sd_users',
-							'controller' => 'sd_users',
-							'action' => 'profile',
-							$user['User']['id']
-						),
-						'type' => 'file'
-					)); ?>
-						<?= $this->Form->hidden('User.id', array('value' => $user['User']['id'])) ?>
-						<?= $this->Form->hidden('Profile.user_id', array('value' => $user['User']['id'])) ?>
-						<?= $this->Form->hidden('Profile.id', array('value' => $user['Profile']['id'])) ?>
-						<?= $this->Form->input('Profile.firstname', array(
-							'label' => __d('sd_users', 'Firstname'),
-							'type' => 'text',
-							'value' => $user['Profile']['firstname']
-						)); ?>
-						<?= $this->Form->input('Profile.name', array(
-							'label' => __d('sd_users', 'Lastname'),
-							'type' => 'text',
-							'value' => $user['Profile']['name']
-						)); ?>
-						<?= $this->Form->input('Profile.society', array(
-							'label' => __d('sd_users', 'Society'),
-							'type' => 'text',
-							'value' => $user['Profile']['society']
-						)); ?>
-						<?= $this->Form->input('User.email', array(
-							'label' => __d('sd_users', 'Email'),
-							'type' => 'email',
-							'value' => $user['User']['email']
-						)); ?>
-						<?= $this->Form->input('Profile.language_id', array(
-							'label' => __d('sd_users', 'Language'),
-							'type' => 'select',
-							'selected' => $user['Profile']['language_id'],
-						)); ?>
-					<?= $this->Form->end(array(
-						'label' => __d('sd_users', 'Update user informations'),
-						'class' => 'btn'
-					)) ?>
-				<?php endif; ?>
+			<?= $this->Form->create('User', array(
+				'url' => array(
+					'plugin' => 'sd_users',
+					'controller' => 'sd_users',
+					'action' => 'profile',
+					$user['User']['id']
+				),
+				'type' => 'file'
+			)); ?>
+			<?= $this->Form->hidden('User.id', array('value' => $user['User']['id'])) ?>
+			<?= $this->Form->hidden('Profile.user_id', array('value' => $user['User']['id'])) ?>
+			<?= $this->Form->hidden('Profile.id', array('value' => $user['Profile']['id'])) ?>
+			<?= $this->SdUsers->displayHeader($user); ?>
+			<?= $this->SdUsers->displayLastName($user); ?>
+			<?= $this->SdUsers->displayFirstName($user); ?>
+			<?= $this->SdUsers->displaySociety($user); ?>
+			<?= $this->SdUsers->displayMail($user); ?>
+			<?= $this->SdUsers->displayLang($user); ?>
+			<?= $this->SdUsers->displayFooter($user); ?>
+			<?= $this->Form->end(array(
+				'label' => __d('sd_users', 'Update user informations'),
+				'class' => 'btn'
+			)) ?>
 		</div>
 	</div>
 	<?= $this->Form->create('User', array(
