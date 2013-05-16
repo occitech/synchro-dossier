@@ -18,7 +18,7 @@
 			<?= $this->Form->hidden('id'); ?>
 			<?= $this->Form->input('UploadedFile.filename', array(
 				'label' => false,
-				'class' => 'span7'
+				'class' => 'span5'
 			));?>
 		</div>
 	</div>

@@ -18,7 +18,7 @@
 			<?= $this->Form->input('UploadedFile.filename', array(
 				'label' => false,
 				'placeholder' => __d('synchro_dossier', 'Nom du sous dossier'),
-				'class' => 'span7'
+				'class' => 'span5'
 			));?>
 		</div>
 	</div>
