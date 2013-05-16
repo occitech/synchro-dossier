@@ -83,8 +83,32 @@
 				</li>
 				<?php foreach ($SynchroDossier_aroAccessFolder as $aro): ?>
 					<li>
-						<a href="#"><?= $aro['User']['username']; ?></a>
+						<?= $this->Html->link(
+							$aro['User']['username'],
+							array(
+								'plugin' => 'sd_users',
+								'controller' => 'sd_users',
+								'action' => 'edit', 
+								$aro['User']['id']
+							)
+						); ?>
 					</li>
+				<?php endforeach ?>
+				<li class="nav-header">
+					<?= __d('synchro_dossier', 'Super Administrateurs'); ?>
+				</li>
+				<?php foreach ($superAdmins as $superAdmin): ?>
+				<li>
+					<?= $this->Html->link(
+						$superAdmin['User']['username'],
+						array(
+							'plugin' => 'sd_users',
+							'controller' => 'sd_users',
+							'action' => 'edit', 
+							$superAdmin['User']['id']
+						)
+					); ?>
+				</li>
 				<?php endforeach ?>
 			<?php endif ?>
 		<?php endif ?>
