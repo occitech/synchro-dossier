@@ -34,12 +34,6 @@ class AppendDefaultAcl extends CakeMigration {
 		'Plupload/Plupload' => array(
 			self::ROLE_SD_SUPER_ADMIN, self::ROLE_SD_USER, self::ROLE_SD_ADMIN
 		),
-		'Plupload/Plupload/upload' => array(
-			self::ROLE_SD_SUPER_ADMIN, self::ROLE_SD_USER, self::ROLE_SD_ADMIN
-		),
-		'Plupload/Plupload/widget' => array(
-			self::ROLE_SD_SUPER_ADMIN, self::ROLE_SD_USER, self::ROLE_SD_ADMIN
-		),
 		'SdLogs' => array(
 			self::ROLE_SD_SUPER_ADMIN, self::ROLE_SD_USER, self::ROLE_SD_ADMIN
 		),
@@ -47,7 +41,7 @@ class AppendDefaultAcl extends CakeMigration {
 			self::ROLE_SD_SUPER_ADMIN, self::ROLE_SD_USER, self::ROLE_SD_ADMIN
 		),
 		'SdUsers/SdUsers/add' => array(
-			self::ROLE_SD_SUPER_ADMIN, self::ROLE_SD_USER, self::ROLE_SD_ADMIN
+			self::ROLE_SD_SUPER_ADMIN, self::ROLE_SD_ADMIN
 		),
 		'SdUsers/SdUsers/edit' => array(
 			self::ROLE_SD_SUPER_ADMIN, self::ROLE_SD_USER, self::ROLE_SD_ADMIN
@@ -65,18 +59,6 @@ class AppendDefaultAcl extends CakeMigration {
 			self::ROLE_SD_SUPER_ADMIN, self::ROLE_SD_USER, self::ROLE_SD_ADMIN
 		),
 
-		'SdUsers/SdUsers/index' => array(
-			self::ROLE_SD_SUPER_ADMIN, self::ROLE_SD_USER, self::ROLE_SD_ADMIN
-		),
-		'SdUsers/SdUsers/edit' => array(
-			self::ROLE_SD_SUPER_ADMIN, self::ROLE_SD_USER, self::ROLE_SD_ADMIN
-		),
-		'SdUsers/SdUsers/add' => array(
-			self::ROLE_SD_SUPER_ADMIN, self::ROLE_SD_USER, self::ROLE_SD_ADMIN
-		),
-		'SdUsers/SdUsers/delete' => array(
-			self::ROLE_SD_SUPER_ADMIN, self::ROLE_SD_USER, self::ROLE_SD_ADMIN
-		),
 		'Users/Users/logout' => array(
 			self::ROLE_SD_SUPER_ADMIN, self::ROLE_SD_USER, self::ROLE_SD_ADMIN
 		),
