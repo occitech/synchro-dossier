@@ -160,6 +160,11 @@ msgstr ""
 msgid "Ajoutez un utilisateur à ce dossier"
 msgstr ""
 
+
+#: View/Elements/sidebar.ctp:78
+msgid "Super Administrateur"
+msgstr ""
+
 #: View/Emails/html/alert_email_new_upload.ctp:1
 #: View/Emails/html/quota_exceeded.ctp:1
 #: View/Emails/text/alert_email_new_upload.ctp:1
