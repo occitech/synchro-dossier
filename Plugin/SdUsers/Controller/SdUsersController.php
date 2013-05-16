@@ -127,12 +127,14 @@ class SdUsersController extends SdUsersAppController {
 		$success = $SdAlertEmail->{$_methodToCall}($data);
 
 		if ($success) {
+			$class = array('class' => 'success');
 			if ($register) {
 				$messageFlash = __d('sd_users', 'You are successfully subscribed to email alert for folder #%s', $folderId);
 			} else {
 				$messageFlash = __d('sd_users', 'You have successfully cancel your subscription to folder #%s', $folderId);
 			}
 		} else {
+			$class = array('class' => 'error');
 			if ($register) {
 				$messageFlash = __d('sd_users', 'Something went wrong when subscribing to folder #%s ', $folderId);
 			} else {
@@ -140,7 +142,8 @@ class SdUsersController extends SdUsersAppController {
 			}
 		}
 
-		$this->Session->setFlash($messageFlash);
+
+		$this->Session->setFlash($messageFlash, 'default', $class);
 		$this->redirect(array('action' => 'profile', $userId));
 	}
 
