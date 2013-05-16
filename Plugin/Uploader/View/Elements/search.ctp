@@ -10,14 +10,14 @@ $this->Form->input(
 		'multiple' => 'checkbox',
 		'options' => array($folderId => __d('uploader', 'Rechercher dans ce dossier')),
 	)
-) .
+) . 
 $this->Form->input(
 	'filename',
-	array('label' => false, 'placeholder' => __d('uploader', 'Nom du fichier'), 'class' => 'span8', 'div' => false)
+	array('label' => false, 'placeholder' => __d('uploader', 'Nom du fichier'), 'class' => 'span8 input-small', 'div' => false)
 ) .
 $this->Form->input(
 	'extension',
-	array('label' => false, 'placeholder' => __d('uploader', 'Ext'), 'class' => 'span4', 'div' => false)
+	array('label' => false, 'placeholder' => __d('uploader', 'Ext'), 'class' => 'span3 input-mini', 'div' => false)
 ) .
 $this->Form->input(
 	'is_folder',
