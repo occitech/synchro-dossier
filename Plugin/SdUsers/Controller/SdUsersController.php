@@ -26,6 +26,7 @@ class SdUsersController extends SdUsersAppController {
 			$this->paginate['findType'] = 'createdBy';
 			$this->paginate['creatorId'] = $this->Auth->user('id');
 		}
+		$this->paginate['contain'] = array('Role', 'Creator', 'Profile');
 		$users = $this->paginate();
 		$this->set(compact('users', 'can'));
 	}
