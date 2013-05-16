@@ -37,8 +37,8 @@ uploaderWidget = function() {
 				__nbFiles++;
 				__nbFilesToSend++;
 				var content = $(__filesListElt).find('.list');
-				content.prepend('<p>' + 
-					__truncate(files[i].name, __nameLength) + ' (' + 
+				content.prepend('<p>' +
+					__truncate(files[i].name, __nameLength) + ' (' +
 					plupload.formatSize(files[i].size) + ')</p>'
 				);
 			}
@@ -56,7 +56,7 @@ uploaderWidget = function() {
 				alert(responseJson.error['message']);
 				up.stop();
 				location.assign(location.href);
-				location.reload();		
+				location.reload();
 			};
 		});
 
@@ -68,6 +68,7 @@ uploaderWidget = function() {
 			$(__filesListElt).find('.list').text('');
 			location.assign(location.href);
 			location.reload();
+			window.location.href = __options['callback_url'];
 		});
 	}
 
