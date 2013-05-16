@@ -263,7 +263,11 @@ class FilesController extends UploaderAppController {
  */
 	public function upload($folderId, $originalFilename = null) {
 		$folderId = $folderId === 'null' ? null : $folderId;
-		$decodeFileName = $this->_decodeCustomBase64($originalFilename);
+		if (!is_null($originalFilename)) {
+			$decodeFileName = $this->_decodeCustomBase64($originalFilename);
+		} else {
+			$decodeFileName = $originalFilename;
+		}
 		if ($this->Plupload->isPluploadRequest()) {
 			list($uploadFinished, $response, $file) = $this->Plupload->upload();
 			if ($uploadFinished) {
