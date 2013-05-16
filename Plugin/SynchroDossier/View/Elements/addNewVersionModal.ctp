@@ -5,7 +5,7 @@
 	</div>
 	<div class="modal-body no-overflow-y">
 		<div class="uploader">
-			<?php echo $this->Form->create('Uploader.UploadedFile', array('type' => 'file')); ?>
+			<?php echo $this->Form->create('UploadedFile', array('type' => 'file')); ?>
 
 			<?php echo $this->Form->input('FileStorage.file', array('type' => 'file'));?>
 		</div>
