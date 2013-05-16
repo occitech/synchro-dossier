@@ -120,7 +120,7 @@ class FilesController extends UploaderAppController {
 		}
 	}
 
-	public function removeRight($acoId, $aroId) {
+	public function removeRight($folderId, $acoId, $aroId) {
 		$result = $this->_removeRight($acoId, $aroId);
 		if (!$result) {
 			$this->Session->setFlash(__d('uploader', 'There was an error while deleting the right. Thank you try again or contact an administrator'), 'default', array('class' => 'alert alert-danger'));

@@ -117,12 +117,12 @@
 						<?php endif ?>
 					</td>
 					<td>
-
 						<?php if ($hasRightToChangeRight): ?>
 							<?= $this->Html->link(
 								__d('uploader', 'Supprimer l\'utilisateur de ce dossier'),
 								array(
 									'action' => 'removeRight',
+									$folder['UploadedFile']['id'],
 									$aro['ArosAco']['aco_id'],
 									$aro['ArosAco']['aro_id']
 								)
