@@ -160,9 +160,12 @@ msgid "Société"
 msgstr ""
 
 #: View/SdUsers/edit.ctp:31
-#: View/SdUsers/profile.ctp:57
 msgid "Language"
 msgstr "Langue"
+
+#: View/SdUsers/profile.ctp:57
+msgid "Language:"
+msgstr "Langue:"
 
 #: View/SdUsers/edit.ctp:40
 msgid "Publishing"
