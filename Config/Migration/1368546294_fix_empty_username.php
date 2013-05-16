@@ -41,12 +41,12 @@ class FixEmptyUsername extends CakeMigration {
 				'contain' => array('Profile'),
 				'noRoleChecking' => true
 			));
-
 			foreach ($users as &$user) {
 				$user['User']['username'] = $this->_generateUsername($user['Profile']);
 			}
-
-			$success = $success && $User->saveMany($users);
+			if (!empty($users)) {
+				$success = $User->saveMany($users);
+			}
 		}
 
 		return $success;
