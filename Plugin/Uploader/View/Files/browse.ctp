@@ -155,7 +155,7 @@
 											'controller' => 'files',
 											'action' => 'upload',
 											is_null($folderId) ? 'null' : $folderId,
-											$file['UploadedFile']['filename']
+											$this->File->customEncodeBase64($file['UploadedFile']['filename'])
 										)),
 										'rel' => 'tooltip',
 										'title' => __d('uploader', 'New version'),

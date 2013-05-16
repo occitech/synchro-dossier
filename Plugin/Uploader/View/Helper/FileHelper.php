@@ -81,4 +81,9 @@ class FileHelper extends AppHelper {
 		$imgSrc = 'data:' . $mimeType . ';base64,' . $base64;
 		return '<img src="' . $imgSrc . '">';
 	}
+
+	public function customEncodeBase64($string, $replacementCaracters = array('-' => '/', '_' => '=')) {
+		$encodedString = base64_encode($string);
+		return  str_replace(array_values($replacementCaracters), array_keys($replacementCaracters), $encodedString);
+	}
 }

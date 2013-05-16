@@ -263,10 +263,11 @@ class FilesController extends UploaderAppController {
  */
 	public function upload($folderId, $originalFilename = null) {
 		$folderId = $folderId === 'null' ? null : $folderId;
+		$decodeFileName = $this->_decodeCustomBase64($originalFilename);
 		if ($this->Plupload->isPluploadRequest()) {
 			list($uploadFinished, $response, $file) = $this->Plupload->upload();
 			if ($uploadFinished) {
-				$uploadOk = $this->UploadedFile->upload($file, $this->Auth->user(), $folderId, $originalFilename);
+				$uploadOk = $this->UploadedFile->upload($file, $this->Auth->user(), $folderId, $decodeFileName);
 				if (!$uploadOk) {
 					$error = $this->UploadedFile->FileStorage->invalidFields();
 					if (isset($error['file'][0])) {
@@ -281,7 +282,7 @@ class FilesController extends UploaderAppController {
 				$this->request->data['FileStorage'],
 				$this->Auth->user(),
 				$folderId,
-				$originalFilename
+				$decodeFileName
 			);
 			if (!$uploadOk) {
 				$error = $this->UploadedFile->FileStorage->invalidFields();
@@ -329,5 +330,10 @@ class FilesController extends UploaderAppController {
 
 		$this->Session->setFlash($messageFlash, 'default', $class);
 		$this->redirect(array('action' => 'browse'));
+	}
+
+	protected function _decodeCustomBase64($encodedString, $replacementCaracters = array('-' => '/', '_' => '=')) {
+		$tmp = str_replace(array_keys($replacementCaracters), array_values($replacementCaracters), $encodedString);
+		return base64_decode($tmp);
 	}
 }
