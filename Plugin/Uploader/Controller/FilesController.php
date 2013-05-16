@@ -14,17 +14,18 @@ class FilesController extends UploaderAppController {
 			'className' => 'Acl.RowLevelAcl',
 			'settings' => array(
 				'actionMap' => array(
-					'browse' 			=> 'read',
-					'preview' 			=> 'read',
-					'createFolder' 		=> 'create',
-					'delete' 			=> 'delete',
-					'rename' 			=> 'create',
-					'downloadZipFolder' => 'read',
-					'upload' 			=> 'create',
-					'download' 			=> 'read',
-					'rights'			=> 'change_right',
-					'removeRight'		=> 'change_right',
-					'toggleRight'		=> 'change_right'
+					'browse' 					=> 'read',
+					'preview' 					=> 'read',
+					'allFilesUploadedInBatch'	=> 'read',
+					'createFolder' 				=> 'create',
+					'delete' 					=> 'delete',
+					'rename' 					=> 'create',
+					'downloadZipFolder' 		=> 'read',
+					'upload' 					=> 'create',
+					'download' 					=> 'read',
+					'rights'					=> 'change_right',
+					'removeRight'				=> 'change_right',
+					'toggleRight'				=> 'change_right'
 				),
 			)
 		)
@@ -34,7 +35,7 @@ class FilesController extends UploaderAppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$this->Security->unlockedActions = array('upload', 'rename', 'find', 'browse');
+		$this->Security->unlockedActions = array('upload', 'rename', 'find', 'browse', 'allFilesUploadedInBatch');
 	}
 
 	public function beforeRender() {
@@ -56,7 +57,8 @@ class FilesController extends UploaderAppController {
 			'browse_button' => 'browse',
 			'drop_element' => 'drop-area',
 			'container' => 'plupload',
-			'url' => $uploadUrl
+			'url' => $uploadUrl,
+			'callback_url' => Router::url(array('action' => 'allFilesUploadedInBatch', $folderId))
 		));
 	}
 
@@ -299,13 +301,13 @@ class FilesController extends UploaderAppController {
 		$this->set(compact('folderId'));
 	}
 
-	public function allFilesUploadedInBatch() {
+	public function allFilesUploadedInBatch($folderId) {
 		$this->getEventManager()->dispatch(new CakeEvent(
 				'Controller.Files.allFilesUploadedInBatch',
 				$this,
 				array('user' => $this->Auth->user())
 		));
-
+		$this->autoRender = false;
 		$this->redirect(array('action' => 'browse', $folderId));
 	}
 
