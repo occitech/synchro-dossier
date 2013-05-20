@@ -31,6 +31,8 @@ class FilesController extends UploaderAppController {
 		)
 	);
 
+	public $paginate;
+
 	private $__listRights = array('read', 'create', 'delete');
 
 	public function beforeFilter() {
@@ -185,12 +187,18 @@ class FilesController extends UploaderAppController {
 		));
 
 		$this->UploadedFile->order = 'UploadedFile.is_folder DESC';
-
 		if (is_null($folderId)) {
-			$files = $this->UploadedFile->find('rootDirectories');
+			$this->paginate = array('findType' => 'rootDirectories');
 		} else {
-			$files = $this->UploadedFile->findAllByParent_id($folderId);
+			$this->paginate = array(
+				'conditions' => array('UploadedFile.parent_id' => $folderId),
+				'contain' => array('User', 'Aco', 'FileStorage'),
+				'group' => 'Aco.foreign_key'
+			);
 		}
+		$this->paginate['limit'] = 30;
+
+		$files = $this->paginate();
 		$parent = $this->UploadedFile->findById($folderId);
 		$parentId = ($parent) ? $parent['ParentUploadedFile']['id'] : null;
 		$superAdmins = $this->UploadedFile->User->find('superAdmin');
