@@ -57,8 +57,8 @@
 </div>
 <div class="row-fluid">
 	<div class="span12">
-		<?php if ($pagingBlock = $this->fetch('paging')): ?>
-			<?php echo $pagingBlock; ?>
+		<?php if ($this->elementExists('SynchroDossier.paging')): ?>
+			<?php echo $this->element('SynchroDossier.paging'); ?>
 		<?php else: ?>
 			<?php if (isset($this->Paginator) && isset($this->request['paging'])): ?>
 				<div class="pagination">
