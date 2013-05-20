@@ -10,7 +10,7 @@ jQuery(document).ready(function($) {
 		} else {
 			$(this).html('<i class="icon-chevron-right"></i>');
 		}
-	})
+	});
 
 	$(function () {
 		$(".sidebar-folders").jstree({
@@ -19,14 +19,14 @@ jQuery(document).ready(function($) {
 				"dots" : false,
 				"icons" : false
 			},
-			"plugins" : [ "themes", "html_data" ]
+			"plugins" : [ "themes", "html_data", "cookies" ]
 		});
 	});
 
 	$('.rename-folder').on('click', function() {
 		$('#renameFolderModal').find('#UploadedFileFilename').val($(this).attr('data-filename'));
 		$('#renameFolderModal').find('#UploadedFileId').val($(this).attr('data-id'));
-	})
+	});
 
 	/**
 	 * Activate tooltip
@@ -54,10 +54,10 @@ jQuery(document).ready(function($) {
 
 	function getModalContent(popOverLink, modalElt) {
 		$.ajax({
-			url: popOverLink.attr('ajax-url'),
+			url: popOverLink.attr('ajax-url')
 		}).done(function(data) {
 			$(modalElt).find('.modal-body').html(data);
-		});		
+		});
 	}
 
 	/**
@@ -66,7 +66,7 @@ jQuery(document).ready(function($) {
 	$('.file-preview').on('mouseenter', function(event) {
 		$(this).tooltip('show');
 		$.ajax({
-			url: $(this).attr('data-preview-url'),
+			url: $(this).attr('data-preview-url')
 		}).done(function(data) {
 			$('.tooltip-inner').html(data);
 			$('.tooltip-arrow').hide();
@@ -78,12 +78,12 @@ jQuery(document).ready(function($) {
 	/*
 	 * Date picker for search input
 	 */
-	 $(function() {
-	 	defaults = {
+	$(function() {
+		defaults = {
 			changeMonth: true,
 			numberOfMonths: 1,
-			dateFormat: "yy-mm-dd",
-		}
+			dateFormat: "yy-mm-dd"
+		};
 
 		$("#search-from").datepicker($.extend({}, defaults, {
 			onClose: function (selectedDate) {
