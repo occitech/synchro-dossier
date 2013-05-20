@@ -1,10 +1,11 @@
 <?php
 App::uses('SdUsersAppController', 'SdUsers.Controller');
 App::uses('SdUser', 'SdUsers.Model');
+App::uses('UplaodedFile', 'Uploader.Model');
 
 class SdUsersController extends SdUsersAppController {
 
-	public $uses = array('SdUsers.SdUser');
+	public $uses = array('SdUsers.SdUser', 'Uploader.UploadedFile');
 	public $components = array('SdUsers.Roles');
 	public $paginate;
 	public $helpers = array(
@@ -108,7 +109,13 @@ class SdUsersController extends SdUsersAppController {
 			$this->redirect(array('action' => 'profile', $id));
 		}
 
-		$folders = $this->__getFolders();
+		$this->paginate = array(
+			'conditions' => array('UploadedFile.is_folder' => true, 'UploadedFile.parent_id' => null),
+			'recursive' => -1,
+			'contain' => array('Aco.Aro.Permission')
+		);
+		$folders = $this->paginate('UploadedFile');
+
 		$emailsAlerts = $this->__getUserAlertEmails($user['User']['id'] , $folders);
 		$this->set(compact('isAdmin', 'user', 'folders', 'emailsAlerts'));
 	}
@@ -175,16 +182,6 @@ class SdUsersController extends SdUsersAppController {
 		} else {
 			$this->redirect($this->referer(), 405);
 		}
-
-	}
-
-	private function __getFolders() {
-		return ClassRegistry::init('Uploader.UploadedFile')->find('all', array(
-			'conditions' => array('UploadedFile.is_folder' => true),
-			'recursive' => -1,
-			'contain' => array('Aco.Aro.Permission'),
-
-		));
 
 	}
 

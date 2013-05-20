@@ -65,9 +65,9 @@
 		<?php if (!empty($folders)): ?>
 			<table class="table table-stripped">
 				<thead>
-					<th><?= __d('sd_users', 'Dossier'); ?></th>
-					<th><?= __d('sd_users', 'Date') ?></th>
-					<th><?= __d('sd_users', 'Creator') ?></th>
+					<th><?= $this->Paginator->sort('filename', __d('sd_users', 'Dossier')); ?></th>
+					<th><?= $this->Paginator->sort('created', __d('sd_users', 'Date')) ?></th>
+					<th><?= $this->Paginator->sort('uploader_name', __d('sd_users', 'Creator')) ?></th>
 					<th><?= __d('sd_users', 'Rights') ?></th>
 					<th><?= __d('sd_users', 'Notifications') ?></th>
 				</thead>
@@ -85,6 +85,11 @@
 			<?php endforeach ?>
 				</tbody>
 			</table>
+
+			<?php if ($this->elementExists('SynchroDossier.paging')): ?>
+				<?= $this->element('SynchroDossier.paging') ?>
+
+			<?php endif ?>
 		<?php endif; ?>
 		</div>
 	</div>
