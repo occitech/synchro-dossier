@@ -20,7 +20,7 @@ class UserLanguageSelection extends CakeMigration {
 		'up' => array(
 			'create_field' => array(
 				'profiles' => array(
-					'language_id' => array('type' => 'integer', 'null' => true, 'default' => 1),
+					'language_id' => array('type' => 'integer', 'null' => true, 'default' => 2),
 				),
 			),
 		),
