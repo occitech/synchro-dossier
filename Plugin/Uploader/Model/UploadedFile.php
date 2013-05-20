@@ -360,7 +360,6 @@ class UploadedFile extends UploaderAppModel {
 	protected function _saveUploadedFile($fileInfos, $userId, $parentId) {
 		$this->create();
 		$data['UploadedFile']['filename'] = $fileInfos['name'];
-		$data['UploadedFile']['size'] = $fileInfos['size'];
 		$data['UploadedFile']['user_id'] = $userId;
 		$data['UploadedFile']['parent_id'] = $parentId;
 		$data['UploadedFile']['current_version'] = 1;
