@@ -43,7 +43,7 @@
 		<footer>
 			<?= Configure::read('SynchroDossier.footer') ?>
 			<p>
-				Propulsé par <?= $this->Html->link('Synchro Dossier', '#'); ?>
+				Propulsé par <a href="http://www.synchro-dossier.fr/" title="Synchro Dossier">Synchro&nbsp;Dossier</a>
 			</p>
 		</footer>
 	</body>
