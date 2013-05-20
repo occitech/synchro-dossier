@@ -32,6 +32,8 @@
 	$paging = $this->Paginator->request->params['paging'];
 	$count = $paging[array_shift(array_keys($paging))]['count'];
 ?>
+<?php if (!empty($displayPaging)): ?>
 <div class="pager-count">
 	<?= __dn('synchro_dossier', '%s matching result', '%s matching results', $count, $count) ?>
 </div>
+<?php endif ?>
