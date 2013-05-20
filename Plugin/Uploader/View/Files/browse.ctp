@@ -1,11 +1,11 @@
 <?= $this->Plupload->loadAsset('jquery'); ?>
 <?php
 	$this->start('navbar');
-		echo $this->element('SynchroDossier.navbar'); 
+		echo $this->element('SynchroDossier.navbar');
 	$this->end();
 ?>
 <?php $this->start('sidebar'); ?>
-	<?php if (isset($can)): ?>				
+	<?php if (isset($can)): ?>
 		<?= $this->element('SynchroDossier.sidebar', array('can' => $can)); ?>
 	<?php endif ?>
 <?php $this->end();	?>
@@ -20,11 +20,11 @@
 	<table class="table table-hover">
 		<thead>
 			<tr>
-				<th><?= __d('uploader', 'Fichier'); ?></th>
-				<th><?= __d('uploader', 'Auteur'); ?></th>
-				<th><?= __d('uploader', 'Date') ?></th>
-				<th><?= __d('uploader', 'Taille') ?></th>
-				<th><?= __d('uploader', 'Type') ?></th>
+				<th><?= $this->Paginator->sort('filename', __d('uploader', 'Fichier')); ?></th>
+				<th><?= $this->Paginator->sort('uploader_name', __d('uploader', 'Auteur')); ?></th>
+				<th><?= $this->Paginator->sort('created', __d('uploader', 'Date')) ?></th>
+				<th><?= $this->Paginator->sort('size', __d('uploader', 'Taille')) ?></th>
+				<th><?= $this->Paginator->sort('mime_type', __d('uploader', 'Type')) ?></th>
 				<th><?= __d('uploader', 'Actions') ?></th>
 			</tr>
 		</thead>
@@ -216,5 +216,8 @@
 			<?php endforeach; ?>
 		</tbody>
 	</table>
+	<?php if ($this->elementExists('SynchroDossier.paging')): ?>
+		<?= $this->element('SynchroDossier.paging', array('displayCounter' => false)) ?>
+	<?php endif ?>
 </div>
 
