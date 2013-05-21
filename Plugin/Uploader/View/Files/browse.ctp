@@ -71,7 +71,7 @@
 
 						<td>
 							<?php if (!$file['UploadedFile']['is_folder']): ?>
-								<?= $this->File->size($lastVersion['filesize']); ?>
+								<?= $this->File->size($lastVersion['filesize'], 'Ko'); ?>
 							<?php endif ?>
 						</td>
 
