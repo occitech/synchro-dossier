@@ -131,6 +131,7 @@ class SdUser extends User {
 	protected function _findSuperAdmin($state, $query, $results = array()) {
 		if ($state == 'before') {
 			$query['conditions'][$this->alias . '.role_id'] = Configure::read('sd.SuperAdmin.roleId');
+			$query['contain'] = array('Profile', 'Role', 'Creator');
 			return $query;
 		}
 		return $results;
