@@ -13,14 +13,21 @@ jQuery(document).ready(function($) {
 	});
 
 	$(function () {
-		$(".sidebar-folders").jstree({
-			"themes" : {
-				"theme" : "synchrodossier",
-				"dots" : false,
-				"icons" : false
+		var	currentFolderId = $('.sidebar-folders').data('current-folder-id'),
+			currentFolder = $('#folder' + currentFolderId);
+			treeInitOpts = {
+				"core" : {
+					"initially_open":['#folder'+currentFolderId],
+					"select_node":['#folder'+currentFolderId]
+				},
+				"themes" : {
+					"theme" : "synchrodossier",
+					"dots" : false,
+					"icons" : false
+				},
+				"plugins" : [ "themes", "html_data"]
 			},
-			"plugins" : [ "themes", "html_data", "cookies" ]
-		});
+			$treeInstance = $(".sidebar-folders").jstree(treeInitOpts);
 	});
 
 	$('.rename-folder').on('click', function() {

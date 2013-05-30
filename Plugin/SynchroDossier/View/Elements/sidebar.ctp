@@ -17,7 +17,8 @@
 				</span>
 			<?php endif ?>
 		</li>
-		<div class="sidebar-folders">
+		<?php $currentFolderId = isset($folderId0) ? $folderId : null;?>
+		<div class="sidebar-folders" data-current-folder-id="<?= $folderId;?>">
 			<ul>
 				<?= $this->SynchroDossier->displayTreeFolders($SynchroDossier_allFolders); ?>
 			</ul>
