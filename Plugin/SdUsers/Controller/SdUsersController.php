@@ -185,6 +185,112 @@ class SdUsersController extends SdUsersAppController {
 
 	}
 
+	public function forgot(){
+		$this->set('title_for_layout', __d('croogo', 'Forgot Password'));
+
+		if (!empty($this->request->data) && isset($this->request->data['User']['email'])) {
+			$user = $this->SdUser->findByEmail($this->request->data['User']['email']);
+			if (!isset($user['User']['id'])) {
+				$this->Session->setFlash(__d('croogo', 'Invalid email.'), 'default', array('class' => 'error'));
+				$this->redirect(array('action' => 'login'));
+			}
+
+			$this->SdUser->id = $user['User']['id'];
+			$activationKey = md5(uniqid());
+			$this->SdUser->saveField('activation_key', $activationKey);
+			$this->set(compact('user', 'activationKey'));
+
+			$emailSent = $this->_sendEmail(
+				array(Configure::read('Site.title'), $this->__getSenderEmail()),
+				$user['User']['email'],
+				__d('croogo', '[%s] Reset Password', Configure::read('Site.title')),
+				'SdUsers.forgot_password',
+				'reset password',
+				$this->theme,
+				compact('user','activationKey')
+			);
+
+			if ($emailSent) {
+				$this->Session->setFlash(__d('croogo', 'An email has been sent with instructions for resetting your password.'), 'default', array('class' => 'success'));
+				$this->redirect(array('plugin' => 'users', 'controller' => 'users', 'action' => 'login'));
+			} else {
+				$this->Session->setFlash(__d('croogo', 'An error occurred. Please try again.'), 'default', array('class' => 'error'));
+			}
+		}
+	}
+
+	public function reset($email = null, $key = null) {
+		$this->set('title_for_layout', __d('croogo', 'Reset Password'));
+
+		if ($email == null || $key == null) {
+			$this->Session->setFlash(__d('croogo', 'An error occurred.'), 'default', array('class' => 'error'));
+			$this->redirect(array('action' => 'login'));
+		}
+
+		$user = $this->SdUser->find('first', array(
+			'conditions' => array(
+				'User.email' => $email,
+				'User.activation_key' => $key,
+			),
+		));
+		if (!isset($user['User']['id'])) {
+			$this->Session->setFlash(__d('croogo', 'An error occurred.'), 'default', array('class' => 'error'));
+			$this->redirect(array('plugin' => 'users', 'controller' => 'users', 'action' => 'login'));
+		}
+
+		if (!empty($this->request->data) && isset($this->request->data['User']['password'])) {
+			$this->SdUser->id = $user['User']['id'];
+			$user['User']['activation_key'] = md5(uniqid());
+			$user['User']['password'] = $this->request->data['User']['password'];
+			$user['User']['verify_password'] = $this->request->data['User']['verify_password'];
+			$options = array('fieldList' => array('password', 'verify_password', 'activation_key'));
+			if ($this->SdUser->save($user['User'], $options)) {
+				$this->Session->setFlash(__d('croogo', 'Your password has been reset successfully.'), 'default', array('class' => 'success'));
+				$this->redirect(array('plugin' => 'users', 'controller' => 'users', 'action' => 'login'));
+			} else {
+				$this->Session->setFlash(__d('croogo', 'An error occurred. Please try again.'), 'default', array('class' => 'error'));
+			}
+		}
+
+		$this->set(compact('user', 'email', 'key'));
+	}
+
+
+	/**
+	 * Convenience method to send email
+	 * @param  string $from      email sender
+	 * @param  string $to        email receiver
+	 * @param  string $subject   subject
+	 * @param  string $template  template to use
+	 * @param  string $theme     theme to use
+	 * @param  array  $viewVars   vars to use inside template
+	 * @param  string $emailType user activiation, reset password, use in log message when failing.
+	 * @return boolean			 True if email was sent false otherwise.
+	 */
+		protected function _sendEmail($from, $to, $subject, $template, $emailType, $theme = null, $viewVars = null) {
+			if (is_null($theme)) {
+				$theme = $this->theme;
+			}
+			$success = false;
+
+			try {
+
+				$email = new CakeEmail();
+				$email->from($from[1], $from[0]);
+				$email->to($to);
+				$email->subject($subject);
+				$email->template($template);
+				$email->viewVars($viewVars);
+				$email->theme($theme);
+
+				$success = $email->send();
+			} catch (SocketException $e) {
+				$this->log(sprintf('Error sending %s notification : %s', $emailType, $e->getMessage()));
+			}
+
+			return $success;
+		}
+
 	private function __getUserAlertEmails($userId, $folders){
 		return  ClassRegistry::init('SynchroDossier.SdAlertEmail')->find('all', array(
 			'conditions' => array(
@@ -192,5 +298,9 @@ class SdUsersController extends SdUsersAppController {
 				'SdAlertEmail.uploaded_file_id' => Hash::extract($folders, '{n}.UploadedFile.id')
 			)
 		));
+	}
+
+	private function __getSenderEmail(){
+		return 'croogo@' . preg_replace('#^www\.#', '', strtolower($_SERVER['SERVER_NAME']));
 	}
 }

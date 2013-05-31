@@ -14,7 +14,7 @@
 			'after' =>
 				 $this->Html->link(
 					__d('sd_users', 'Mot de passe oublié ?'),
-					array('plugin' => 'users', 'controller' => 'users', 'action' => 'forgot'),
+					array('plugin' => 'sd_users', 'controller' => 'sd_users', 'action' => 'forgot'),
 					array('class' => 'btn-small')
 				)
 		));?>
