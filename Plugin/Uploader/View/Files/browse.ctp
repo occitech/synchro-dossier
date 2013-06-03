@@ -129,7 +129,7 @@
 											'title' => __d('uploader', 'Supprimer le dossier'),
 											'escape' => false
 										),
-										__d('uploader', 'You are about to delete folder #%s. Are you sure ?', $file['UploadedFile']['id'])
+										__d('uploader', 'You are about to delete folder "%s". Are you sure ?', $file['UploadedFile']['filename'])
 									); ?>
 								<?php endif ?>
 							<?php else: ?>
