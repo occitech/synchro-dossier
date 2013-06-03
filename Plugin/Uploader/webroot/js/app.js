@@ -17,6 +17,7 @@ jQuery(document).ready(function($) {
 			currentFolder = $('#folder' + currentFolderId);
 			treeInitOpts = {
 				"core" : {
+					"open_parents" : true,
 					"initially_open":['#folder'+currentFolderId],
 					"select_node":['#folder'+currentFolderId]
 				},
