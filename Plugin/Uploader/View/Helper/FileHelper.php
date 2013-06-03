@@ -19,7 +19,7 @@ class FileHelper extends AppHelper {
  * Return a readable size.
  * If the size is less than 1Ko that return 1Ko
  */
-	public function size($size, $unity = 'o') {
+	public function size($size, $unity = 'ko') {
 		$unit = array_search($unity, $this->_unit);
 		while ($size > 1024 && $unit != sizeof($this->_unit) - 1) {
 		 	$size /= 1024;
