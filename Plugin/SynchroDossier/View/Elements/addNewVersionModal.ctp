@@ -7,7 +7,7 @@
 		<div class="uploader">
 			<?php echo $this->Form->create('UploadedFile', array('type' => 'file')); ?>
 
-			<?php echo $this->Form->input('FileStorage.file', array('type' => 'file'));?>
+			<?php echo $this->Form->input('file', array('type' => 'file'));?>
 		</div>
 	</div>
 	<div class="modal-footer">
