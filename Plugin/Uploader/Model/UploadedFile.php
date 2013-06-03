@@ -114,7 +114,6 @@ class UploadedFile extends UploaderAppModel {
 	public function makeSizeCondition($data, $field = null) {
 		$min = empty($data['size_min']) ? 0 : $data['size_min'] * 1024;
 		$max = empty($data['size_max']) ? PHP_INT_MAX : $data['size_max'] * 1024;
-
 		return array($min, $max);
 	}
 
@@ -131,6 +130,7 @@ class UploadedFile extends UploaderAppModel {
 		$cond = array(
 			'LOWER(' . $this->alias . '.filename) COLLATE utf8_unicode_ci LIKE' => $filename . $extension,
 		);
+
 		return $cond;
 	}
 
@@ -141,9 +141,10 @@ class UploadedFile extends UploaderAppModel {
 		if (!empty($data['created_min']) || !empty($data['created_max'])) {
 			$data['created'] = true;
 		}
-		$data['filename'] = strtolower($data['filename']);
-		$data['extension'] = strtolower($data['extension']);
-		$data['filename_extension'] = true;
+
+		$data['filename'] = empty($data['filename']) ? '' : strtolower($data['filename']);
+		$data['extension'] = empty($data['extension']) ? '' : strtolower($data['extension']);
+		$data['filename_extension'] = !empty($data['filename']) || !empty($data['extension']);
 		return parent::parseCriteria($data);
 	}
 

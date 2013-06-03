@@ -1,5 +1,4 @@
 <?php
-
 App::import('Vendor', 'OccitechCakeTestCase');
 App::uses('UploadedFile', 'Uploader.Model');
 App::uses('CakeEventManager', 'Event');
@@ -625,4 +624,63 @@ class UploadedFileTest extends OccitechCakeTestCase {
 
 		$this->assertEquals($expected, $this->UploadedFile->sluggifyFilename($hasardousEncodingString));
 	}
+
+/**
+ * Test search
+ */
+
+	public function testSearchWithoutParameters(){
+		$criteria = array();
+		$conditions = $this->UploadedFile->parseCriteria($criteria);
+
+		$results = $this->UploadedFile->find('all', array('conditions' => $conditions));
+		$expected = $this->UploadedFile->find('all');
+
+		$this->assertEquals($expected, $results);
+	}
+
+	public function testSearchByFileNameOnly(){
+		$criteria = array('filename' => 'Fraise');
+		$conditions = $this->UploadedFile->parseCriteria($criteria);
+
+		$results = $this->UploadedFile->find('all', array('conditions' => $conditions));
+		$expected = array(
+			'id' => '4',
+			'filename' => 'Fraise.jpg',
+			'size' => '34639',
+			'user_id' => '1',
+			'current_version' => '1',
+			'available' => '0',
+			'parent_id' => '3',
+			'is_folder' => '0',
+			'lft' => '3',
+			'rght' => '4',
+			'mime_type' => 'image/jpeg'
+		);
+
+		$this->assertEquals($expected, $results[0]['UploadedFile']);
+	}
+
+	public function testSearchByFileExtOnly(){
+		$criteria = array('extension' => 'ods');
+		$conditions = $this->UploadedFile->parseCriteria($criteria);
+
+		$results = $this->UploadedFile->find('all', array('conditions' => $conditions));
+		$expected = array(
+			'id' => '6',
+			'filename' => '2012-comptes.ods',
+			'size' => '136812534',
+			'user_id' => '1',
+			'current_version' => '1',
+			'available' => '0',
+			'parent_id' => '2',
+			'is_folder' => '0',
+			'lft' => '10',
+			'rght' => '11',
+			'mime_type' => 'application/vnd.oasis.opendocument.spreadsheet'
+		);
+		$this->assertEquals($expected, $results[0]['UploadedFile']);
+	}
+
+
 }

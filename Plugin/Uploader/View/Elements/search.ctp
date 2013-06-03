@@ -1,7 +1,10 @@
 <?=
 $this->Form->create(
 	'UploadedFile',
-	array('url' => array('controller' => 'files', 'action' => 'find', $folderId))
+	array(
+		'url' => array('controller' => 'files', 'action' => 'find', $folderId),
+		'inputDefaults' => array('required' => false)
+	)
 ) .
 $this->Form->input(
 	'parent_id',
@@ -10,7 +13,7 @@ $this->Form->input(
 		'multiple' => 'checkbox',
 		'options' => array($folderId => __d('uploader', 'Rechercher dans ce dossier')),
 	)
-) . 
+) .
 $this->Form->input(
 	'filename',
 	array('label' => false, 'placeholder' => __d('uploader', 'Nom du fichier'), 'class' => 'span8 input-small', 'div' => false)
