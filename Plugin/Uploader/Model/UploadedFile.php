@@ -1,5 +1,6 @@
 <?php
 App::uses('UploaderAppModel', 'Uploader.Model');
+App::uses('Multibyte', 'I18n');
 App::uses('Security', 'Utility');
 
 class UploadedFile extends UploaderAppModel {
@@ -257,10 +258,13 @@ class UploadedFile extends UploaderAppModel {
 				'class' => '\Gaufrette\Filesystem'
 		));
 		$files = $this->_getFoldersPath($folderId);
+		$shouldSluggifyFilename = Configure::read('sd.slugFilenameWhenExport');
 		foreach ($files as $f) {
 			if ($f['remote_path'] != null) {
 				$content = StorageManager::adapter($f['adapter'])->read($f['remote_path']);
-				StorageManager::adapter('Zip')->write($this->sluggifyFilename($f['real_path']), $content);
+				$filename = $shouldSluggifyFilename ? $this->sluggifyFilename($f['real_path']) : $f['real_path'];
+				$filename = mb_convert_encoding($filename, 'ISO-8859-1', 'UTF-8'); //Does not cover any environment cases.
+				StorageManager::adapter('Zip')->write($filename, $content);
 			}
 		}
 		$content = file_get_contents($zipfile);

@@ -28,6 +28,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		'plugin.uploader.sd_information'
 	);
 
+	protected $_settings;
 
 /**
  * Remove content of the folder and all subfolder !
@@ -55,6 +56,9 @@ class UploadedFileTest extends OccitechCakeTestCase {
 	}
 
 	public function setUp() {
+		$this->_settings['sd.slugFilenameWhenExport'] = Configure::read('sd.slugFilenameWhenExport');
+		Configure::write('sd.slugFilenameWhenExport', true);
+
 		Configure::write('Acl.database', 'test');
 		parent::setUp();
 		$this->UploadedFile = ClassRegistry::init('Uploader.UploadedFile');
@@ -75,6 +79,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 	}
 
 	public function tearDown() {
+		Configure::write('sd.slugFilenameWhenExport', $this->_settings['sd.slugFilenameWhenExport']);
 		unset($this->UploadedFile);
 		$folder = Configure::read('FileStorage.testFolder');
 		$this->_rmContentDir($folder);

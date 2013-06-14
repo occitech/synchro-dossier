@@ -7,6 +7,7 @@ Configure::write('FileStorage.testFolder', APP . 'tmp' . DS . 'tests' . DS . 'Up
 Configure::write('FileStorage.filePattern', '{user_id}/{file_id}/{version}-{filename}');
 
 Configure::write('sd.uploadedFileRootAco.alias', 'uploadedFileAco');
+Configure::write('sd.slugFilenameWhenExport', false);
 
 StorageManager::config(
 	'Local',
