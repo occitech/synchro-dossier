@@ -33,10 +33,18 @@ class FilesController extends UploaderAppController {
 
 	public $paginate;
 
+	private $__messageFlashDownloadNotAvailable;
 	private $__listRights = array('read', 'create', 'delete');
 
 	public function beforeFilter() {
 		parent::beforeFilter();
+		if (empty($this->__messageFlashDownloadNotAvailable)) {
+			$this->__messageFlashDownloadNotAvailable =__d(
+				'uploader',
+				'You cannot download this folder as a zip archive (Max Size Exceeded).<br>Please fill an email to %s to get an access to your zip archive.',
+				Configure::read('Site.email')
+			);
+		}
 		$this->Security->unlockedActions = array('upload', 'rename', 'find', 'browse', 'allFilesUploadedInBatch');
 	}
 
@@ -199,10 +207,17 @@ class FilesController extends UploaderAppController {
 		$this->paginate['limit'] = 30;
 
 		$files = $this->paginate();
+		foreach ($files as &$file) {
+			if ($file['UploadedFile']['is_folder']) {
+				$file['UploadedFile']['downloadable'] = $this->UploadedFile->canDownloadFolderAsZip($file['UploadedFile']['id']);
+			}
+		}
+
 		$parent = $this->UploadedFile->findById($folderId);
 		$parentId = ($parent) ? $parent['ParentUploadedFile']['id'] : null;
 		$superAdmins = $this->UploadedFile->User->find('superAdmin');
 		$this->set(compact('files', 'folderId', 'parentId', 'superAdmins'));
+		$this->set('unavailableDownloadNotice', $this->__messageFlashDownloadNotAvailable);
 	}
 
 	public function find() {
@@ -258,11 +273,17 @@ class FilesController extends UploaderAppController {
 	}
 
 	public function downloadZipFolder($folderId) {
-		$folder = $this->UploadedFile->findById($folderId);
-		if (!empty($folder)) {
-			$this->response->download($folder['UploadedFile']['filename'] . '.zip');
-			$this->response->body($this->UploadedFile->createZip($folderId));
-			$this->response->send();
+		if ($this->UploadedFile->canDownloadFolderAsZip($folderId)) {
+			$folder = $this->UploadedFile->findById($folderId);
+			if (!empty($folder)) {
+				$this->response->download($folder['UploadedFile']['filename'] . '.zip');
+				$this->response->body($this->UploadedFile->createZip($folderId));
+				$this->response->send();
+			}
+		} else {
+			$messageFlash =
+			$this->Session->setFlash(nl2br($this->__messageFlashDownloadNotAvailable));
+			$this->redirect(array('action' => 'browse'));
 		}
 	}
 

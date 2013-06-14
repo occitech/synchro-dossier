@@ -17,6 +17,11 @@
 <h2><?= $this->fetch('browse_title'); ?></h2>
 
 <div class="uploader">
+	<div data-unable-to-download="1" class="alert alert-warning hide">
+		<a href="#" class="close" data-dismiss="alert">&times;</a>
+		<?= $unavailableDownloadNotice ?>
+	</div>
+
 	<table class="table table-hover">
 		<thead>
 			<tr>
@@ -84,16 +89,18 @@
 
 						<td>
 							<?php if ($file['UploadedFile']['is_folder']): ?>
-								<?php if (!empty($file['ChildUploadedFile'])): ?>
-									<?= $this->Html->link(
-										__d('uploader', '<i class="icon-download-alt"></i>'),
-										array('controller' => 'files', 'action' => 'downloadZipFolder', $file['UploadedFile']['id']),
-										array(
-											'rel' => 'tooltip',
-											'title' => __d('uploader', 'Download folder as zipfile'),
-											'escape' => false
-										)
-									); ?>
+								<?php if (!empty($file['ChildUploadedFile'])):?>
+									<?php $class = empty($file['UploadedFile']['downloadable']) ? 'not-allowed' : ''; ?>
+										<?= $this->Html->link(
+											__d('uploader', '<i class="icon-download-alt"></i>'),
+											array('controller' => 'files', 'action' => 'downloadZipFolder', $file['UploadedFile']['id']),
+											array(
+												'class' => $class,
+												'rel' => 'tooltip',
+												'title' => __d('uploader', 'Download folder as zipfile'),
+												'escape' => false
+											)
+										); ?>
 								<?php endif ?>
 								<?= $this->Html->link(
 									'<i class="icon-pencil"></i>',
@@ -220,4 +227,3 @@
 		<?= $this->element('SynchroDossier.paging', array('displayCounter' => false)) ?>
 	<?php endif ?>
 </div>
-
