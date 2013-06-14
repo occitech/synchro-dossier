@@ -68,6 +68,7 @@ Configure::write('sd.mail.alertEmailNewUpload.from', array('admin@synchro-dossie
 
 Configure::write('sd.config.useSsl', false);
 Configure::write('sd.config.useModeBox', false);
+Configure::write('sd.config.maxDownloadableZipSize', 1024*1024*1024);
 
 Configure::write('Asset.timestamp', 'force');
 
