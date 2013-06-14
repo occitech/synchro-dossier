@@ -84,11 +84,11 @@ footer {
 	top:50%;
 }
 
-a.not-allowed i {
+i.not-allowed {
 	opacity:0.5;
 }
 
-a.not-allowed:hover{
+i.not-allowed:hover{
 	cursor:not-allowed;
 }
 

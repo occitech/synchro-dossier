@@ -217,7 +217,6 @@ class FilesController extends UploaderAppController {
 		$parentId = ($parent) ? $parent['ParentUploadedFile']['id'] : null;
 		$superAdmins = $this->UploadedFile->User->find('superAdmin');
 		$this->set(compact('files', 'folderId', 'parentId', 'superAdmins'));
-		$this->set('unavailableDownloadNotice', $this->__messageFlashDownloadNotAvailable);
 	}
 
 	public function find() {

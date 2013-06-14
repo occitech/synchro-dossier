@@ -12,11 +12,6 @@ jQuery(document).ready(function($) {
 		}
 	});
 
-	$('a.not-allowed').on('click', function(event){
-		event.preventDefault();
-		$('div[data-unable-to-download]').fadeIn();
-	});
-
 	$(function () {
 		var	currentFolderId = $('.sidebar-folders').data('current-folder-id'),
 			currentFolder = $('#folder' + currentFolderId);
