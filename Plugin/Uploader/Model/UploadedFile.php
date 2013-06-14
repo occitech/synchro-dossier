@@ -250,6 +250,26 @@ class UploadedFile extends UploaderAppModel {
 		return $allFoldersPath;
 	}
 
+	public function canDownloadFolderAsZip($folderId){
+		$canDownload = false;
+		if (!$this->exists($folderId)) {
+			throw new NotFoundException(__d('uploader', 'Invalid Folder Id #%s', $folderId));
+		}
+
+		if (!$this->hasAny(array('id' => $folderId, 'is_folder' => 1))) {
+			throw new InvalidArgumentException(__d('uploader', 'You Cannot download a file as Zip archive'));
+		}
+
+		$maxLimit = Configure::read('sd.config.maxDownloadableZipSize');
+		$files = $this->children($folderId);
+
+
+		$totalSize = 0;
+		$totalSize = array_sum(Hash::extract($files, '{n}.UploadedFile.size'));
+		$canDownload = ($totalSize <= $maxLimit) && !empty($files);
+		return $canDownload;
+	}
+
 	public function createZip($folderId) {
 		$zipfile = tempnam(null, 'Uploader');
 		StorageManager::config('Zip', array(

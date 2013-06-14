@@ -28,7 +28,10 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		'plugin.uploader.sd_information'
 	);
 
-	protected $_settings;
+	protected $_settings = array(
+		'sd.slugFilenameWhenExport' => '',
+		'sd.config.maxDownloadableZipSize' => ''
+	);
 
 /**
  * Remove content of the folder and all subfolder !
@@ -56,7 +59,10 @@ class UploadedFileTest extends OccitechCakeTestCase {
 	}
 
 	public function setUp() {
-		$this->_settings['sd.slugFilenameWhenExport'] = Configure::read('sd.slugFilenameWhenExport');
+		foreach ($this->_settings as $setting) {
+			$this->_settings[$setting] = Configure::read($setting);
+		}
+
 		Configure::write('sd.slugFilenameWhenExport', true);
 
 		Configure::write('Acl.database', 'test');
@@ -79,7 +85,10 @@ class UploadedFileTest extends OccitechCakeTestCase {
 	}
 
 	public function tearDown() {
-		Configure::write('sd.slugFilenameWhenExport', $this->_settings['sd.slugFilenameWhenExport']);
+		foreach ($this->_settings as $setting) {
+			Configure::write($setting, $this->_settings[$setting]);
+		}
+
 		unset($this->UploadedFile);
 		$folder = Configure::read('FileStorage.testFolder');
 		$this->_rmContentDir($folder);
@@ -687,5 +696,39 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->assertEquals($expected, $results[0]['UploadedFile']);
 	}
 
+	public function testCanDownloadFolderAsZip() {
+		Configure::write('sd.config.maxDownloadableZipSize', 1024*1024*1024);
+		$result = $this->UploadedFile->canDownloadFolderAsZip(1);
+		$this->assertTrue($result);
+	}
+
+	public function testCanDownloadFolderAsZipWhenExceedingSizeLimit() {
+		Configure::write('sd.config.maxDownloadableZipSize', 1024);
+		$result = $this->UploadedFile->canDownloadFolderAsZip(1);
+		$this->assertFalse($result);
+	}
+
+	public function testCanDownloadFolderAsZipWithInvalidFolderId(){
+		$this->setExpectedException('NotFoundException');
+		$result = $this->UploadedFile->canDownloadFolderAsZip(42);
+	}
+
+	public function testCanDownloadFolderAsZipWithEmptyFolder(){
+		$this->_addFolder(1, array('UploadedFile' => array('filename' => 'Empty Folder')));
+		$result = $this->UploadedFile->canDownloadFolderAsZip($this->UploadedFile->getLastInsertID());
+		$this->assertFalse($result);
+	}
+
+	public function testCanDownloadFolderAsZipWithFileId(){
+		$this->setExpectedException('InvalidArgumentException');
+		$result = $this->UploadedFile->canDownloadFolderAsZip(6);
+	}
+
+	protected function _addFolder($userId, $folderData, $parentId = null) {
+		$result = $this->UploadedFile->addFolder($folderData, $parentId, $userId);
+		$this->assertTrue((bool) $result);
+
+		return $result;
+	}
 
 }
