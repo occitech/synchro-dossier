@@ -12,11 +12,12 @@
         <table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0;">
             <tr>
                 <td valign="top"><a href="<?= $this->Html->link(
-                	$this->Html->image(
+                    $this->Html->image(
                         'header.jpg',
                         array('style' => 'margin-bottom:10px;border:none', 'fullBase' => true)
                     ),
-                	$this->Html->url('/', true)
+                    $this->Html->url('/', true),
+                    array('escape' => false)
                	) ?>"></td>
             </tr>
             <tr>
