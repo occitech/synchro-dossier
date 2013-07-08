@@ -29,7 +29,6 @@ class CroogoAppController extends Controller {
 		'Auth',
 		'Session',
 		'RequestHandler',
-		'DebugKit.Toolbar',
 	);
 
 /**
@@ -138,7 +137,7 @@ class CroogoAppController extends Controller {
 			throw new MissingComponentException(array('class' => $aclFilterComponent));
 		}
 		$this->{$aclFilterComponent}->auth();
-		$this->RequestHandler->setContent('json', 'text/x-json');
+		$this->RequestHandler->setContent('json', array('text/x-json', 'application/json'));
 		$this->Security->blackHoleCallback = 'securityError';
 		$this->Security->requirePost('admin_delete');
 
@@ -235,6 +234,23 @@ class CroogoAppController extends Controller {
 			}
 		}
 		return parent::render($view, $layout);
+	}
+
+/**
+ * Croogo uses this callback to load Paginator helper when one is not supplied.
+ * This is required so that pagination variables are correctly set with caching
+ * is used.
+ *
+ * @return void
+ * @see Controller::beforeRender()
+ */
+	public function beforeRender() {
+		if (!$this->usePaginationCache) {
+			return;
+		}
+		if (!isset($this->helpers['Paginator']) && !in_array('Paginator', $this->helpers)) {
+			$this->helpers[] = 'Paginator';
+		}
 	}
 
 }

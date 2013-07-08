@@ -264,14 +264,15 @@ class UsersController extends UsersAppController {
 
 /**
  * Convenience method to send email
- * @param  string $from      email sender
- * @param  string $to        email receiver
- * @param  string $subject   subject
- * @param  string $template  template to use
- * @param  string $theme     theme to use
- * @param  array  $viewVars   vars to use inside template
- * @param  string $emailType user activiation, reset password, use in log message when failing.
- * @return boolean			 True if email was sent false otherwise.
+ *
+ * @param string $from Sender email
+ * @param string $to Receiver email
+ * @param string $subject Subject
+ * @param string $template Template to use
+ * @param string $theme Theme to use
+ * @param array  $viewVars Vars to use inside template
+ * @param string $emailType user activation, reset password, used in log message when failing.
+ * @return boolean True if email was sent, False otherwise.
  */
 	protected function _sendEmail($from, $to, $subject, $template, $emailType, $theme = null, $viewVars = null) {
 		if (is_null($theme)) {
@@ -280,7 +281,6 @@ class UsersController extends UsersAppController {
 		$success = false;
 
 		try {
-
 			$email = new CakeEmail();
 			$email->from($from[1], $from[0]);
 			$email->to($to);
@@ -288,7 +288,6 @@ class UsersController extends UsersAppController {
 			$email->template($template);
 			$email->viewVars($viewVars);
 			$email->theme($theme);
-
 			$success = $email->send();
 		} catch (SocketException $e) {
 			$this->log(sprintf('Error sending %s notification : %s', $emailType, $e->getMessage()));
@@ -318,7 +317,7 @@ class UsersController extends UsersAppController {
 				$this->request->data['User']['password'] = null;
 
 				$this->_sendEmail(
-					array(Configure::read('Site.title'), $this->__getSenderEmail()),
+					array(Configure::read('Site.title'), $this->_getSenderEmail()),
 					$this->request->data['User']['email'],
 					__d('croogo', '[%s] Please activate your account', Configure::read('Site.title')),
 					'Users.register',
@@ -399,7 +398,7 @@ class UsersController extends UsersAppController {
 			$this->set(compact('user', 'activationKey'));
 
 			$emailSent = $this->_sendEmail(
-				array(Configure::read('Site.title'), $this->__getSenderEmail()),
+				array(Configure::read('Site.title'), $this->_getSenderEmail()),
 				$user['User']['email'],
 				__d('croogo', '[%s] Reset Password', Configure::read('Site.title')),
 				'Users.forgot_password',
@@ -516,7 +515,8 @@ class UsersController extends UsersAppController {
 		$this->set(compact('user'));
 	}
 
-	private function __getSenderEmail(){
+	protected function _getSenderEmail() {
 		return 'croogo@' . preg_replace('#^www\.#', '', strtolower($_SERVER['SERVER_NAME']));
 	}
+
 }

@@ -102,8 +102,6 @@ class BlocksComponent extends Component {
 							'OR' => array(
 								'Block.visibility_paths' => '',
 								'Block.visibility_paths LIKE' => '%"' . $this->controller->request->here . '"%',
-								//'Block.visibility_paths LIKE' => '%"' . 'controller:' . $this->params['controller'] . '"%',
-								//'Block.visibility_paths LIKE' => '%"' . 'controller:' . $this->params['controller'] . '/' . 'action:' . $this->params['action'] . '"%',
 							),
 						),
 					),
@@ -112,7 +110,7 @@ class BlocksComponent extends Component {
 					'Block.weight' => 'ASC'
 				),
 				'cache' => array(
-					'name' => 'blocks_' . $regionAlias . '_' . $roleId,
+					'prefix' => 'blocks_' . $regionAlias . '_' . $roleId,
 					'config' => 'croogo_blocks',
 				),
 				'recursive' => '-1',
@@ -131,11 +129,19 @@ class BlocksComponent extends Component {
  */
 	public function processBlocksData($blocks) {
 		foreach ($blocks as $block) {
-			$this->blocksData['menus'] = Hash::merge($this->blocksData['menus'], $this->parseString('menu|m', $block['Block']['body']));
-			$this->blocksData['vocabularies'] = Hash::merge($this->blocksData['vocabularies'], $this->parseString('vocabulary|v', $block['Block']['body']));
-			$this->blocksData['nodes'] = Hash::merge($this->blocksData['nodes'], $this->parseString('node|n', $block['Block']['body'], array(
-				'convertOptionsToArray' => true,
-			)));
+			$this->blocksData['menus'] = Hash::merge(
+				$this->blocksData['menus'],
+				$this->parseString('menu|m', $block['Block']['body'])
+			);
+			$this->blocksData['vocabularies'] = Hash::merge(
+				$this->blocksData['vocabularies'],
+				$this->parseString('vocabulary|v', $block['Block']['body'])
+			);
+			$this->blocksData['nodes'] = Hash::merge(
+				$this->blocksData['nodes'],
+				$this->parseString('node|n', $block['Block']['body'],
+				array('convertOptionsToArray' => true)
+			));
 		}
 	}
 

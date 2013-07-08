@@ -3,7 +3,8 @@
 App::uses('Component', 'Controller');
 
 /**
- * AclAccess Component
+ * AclAccess Component provides * various methods to manipulate Aros and Acos,
+ * and additionaly setup various settings for backend/admin use.
  *
  * PHP version 5
  *
@@ -85,7 +86,7 @@ class AclAccessComponent extends Component {
  * Add ACO
  *
  * Creates ACOs with permissions for roles.
-
+ *
  * Action Path format:
  * - ControllerName
  * - ControllerName/method_name
