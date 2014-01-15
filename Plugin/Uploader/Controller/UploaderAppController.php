@@ -25,5 +25,7 @@ class UploaderAppController extends AppController {
 		$folderAco = $this->UploaderAclAco->findByModelAndForeign_key('UploadedFile', $folderId);
 
 		$this->set(compact('folderId', 'folderAco'));
+
+		$this->set('usernames', $this->UploadedFile->User->find('list', array('fields' => array('username', 'username'))));
 	}
 }

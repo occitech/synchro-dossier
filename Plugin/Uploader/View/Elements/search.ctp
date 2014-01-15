@@ -32,7 +32,7 @@ $this->Form->input(
 ) .
 $this->Form->input(
 	'username',
-	array('label' => false, 'placeholder' => __d('uploader', 'Utilisateur'), 'class' => 'span12')
+	array('label' => false, 'placeholder' => __d('uploader', 'Utilisateur'), 'class' => 'span12', 'empty' => __('Tous'))
 ) .
 $this->Form->input(
 	'size_min',
