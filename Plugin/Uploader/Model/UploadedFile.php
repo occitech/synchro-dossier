@@ -305,6 +305,14 @@ class UploadedFile extends UploaderAppModel {
 		return $this->save($data);
 	}
 
+	public function removeUpload($uploadId, $userId, $uploadType) {
+		if($uploadType === 'folder') {
+			return $this->removeFolder($uploadId, $userId);
+		} else {
+			return $this->removeFile($uploadId, $userId);
+		}
+	}
+
 	public function removeFolder($folderId, $userId) {
 		$canDelete = $success = false;
 
@@ -338,6 +346,46 @@ class UploadedFile extends UploaderAppModel {
 		}
 		if (!$folderData[$this->alias]['is_folder']) {
 			throw new InvalidArgumentException(__d('uploader', 'Current id %s is not a folder', $folderId));
+		}
+	}
+
+	public function removeFile($fileId, $userId) {
+		$canDelete = $success = false;
+
+		$file = $this->findById($fileId);
+
+
+		$this->__throwExceptionsIfNeededForFile($file, $userId, $fileId);
+
+		$canDelete = ClassRegistry::init('Permission')->check(
+			array('model' => 'User', 'foreign_key' => $userId),
+			array('model' => 'UploadedFile', 'foreign_key' => $fileId),
+			'delete'
+		);
+
+
+		if ($canDelete) {
+			$fileStorageId = $file['FileStorage'][0]['id'];
+			$fileStorage = $this->FileStorage->findById($fileStorageId);
+			$this->_deleteFileInRemote($fileStorage['FileStorage']['path'], $fileStorage['FileStorage']['adapter']);
+			$this->FileStorage->delete($fileStorageId);
+			$success = $this->delete($fileId);
+		}
+
+		return $success;
+	}
+
+	private function __throwExceptionsIfNeededForFile($fileData, $userId, $fileId) {
+		$userData = $this->User->find('first', array(
+			'conditions' => array('User.id' => $userId),
+			'noRoleChecking' => true
+		));
+
+		if (empty($userData)) {
+			throw new NotFoundException(__d('uploader', 'Invalid user with id#%s', $userId));
+		}
+		if (empty($fileData)) {
+			throw new NotFoundException(__d('uploader', 'Invalid File with id#%s', $fileId));
 		}
 	}
 
@@ -536,6 +584,15 @@ class UploadedFile extends UploaderAppModel {
 	protected function _receiveFileFromRemote($remotePath, $adapter) {
 		$content = StorageManager::adapter($adapter)->read($remotePath);
 		return $content;
+	}
+
+	protected function _deleteFileInRemote($remotePath, $adapter) {
+		StorageManager::adapter($adapter)->delete($remotePath);
+		/*$completepath = StorageManager::adapter($adapter)->computePath($remotePath);
+		$dir = preg_replace('/\/[^\/]*$/', '', $completepath);
+		if(count(scandir($dir)) == 2) {
+			rmdir($dir);
+		}*/
 	}
 
 	public function download($fileStorageId) {

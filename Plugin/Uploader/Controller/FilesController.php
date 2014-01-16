@@ -354,14 +354,23 @@ class FilesController extends UploaderAppController {
 		$this->layout = false;
 	}
 
-	public function delete($folderId) {
-		$this->UploadedFile->id = $folderId;
-		$folderName = $this->UploadedFile->field('filename');
-		if ($this->UploadedFile->removeFolder($folderId, $this->Auth->user('id'))) {
-			$messageFlash = __d('uploader', 'Folder "%s" was successfully deleted', $folderName);
+	public function deleteFolder($folderId) {
+		$this->_delete($folderId, 'folder');
+	}
+
+
+	public function deleteFile($fileId) {
+		$this->_delete($fileId, 'file');
+	}
+
+	protected function _delete($uploadId, $uploadType) {
+		$this->UploadedFile->id = $uploadId;
+		$uploadName = $this->UploadedFile->field('filename');
+		if ($this->UploadedFile->removeUpload($uploadId, $this->Auth->user('id'), $uploadType)) {
+			$messageFlash = __d('uploader', 'The ' . $uploadType . ' "%s" was successfully deleted', $uploadName);
 			$class = array('class' => 'success');
 		} else {
-			$messageFlash = __d('uploader', 'You cannot delete folder "%s"', $folderName);
+			$messageFlash = __d('uploader', 'You cannot delete ' . $uploadType . ' "%s"', $uploadName);
 			$class = array('class' => 'error');
 		}
 
