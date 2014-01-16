@@ -393,4 +393,53 @@ class FilesController extends UploaderAppController {
 		$tmp = str_replace(array_keys($replacementCaracters), array_values($replacementCaracters), $encodedString);
 		return base64_decode($tmp);
 	}
+
+	public function addTags($fileId) {
+		if ($this->request->is('ajax')) {
+			$this->layout = null;
+		}
+
+		if ($this->request->is('post')) {
+			if (!empty($this->request->data['Tags']['tags'])) {
+				$data = array(
+					'FileTag' => array(),
+					'UploadedFile' => array('id' => $fileId),
+				);
+				$tags = array_map('trim', explode(',', $this->request->data['Tags']['tags']));
+
+				foreach ($tags as $tag) {
+					$termId = $this->UploadedFile->FileTag->Term->saveAndGetId(array(
+						'title' => $tag,
+						'slug' => Inflector::slug(strtolower($tag), '-'),
+					));
+
+					if ($taxonomyId = $this->UploadedFile->FileTag->termInVocabulary($termId)) {
+						array_push($data['FileTag'], array('taxonomy_id' => $taxonomyId));
+					} else {
+						$taxonomy = $this->UploadedFile->FileTag->save(array('FileTag' => array('term_id' => $termId)));
+						array_push($data['FileTag'], array('taxonomy_id' => $taxonomy['FileTag']['id']));
+					}
+				}
+
+				if ($this->UploadedFile->save($data)) {
+					$file = $this->UploadedFile->findById($fileId);
+					$this->redirect(array(
+						'controller' => 'files',
+						'action' => 'browse',
+						$file['ParentUploadedFile']['id']
+					));
+				}
+			}
+		} else {
+			$file = $this->UploadedFile->find('first', array(
+				'contain' => array('FileTag', 'FileTag.Term'),
+				'conditions' => array(
+					$this->UploadedFile->escapeField() => $fileId
+				)
+			));
+
+			$this->request->data['Tags']['tags'] = implode(', ', Hash::extract($file, 'FileTag.{n}.Term.title'));
+		}
+	}
+
 }

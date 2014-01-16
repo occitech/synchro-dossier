@@ -62,7 +62,12 @@ class UploadedFile extends UploaderAppModel {
 	);
 
 	public $hasAndBelongsToMany = array(
-		'Taxonomy.Taxonomy',
+		'FileTag' => array(
+			'className' => 'Uploader.FileTag',
+			'foreignKey' => 'uploaded_file_id',
+			'associationForeignKey' => 'taxonomy_id',
+			'joinTable' => 'taxonomies_uploaded_files',
+		),
 	);
 
 	public $findMethods = array('rootDirectories' =>  true);

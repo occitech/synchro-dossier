@@ -27,5 +27,6 @@ class UploaderAppController extends AppController {
 		$this->set(compact('folderId', 'folderAco'));
 
 		$this->set('usernames', $this->UploadedFile->User->find('list', array('fields' => array('username', 'username'))));
+		$this->set('terms', $this->UploadedFile->FileTag->getList());
 	}
 }
