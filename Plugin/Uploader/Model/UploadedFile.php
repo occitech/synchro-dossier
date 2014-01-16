@@ -61,6 +61,10 @@ class UploadedFile extends UploaderAppModel {
 		)
 	);
 
+	public $hasAndBelongsToMany = array(
+		'Taxonomy.Taxonomy',
+	);
+
 	public $findMethods = array('rootDirectories' =>  true);
 
 	public $validate = array(
