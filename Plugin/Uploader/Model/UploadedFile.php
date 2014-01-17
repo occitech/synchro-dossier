@@ -50,7 +50,8 @@ class UploadedFile extends UploaderAppModel {
 		),
 		'FileStorage' => array(
 			'className' => 'FileStorage.FileStorage',
-			'foreignKey' => 'foreign_key'
+			'foreignKey' => 'foreign_key',
+			'dependent' => true
 		),
 		'Comment' => array(
 			'className' => 'Comments.Comment',
@@ -365,10 +366,7 @@ class UploadedFile extends UploaderAppModel {
 
 
 		if ($canDelete) {
-			$fileStorageId = $file['FileStorage'][0]['id'];
-			$fileStorage = $this->FileStorage->findById($fileStorageId);
-			$this->_deleteFileInRemote($fileStorage['FileStorage']['path'], $fileStorage['FileStorage']['adapter']);
-			$this->FileStorage->delete($fileStorageId);
+			$this->_deleteFileFolderInRemote($fileId);
 			$success = $this->delete($fileId);
 		}
 
@@ -586,13 +584,11 @@ class UploadedFile extends UploaderAppModel {
 		return $content;
 	}
 
-	protected function _deleteFileInRemote($remotePath, $adapter) {
-		StorageManager::adapter($adapter)->delete($remotePath);
-		/*$completepath = StorageManager::adapter($adapter)->computePath($remotePath);
-		$dir = preg_replace('/\/[^\/]*$/', '', $completepath);
-		if(count(scandir($dir)) == 2) {
-			rmdir($dir);
-		}*/
+	protected function _deleteFileFolderInRemote($fileId) {
+		// $dir = preg_replace('/\/[^\/]*$/', '', $path);
+		// if(count(scandir($dir)) == 2) {
+		// 	rmdir($dir);
+		// }
 	}
 
 	public function download($fileStorageId) {

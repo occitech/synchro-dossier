@@ -239,12 +239,12 @@ class UploadedFileTest extends OccitechCakeTestCase {
 			4 => array(
 				'real_path' => 'Photos/Fruits/Fraise.jpg',
 				'remote_path' => '1/4/1-1c082be57dd2a8b40831e1258ab2187f4eee044a',
-				'adapter' => 'Local'
+				'adapter' => 'Test'
 			),
 			5 => array(
 				'real_path' => 'Photos/Fruits/pommes.jpg',
 				'remote_path' => '1/5/1-fc13ddddf3f37ecb451d76665f2f4b29d8dd0220',
-				'adapter' => 'Local'
+				'adapter' => 'Test'
 			)
 		);
 		$this->assertEqual($result, $expected);
@@ -544,6 +544,40 @@ class UploadedFileTest extends OccitechCakeTestCase {
 /**
  * Test remove method
  */
+	public function testRemoveFile() {
+		$this->__createFileOnFileSystem();
+
+		$result = $this->UploadedFile->removeFile(5, 1);
+		$this->assertTrue($result);
+
+		$fileDeleted = $this->UploadedFile->find('first', array(
+			'conditions' => array('UploadedFile.filename' => 'pommes.jpg', 'UploadedFile.parent_id' => 3)
+		));
+
+		$this->assertTrue(empty($value));
+	}
+
+	public function testRemoveFile_DeleteFilesInFileSystem() {
+		$file = $this->__createFileOnFileSystem();
+
+		$success = $this->UploadedFile->removeFile(5, 1);
+		$this->assertTrue($success);
+
+		$this->assertFalse(is_file(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . $file['FileStorage']['path']));
+	}
+
+
+	public function testRemoveFile_ShouldDeleteParentFolderIfEmpty() {
+		$file = $this->__createFileOnFileSystem();
+
+		$success = $this->UploadedFile->removeFile(5, 1);
+		$this->assertTrue($success);
+
+		$dir = preg_replace('/\/[^\/]*$/', '', $file['FileStorage']['path']);
+
+		$this->assertFalse(is_dir(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . $dir));
+	}
+
 	public function testRemoveFolder() {
 		$result = $this->UploadedFile->removeFolder(3, 1);
 		$this->assertTrue($result);
@@ -558,7 +592,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 			'conditions' => array('UploadedFile.filename' => 'pommes.jpg', 'UploadedFile.parent_id' => 3)
 		));
 
-		foreach (array($folderDeleted, $fileDeleted1, $fileDeleted2) as $value) {
+		foreach (array($fileDeleted1, $fileDeleted2) as $value) {
 			$this->assertTrue(empty($value));
 		}
 	}
@@ -594,7 +628,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->assertTrue($success);
 
 		foreach ($files as $file) {
-			$this->assertFalse(is_file(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . $file));
+			$this->assertFalse(is_file(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . $file['remote_path']));
 		}
 	}
 
@@ -613,6 +647,29 @@ class UploadedFileTest extends OccitechCakeTestCase {
 			$this->assertTrue((bool) $this->UploadedFile->saveField('user_id', 4));
 			$result = $this->UploadedFile->removeFolder(1, 1);
 			$this->assertTrue($result);
+	}
+
+	public function testRemoveFile_WhenNotOwner() {
+		$result = $this->UploadedFile->removeFile(4, 4);
+		$this->assertFalse($result);
+	}
+
+	public function testRemoveFile_ShouldThrowExceptionIfInvalidId() {
+		$this->setExpectedException('NotFoundException');
+		$this->UploadedFile->removeFile(42, 1);
+	}
+
+	private function __createFileOnFileSystem() {
+		$file = $this->UploadedFile->FileStorage->find('first', array(
+			'conditions' => array('FileStorage.id' => '509116da-0008-4958-909a-1c21d4b04a59')
+		));
+
+		if (!is_dir(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . '1' . DS . '5')) {
+			mkdir(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . '1' . DS . '5');
+		}
+		touch(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . $file['FileStorage']['path']);
+
+		return $file;
 	}
 
 /**
