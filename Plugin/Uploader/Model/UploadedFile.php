@@ -306,14 +306,6 @@ class UploadedFile extends UploaderAppModel {
 		return $this->save($data);
 	}
 
-	public function removeUpload($uploadId, $userId, $uploadType) {
-		if($uploadType === 'folder') {
-			return $this->removeFolder($uploadId, $userId);
-		} else {
-			return $this->removeFile($uploadId, $userId);
-		}
-	}
-
 	public function removeFolder($folderId, $userId) {
 		$canDelete = $success = false;
 
@@ -350,11 +342,11 @@ class UploadedFile extends UploaderAppModel {
 		}
 	}
 
-	public function removeFile($fileId, $userId) {
+	public function removeFile($fileId, $fileStorageId, $userId) {
 		$canDelete = $success = false;
 
 		$file = $this->findById($fileId);
-
+		$this->id = $fileId;
 
 		$this->__throwExceptionsIfNeededForFile($file, $userId, $fileId);
 
@@ -366,8 +358,20 @@ class UploadedFile extends UploaderAppModel {
 
 
 		if ($canDelete) {
-			$this->_deleteFileFolderInRemote($fileId);
-			$success = $this->delete($fileId);
+			$this->FileStorage->findById($fileStorageId);
+			$success = $this->FileStorage->delete($fileStorageId);
+
+			$this->saveField('current_version',  $this->field('current_version') - 1);
+
+			$fileStorage = $this->FileStorage->find('first', array(
+				'conditions' => array('FileStorage.foreign_key' => $file['UploadedFile']['id'])
+			));
+
+			if(empty($fileStorage)){
+				$success = $this->delete($fileId);
+				// $this->_deleteFileFolderInRemote($fileId);
+
+			}
 		}
 
 		return $success;
@@ -585,10 +589,10 @@ class UploadedFile extends UploaderAppModel {
 	}
 
 	protected function _deleteFileFolderInRemote($fileId) {
-		// $dir = preg_replace('/\/[^\/]*$/', '', $path);
-		// if(count(scandir($dir)) == 2) {
-		// 	rmdir($dir);
-		// }
+        /*$dir = preg_replace('/\/[^\/]*$/', '', $path);
+		if(count(scandir($dir)) == 2) {
+			rmdir($dir);
+		}*/
 	}
 
 	public function download($fileStorageId) {

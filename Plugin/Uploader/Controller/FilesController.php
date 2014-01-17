@@ -355,22 +355,33 @@ class FilesController extends UploaderAppController {
 	}
 
 	public function deleteFolder($folderId) {
-		$this->_delete($folderId, 'folder');
-	}
-
-
-	public function deleteFile($fileId) {
-		$this->_delete($fileId, 'file');
-	}
-
-	protected function _delete($uploadId, $uploadType) {
-		$this->UploadedFile->id = $uploadId;
-		$uploadName = $this->UploadedFile->field('filename');
-		if ($this->UploadedFile->removeUpload($uploadId, $this->Auth->user('id'), $uploadType)) {
-			$messageFlash = __d('uploader', 'The ' . $uploadType . ' "%s" was successfully deleted', $uploadName);
+		$this->UploadedFile->id = $folderId;
+		$folderName = $this->UploadedFile->field('filename');
+		if ($this->UploadedFile->removeFolder($folderId, $this->Auth->user('id'))) {
+			$messageFlash = __d('uploader', 'Folder "%s" was successfully deleted', $folderName);
 			$class = array('class' => 'success');
 		} else {
-			$messageFlash = __d('uploader', 'You cannot delete ' . $uploadType . ' "%s"', $uploadName);
+			$messageFlash = __d('uploader', 'You cannot delete folder "%s"', $folderName);
+			$class = array('class' => 'error');
+		}
+
+		$this->Session->setFlash($messageFlash, 'default', $class);
+		$this->redirect(array('action' => 'browse'));
+	}
+
+
+	public function deleteFile($fileId, $fileStorageId) {
+		$fileStorage = $this->UploadedFile->FileStorage->find('first', array(
+			'conditions' => array(
+				'FileStorage.id' => $fileStorageId
+			)
+		));
+		$this->UploadedFile->id = $fileStorage['FileStorage']['foreign_key'];
+		if ($this->UploadedFile->removeFile($fileId, $fileStorageId, $this->Auth->user('id'))) {
+			$messageFlash = __d('uploader', 'The file "%s" was successfully deleted');
+			$class = array('class' => 'success');
+		} else {
+			$messageFlash = __d('uploader', 'You cannot delete file "%s"');
 			$class = array('class' => 'error');
 		}
 

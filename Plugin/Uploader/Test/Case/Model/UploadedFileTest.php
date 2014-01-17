@@ -545,9 +545,9 @@ class UploadedFileTest extends OccitechCakeTestCase {
  * Test remove method
  */
 	public function testRemoveFile() {
-		$this->__createFileOnFileSystem();
+		$file = $this->__createFileOnFileSystem('509116da-0008-4958-909a-1c21d4b04a59');
 
-		$result = $this->UploadedFile->removeFile(5, 1);
+		$result = $this->UploadedFile->removeFile(5, $file['FileStorage']['id'], 1);
 		$this->assertTrue($result);
 
 		$fileDeleted = $this->UploadedFile->find('first', array(
@@ -558,9 +558,9 @@ class UploadedFileTest extends OccitechCakeTestCase {
 	}
 
 	public function testRemoveFile_DeleteFilesInFileSystem() {
-		$file = $this->__createFileOnFileSystem();
+		$file = $this->__createFileOnFileSystem('509116da-0008-4958-909a-1c21d4b04a59');
 
-		$success = $this->UploadedFile->removeFile(5, 1);
+		$success = $this->UploadedFile->removeFile(5, $file['FileStorage']['id'], 1);
 		$this->assertTrue($success);
 
 		$this->assertFalse(is_file(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . $file['FileStorage']['path']));
@@ -568,9 +568,9 @@ class UploadedFileTest extends OccitechCakeTestCase {
 
 
 	public function testRemoveFile_ShouldDeleteParentFolderIfEmpty() {
-		$file = $this->__createFileOnFileSystem();
+		$file = $this->__createFileOnFileSystem('509116da-0008-4958-909a-1c21d4b04a59');
 
-		$success = $this->UploadedFile->removeFile(5, 1);
+		$success = $this->UploadedFile->removeFile(5, $file['FileStorage']['id'], 1);
 		$this->assertTrue($success);
 
 		$dir = preg_replace('/\/[^\/]*$/', '', $file['FileStorage']['path']);
@@ -650,24 +650,26 @@ class UploadedFileTest extends OccitechCakeTestCase {
 	}
 
 	public function testRemoveFile_WhenNotOwner() {
-		$result = $this->UploadedFile->removeFile(4, 4);
+		$result = $this->UploadedFile->removeFile(4, '509116da-0008-4958-909a-1c21d4b04a59', 4);
 		$this->assertFalse($result);
 	}
 
 	public function testRemoveFile_ShouldThrowExceptionIfInvalidId() {
 		$this->setExpectedException('NotFoundException');
-		$this->UploadedFile->removeFile(42, 1);
+		$this->UploadedFile->removeFile(42, '509116da-0008-4958-909a-1c21d4b04a59', 1);
 	}
 
-	private function __createFileOnFileSystem() {
+	private function __createFileOnFileSystem($fileStorageId) {
 		$file = $this->UploadedFile->FileStorage->find('first', array(
-			'conditions' => array('FileStorage.id' => '509116da-0008-4958-909a-1c21d4b04a59')
+			'conditions' => array('FileStorage.id' => $fileStorageId)
 		));
 
-		if (!is_dir(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . '1' . DS . '5')) {
-			mkdir(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . '1' . DS . '5');
+		$pathStart = (APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS);
+
+		if (!is_dir($pathStart . '1' . DS . $file['FileStorage']['foreign_key'])) {
+			mkdir($pathStart . '1' . DS . $file['FileStorage']['foreign_key']);
 		}
-		touch(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . $file['FileStorage']['path']);
+		touch($pathStart . $file['FileStorage']['path']);
 
 		return $file;
 	}
