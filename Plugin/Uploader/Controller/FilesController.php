@@ -422,13 +422,20 @@ class FilesController extends UploaderAppController {
 				}
 
 				if ($this->UploadedFile->save($data)) {
-					$file = $this->UploadedFile->findById($fileId);
-					$this->redirect(array(
-						'controller' => 'files',
-						'action' => 'browse',
-						$file['ParentUploadedFile']['id']
-					));
+					$messageFlash = __d('uploader', 'Tags successfuly added to file');
+					$class = array('class' => 'success');
+				} else {
+					$messageFlash = __d('uploader', 'There was an error while tagging the file');
+					$class = array('class' => 'error');
 				}
+				$this->Session->setFlash($messageFlash, 'default', $class);
+
+				$file = $this->UploadedFile->findById($fileId);
+				$this->redirect(array(
+					'controller' => 'files',
+					'action' => 'browse',
+					$file['ParentUploadedFile']['id']
+				));
 			}
 		} else {
 			$file = $this->UploadedFile->find('first', array(
