@@ -17,6 +17,9 @@ class AllowActionsForSdrolesInFrontend extends CakeMigration {
 		'SdUsers/SdUsers/profile' => array(
 			'sdSuperAdmin', 'sdAdmin', 'sdUtilisateur'
 		),
+		'SdUsers/SdUsers/manageAlertEmail' => array(
+			'sdSuperAdmin', 'sdAdmin', 'sdUtilisateur'
+		),
 		'SdUsers/SdUsers/reset' => array('public'),
 		'SdUsers/SdUsers/forgot' => array('public'),
 	);
