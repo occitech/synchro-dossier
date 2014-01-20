@@ -356,12 +356,15 @@ class UploadedFile extends UploaderAppModel {
 			'delete'
 		);
 
-
 		if ($canDelete) {
+			$version = $this->field('current_version');
+			$filename = $this->field('filename');
+			$path = $this->_getPathFile($userId, $fileId, $version, $filename);
+
 			$this->FileStorage->findById($fileStorageId);
 			$success = $this->FileStorage->delete($fileStorageId);
 
-			$this->saveField('current_version',  $this->field('current_version') - 1);
+			$this->saveField('current_version',  $version - 1);
 
 			$fileStorage = $this->FileStorage->find('first', array(
 				'conditions' => array('FileStorage.foreign_key' => $file['UploadedFile']['id'])
@@ -369,7 +372,7 @@ class UploadedFile extends UploaderAppModel {
 
 			if(empty($fileStorage)){
 				$success = $this->delete($fileId);
-				// $this->_deleteFileFolderInRemote($fileId);
+				$this->_deleteFileFolderInRemote($path);
 
 			}
 		}
@@ -588,11 +591,9 @@ class UploadedFile extends UploaderAppModel {
 		return $content;
 	}
 
-	protected function _deleteFileFolderInRemote($fileId) {
-        /*$dir = preg_replace('/\/[^\/]*$/', '', $path);
-		if(count(scandir($dir)) == 2) {
-			rmdir($dir);
-		}*/
+	protected function _deleteFileFolderInRemote($path) {
+		$dir = preg_replace('/\/[^\/]*$/', '', $path);
+		StorageManager::adapter(Configure::read('FileStorage.adapter'))->delete($dir);
 	}
 
 	public function download($fileStorageId) {

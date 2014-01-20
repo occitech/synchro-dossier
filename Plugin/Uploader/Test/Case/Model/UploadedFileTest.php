@@ -557,21 +557,19 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->assertTrue(empty($value));
 	}
 
-	public function testRemoveFile_DeleteFilesInFileSystem() {
+	public function testRemoveFileDeleteFilesInFileSystem() {
 		$file = $this->__createFileOnFileSystem('509116da-0008-4958-909a-1c21d4b04a59');
 
 		$success = $this->UploadedFile->removeFile(5, $file['FileStorage']['id'], 1);
-		$this->assertTrue($success);
 
 		$this->assertFalse(is_file(APP . 'tmp' . DS . 'tests' . DS . 'Uploader' . DS . $file['FileStorage']['path']));
 	}
 
 
-	public function testRemoveFile_ShouldDeleteParentFolderIfEmpty() {
+	public function testRemoveFileShouldDeleteParentFolderIfEmpty() {
 		$file = $this->__createFileOnFileSystem('509116da-0008-4958-909a-1c21d4b04a59');
 
 		$success = $this->UploadedFile->removeFile(5, $file['FileStorage']['id'], 1);
-		$this->assertTrue($success);
 
 		$dir = preg_replace('/\/[^\/]*$/', '', $file['FileStorage']['path']);
 
