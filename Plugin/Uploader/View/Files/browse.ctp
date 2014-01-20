@@ -192,6 +192,22 @@
 										'escape' => false
 									)
 								); ?>
+								<?= $this->Html->link(
+									'<i class="icon-tags"></i>',
+									'#formFileTagsModal',
+									array(
+										'ajax-url' => $this->Html->url(array(
+											'controller' => 'files',
+											'action' => 'addTags',
+											$file['UploadedFile']['id'],
+										)),
+										'role' => 'button',
+										'data-toggle' => 'modal',
+										'title' => __d('uploader', 'File Tags'),
+										'class' => 'comments',
+										'escape' => false
+									)
+								); ?>
 								<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
 									<?= $this->Html->link(
 										__d('uploader', '<i class="icon-remove"></i>'),

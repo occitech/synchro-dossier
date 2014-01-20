@@ -61,6 +61,15 @@ class UploadedFile extends UploaderAppModel {
 		)
 	);
 
+	public $hasAndBelongsToMany = array(
+		'FileTag' => array(
+			'className' => 'Uploader.FileTag',
+			'foreignKey' => 'uploaded_file_id',
+			'associationForeignKey' => 'taxonomy_id',
+			'joinTable' => 'taxonomies_uploaded_files',
+		),
+	);
+
 	public $findMethods = array('rootDirectories' =>  true);
 
 	public $validate = array(
@@ -83,6 +92,7 @@ class UploadedFile extends UploaderAppModel {
 		'size' => array('type' => 'expression', 'method' => 'makeSizeCondition', 'field' => 'UploadedFile.size BETWEEN ? AND ?'),
 		'created' => array('type' => 'expression', 'encode' => true, 'method' => 'makeCreatedCondition', 'field' => 'UploadedFile.created BETWEEN ? AND ?'),
 		'username' => array('type' => 'like', 'field' => array('User.username')),
+		'tags' => array('type' => 'subquery', 'method' => 'fileTagCondition', 'field' => 'UploadedFile.id'),
 	);
 
 
@@ -148,6 +158,17 @@ class UploadedFile extends UploaderAppModel {
 		$data['extension'] = empty($data['extension']) ? '' : strtolower($data['extension']);
 		$data['filename_extension'] = !empty($data['filename']) || !empty($data['extension']);
 		return parent::parseCriteria($data);
+	}
+
+	public function fileTagCondition($data = array()) {
+		$TaxonomiesUploadedFile = ClassRegistry::init('TaxonomiesUploadedFile');
+		$TaxonomiesUploadedFile->Behaviors->attach('Search.Searchable');
+		$query = $TaxonomiesUploadedFile->getQuery('all', array(
+			'fields' => array($TaxonomiesUploadedFile->escapeField('uploaded_file_id')),
+			'conditions' => array($TaxonomiesUploadedFile->escapeField('taxonomy_id') => $data['tags']),
+		));
+
+		return $query;
 	}
 
 ///////////////////////////

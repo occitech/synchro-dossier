@@ -70,6 +70,12 @@ class AcoFixture extends CakeTestFixture {
 							'alias' => null,
 						)
 					)
+				),
+				array(
+					'id' => 12,
+					'model' => 'UploadedFile',
+					'foreign_key' => 4,
+					'alias' => null,
 				)
 			)
 		),

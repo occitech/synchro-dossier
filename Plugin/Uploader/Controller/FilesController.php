@@ -374,14 +374,15 @@ class FilesController extends UploaderAppController {
 		$fileStorage = $this->UploadedFile->FileStorage->find('first', array(
 			'conditions' => array(
 				'FileStorage.id' => $fileStorageId
-			)
+			),
 		));
 		$this->UploadedFile->id = $fileStorage['FileStorage']['foreign_key'];
+		$file = $this->UploadedFile->findById($fileId);
 		if ($this->UploadedFile->removeFile($fileId, $fileStorageId, $this->Auth->user('id'))) {
-			$messageFlash = __d('uploader', 'The file "%s" was successfully deleted');
+			$messageFlash = __d('uploader', 'The file "%s" was successfully deleted', $file['UploadedFile']['filename']);
 			$class = array('class' => 'success');
 		} else {
-			$messageFlash = __d('uploader', 'You cannot delete file "%s"');
+			$messageFlash = __d('uploader', 'You cannot delete file "%s"', $file['UploadedFile']['filename']);
 			$class = array('class' => 'error');
 		}
 
@@ -393,4 +394,60 @@ class FilesController extends UploaderAppController {
 		$tmp = str_replace(array_keys($replacementCaracters), array_values($replacementCaracters), $encodedString);
 		return base64_decode($tmp);
 	}
+
+	public function addTags($fileId) {
+		if ($this->request->is('ajax')) {
+			$this->layout = null;
+		}
+
+		if ($this->request->is('post')) {
+			if (!empty($this->request->data['Tags']['tags'])) {
+				$data = array(
+					'FileTag' => array(),
+					'UploadedFile' => array('id' => $fileId),
+				);
+				$tags = array_map('trim', explode(',', $this->request->data['Tags']['tags']));
+
+				foreach ($tags as $tag) {
+					$termId = $this->UploadedFile->FileTag->Term->saveAndGetId(array(
+						'title' => $tag,
+						'slug' => Inflector::slug(strtolower($tag), '-'),
+					));
+
+					if ($taxonomyId = $this->UploadedFile->FileTag->termInVocabulary($termId)) {
+						array_push($data['FileTag'], array('taxonomy_id' => $taxonomyId));
+					} else {
+						$taxonomy = $this->UploadedFile->FileTag->save(array('FileTag' => array('term_id' => $termId)));
+						array_push($data['FileTag'], array('taxonomy_id' => $taxonomy['FileTag']['id']));
+					}
+				}
+
+				if ($this->UploadedFile->save($data)) {
+					$messageFlash = __d('uploader', 'Tags successfuly added to file');
+					$class = array('class' => 'success');
+				} else {
+					$messageFlash = __d('uploader', 'There was an error while tagging the file');
+					$class = array('class' => 'error');
+				}
+				$this->Session->setFlash($messageFlash, 'default', $class);
+
+				$file = $this->UploadedFile->findById($fileId);
+				$this->redirect(array(
+					'controller' => 'files',
+					'action' => 'browse',
+					$file['ParentUploadedFile']['id']
+				));
+			}
+		} else {
+			$file = $this->UploadedFile->find('first', array(
+				'contain' => array('FileTag', 'FileTag.Term'),
+				'conditions' => array(
+					$this->UploadedFile->escapeField() => $fileId
+				)
+			));
+
+			$this->request->data['Tags']['tags'] = implode(', ', Hash::extract($file, 'FileTag.{n}.Term.title'));
+		}
+	}
+
 }
