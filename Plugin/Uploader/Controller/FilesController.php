@@ -374,14 +374,15 @@ class FilesController extends UploaderAppController {
 		$fileStorage = $this->UploadedFile->FileStorage->find('first', array(
 			'conditions' => array(
 				'FileStorage.id' => $fileStorageId
-			)
+			),
 		));
 		$this->UploadedFile->id = $fileStorage['FileStorage']['foreign_key'];
+		$file = $this->UploadedFile->findById($fileId);
 		if ($this->UploadedFile->removeFile($fileId, $fileStorageId, $this->Auth->user('id'))) {
-			$messageFlash = __d('uploader', 'The file "%s" was successfully deleted');
+			$messageFlash = __d('uploader', 'The file "%s" was successfully deleted', $file['UploadedFile']['filename']);
 			$class = array('class' => 'success');
 		} else {
-			$messageFlash = __d('uploader', 'You cannot delete file "%s"');
+			$messageFlash = __d('uploader', 'You cannot delete file "%s"', $file['UploadedFile']['filename']);
 			$class = array('class' => 'error');
 		}
 
