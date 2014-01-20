@@ -6,6 +6,11 @@ $this->Form->create(
 		'inputDefaults' => array('required' => false)
 	)
 ) .
+$this->Chosen->select(
+	'tags',
+	$terms,
+	array('multiple' => true, 'data-placeholder' => __d('uploader', 'File tags'), 'class' => 'span12')
+) .
 $this->Form->input(
 	'parent_id',
 	array(
