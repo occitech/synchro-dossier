@@ -205,7 +205,6 @@
 										'data-toggle' => 'modal',
 										'title' => __d('uploader', 'File Tags'),
 										'class' => 'comments',
-										),
 										'escape' => false
 									)
 								); ?>
