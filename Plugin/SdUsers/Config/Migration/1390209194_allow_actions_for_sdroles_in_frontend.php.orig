@@ -12,6 +12,15 @@ class AllowActionsForSdrolesInFrontend extends CakeMigration {
 			'sdSuperAdmin', 'sdAdmin'
 		),
 		'SdUsers/SdUsers/edit' => array(
+<<<<<<< HEAD
+			'sdSuperAdmin', 'sdAdmin', 'sdUser'
+		),
+		'SdUsers/SdUsers/profile' => array(
+			'sdSuperAdmin', 'sdAdmin', 'sdUser'
+		),
+		'Users/Users/reset' => array('public'),
+		'Users/Users/forgot' => array('public'),
+=======
 			'sdSuperAdmin', 'sdAdmin', 'sdUtilisateur'
 		),
 		'SdUsers/SdUsers/profile' => array(
@@ -19,6 +28,7 @@ class AllowActionsForSdrolesInFrontend extends CakeMigration {
 		),
 		'SdUsers/SdUsers/reset' => array('public'),
 		'SdUsers/SdUsers/forgot' => array('public'),
+>>>>>>> feature/FileSuppression
 	);
 
 	public $RolesActionMethod = array(

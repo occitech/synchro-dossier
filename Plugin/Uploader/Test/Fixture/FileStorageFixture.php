@@ -54,7 +54,7 @@ class FileStorageFixture extends CakeTestFixture {
 			'extension' => null,
 			'hash' => null,
 			'path' => '1/4/1-1c082be57dd2a8b40831e1258ab2187f4eee044a',
-			'adapter' => 'Local',
+			'adapter' => 'Test',
 			'created' => '2012-10-31 13:16:54',
 			'modified' => '2012-10-31 13:16:54'
 		),
@@ -69,7 +69,7 @@ class FileStorageFixture extends CakeTestFixture {
 			'extension' => null,
 			'hash' => null,
 			'path' => '1/5/1-fc13ddddf3f37ecb451d76665f2f4b29d8dd0220',
-			'adapter' => 'Local',
+			'adapter' => 'Test',
 			'created' => '2012-10-31 13:17:30',
 			'modified' => '2012-10-31 13:17:30'
 		),
@@ -84,7 +84,7 @@ class FileStorageFixture extends CakeTestFixture {
 			'extension' => null,
 			'hash' => null,
 			'path' => '1/6/1-c125891ff59db64ceb67a1375453ccf85f4c0e60',
-			'adapter' => 'Local',
+			'adapter' => 'Test',
 			'created' => '2012-10-31 13:17:47',
 			'modified' => '2012-10-31 13:17:47'
 		),

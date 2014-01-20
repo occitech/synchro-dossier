@@ -50,7 +50,8 @@ class UploadedFile extends UploaderAppModel {
 		),
 		'FileStorage' => array(
 			'className' => 'FileStorage.FileStorage',
-			'foreignKey' => 'foreign_key'
+			'foreignKey' => 'foreign_key',
+			'dependent' => true
 		),
 		'Comment' => array(
 			'className' => 'Comments.Comment',
@@ -341,6 +342,58 @@ class UploadedFile extends UploaderAppModel {
 		}
 	}
 
+	public function removeFile($fileId, $fileStorageId, $userId) {
+		$canDelete = $success = false;
+
+		$file = $this->findById($fileId);
+		$this->id = $fileId;
+
+		$this->__throwExceptionsIfNeededForFile($file, $userId, $fileId);
+
+		$canDelete = ClassRegistry::init('Permission')->check(
+			array('model' => 'User', 'foreign_key' => $userId),
+			array('model' => 'UploadedFile', 'foreign_key' => $fileId),
+			'delete'
+		);
+
+		if ($canDelete) {
+			$version = $this->field('current_version');
+			$filename = $this->field('filename');
+			$path = $this->_getPathFile($userId, $fileId, $version, $filename);
+
+			$this->FileStorage->findById($fileStorageId);
+			$success = $this->FileStorage->delete($fileStorageId);
+
+			$this->saveField('current_version',  $version - 1);
+
+			$fileStorage = $this->FileStorage->find('first', array(
+				'conditions' => array('FileStorage.foreign_key' => $file['UploadedFile']['id'])
+			));
+
+			if(empty($fileStorage)){
+				$success = $this->delete($fileId);
+				$this->_deleteFileFolderInRemote($path);
+
+			}
+		}
+
+		return $success;
+	}
+
+	private function __throwExceptionsIfNeededForFile($fileData, $userId, $fileId) {
+		$userData = $this->User->find('first', array(
+			'conditions' => array('User.id' => $userId),
+			'noRoleChecking' => true
+		));
+
+		if (empty($userData)) {
+			throw new NotFoundException(__d('uploader', 'Invalid user with id#%s', $userId));
+		}
+		if (empty($fileData)) {
+			throw new NotFoundException(__d('uploader', 'Invalid File with id#%s', $fileId));
+		}
+	}
+
 /////////////////////////
 /// Methods for files ///
 /////////////////////////
@@ -536,6 +589,11 @@ class UploadedFile extends UploaderAppModel {
 	protected function _receiveFileFromRemote($remotePath, $adapter) {
 		$content = StorageManager::adapter($adapter)->read($remotePath);
 		return $content;
+	}
+
+	protected function _deleteFileFolderInRemote($path) {
+		$dir = preg_replace('/\/[^\/]*$/', '', $path);
+		StorageManager::adapter(Configure::read('FileStorage.adapter'))->delete($dir);
 	}
 
 	public function download($fileStorageId) {

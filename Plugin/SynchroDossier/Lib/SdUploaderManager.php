@@ -24,7 +24,10 @@ class SdUploaderManager implements CakeEventListener {
 		if (in_array($model->name, $modelsToCatch)) {
 			if (!isset($event->subject()->data[$model->alias]['id'])) {
 				$UserModel = ClassRegistry::init('User');
-				$user = $UserModel->findById($event->subject()->data[$model->alias]['user_id']);
+				$user = array();
+				if (!empty($event->subject()->data[$model->alias]['user_id'])) {
+					$user = $UserModel->findById($event->subject()->data[$model->alias]['user_id']);
+				}
 				if (empty($user)) {
 					$event->subject()->data[$model->alias]['uploader_name'] = '';
 				} else {

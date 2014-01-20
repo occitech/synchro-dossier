@@ -133,7 +133,7 @@
 								<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
 									<?= $this->Html->link(
 										__d('uploader', '<i class="icon-remove"></i>'),
-										array('controller' => 'files', 'action' => 'delete', $file['UploadedFile']['id']),
+										array('controller' => 'files', 'action' => 'deleteFolder', $file['UploadedFile']['id']),
 										array(
 											'rel' => 'tooltip',
 											'title' => __d('uploader', 'Supprimer le dossier'),
@@ -192,6 +192,18 @@
 										'escape' => false
 									)
 								); ?>
+								<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
+									<?= $this->Html->link(
+										__d('uploader', '<i class="icon-remove"></i>'),
+										array('controller' => 'files', 'action' => 'deleteFile', $file['UploadedFile']['id'], $lastVersion['id']),
+										array(
+											'rel' => 'tooltip',
+											'title' => __d('uploader', 'Supprimer le fichier'),
+											'escape' => false
+										),
+										__d('uploader', 'You are about to delete file "%s". Are you sure ?', $file['UploadedFile']['filename'])
+									); ?>
+								<?php endif ?>
 
 							<?php endif; ?>
 						</td>
@@ -217,7 +229,20 @@
 									<td><?= $this->Time->format('j/m/Y H:i', $fileVersion['created']); ?></td>
 									<td><?= $this->File->size($fileVersion['filesize']); ?></td>
 									<td></td>
-									<td></td>
+									<td>
+										<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
+											<?= $this->Html->link(
+												__d('uploader', '<i class="icon-remove"></i>'),
+												array('controller' => 'files', 'action' => 'deleteFile', $file['UploadedFile']['id'], $fileVersion['id']),
+												array(
+													'rel' => 'tooltip',
+													'title' => __d('uploader', 'Supprimer le fichier'),
+													'escape' => false
+												),
+												__d('uploader', 'You are about to delete file "%s". Are you sure ?', $file['UploadedFile']['filename'])
+											); ?>
+										<?php endif ?>
+									</td>
 								</tr>
 							<?php endforeach ?>
 					<?php endif ?>
