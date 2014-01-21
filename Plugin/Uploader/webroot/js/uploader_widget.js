@@ -12,7 +12,7 @@ uploaderWidget = function() {
 		__sendButtonElt = sendButton;
 		__progressBarElt = progressBar;
 		__filesListElt = filesList;
-		__nameLength = 25;
+		__nameLength = 20;
 
 		uploader = new plupload.Uploader(options);
 
@@ -29,6 +29,12 @@ uploaderWidget = function() {
 			uploader.start();
 			uploader.refresh();
 		});
+		
+		$('p.upload-cancel > a.btn.cancel').on('click', function(event) {
+			event.preventDefault();
+			uploader.splice(0, uploader.files.length);
+			__resetFilesPopover();
+		});
 
 		uploader.bind('FilesAdded', function(up, files) {
 			$(__filesListElt).css('display', 'block');
@@ -37,12 +43,22 @@ uploaderWidget = function() {
 				__nbFiles++;
 				__nbFilesToSend++;
 				var content = $(__filesListElt).find('.list');
-				content.prepend('<p>' +
+				content.prepend('<li>' +
 					__truncate(files[i].name, __nameLength) + ' (' +
-					plupload.formatSize(files[i].size) + ')</p>'
+					plupload.formatSize(files[i].size) + ') <a id="file-' + files[i].id + '" href="#" data-remove-file=' + i + '>&times;</a></li>'
 				);
+
+				$('#file-' + files[i].id).on('click', function(event) {
+					event.preventDefault();
+					$(event.currentTarget).parent().remove();
+					up.removeFile(uploader.files[i]);
+					if (uploader.files.length == 0) {
+						__resetFilesPopover();
+					}
+				});
 			}
 		});
+
 
 		uploader.bind('UploadProgress', function(up, file, response) {
 			$(__progressBarElt).css('width', up.total.percent + '%');
@@ -61,15 +77,19 @@ uploaderWidget = function() {
 		});
 
 		uploader.bind('UploadComplete', function(up, files) {
+			__resetFilesPopover();
+			location.assign(location.href);
+			location.reload();
+			window.location.href = __options['callback_url'];
+		});
+	}
+
+	function __resetFilesPopover() {
 			__totalSize = 0;
 			__nbFiles = 0;
 			__nbFilesToSend = 0;
 			$(__filesListElt).css('display', 'none');
 			$(__filesListElt).find('.list').text('');
-			location.assign(location.href);
-			location.reload();
-			window.location.href = __options['callback_url'];
-		});
 	}
 
 	function __truncate (str, length) {

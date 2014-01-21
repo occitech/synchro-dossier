@@ -43,8 +43,9 @@
   border-radius: 15px;
 }
 
-.upload-send {
-  margin: auto;
+.upload-send, .upload-cancel {
+  width:45%;
+  display:inline-block;
   text-align: center; margin-top: 10px;
 }
 
@@ -57,7 +58,9 @@
   left: auto;
   width: 300px;
 }
-
+.popover.bottom .arrow:after {
+  margin-left:0;
+}
 .progressbar-overlay {
   background-color: black;
   display: none;
@@ -69,4 +72,12 @@
   filter: alpha(opacity = 50); /* IE7 & 8 */
   position: fixed;
   z-index: 99;
+}
+
+
+a[data-remove-file] {
+  float: right;
+  font-size:18px;
+  display:inline-block;
+  text-decoration:none;
 }

@@ -25,10 +25,12 @@
 		<div class="popover-inner">
 			<h3 class="popover-title"><?= __d('uploader', 'Fichiers dans la file d\'attente'); ?></h3>
 			<div class="popover-content">
-				<div class="list">
-
+				<ul class="list unstyled">
+				</ul>
+				<div class="actions">
+					<p class="left upload-send"><a href="#" class="btn send"><?= __d('uploader', 'Envoyer'); ?></a></p>
+					<p class="right upload-cancel"><a href="#" class="btn btn-danger cancel"><?= __d('uploader', 'Annuler'); ?></a></p>
 				</div>
-				<p class="upload-send"><a href="#" class="btn send"><?= __d('uploader', 'Envoyer'); ?></a></p>
 			</div>
 		</div>
 	</div>
