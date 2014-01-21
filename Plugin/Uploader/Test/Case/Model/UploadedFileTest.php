@@ -15,6 +15,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
  * @var array
  */
 	public $fixtures = array(
+		'plugin.uploader.taxonomies_uploaded_file',
 		'plugin.uploader.uploaded_file',
 		'plugin.uploader.file_storage',
 		'plugin.uploader.user',
@@ -82,6 +83,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->detachEvent('Model.UploadedFile.beforeUpload');
 		$this->detachEvent('Model.UploadedFile.afterUploadSuccess');
 		$this->detachEvent('Model.UploadedFile.afterUploadFailed');
+		$this->detachEvent('Model.UploadedFile.AfterSharingCreation');
 	}
 
 	public function tearDown() {
