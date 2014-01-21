@@ -4,7 +4,7 @@ App::uses('CroogoTestCase', 'Croogo.TestSuite');
 App::uses('View', 'View');
 App::uses('UploaderAclHelper', 'Uploader.View/Helper');
 
-class AclHelperTest extends CroogoTestCase {
+class UploaderAclHelperTest extends CroogoTestCase {
 
 	public function setUp() {
 		$controller = null;

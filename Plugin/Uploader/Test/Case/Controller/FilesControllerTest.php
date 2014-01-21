@@ -2,7 +2,7 @@
 App::uses('FilesController', 'Uploader.Controller');
 App::uses('CroogoControllerTestCase', 'Croogo.TestSuite');
 
-class TermsControllerTest extends CroogoControllerTestCase {
+class FilesControllerTest extends CroogoControllerTestCase {
 
 	public $fixtures = array(
 		'plugin.translate.i18n',

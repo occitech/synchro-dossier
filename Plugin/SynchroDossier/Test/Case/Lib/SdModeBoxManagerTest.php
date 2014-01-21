@@ -1,11 +1,11 @@
 <?php
 
-App::uses('CroogoTestCase', 'Croogo.TestSuite');
+App::import('Vendor', 'OccitechCakeTestCase');
 App::uses('SdModeBoxManagerTest', 'SynchroDossier.Lib');
 App::uses('UploadedFile', 'Uploader.Model');
 App::uses('CakeEvent', 'Event');
 
-class SdModeBoxManagerTest extends CroogoTestCase {
+class SdModeBoxManagerTest extends OccitechCakeTestCase {
 
 	public $fixtures = array(
 		'plugin.uploader.sd_information',
@@ -16,6 +16,7 @@ class SdModeBoxManagerTest extends CroogoTestCase {
 		'plugin.uploader.aro',
 		'plugin.uploader.aros_aco',
 		'plugin.uploader.file_storage',
+		'plugin.uploader.roles_user',
 		'plugin.sd_users.profile',
 		'plugin.uploader.comment',
 		'plugin.uploader.taxonomy',
@@ -27,10 +28,14 @@ class SdModeBoxManagerTest extends CroogoTestCase {
 		$this->SdModeBoxManager = ClassRegistry::init('SynchroDossier.SdModeBoxManager');
 		$this->data['SdAlertEmail']['subscribe'] = 0;
 		$this->data['UploadedFile']['filename'] = 'lastGreateSharing';
+
+		$this->detachEvent('Model.UploadedFile.AfterSharingCreation');
+		CakeEventManager::instance()->attach(array($this->SdModeBoxManager, 'createSubDirectories'), 'Model.UploadedFile.AfterSharingCreation');
 	}
 
 	public function tearDown() {
 		unset($this->SdModeBoxManager);
+		$this->detachEvent('Model.UploadedFile.AfterSharingCreation');
 		parent::tearDown();
 	}
 

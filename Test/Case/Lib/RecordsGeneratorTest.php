@@ -98,7 +98,6 @@ class RecordsGeneratorTest extends CroogoTestCase {
 		);
 
 		$result = RecordsGenerator::generate($acosTree);
-		debug($result);
 		$this->assertEqual($result, $expected);
 	}
 
