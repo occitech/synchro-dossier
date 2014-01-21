@@ -26,7 +26,7 @@
 
 class RecordsGenerator {
 
-	protected function _getMaxFieldArrays($array, $field = 'rght') {
+	protected static function _getMaxFieldArrays($array, $field = 'rght') {
 		$max = null;
 
 		foreach ($array as $a) {
@@ -38,7 +38,7 @@ class RecordsGenerator {
 		return $max;
 	}
 
-	public function generate($acosTree = null, $parentId = null, $leftRightCount = 1) {
+	public static function generate($acosTree = null, $parentId = null, $leftRightCount = 1) {
 		$acosTree = (is_null($acosTree)) ? $this->acosTree : $acosTree;
 		$result = array();
 
