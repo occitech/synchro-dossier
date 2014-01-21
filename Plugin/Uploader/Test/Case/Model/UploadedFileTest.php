@@ -16,6 +16,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
  */
 	public $fixtures = array(
 		'plugin.uploader.taxonomies_uploaded_file',
+		'plugin.uploader.taxonomy',
 		'plugin.uploader.uploaded_file',
 		'plugin.uploader.file_storage',
 		'plugin.uploader.user',
@@ -26,7 +27,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		'plugin.uploader.aro',
 		'plugin.uploader.aros_aco',
 		'plugin.uploader.comment',
-		'plugin.uploader.sd_information'
+		'plugin.uploader.sd_information',
 	);
 
 	protected $_settings = array(
@@ -506,6 +507,18 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->assertEqual($nbAcoAfterInsert - $nbAcoBeforeInsert, 1);
 	}
 
+	public function testUpload_AccentuationMeansNewFile() {
+		$Aco = ClassRegistry::init('Aco');
+		$this->data['file']['name'] = 'Fraisé.jpg';
+
+		$folderId = 3;
+		$user['id'] = 1;
+		$user['role_id'] = 4;
+		$nbAcoBeforeInsert = $Aco->find('count');
+		$this->UploadedFile->upload($this->data, $user, $folderId);
+		$nbAcoAfterInsert = $Aco->find('count');
+		$this->assertEqual($nbAcoAfterInsert, $nbAcoBeforeInsert + 1);
+	}
 
 	public function testUpload_NewVersion() {
 		$Aco = ClassRegistry::init('Aco');
