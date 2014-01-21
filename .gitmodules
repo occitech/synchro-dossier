@@ -19,9 +19,6 @@
 [submodule "SynchroDossier/webroot/bootstrap"]
 	path = Plugin/SynchroDossier/webroot/bootstrap
 	url = git://github.com/twitter/bootstrap.git
-[submodule "Chosen"]
-	path = Plugin/Chosen
-	url = git://github.com/occitech/chosen-cakephp.git
 [submodule "DebugKit"]
 	path = Plugin/DebugKit
 	url = git://github.com/cakephp/debug_kit
