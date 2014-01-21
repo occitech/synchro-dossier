@@ -8,17 +8,6 @@ App::uses('SdFileEmail', 'SynchroDossier.Model');
 class SdFileEmailTest extends CakeTestCase {
 
 /**
- * Fixtures
- *
- * @var array
- */
-	public $fixtures = array(
-		'plugin.synchro_dossier.sd_file_email',
-		'plugin.synchro_dossier.uploaded_file',
-		'plugin.synchro_dossier.user'
-	);
-
-/**
  * setUp method
  *
  * @return void
@@ -37,6 +26,10 @@ class SdFileEmailTest extends CakeTestCase {
 		unset($this->SdFileEmail);
 
 		parent::tearDown();
+	}
+
+	public function testFirstTest() {
+		$this->markTestIncomplete('Test me');
 	}
 
 }
