@@ -10,6 +10,12 @@ App::uses('Helper', 'View/Helper');
  */
 class ImageHelper extends Helper {
 	public $helpers = array('Html');
+
+	/**
+	 * Cache Directory name
+	 *
+	 * @deprecated Will be removed in 1.6
+	 */
 	public $cacheDir = 'resized'; // relative to 'img'.DS
 
 	/**
@@ -34,8 +40,11 @@ class ImageHelper extends Helper {
 		$fullpath = ROOT.DS.APP_DIR.DS.WEBROOT_DIR.DS.$uploadsDir.DS;
 		$url = ROOT.DS.APP_DIR.DS.WEBROOT_DIR.DS.$path;
 
-		if (!($size = getimagesize($url)))
+		if (!file_exists($url)) {
 			return; // image doesn't exist
+		}
+
+		$size = getimagesize($url);
 
 		if ($aspect) { // adjust to aspect.
 			if (($size[1]/$height) > ($size[0]/$width))  // $size[0]:width, [1]:height, [2]:type

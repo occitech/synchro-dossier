@@ -1,15 +1,13 @@
 <?php
 
 App::uses('AppShell', 'Console/Command');
-App::uses('InstallManager','Install.Lib');
-App::uses('Install','Install.Model');
+App::uses('InstallManager', 'Install.Lib');
+App::uses('Install', 'Install.Model');
 App::uses('ComponentCollection', 'Controller');
-App::uses('AuthComponent','Controller/Component');
+App::uses('AuthComponent', 'Controller/Component');
 
 /**
  * Install Shell
- *
- * PHP version 5
  *
  * @category Shell
  * @package  Croogo.Install.Console.Command
@@ -107,7 +105,7 @@ class InstallShell extends AppShell {
 		} while (empty($password) || !$passwordsMatched);
 
 		$user['User']['username'] = $username;
-		$user['User']['password'] = AuthComponent::password($password);
+		$user['User']['password'] = $password;
 
 		$Install->addAdminUser($user);
 		$InstallManager->createSettingsFile();
