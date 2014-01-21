@@ -56,7 +56,7 @@ class SdLogTest extends CakeTestCase {
 			'created' => '2012-11-21 11:57:25'
 		);
 
-		$result = $this->SdLog->getLast($type, $model, $foreignKey);
+		$result = $this->SdLog->getLatest($type, $model, $foreignKey);
 
 		$this->assertEqual($result['SdLog'], $expected);
 	}
