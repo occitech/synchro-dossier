@@ -1,72 +1,72 @@
 #plupload {
-	font-family: Arial;
-	color: #AAA;
+  font-family: Arial;
+  color: #AAA;
 }
 
 #plupload #drop-area {
-	border: 5px dashed #DDD;
-	height: 150px;
-	text-align: center;
-	font-size: 18px;
-	border-radius: 10px;
-	margin: 20px;
+  border: 5px dashed #DDD;
+  height: 150px;
+  text-align: center;
+  font-size: 18px;
+  border-radius: 10px;
+  margin: 20px;
 }
 
 #plupload #drop-area .progress {
-	width: 80%;
-	height: 30px;
-	position: fixed;
-	top: 50%;
-	left: 10%;
-	display: none;
-	z-index: 100;	
+  width: 80%;
+  height: 30px;
+  position: fixed;
+  top: 50%;
+  left: 10%;
+  display: none;
+  z-index: 100;
 }
 
 #plupload #drop-area .hover {
-	border: 6px dashed red;
+  border: 6px dashed red;
 }
 
 #plupload #drop-area p {
-	margin: 0;
-	padding: 25px 0 0 0;
-	font-weight: bold;
-	font-size: 20px;
+  margin: 0;
+  padding: 25px 0 0 0;
+  font-weight: bold;
+  font-size: 20px;
 }
 
 #plupload #drop-area span {
-	display: block;
-	margin-bottom: 4px;
+  display: block;
+  margin-bottom: 4px;
 }
 
 #plupload #browse {
-	padding: 4px 15px;
-	border-radius: 15px;
+  padding: 4px 15px;
+  border-radius: 15px;
 }
 
 .upload-send {
-	margin: auto;
-	text-align: center; margin-top: 10px;
+  margin: auto;
+  text-align: center; margin-top: 10px;
 }
 
 .popover-upload {
-	display: none;
-	top: 42px;
-	float: right;
-	right: 0px;
-	margin-right: 5px;
-	left: auto;
-	width: 300px;
+  display: none;
+  top: 42px;
+  float: right;
+  right: 0px;
+  margin-right: 5px;
+  left: auto;
+  width: 300px;
 }
 
 .progressbar-overlay {
-	background-color: black;
-	display: none;
-	bottom: 0;
-	left: 0;
-	right: 0;
-	top: 0;
-	opacity: 0.6;
-	filter: alpha(opacity = 50); /* IE7 & 8 */
-	position: fixed;
-	z-index: 99;
+  background-color: black;
+  display: none;
+  bottom: 0;
+  left: 0;
+  right: 0;
+  top: 0;
+  opacity: 0.6;
+  filter: alpha(opacity = 50); /* IE7 & 8 */
+  position: fixed;
+  z-index: 99;
 }
