@@ -26,8 +26,12 @@ abstract class ScopedTaxonomy extends Taxonomy {
 		return parent::beforeSave($options);
 	}
 
-	public function getTree($options = array()) {
-		return parent::getTree($this->_getVocabularyAlias(), $options);
+	public function getTree($alias, $options = array()) {
+		if (null === $alias) {
+			$alias = $this->_getVocabularyAlias();
+		}
+
+		return parent::getTree($alias, $options);
 	}
 
 	public function getList($options = array()) {
@@ -58,7 +62,7 @@ abstract class ScopedTaxonomy extends Taxonomy {
 		return $this->__vocabularyId;
 	}
 
-	public function termInVocabulary($termId) {
+	public function termInVocabulary($termId, $vocabularyId = null) {
 		return parent::termInVocabulary($termId, $this->__relatedVocabularyId());
 	}
 
