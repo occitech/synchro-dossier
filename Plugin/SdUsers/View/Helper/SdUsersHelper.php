@@ -134,24 +134,24 @@ class SdUsersDisplayNotEditable extends SdUsersDisplayEditable {
 	public function displayFooter($user) {
 		return '</dl>';
 	}
-	public function displayLastName($user) {
+	public function displayLastName($user, $hidden = false) {
 		$input = parent::displayLastName($user, true);
 		return  $this->_dataRow(__d('sd_users', 'Name:'), $user['Profile']['name'] . $input);
 	}
-	public function displayFirstName($user) {
+	public function displayFirstName($user, $hidden = false) {
 		$input = parent::displayFirstName($user, true);
 		return  $this->_dataRow(__d('sd_users', 'Firstname:'), $user['Profile']['firstname'] . $input);
 	}
-	public function displaySociety($user) {
+	public function displaySociety($user, $hidden = false) {
 		$input = parent::displaySociety($user, true);
 		return  $this->_dataRow(__d('sd_users', 'Society:'), $user['Profile']['society'] . $input);
 	}
-	public function displayMail($user) {
+	public function displayMail($user, $hidden = false) {
 		$input = parent::displayMail($user, true);
 		return  $this->_dataRow(__d('sd_users', 'Email:'), $user['User']['email'] . $input);
 	}
 
-	public function displayLang($user) {
+	public function displayLang($user, $options = array()) {
 		$input = parent::displayLang($user, array('label' => false, 'div' => false));
 		return $this->_dataRow($this->_langLabel(), $input);
 	}
