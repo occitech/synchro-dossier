@@ -305,7 +305,7 @@ class UploadedFile extends UploaderAppModel {
 			if ($f['remote_path'] != null) {
 				$content = StorageManager::adapter($f['adapter'])->read($f['remote_path']);
 				$filename = $shouldSluggifyFilename ? $this->sluggifyFilename($f['real_path']) : $f['real_path'];
-				$filename = iconv('UTF-8', 'CP1252', $filename); //Does not cover any environment cases.
+				$filename = mb_convert_encoding($filename, 'ISO-8859-1', 'UTF-8'); //Does not cover any environment cases.
 				StorageManager::adapter('Zip')->write($filename, $content);
 			}
 		}
