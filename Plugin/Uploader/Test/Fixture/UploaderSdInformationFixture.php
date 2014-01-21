@@ -3,7 +3,9 @@
  * SdInformationFixture
  *
  */
-class SdInformationFixture extends CakeTestFixture {
+class UploaderSdInformationFixture extends CakeTestFixture {
+
+	public $name = 'SdInformationFixture';
 
 /**
  * Table name
@@ -35,7 +37,7 @@ class SdInformationFixture extends CakeTestFixture {
 	public $records = array(
 		array(
 			'id' => '1',
-			'quota_mb' => '1000',
+			'quota_mb' => '10000',
 			'current_quota_mb' => '0'
 		),
 	);

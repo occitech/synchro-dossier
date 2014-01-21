@@ -3,7 +3,9 @@
  * TermFixture
  *
  */
-class TermFixture extends CakeTestFixture {
+class UploaderTermFixture extends CakeTestFixture {
+
+	public $name = 'Term';
 
 /**
  * Fields

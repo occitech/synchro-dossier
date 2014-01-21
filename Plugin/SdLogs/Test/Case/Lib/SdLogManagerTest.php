@@ -8,9 +8,9 @@ App::uses('CakeEvent', 'Event');
 class SdLogManagerTest extends CroogoTestCase {
 
 	public $fixtures = array(
-		'plugin.uploader.sd_information',
-		'plugin.uploader.user',
-		'plugin.uploader.role',
+		'plugin.uploader.uploader_sd_information',
+		'plugin.uploader.uploader_user',
+		'plugin.uploader.uploader_role',
 		'plugin.sd_users.profile',
 		'plugin.sd_logs.sd_log',
 	);

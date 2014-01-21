@@ -3,7 +3,9 @@
  * RoleFixture
  *
  */
-class RoleFixture extends CakeTestFixture {
+class SdUsersRoleFixture extends CakeTestFixture {
+
+	public $name = 'Role';
 
 /**
  * Fields

@@ -3,7 +3,9 @@
  * ArosAcoFixture
  *
  */
-class ArosAcoFixture extends CakeTestFixture {
+class UploaderArosAcoFixture extends CakeTestFixture {
+
+	public $name = 'ArosAco';
 
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),

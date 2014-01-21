@@ -6,7 +6,9 @@ App::uses('RecordsGenerator', 'Lib');
  * AcoFixture
  *
  */
-class AcoFixture extends CakeTestFixture {
+class SdUsersAcoFixture extends CakeTestFixture {
+
+	public $name = 'Aco';
 
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 10, 'key' => 'primary'),
@@ -25,80 +27,67 @@ class AcoFixture extends CakeTestFixture {
 	public $acosTree = array(
 		array(
 			'id' => 1,
-			'model' => null,
-			'foreign_key' => null,
-			'alias' => 'uploadedFileAco',
+			'model' => 'UploadedFile',
+			'foreign_key' => 1,
+			'alias' => null,
 			'children' => array(
 				array(
 					'id' => 2,
+					'parent_id' => 1,
 					'model' => 'UploadedFile',
-					'foreign_key' => 1,
+					'foreign_key' => 3,
 					'alias' => null,
 					'children' => array(
 						array(
 							'id' => 3,
 							'model' => 'UploadedFile',
-							'foreign_key' => 3,
+							'foreign_key' => 4,
 							'alias' => null,
-							'children' => array(
-								array(
-									'id' => 4,
-									'model' => 'UploadedFile',
-									'foreign_key' => 4,
-									'alias' => null,
-								),
-								array(
-									'id' => 5,
-									'model' => 'UploadedFile',
-									'foreign_key' => 5,
-									'alias' => null,
-								),
-							)
-						)
-					)
-				),
-				array(
-					'id' => 6,
-					'model' => 'UploadedFile',
-					'foreign_key' => 2,
-					'alias' => null,
-					'children' => array(
+						),
 						array(
-							'id' => 7,
+							'id' => 4,
 							'model' => 'UploadedFile',
-							'foreign_key' => 6,
+							'foreign_key' => 5,
 							'alias' => null,
-						)
+						),
 					)
 				),
-				array(
-					'id' => 12,
-					'model' => 'UploadedFile',
-					'foreign_key' => 4,
-					'alias' => null,
-				)
 			)
 		),
 		array(
-			'id' => 8,
+			'id' => 5,
+			'model' => 'UploadedFile',
+			'foreign_key' => 2,
+			'alias' => null,
+			'children' => array(
+				array(
+					'id' => 6,
+					'model' => 'UploadedFile',
+					'foreign_key' => 6,
+					'alias' => null,
+				),
+			),
+		),
+		array(
+			'id' => 7,
 			'model' => null,
 			'foreign_key' => null,
 			'alias' => 'controllers',
 			'children' => array(
 				array(
-					'id' => 9,
+					'id' => 8,
 					'model' => null,
 					'foreign_key' => null,
 					'alias' => 'SdUsers',
 					'children' => array(
 						array(
-							'id' => 10,
+							'id' => 9,
 							'model' => null,
 							'foreign_key' => null,
 							'alias' => 'SdUsers',
 							'children' => array(
 								array(
-									'id' => 11,
+									'id' => 10,
 									'model' => null,
 									'foreign_key' => null,
 									'alias' => 'admin_index',

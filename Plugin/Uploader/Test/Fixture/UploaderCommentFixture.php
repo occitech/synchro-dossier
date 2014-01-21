@@ -3,7 +3,9 @@
  * CommentFixture
  *
  */
-class CommentFixture extends CakeTestFixture {
+class UploaderCommentFixture extends CakeTestFixture {
+
+	public $name = 'Comment';
 
 /**
  * Fields

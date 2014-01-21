@@ -8,18 +8,18 @@ App::uses('CakeEvent', 'Event');
 class SdModeBoxManagerTest extends OccitechCakeTestCase {
 
 	public $fixtures = array(
-		'plugin.uploader.sd_information',
-		'plugin.uploader.user',
-		'plugin.uploader.role',
+		'plugin.uploader.uploader_sd_information',
+		'plugin.uploader.uploader_user',
+		'plugin.uploader.uploader_role',
 		'plugin.uploader.uploaded_file',
-		'plugin.uploader.aco',
-		'plugin.uploader.aro',
-		'plugin.uploader.aros_aco',
+		'plugin.uploader.uploader_aco',
+		'plugin.uploader.uploader_aro',
+		'plugin.uploader.uploader_aros_aco',
 		'plugin.uploader.file_storage',
 		'plugin.uploader.roles_user',
 		'plugin.sd_users.profile',
-		'plugin.uploader.comment',
-		'plugin.uploader.taxonomy',
+		'plugin.uploader.uploader_comment',
+		'plugin.uploader.uploader_taxonomy',
 		'plugin.uploader.taxonomies_uploaded_file',
 	);
 

@@ -7,9 +7,9 @@ App::uses('CakeEvent', 'Event');
 class SdQuotaManagerTest extends CroogoTestCase {
 
 	public $fixtures = array(
-		'plugin.synchro_dossier.sd_information',
-		'plugin.uploader.user',
-		'plugin.uploader.role',
+		'plugin.synchro_dossier.synchro_dossier_sd_information',
+		'plugin.uploader.uploader_user',
+		'plugin.uploader.uploader_role',
 		'plugin.sd_users.profile',
 		'plugin.uploader.uploaded_file',
 	);

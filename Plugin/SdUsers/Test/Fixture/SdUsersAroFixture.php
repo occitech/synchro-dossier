@@ -3,7 +3,9 @@
  * AroFixture
  *
  */
-class AroFixture extends CakeTestFixture {
+class SdUsersAroFixture extends CakeTestFixture {
+
+	public $name = 'Aro';
 
 /**
  * Fields
@@ -91,7 +93,7 @@ class AroFixture extends CakeTestFixture {
 			'foreign_key' => '6',
 			'alias' => 'Role-sdUtilisateur',
 			'lft' => '15',
-			'rght' => '19'
+			'rght' => '18'
 		),
 		array(
 			'id' => '8',
@@ -110,15 +112,6 @@ class AroFixture extends CakeTestFixture {
 			'alias' => 'spadm1',
 			'lft' => '10',
 			'rght' => '11'
-		),
-		array(
-			'id' => '10',
-			'parent_id' => '7',
-			'model' => 'User',
-			'foreign_key' => '4',
-			'alias' => 'toto',
-			'lft' => '18',
-			'rght' => '19'
 		),
 	);
 

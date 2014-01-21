@@ -3,7 +3,9 @@
  * RoleFixture
  *
  */
-class RoleFixture extends CakeTestFixture {
+class UploaderRoleFixture extends CakeTestFixture {
+
+	public $name = 'Role';
 
 /**
  * Fields

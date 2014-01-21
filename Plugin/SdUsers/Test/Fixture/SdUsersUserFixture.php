@@ -3,7 +3,9 @@
  * UserFixture
  *
  */
-class UserFixture extends CakeTestFixture {
+class SdUsersUserFixture extends CakeTestFixture {
+
+	public $name = 'User';
 
 /**
  * Fields

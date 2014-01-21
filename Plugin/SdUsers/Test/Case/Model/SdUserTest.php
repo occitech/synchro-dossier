@@ -21,12 +21,12 @@ class SdUserTestController extends Controller {
 class SdUserTest extends CroogoTestCase {
 
 	public $fixtures = array(
-		'plugin.sd_users.user',
+		'plugin.sd_users.sd_users_user',
 		'plugin.sd_users.profile',
-		'plugin.sd_users.role',
-		'plugin.sd_users.aros_aco',
-		'plugin.sd_users.aro',
-		'plugin.sd_users.aco'
+		'plugin.sd_users.sd_users_role',
+		'plugin.sd_users.sd_users_aros_aco',
+		'plugin.sd_users.sd_users_aro',
+		'plugin.sd_users.sd_users_aco'
 	);
 
 	public function setUp() {

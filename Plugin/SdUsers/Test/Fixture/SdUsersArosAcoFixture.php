@@ -3,7 +3,9 @@
  * ArosAcoFixture
  *
  */
-class ArosAcoFixture extends CakeTestFixture {
+class SdUsersArosAcoFixture extends CakeTestFixture {
+
+	public $name = 'ArosAco';
 
 /**
  * Fields

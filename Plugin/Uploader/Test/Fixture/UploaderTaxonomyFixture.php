@@ -3,7 +3,9 @@
  * TaxonomyFixture
  *
  */
-class TaxonomyFixture extends CakeTestFixture {
+class UploaderTaxonomyFixture extends CakeTestFixture {
+
+	public $name = 'Taxonomy';
 
 /**
  * Fields

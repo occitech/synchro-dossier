@@ -15,12 +15,12 @@ class UploaderAclAroTest extends CakeTestCase {
 	public $fixtures = array(
 		'plugin.uploader.uploaded_file',
 		'plugin.uploader.file_storage',
-		'plugin.uploader.user',
-		'plugin.uploader.role',
+		'plugin.uploader.uploader_user',
+		'plugin.uploader.uploader_role',
 		'plugin.uploader.roles_user',
-		'plugin.uploader.aros_aco',
-		'plugin.uploader.aco',
-		'plugin.uploader.aro'
+		'plugin.uploader.uploader_aros_aco',
+		'plugin.uploader.uploader_aco',
+		'plugin.uploader.uploader_aro'
 	);
 
 	public function setUp() {

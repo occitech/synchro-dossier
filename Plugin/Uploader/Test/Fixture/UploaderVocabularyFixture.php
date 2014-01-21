@@ -3,7 +3,9 @@
  * VocabularyFixture
  *
  */
-class VocabularyFixture extends CakeTestFixture {
+class UploaderVocabularyFixture extends CakeTestFixture {
+
+	public $name = 'Vocabulary';
 
 /**
  * Fields
