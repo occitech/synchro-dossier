@@ -32,7 +32,7 @@ class SdQuotaManagerTest extends CroogoTestCase {
 		$event->data['data']['file']['size'] = 100;
 		$event->data['user']['role_id'] = 4;
 
-		$this->SdQuotaManager->checkUploadAllowed(&$event);
+		$this->SdQuotaManager->checkUploadAllowed($event);
 
 		$this->assertFalse($event->result['hasError']);
 	}
@@ -45,7 +45,7 @@ class SdQuotaManagerTest extends CroogoTestCase {
 		$event->data['data']['file']['size'] = 1000000000000;
 		$event->data['user']['role_id'] = 4;
 
-		$this->SdQuotaManager->checkUploadAllowed(&$event);
+		$this->SdQuotaManager->checkUploadAllowed($event);
 
 		$this->assertTrue($event->result['hasError']);
 	}
@@ -70,7 +70,7 @@ class SdQuotaManagerTest extends CroogoTestCase {
 
 		$event->data['user']['role_id'] = 4;
 
-		$this->SdQuotaManager->sendInsufficientQuotaNotification(&$event);
+		$this->SdQuotaManager->sendInsufficientQuotaNotification($event);
 	}
 
 	public function testSendInsufficientQuotaNotification_MailSend() {
@@ -95,7 +95,7 @@ class SdQuotaManagerTest extends CroogoTestCase {
 		$event->data['user']['email'] = 'coucou@coucou.fr';
 		$event->data['data']['file']['size'] = 150;
 		$event->data['data']['file']['name'] = 'coucou';
-		$this->SdQuotaManager->sendInsufficientQuotaNotification(&$event);
+		$this->SdQuotaManager->sendInsufficientQuotaNotification($event);
 	}
 
 	public function testUpdateCurrentQuota() {
@@ -105,7 +105,7 @@ class SdQuotaManagerTest extends CroogoTestCase {
 
 		$SdInformationModel = ClassRegistry::init('SynchroDossier.SdInformation');
 
-		$return = $this->SdQuotaManager->updateCurrentQuota(&$event);
+		$return = $this->SdQuotaManager->updateCurrentQuota($event);
 
 		$sdInfo = $SdInformationModel->find('first');
 		$result = $sdInfo['SdInformation']['current_quota_mb'];
