@@ -45,7 +45,7 @@
 				<div class="sidebar well">
 					<?= $sidebar; ?>
 				</div>
-			<? endif; ?>
+			<?php endif; ?>
 				<div id="content" class="clearfix">
 					<div id="inner-content" class="span12">
 						<?= $this->Layout->sessionFlash(); ?>
