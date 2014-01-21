@@ -17,7 +17,9 @@ class SdModeBoxManagerTest extends CroogoTestCase {
 		'plugin.uploader.aros_aco',
 		'plugin.uploader.file_storage',
 		'plugin.sd_users.profile',
-		'plugin.uploader.comment'
+		'plugin.uploader.comment',
+		'plugin.uploader.taxonomy',
+		'plugin.uploader.taxonomies_uploaded_file',
 	);
 
 	public function setUp() {
