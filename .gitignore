@@ -1,5 +1,6 @@
 # App
 Config/database.php
+Config/email.php
 Config/settings.json
 Vendor/Simpletest/
 View/Themed/
