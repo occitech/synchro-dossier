@@ -16,7 +16,10 @@ class SdUsersController extends SdUsersAppController {
 	public function beforeRender() {
 		$this->helpers[] = 'Uploader.UploaderAcl';
 
-		$userRights = $this->SdUser->getAllRights($this->Auth->user('id'));
+		$userRights = array();
+		if ($this->Auth->user('id')) {
+			$userRights = $this->SdUser->getAllRights($this->Auth->user('id'));
+		}
 		$this->set(compact('userRights'));
 	}
 

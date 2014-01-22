@@ -10,7 +10,7 @@ class UploaderAclHelper extends Helper {
 	public function __construct(View $View, $settings = array()) {
 		parent::__construct($View, $settings);
 
-		if (isset($View->viewVars['userRights'])) {
+		if (!empty($View->viewVars['userRights'])) {
 			$this->__userId = $View->viewVars['userRights']['User']['id'];
 			$this->__userRights = $View->viewVars['userRights']['Aro']['Aco'];
 		}
