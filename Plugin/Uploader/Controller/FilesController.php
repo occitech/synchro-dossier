@@ -414,7 +414,7 @@ class FilesController extends UploaderAppController {
 						'slug' => Inflector::slug(strtolower($tag), '-'),
 					));
 
-					if ($taxonomyId = $this->UploadedFile->FileTag->termInVocabulary($termId)) {
+					if ($taxonomyId = $this->UploadedFile->FileTag->termInScope($termId)) {
 						array_push($data['FileTag'], array('taxonomy_id' => $taxonomyId));
 					} else {
 						$taxonomy = $this->UploadedFile->FileTag->save(array('FileTag' => array('term_id' => $termId)));
