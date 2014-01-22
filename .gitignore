@@ -28,3 +28,10 @@ Plugin/Croogo/webroot/fontAwesome/
 Plugin/Croogo/webroot/css/croogo-bootstrap.css
 Plugin/Croogo/webroot/css/croogo-bootstrap-responsive.css
 Plugin/Croogo/webroot/bootstrap/
+
+# composer
+Vendor/autoload.php
+Vendor/bin/
+Vendor/composer/
+Vendor/phpunit/
+Vendor/symfony/
