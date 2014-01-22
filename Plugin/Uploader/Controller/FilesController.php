@@ -342,10 +342,12 @@ class FilesController extends UploaderAppController {
 	}
 
 	public function download($fileStorageId = null) {
-		list($content, $filename) = $this->UploadedFile->download($fileStorageId);
+		list($content, $filename, $mimeType) = $this->UploadedFile->download($fileStorageId);
 		$this->response->download($filename);
 		$this->response->body($content);
+		$this->response->type($mimeType);
 		$this->response->send();
+		return $this->response;
 	}
 
 	public function preview($uploadedFileId = null) {

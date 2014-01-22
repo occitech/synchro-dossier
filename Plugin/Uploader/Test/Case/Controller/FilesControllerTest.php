@@ -43,4 +43,20 @@ class FilesControllerTest extends CroogoControllerTestCase {
 		$this->assertEquals(array(1, 2, 3, $foobarFileTagId), Hash::extract($file, 'FileTag.{n}.id'));
 	}
 
+	public function testMimeTypeIsSetWhileDownloadingAFile() {
+		$FilesController = $this->generate('Uploader.Files', array(
+			'models' => array(
+				'UploadedFile' => array('download'),
+			),
+		));
+		$FilesController->UploadedFile->expects($this->once())
+			->method('download')
+			->with('509116b6-4d00-4737-8527-2a9ad4b04a59')
+			->will($this->returnValue(array(null, 'Fraise.jpg', 'image/jpeg')));
+
+		$this->testAction('/uploader/files/download/509116b6-4d00-4737-8527-2a9ad4b04a59');
+
+		$this->assertAttributeEquals('image/jpeg', '_contentType', $FilesController->response);
+	}
+
 }
