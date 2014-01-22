@@ -1,6 +1,6 @@
 <?php
 
-class AllTerrancleTest extends CakeTestSuite {
+class AllSdTest extends CakeTestSuite {
 
 	public $label = 'Synchro Dossier - All tests';
 
