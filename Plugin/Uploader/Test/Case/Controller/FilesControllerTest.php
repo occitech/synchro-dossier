@@ -63,7 +63,7 @@ class FilesControllerTest extends CroogoControllerTestCase {
 		$this->assertAttributeEquals('image/jpeg', '_contentType', $FilesController->response);
 	}
 
-	public function testUserAddedTagToFileHeDoesNotOwnShouldStillSeeFile() {
+	public function testAddTagToFileDoesNotUpdateAcoTreePositon() {
 		$this->generate('Uploader.Files', array('components' => array('Auth' => array('user'))));
 		$this->controller->Auth->expects($this->any())
 			->method('user')
@@ -84,7 +84,7 @@ class FilesControllerTest extends CroogoControllerTestCase {
 				'updated' => '2012-10-31 17:21:32',
 				'created' => '2012-10-31 17:21:32'
 			)));
-		$varsBeforeTag = $this->testAction('/browse/3', array('method' => 'GET', 'return' => 'result'));
+		$varsBeforeTag = $this->testAction('/browse/3', array('method' => 'GET', 'return' => 'vars'));
 		$this->testAction('/uploader/files/addTags/4', array(
 			'method' => 'POST',
 			'data' => array(
@@ -93,8 +93,9 @@ class FilesControllerTest extends CroogoControllerTestCase {
 				),
 			),
 		));
-		$varsAfterTag = $this->testAction('/browse/3', array('method' => 'GET', 'return' => 'result'));
-		$this->assertEquals(count($varsBeforeTag['files']), count($varsBeforeTag['files']));
+		$varsAfterTag = $this->testAction('/browse/3', array('method' => 'GET', 'return' => 'vars'));
+
+		$this->assertEquals($varsBeforeTag['files'][0]['Aco'], $varsBeforeTag['files'][0]['Aco']);
 	}
 
 }
