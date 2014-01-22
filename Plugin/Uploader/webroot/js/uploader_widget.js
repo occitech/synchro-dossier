@@ -45,20 +45,21 @@ uploaderWidget = function() {
 				var content = $(__filesListElt).find('.list');
 				content.prepend('<li>' +
 					__truncate(files[i].name, __nameLength) + ' (' +
-					plupload.formatSize(files[i].size) + ') <a id="file-' + files[i].id + '" href="#" data-remove-file=' + i + '>&times;</a></li>'
+					plupload.formatSize(files[i].size) + ') <a href="#" data-remove-file="' + i + '">&times;</a></li>'
 				);
+			}
+		});
 
-				$('#file-' + files[i].id).on('click', function(event) {
+		$('body').on('click', 'a[data-remove-file]', function(event) {
+					var index =  $(event.currentTarget).data('remove-file');
+
 					event.preventDefault();
 					$(event.currentTarget).parent().remove();
-					up.removeFile(uploader.files[i]);
+					uploader.splice(index, 1);
 					if (uploader.files.length == 0) {
 						__resetFilesPopover();
 					}
 				});
-			}
-		});
-
 
 		uploader.bind('UploadProgress', function(up, file, response) {
 			$(__progressBarElt).css('width', up.total.percent + '%');
