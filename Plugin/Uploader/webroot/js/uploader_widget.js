@@ -22,7 +22,7 @@ uploaderWidget = function() {
 			$(__progressBarElt).css('width', '0%');
 			$(__filesListElt).css('display', 'none');
 			$(__progressBarElt).parent().css('display', 'block');
-			if( $('.progressbar-overlay').length == 0 ){
+			if( $('.progressbar-overlay').length === 0 ){
 				$('body').append('<div class="progressbar-overlay"></div>');
 				$('.progressbar-overlay').css('display', 'block');
 			}
@@ -56,7 +56,7 @@ uploaderWidget = function() {
 					event.preventDefault();
 					$(event.currentTarget).parent().remove();
 					uploader.splice(index, 1);
-					if (uploader.files.length == 0) {
+					if (uploader.files.length === 0) {
 						__resetFilesPopover();
 					}
 				});
@@ -69,19 +69,19 @@ uploaderWidget = function() {
 			__nbFilesToSend--;
 			$(__nbFilesToSendElt).text(__nbFilesToSend);
 			responseJson = $.parseJSON(response.response);
-			if (responseJson.error != undefined) {
-				alert(responseJson.error['message']);
+			if (responseJson.error !== undefined) {
+				alert(responseJson.error.message);
 				up.stop();
 				location.assign(location.href);
 				location.reload();
-			};
+			}
 		});
 
 		uploader.bind('UploadComplete', function(up, files) {
 			__resetFilesPopover();
 			location.assign(location.href);
 			location.reload();
-			window.location.href = __options['callback_url'];
+			window.location.href = __options.callback_url;
 		});
 	}
 
@@ -102,5 +102,5 @@ uploaderWidget = function() {
 
 	return {
 		init: init
-	}
+	};
 }();
