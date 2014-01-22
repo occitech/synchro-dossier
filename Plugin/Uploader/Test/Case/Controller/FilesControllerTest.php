@@ -27,6 +27,10 @@ class FilesControllerTest extends CroogoControllerTestCase {
 		'plugin.uploader.uploader_comment',
 	);
 
+	public function tearDown() {
+		return ControllerTestCase::tearDown();
+	}
+
 	public function testTagCanBeAddedToAFile() {
 		$this->testAction('/uploader/files/addTags/4', array(
 			'method' => 'POST',
