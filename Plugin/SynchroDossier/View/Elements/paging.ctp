@@ -30,7 +30,8 @@
 <?php endif; ?>
 <?php
 	$paging = $this->Paginator->request->params['paging'];
-	$count = $paging[array_shift(array_keys($paging))]['count'];
+	$pagingKeys = array_keys($paging);
+	$count = $paging[array_shift($pagingKeys)]['count'];
 ?>
 <?php if (!empty($displayPaging)): ?>
 <div class="pager-count">

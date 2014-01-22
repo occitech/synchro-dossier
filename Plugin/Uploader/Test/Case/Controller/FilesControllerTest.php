@@ -2,25 +2,25 @@
 App::uses('FilesController', 'Uploader.Controller');
 App::uses('CroogoControllerTestCase', 'Croogo.TestSuite');
 
-class TermsControllerTest extends CroogoControllerTestCase {
+class FilesControllerTest extends CroogoControllerTestCase {
 
 	public $fixtures = array(
 		'plugin.translate.i18n',
-		'plugin.croogo.aros_aco',
-		'plugin.croogo.aro',
-		'plugin.uploader.aco',
-		'plugin.sd_users.role',
-		'plugin.sd_users.user',
+		'plugin.uploader.uploader_aros_aco',
+		'plugin.uploader.uploader_aro',
+		'plugin.uploader.uploader_aco',
+		'plugin.sd_users.sd_users_role',
+		'plugin.sd_users.sd_users_user',
 		'plugin.menus.menu',
 		'plugin.taxonomy.type',
 		'plugin.taxonomy.types_vocabulary',
-		'plugin.uploader.vocabulary',
-		'plugin.uploader.term',
-		'plugin.uploader.taxonomy',
+		'plugin.uploader.uploader_vocabulary',
+		'plugin.uploader.uploader_term',
+		'plugin.uploader.uploader_taxonomy',
 		'plugin.uploader.uploaded_file',
 		'plugin.uploader.taxonomies_uploaded_file',
 		'plugin.uploader.file_storage',
-		'plugin.uploader.comment',
+		'plugin.uploader.uploader_comment',
 	);
 
 	public function testTagCanBeAddedToAFile() {

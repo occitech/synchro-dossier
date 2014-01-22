@@ -11,7 +11,7 @@ class SynchroDossierComponentTest extends ControllerTestCase {
 		$Collection = new ComponentCollection();
 		$this->SynchroDossier = new SynchroDossierComponent($Collection);
 		$this->Controller = new Controller();
-		$this->Controller->Auth = $this->getMock('AuthComponent', array('user'));
+		$this->Controller->Auth = $this->getMock('AuthComponent', array('user'), array($Collection));
 	}
 
 	public function tearDown() {
@@ -21,7 +21,7 @@ class SynchroDossierComponentTest extends ControllerTestCase {
 	}
 
 	public function testSetCanViewQuota_HasRight() {
-		$this->Controller->Auth->expects($this->any())
+		$this->Controller->Auth->staticExpects($this->any())
 			->method('user')
 			->will($this->returnValue('4'));
 
@@ -30,7 +30,7 @@ class SynchroDossierComponentTest extends ControllerTestCase {
 	}
 
 	public function testSetCanViewQuota_HasNotRight() {
-		$this->Controller->Auth->expects($this->once())
+		$this->Controller->Auth->staticExpects($this->once())
 			->method('user')
 			->will($this->returnValue('6'));
 

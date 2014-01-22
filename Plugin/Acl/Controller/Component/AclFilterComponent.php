@@ -5,8 +5,6 @@ App::uses('Component', 'Controller');
 /**
  * AclFilter Component
  *
- * PHP version 5
- *
  * @category Component
  * @package  Croogo.Acl.Controller.Component
  * @version  1.0
@@ -109,6 +107,11 @@ class AclFilterComponent extends Component {
 			'Acl.AclCached',
 		);
 
+		if (isset($this->_controller->request->params['admin']) &&
+			!$this->_controller->Auth->loggedIn()) {
+			$this->_controller->Auth->authError = false;
+		}
+
 		$this->configureLoginActions();
 	}
 
@@ -165,11 +168,6 @@ class AclFilterComponent extends Component {
 	public function auth() {
 		$this->_configure();
 		$user = $this->_controller->Auth->user();
-		// Admin role is allowed to perform all actions, bypassing ACL
-		if (!empty($user['role_id']) && $user['role_id'] == 1) {
-			$this->_controller->Auth->allow();
-			return;
-		}
 
 		// authorization for authenticated user is handled by authorize object
 		if ($user) {
@@ -228,7 +226,7 @@ class AclFilterComponent extends Component {
 				// plugin controller/action
 				$controller = $path[2]['Aco']['alias'];
 				$action = $path[3]['Aco']['alias'];
-			} else if ($acos == 3) {
+			} elseif ($acos == 3) {
 				// app controller/action
 				$controller = $path[1]['Aco']['alias'];
 				$action = $path[2]['Aco']['alias'];

@@ -51,7 +51,7 @@ class SynchroDossierHelperTest extends CakeTestCase {
 			'toPrint' => true,
 			'quota' => 9.77,
 			'currentQuota' => 0.24,
-			'percent' => 2.45
+			'usedPercent' => 2.45
 		);
 
 		$this->View

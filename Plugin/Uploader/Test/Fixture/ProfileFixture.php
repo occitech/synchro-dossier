@@ -3,7 +3,7 @@
  * ProfileFixture
  *
  */
-class ProfileFixture extends CakeTestFixture {
+class UploaderProfileFixture extends CakeTestFixture {
 
 /**
  * Fields

@@ -4,8 +4,6 @@ App::uses('AppHelper', 'View/Helper');
 /**
  * Croogo Helper
  *
- * PHP version 5
- *
  * @category Helper
  * @package  Croogo.Croogo.View.Helper
  * @version  1.0
@@ -173,6 +171,10 @@ class CroogoHelper extends AppHelper {
  */
 	public function adminRowAction($title, $url = null, $options = array(), $confirmMessage = false) {
 		$action = false;
+		$options = Hash::merge(array(
+			'escapeTitle' => false,
+			'escape' => true,
+		), $options);
 		if (is_array($url)) {
 			$action = $url['action'];
 			if (isset($options['class'])) {

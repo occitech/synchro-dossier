@@ -13,7 +13,7 @@ class SdInformationTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.synchro_dossier.sd_information'
+		'plugin.synchro_dossier.synchro_dossier_sd_information'
 	);
 
 /**

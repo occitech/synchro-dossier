@@ -1,9 +1,9 @@
 <?php
 
+App::uses('Component', 'Controller');
+
 /**
  * Nodes Component
- *
- * PHP version 5
  *
  * @category Component
  * @package  Croogo.Nodes.Controller.Component
@@ -70,6 +70,11 @@ class NodesComponent extends Component {
  * @return void
  */
 	public function nodes() {
+		if ($this->controller->Session->check('Auth.User.role_id')) {
+			$this->controller->Croogo->roleId = $this->controller->Auth->user('role_id');
+		}
+		$roleId = $this->controller->Croogo->roleId;
+
 		$nodes = $this->controller->Blocks->blocksData['nodes'];
 		$_nodeOptions = array(
 			'find' => 'all',
@@ -77,7 +82,7 @@ class NodesComponent extends Component {
 				'Node.status' => 1,
 				'OR' => array(
 					'Node.visibility_roles' => '',
-					'Node.visibility_roles LIKE' => '%"' . $this->roleId . '"%',
+					'Node.visibility_roles LIKE' => '%"' . $roleId . '"%',
 				),
 			),
 			'order' => 'Node.created DESC',

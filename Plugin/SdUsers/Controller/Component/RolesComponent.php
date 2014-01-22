@@ -11,7 +11,7 @@ class RolesComponent extends Component {
 		$Controller->viewVars['roles'] = array_intersect_key($Controller->viewVars['roles'], $whiteListRole);
 	}
 
-	public function beforeRender(&$Controller) {
+	public function beforeRender(Controller $Controller) {
 		if ($Controller instanceof SdUsersController) {
 			if (in_array($Controller->action, array('add', 'edit'))) {
 				$this->__restrictAllowedRoles($Controller);

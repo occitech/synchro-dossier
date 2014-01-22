@@ -6,8 +6,6 @@ App::uses('File', 'Utility');
 /**
  * Setting
  *
- * PHP version 5
- *
  * @category Model
  * @package  Croogo.Settings.Model
  * @version  1.0
@@ -85,7 +83,7 @@ class Setting extends SettingsAppModel {
  *
  * @return void
  */
-	public function afterSave($created) {
+	public function afterSave($created, $options = array()) {
 		$this->updateJson();
 		$this->writeConfiguration();
 	}

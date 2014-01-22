@@ -16,18 +16,18 @@ class UploadedFileTest extends OccitechCakeTestCase {
  */
 	public $fixtures = array(
 		'plugin.uploader.taxonomies_uploaded_file',
-		'plugin.uploader.taxonomy',
+		'plugin.uploader.uploader_taxonomy',
 		'plugin.uploader.uploaded_file',
 		'plugin.uploader.file_storage',
-		'plugin.uploader.user',
+		'plugin.uploader.uploader_user',
 		'plugin.uploader.roles_user',
 		'plugin.uploader.profile',
-		'plugin.uploader.role',
-		'plugin.uploader.aco',
-		'plugin.uploader.aro',
-		'plugin.uploader.aros_aco',
-		'plugin.uploader.comment',
-		'plugin.uploader.sd_information',
+		'plugin.uploader.uploader_role',
+		'plugin.uploader.uploader_aco',
+		'plugin.uploader.uploader_aro',
+		'plugin.uploader.uploader_aros_aco',
+		'plugin.uploader.uploader_comment',
+		'plugin.uploader.uploader_sd_information',
 	);
 
 	protected $_settings = array(

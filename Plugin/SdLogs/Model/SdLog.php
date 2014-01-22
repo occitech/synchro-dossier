@@ -3,7 +3,7 @@ App::uses('LogsAppModel', 'Logs.Model');
 
 class SdLog extends SdLogsAppModel {
 
-	public function getLastest($type, $model = null, $foreignKey = null) {
+	public function getLatest($type, $model = null, $foreignKey = null) {
 		$result = $this->find('first',array(
 			'conditions' => array(
 				'type' => $type,

@@ -26,7 +26,7 @@ abstract class ScopedTaxonomy extends Taxonomy {
 		return parent::beforeSave($options);
 	}
 
-	public function getTree($options = array()) {
+	public function getScopedTree($options = array()) {
 		return parent::getTree($this->_getVocabularyAlias(), $options);
 	}
 
@@ -41,7 +41,7 @@ abstract class ScopedTaxonomy extends Taxonomy {
 
 	protected function _idFromSlug($termSlug) {
 		$termId = $this->Term->field('id', array('slug' => $termSlug));
-		$id = $this->termInVocabulary($termId, $this->__relatedVocabularyId());
+		$id = $this->termInScope($termId);
 		if ($id === false) {
 			throw new NotFoundException(__('The slug %s does not belong to a Term of this Taxonomy', $termSlug));
 		}
@@ -58,7 +58,7 @@ abstract class ScopedTaxonomy extends Taxonomy {
 		return $this->__vocabularyId;
 	}
 
-	public function termInVocabulary($termId) {
+	public function termInScope($termId) {
 		return parent::termInVocabulary($termId, $this->__relatedVocabularyId());
 	}
 

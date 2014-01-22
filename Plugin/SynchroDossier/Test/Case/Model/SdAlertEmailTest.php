@@ -10,7 +10,7 @@ class SdAlertEmailTest extends CakeTestCase {
  * @var array
  */
 	public $fixtures = array(
-		'plugin.uploader.user',
+		'plugin.uploader.uploader_user',
 		'plugin.uploader.uploaded_file',
 		'plugin.synchro_dossier.sd_alert_email',
 		'plugin.synchro_dossier.sd_file_email',
