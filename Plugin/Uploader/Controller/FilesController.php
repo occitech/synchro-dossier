@@ -23,7 +23,7 @@ class FilesController extends UploaderAppController {
 					'downloadZipFolder' 		=> 'read',
 					'upload' 					=> 'create',
 					'download' 					=> 'read',
-					'rights'					=> 'change_right',
+					'rights'						=> 'change_right',
 					'removeRight'				=> 'change_right',
 					'toggleRight'				=> 'change_right'
 				),
@@ -52,6 +52,16 @@ class FilesController extends UploaderAppController {
 		parent::beforeRender();
 
 		$folderId = isset($this->request->params['pass'][0]) ? $this->request->params['pass'][0] : null;
+		$folderExist = $this->UploadedFile->exists($folderId);
+		if(!$folderExist && $folderId != null) {
+			$folderId = null;
+			$this->Session->setFlash(
+				__d('uploader', 'Ce dossier n\'existe pas'),
+				'default',
+				array('class' => 'alert alert-danger')
+			);
+		}
+		$this->set(compact('folderId'));
 
 		$uploadUrl = Router::url(array(
 			'plugin' => 'uploader',
@@ -236,7 +246,7 @@ class FilesController extends UploaderAppController {
 		if ($this->request->is('post')) {
 			if ($this->UploadedFile->addSharing($this->request->data, $this->Auth->user())) {
 				$this->Acl->allow(
-					array('model' => 'User', 'foreign_key' => Configure::write('sd.SuperAdmin.roleId')),
+					array('model' => 'User', 'foreign_key' => Configure::read('sd.SuperAdmin.roleId')),
 					array('model' => 'UploadedFile', 'foreign_key' => $this->UploadedFile->id)
 				);
 				$this->Session->setFlash(__d('uploader', 'Le dossier a correctement été créé'), 'default', array('class' => 'alert'));
@@ -373,6 +383,7 @@ class FilesController extends UploaderAppController {
 
 
 	public function deleteFile($fileId, $fileStorageId) {
+
 		$fileStorage = $this->UploadedFile->FileStorage->find('first', array(
 			'conditions' => array(
 				'FileStorage.id' => $fileStorageId
@@ -425,10 +436,10 @@ class FilesController extends UploaderAppController {
 						}
 					}
 				}
-				
+
 				$this->UploadedFile->unbindModel(array('hasOne' => array('Aco')));
 				$this->UploadedFile->Behaviors->detach('Tree');
-				
+
 				if ($this->UploadedFile->save($data)) {
 					$messageFlash = __d('uploader', 'Tags successfuly added to file');
 					$class = array('class' => 'success');
