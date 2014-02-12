@@ -35,3 +35,4 @@ Vendor/bin/
 Vendor/composer/
 Vendor/phpunit/
 Vendor/symfony/
+Vendor/pear-pear.cakephp.org/
