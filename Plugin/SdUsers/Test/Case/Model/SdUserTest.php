@@ -101,7 +101,7 @@ class SdUserTest extends CroogoTestCase {
 		$this->assertTrue($result);
 		$this->assertTrue(!empty($lastUserAdded['User']['username']));
 
-		$this->assertEquals('sdfsqfsdf.sdf', $lastUserAdded['User']['username']);
+		$this->assertEquals('sdfsqfsdfsdf', $lastUserAdded['User']['username']);
 	}
 
 	public function testAdd_AroCorrectlyAdded() {
@@ -237,7 +237,7 @@ class SdUserTest extends CroogoTestCase {
  */
 	public function testFindSuperAdmin() {
 		$result = $this->SdUser->find('superAdmin');
-		$this->assertEqual($this->_countUniqueUsers($result), 1);		
+		$this->assertEqual($this->_countUniqueUsers($result), 1);
 	}
 
 /**
