@@ -3,9 +3,280 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b9a7d794c997ae8743175474e8b0ef2f",
+    "hash": "739b21ec99c06088656d8c19befb3a69",
     "packages": [
-
+        {
+            "name": "cakedc/migrations",
+            "version": "2.2.3",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CakeDC/migrations.git",
+                "reference": "94036a606089c7e14b349eba043b0f58a0947e29"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CakeDC/migrations/zipball/94036a606089c7e14b349eba043b0f58a0947e29",
+                "reference": "94036a606089c7e14b349eba043b0f58a0947e29",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "*"
+            },
+            "type": "cakephp-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cake Development Corporation",
+                    "email": "team@cakedc.com",
+                    "homepage": "http://cakedc.com"
+                }
+            ],
+            "description": "Migrations Plugin for CakePHP",
+            "homepage": "http://cakedc.com",
+            "keywords": [
+                "cakephp",
+                "migrations"
+            ],
+            "time": "2013-10-21 10:45:27"
+        },
+        {
+            "name": "cakedc/search",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/CakeDC/search.git",
+                "reference": "9bcaa6fe0453a1c9d911b8f25d38e3f64e6943b6"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/CakeDC/search/zipball/9bcaa6fe0453a1c9d911b8f25d38e3f64e6943b6",
+                "reference": "9bcaa6fe0453a1c9d911b8f25d38e3f64e6943b6",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "cakephp-plugin",
+            "extra": {
+                "installer-name": "Search"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Cake Development Corporation",
+                    "email": "team@cakedc.com",
+                    "homepage": "http://cakedc.com"
+                }
+            ],
+            "description": "The Search plugin allows you to make any kind of data searchable, enabling you to implement a robust searching rapidly.",
+            "homepage": "http://github.com/CakeDC/search",
+            "time": "2013-10-21 10:51:10"
+        },
+        {
+            "name": "composer/installers",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/composer/installers.git",
+                "reference": "35a07647186a910b725fca9290b13ca2e265491a"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/composer/installers/zipball/35a07647186a910b725fca9290b13ca2e265491a",
+                "reference": "35a07647186a910b725fca9290b13ca2e265491a",
+                "shasum": ""
+            },
+            "replace": {
+                "shama/baton": "*"
+            },
+            "require-dev": {
+                "composer/composer": "1.0.*@dev",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "type": "composer-installer",
+            "extra": {
+                "class": "Composer\\Installers\\Installer",
+                "branch-alias": {
+                    "dev-master": "1.0-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Composer\\Installers\\": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kyle Robinson Young",
+                    "email": "kyle@dontkry.com",
+                    "homepage": "http://dontkry.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "A multi-framework Composer library installer",
+            "homepage": "http://composer.github.com/installers/",
+            "keywords": [
+                "Craft",
+                "Hurad",
+                "MODX Evo",
+                "OXID",
+                "agl",
+                "annotatecms",
+                "cakephp",
+                "codeigniter",
+                "concrete5",
+                "croogo",
+                "drupal",
+                "elgg",
+                "fuelphp",
+                "installer",
+                "joomla",
+                "kohana",
+                "laravel",
+                "lithium",
+                "magento",
+                "mako",
+                "mediawiki",
+                "modulework",
+                "phpbb",
+                "piwik",
+                "ppi",
+                "shopware",
+                "silverstripe",
+                "symfony",
+                "typo3",
+                "wordpress",
+                "zend",
+                "zikula"
+            ],
+            "time": "2014-01-31 16:53:31"
+        },
+        {
+            "name": "croogo/ckeditor",
+            "version": "1.0.0",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/croogo/Ckeditor.git",
+                "reference": "d5f0d13f3b1b85c5e8d179fed1a4d4458c17dc74"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/croogo/Ckeditor/zipball/d5f0d13f3b1b85c5e8d179fed1a4d4458c17dc74",
+                "reference": "d5f0d13f3b1b85c5e8d179fed1a4d4458c17dc74",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "~1.0",
+                "php": ">=5.3.0"
+            },
+            "type": "cakephp-plugin",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Rachman Chavik",
+                    "email": "contact@xintesa.com",
+                    "homepage": "http://xintesa.com"
+                },
+                {
+                    "name": "Fahad Ibnay Heylaal",
+                    "email": "contact@fahad19.com",
+                    "homepage": "http://fahad19.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Integrate Ckeditor with Croogo",
+            "homepage": "http://github.com/croogo/Ckeditor",
+            "time": "2013-05-31 01:47:33"
+        },
+        {
+            "name": "croogo/croogo",
+            "version": "2.0.x-dev",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/croogo/croogo.git",
+                "reference": "a6dbb4ff114324a7f1305c3c58f9b97e07a969ed"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/croogo/croogo/zipball/a6dbb4ff114324a7f1305c3c58f9b97e07a969ed",
+                "reference": "a6dbb4ff114324a7f1305c3c58f9b97e07a969ed",
+                "shasum": ""
+            },
+            "require": {
+                "cakedc/migrations": "~2.2",
+                "cakedc/search": "dev-master",
+                "composer/installers": "~1.0",
+                "croogo/ckeditor": "~1.0",
+                "php": ">=5.3.0"
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Kyle Robinson Young",
+                    "email": "kyle@dontkry.com",
+                    "homepage": "http://dontkry.com",
+                    "role": "Developer"
+                },
+                {
+                    "name": "Rachman Chavik",
+                    "email": "contact@xintesa.com",
+                    "homepage": "http://xintesa.com"
+                },
+                {
+                    "name": "Fahad Ibnay Heylall",
+                    "email": "contact@fahad19.com",
+                    "homepage": "http://fahad19.com",
+                    "role": "Developer"
+                }
+            ],
+            "description": "Croogo - Open Source CMS built for everyone",
+            "homepage": "http://github.com/croogo/croogo",
+            "time": "2014-02-12 13:51:49"
+        },
+        {
+            "name": "pear-pear.cakephp.org/CakePHP",
+            "version": "2.4.5",
+            "dist": {
+                "type": "file",
+                "url": "http://pear.cakephp.org/get/CakePHP-2.4.5.tgz",
+                "reference": null,
+                "shasum": null
+            },
+            "require": {
+                "php": ">=5.2.8.0"
+            },
+            "replace": {
+                "pear-cakephp/cakephp": "== 2.4.5.0"
+            },
+            "type": "pear-library",
+            "autoload": {
+                "classmap": [
+                    ""
+                ]
+            },
+            "include-path": [
+                "/"
+            ],
+            "description": "CakePHP is an application development framework for PHP 5.2+"
+        }
     ],
     "packages-dev": [
         {
@@ -14,18 +285,18 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "10c5b2c8b72a801eaad0031cd6a6a3686909c5a9"
+                "reference": "34d4ff4aa8ee0de5fcc99b5d8f14107e5deb6092"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/10c5b2c8b72a801eaad0031cd6a6a3686909c5a9",
-                "reference": "10c5b2c8b72a801eaad0031cd6a6a3686909c5a9",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/34d4ff4aa8ee0de5fcc99b5d8f14107e5deb6092",
+                "reference": "34d4ff4aa8ee0de5fcc99b5d8f14107e5deb6092",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
                 "phpunit/php-file-iterator": ">=1.3.0@stable",
-                "phpunit/php-text-template": ">=1.1.1@stable",
+                "phpunit/php-text-template": ">=1.2.0@stable",
                 "phpunit/php-token-stream": ">=1.1.3@stable"
             },
             "require-dev": {
@@ -67,7 +338,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2013-11-01 09:17:11"
+            "time": "2014-02-12 16:38:11"
         },
         {
             "name": "phpunit/php-file-iterator",
@@ -120,12 +391,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-text-template.git",
-                "reference": "1eeef106193d2f8c539728e566bb4793071a9e18"
+                "reference": "206dfefc0ffe9cebf65c413e3d0e809c82fbf00a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/1eeef106193d2f8c539728e566bb4793071a9e18",
-                "reference": "1eeef106193d2f8c539728e566bb4793071a9e18",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/206dfefc0ffe9cebf65c413e3d0e809c82fbf00a",
+                "reference": "206dfefc0ffe9cebf65c413e3d0e809c82fbf00a",
                 "shasum": ""
             },
             "require": {
@@ -156,7 +427,7 @@
             "keywords": [
                 "template"
             ],
-            "time": "2013-01-07 10:56:17"
+            "time": "2014-01-30 17:20:04"
         },
         {
             "name": "phpunit/php-timer",
@@ -258,12 +529,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "0a32f059e6e66cdfdd0d7c757646fdcbf822b0ca"
+                "reference": "d24e9877331039582497052cc3c4d9f465b88210"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/0a32f059e6e66cdfdd0d7c757646fdcbf822b0ca",
-                "reference": "0a32f059e6e66cdfdd0d7c757646fdcbf822b0ca",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/d24e9877331039582497052cc3c4d9f465b88210",
+                "reference": "d24e9877331039582497052cc3c4d9f465b88210",
                 "shasum": ""
             },
             "require": {
@@ -324,7 +595,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-01-15 07:18:27"
+            "time": "2014-02-03 07:46:27"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -332,12 +603,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit-mock-objects.git",
-                "reference": "3e40f3b3f18c044a24688fe406440d7fd537744a"
+                "reference": "ed9c8ef8cecd7fa0e7dcee78970e5a972bcfd751"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/3e40f3b3f18c044a24688fe406440d7fd537744a",
-                "reference": "3e40f3b3f18c044a24688fe406440d7fd537744a",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit-mock-objects/zipball/ed9c8ef8cecd7fa0e7dcee78970e5a972bcfd751",
+                "reference": "ed9c8ef8cecd7fa0e7dcee78970e5a972bcfd751",
                 "shasum": ""
             },
             "require": {
@@ -345,7 +616,6 @@
                 "phpunit/php-text-template": ">=1.1.1@stable"
             },
             "require-dev": {
-                "pear-pear/pear": "1.9.4",
                 "phpunit/phpunit": "3.7.*@dev"
             },
             "suggest": {
@@ -382,7 +652,7 @@
                 "mock",
                 "xunit"
             ],
-            "time": "2013-07-23 04:42:59"
+            "time": "2014-01-30 16:40:39"
         },
         {
             "name": "symfony/yaml",
@@ -420,7 +690,9 @@
             "authors": [
                 {
                     "name": "Fabien Potencier",
-                    "email": "fabien@symfony.com"
+                    "email": "fabien@symfony.com",
+                    "homepage": "http://fabien.potencier.org",
+                    "role": "Lead Developer"
                 },
                 {
                     "name": "Symfony Community",
@@ -436,9 +708,9 @@
 
     ],
     "minimum-stability": "dev",
-    "stability-flags": [
-
-    ],
+    "stability-flags": {
+        "croogo/croogo": 20
+    },
     "platform": [
 
     ],

@@ -57,6 +57,10 @@ spl_autoload_register(array('App', 'load'), true, true);
  * Inflector::rules('plural', array('rules' => array(), 'irregular' => array(), 'uninflected' => array()));
  *
  */
+App::build(array(
+	'Plugin' => array(APP . 'Vendor' . DS . 'croogo' . DS . 'croogo' . DS ),
+), App::APPEND);
+
 CakePlugin::load('Croogo', array('bootstrap' => true));
 
 Configure::write('Dispatcher.filters', array(

@@ -14,20 +14,13 @@ tmp/
 
 # Others
 .DS_Store
-./Plugin/*
-!./Plugin/Acl
-!./Plugin/Extensions
-!./Plugin/Example
-!./Plugin/Install
-!./Plugin/Translate
 uploads/
 Config/croogo.php
-Plugin/Croogo/webroot/js/croogo-bootstrap.js
-Plugin/Croogo/webroot/fontAwesome/
-# Plugin/Croogo/webroot/font/
-Plugin/Croogo/webroot/css/croogo-bootstrap.css
-Plugin/Croogo/webroot/css/croogo-bootstrap-responsive.css
-Plugin/Croogo/webroot/bootstrap/
+
+# plugins
+Plugin/Ckeditor/
+Plugin/Migrations/
+Plugin/Search/
 
 # composer
 Vendor/autoload.php
@@ -36,3 +29,4 @@ Vendor/composer/
 Vendor/phpunit/
 Vendor/symfony/
 Vendor/pear-pear.cakephp.org/
+Vendor/croogo/
