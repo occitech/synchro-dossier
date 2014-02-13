@@ -1,6 +1,3 @@
 [submodule "Locale"]
 	path = Locale
 	url = git://github.com/croogo/locale.git
-[submodule "SynchroDossier/webroot/bootstrap"]
-	path = Plugin/SynchroDossier/webroot/bootstrap
-	url = git://github.com/twitter/bootstrap.git
