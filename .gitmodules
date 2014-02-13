@@ -4,6 +4,3 @@
 [submodule "SynchroDossier/webroot/bootstrap"]
 	path = Plugin/SynchroDossier/webroot/bootstrap
 	url = git://github.com/twitter/bootstrap.git
-[submodule "Config/Recipes"]
-	path = Config/Recipes
-	url = git://github.com/occitech/capistrano-recipes
