@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "739b21ec99c06088656d8c19befb3a69",
+    "hash": "913d39c4fc8516fdec7903bdef324045",
     "packages": [
         {
             "name": "cakedc/migrations",
@@ -85,12 +85,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "35a07647186a910b725fca9290b13ca2e265491a"
+                "reference": "9a1fd4e191beaa5cab79c05f923d8bcdd01b4e94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/35a07647186a910b725fca9290b13ca2e265491a",
-                "reference": "35a07647186a910b725fca9290b13ca2e265491a",
+                "url": "https://api.github.com/repos/composer/installers/zipball/9a1fd4e191beaa5cab79c05f923d8bcdd01b4e94",
+                "reference": "9a1fd4e191beaa5cab79c05f923d8bcdd01b4e94",
                 "shasum": ""
             },
             "replace": {
@@ -120,7 +120,7 @@
                 {
                     "name": "Kyle Robinson Young",
                     "email": "kyle@dontkry.com",
-                    "homepage": "http://dontkry.com",
+                    "homepage": "https://github.com/shama",
                     "role": "Developer"
                 }
             ],
@@ -160,7 +160,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2014-01-31 16:53:31"
+            "time": "2014-02-12 21:21:55"
         },
         {
             "name": "croogo/ckeditor",
@@ -250,6 +250,35 @@
             "description": "Croogo - Open Source CMS built for everyone",
             "homepage": "http://github.com/croogo/croogo",
             "time": "2014-02-12 13:51:49"
+        },
+        {
+            "name": "junichi11/plupload",
+            "version": "dev-develop",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/occitech/CakePHP-Plupload-Plugin.git",
+                "reference": "d9cfcec969c9592bc2196f53ba9d6c82c212cea5"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/occitech/CakePHP-Plupload-Plugin/zipball/d9cfcec969c9592bc2196f53ba9d6c82c212cea5",
+                "reference": "d9cfcec969c9592bc2196f53ba9d6c82c212cea5",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "cakephp-plugin",
+            "license": [
+                "MIT"
+            ],
+            "description": "CakePHP Plugin for plupload",
+            "homepage": "https://github.com/junichi11/CakePHP-Plupload-Plugin",
+            "support": {
+                "source": "https://github.com/occitech/CakePHP-Plupload-Plugin/tree/develop"
+            },
+            "time": "2012-11-28 22:19:13"
         },
         {
             "name": "pear-pear.cakephp.org/CakePHP",
@@ -709,7 +738,8 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
-        "croogo/croogo": 20
+        "croogo/croogo": 20,
+        "junichi11/plupload": 20
     },
     "platform": [
 

@@ -21,6 +21,7 @@ Config/croogo.php
 Plugin/Ckeditor/
 Plugin/Migrations/
 Plugin/Search/
+Plugin/Plupload/
 
 # composer
 Vendor/autoload.php

@@ -12,11 +12,16 @@
         {
             "type": "pear",
             "url": "http://pear.cakephp.org"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:occitech/CakePHP-Plupload-Plugin.git"
         }
     ],
     "require": {
         "pear-cakephp/cakephp": "~2.4",
-        "croogo/croogo": "2.0.x-dev"
+        "croogo/croogo": "2.0.x-dev",
+        "junichi11/plupload": "dev-develop"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
