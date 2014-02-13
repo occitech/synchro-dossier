@@ -10,10 +10,10 @@
 	?>
 	<div class="progress">
 		<div class="bar <?= $classColor; ?>" style="width: <?= $usedPercent; ?>%">
-			<?= round($usedPercent, 2) . '%'; ?>
+			<span><?= round($usedPercent, 2) . '%'; ?></span>
 		</div>
 	</div>
 	<div style="font-size: 11px; text-align: center; margin-top: -20px;">
-		<?= $currentQuota . 'Go / ' . $quota . 'Go'; ?>	
+		<?= $currentQuota . 'Go / ' . $quota . 'Go'; ?>
 	</div>
 <?php endif ?>

@@ -93,3 +93,12 @@ i.not-allowed:hover{
 }
 
 #content-container{padding:20px 0 0 0 !important;margin-bottom:0 !important;}
+
+.bar > span {
+	top: 5px;
+	z-index: 2;
+	color: #000;
+	text-align: center;
+	width: 100%;
+	font-size: 17px;
+}
