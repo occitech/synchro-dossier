@@ -245,10 +245,6 @@ class FilesController extends UploaderAppController {
 	public function createSharing() {
 		if ($this->request->is('post')) {
 			if ($this->UploadedFile->addSharing($this->request->data, $this->Auth->user())) {
-				$this->Acl->allow(
-					array('model' => 'User', 'foreign_key' => Configure::read('sd.SuperAdmin.roleId')),
-					array('model' => 'UploadedFile', 'foreign_key' => $this->UploadedFile->id)
-				);
 				$this->Session->setFlash(__d('uploader', 'Le dossier a correctement été créé'), 'default', array('class' => 'alert'));
 			} else {
 				$errors = $this->UploadedFile->invalidFields();
