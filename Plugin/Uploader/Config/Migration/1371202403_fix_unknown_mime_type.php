@@ -44,7 +44,9 @@ class FixUnknownMimeType extends CakeMigration {
 			$paths = $this->__getFilePath($FileStorage, $filesId);
 
 			$uploadedFilesWithMimeType = $this->__getUpdatedUploadedFilesData($paths);
-			$success = $success && $UploadedFile->saveMany($uploadedFilesWithMimeType);
+			if (!empty($uploadedFilesWithMimeType)) {
+				$success = $success && $UploadedFile->saveMany($uploadedFilesWithMimeType);
+			}
 		}
 		return $success;
 	}
