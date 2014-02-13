@@ -3,8 +3,57 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "913d39c4fc8516fdec7903bdef324045",
+    "hash": "c8b22833a0ccf01c218498449a4bc68d",
     "packages": [
+        {
+            "name": "burzum/FileStorage",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/burzum/FileStorage.git",
+                "reference": "ec53030e5d110806dd83fdbf92589db7ec68d4be"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/burzum/FileStorage/zipball/ec53030e5d110806dd83fdbf92589db7ec68d4be",
+                "reference": "ec53030e5d110806dd83fdbf92589db7ec68d4be",
+                "shasum": ""
+            },
+            "require": {
+                "knplabs/gaufrette": "*",
+                "php": ">=5.3.2"
+            },
+            "suggest": {
+                "cakedc/Imagine": "Required if you want to use the image processing feature of FileStorage",
+                "cakedc/migrations": "If you want to use the database migrations that come with FileStorage"
+            },
+            "type": "cakephp-plugin",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Florian Krämer",
+                    "homepage": "http://florian-kraemer.net"
+                }
+            ],
+            "description": "This plugin is giving you the possibility to store files in virtually and kind of storage backend. This plugin is wrapping the Gaufrette library (https://github.com/KnpLabs/Gaufrette) library in a CakePHP fashion and provides a simple way to use the storage adapters through the StorageManager class.",
+            "homepage": "http://github.com/burzum/FileStorage",
+            "keywords": [
+                "abstraction",
+                "cakephp",
+                "file",
+                "filesystem",
+                "media",
+                "storage",
+                "upload"
+            ],
+            "support": {
+                "source": "https://github.com/burzum/FileStorage/tree/0.3.3",
+                "issues": "https://github.com/burzum/FileStorage/issues"
+            },
+            "time": "2013-11-24 19:27:54"
+        },
         {
             "name": "cakedc/migrations",
             "version": "2.2.3",
@@ -208,12 +257,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/croogo/croogo.git",
-                "reference": "a6dbb4ff114324a7f1305c3c58f9b97e07a969ed"
+                "reference": "7786ddc7fcf864a2434ed0a3ba26337c986fc0b6"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/croogo/croogo/zipball/a6dbb4ff114324a7f1305c3c58f9b97e07a969ed",
-                "reference": "a6dbb4ff114324a7f1305c3c58f9b97e07a969ed",
+                "url": "https://api.github.com/repos/croogo/croogo/zipball/7786ddc7fcf864a2434ed0a3ba26337c986fc0b6",
+                "reference": "7786ddc7fcf864a2434ed0a3ba26337c986fc0b6",
                 "shasum": ""
             },
             "require": {
@@ -249,7 +298,7 @@
             ],
             "description": "Croogo - Open Source CMS built for everyone",
             "homepage": "http://github.com/croogo/croogo",
-            "time": "2014-02-12 13:51:49"
+            "time": "2014-02-13 13:09:56"
         },
         {
             "name": "junichi11/plupload",
@@ -279,6 +328,89 @@
                 "source": "https://github.com/occitech/CakePHP-Plupload-Plugin/tree/develop"
             },
             "time": "2012-11-28 22:19:13"
+        },
+        {
+            "name": "knplabs/gaufrette",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/KnpLabs/Gaufrette.git",
+                "reference": "b72a040c6501ff1205669086a145b830c39932d3"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/KnpLabs/Gaufrette/zipball/b72a040c6501ff1205669086a145b830c39932d3",
+                "reference": "b72a040c6501ff1205669086a145b830c39932d3",
+                "shasum": ""
+            },
+            "require": {
+                "php": ">=5.3.2"
+            },
+            "require-dev": {
+                "amazonwebservices/aws-sdk-for-php": "1.5.*",
+                "aws/aws-sdk-php": "~2",
+                "doctrine/dbal": ">=2.3",
+                "dropbox-php/dropbox-php": "*",
+                "herzult/php-ssh": "*",
+                "microsoft/windowsazure": "dev-master",
+                "mikey179/vfsstream": "~1.2.0",
+                "phpseclib/phpseclib": "dev-master",
+                "phpspec/phpspec": "2.0.*",
+                "phpunit/phpunit": "3.7.*",
+                "rackspace/php-cloudfiles": "*",
+                "rackspace/php-opencloud": "1.6.*"
+            },
+            "suggest": {
+                "amazonwebservices/aws-sdk-for-php": "to use the legacy Amazon S3 adapters",
+                "aws/aws-sdk-php": "to use the Amazon S3 adapter",
+                "doctrine/dbal": "to use the Doctrine DBAL adapter",
+                "dropbox-php/dropbox-php": "to use the Dropbox adapter",
+                "ext-apc": "to use the APC adapter",
+                "ext-curl": "*",
+                "ext-fileinfo": "This extension is used to automatically detect the content-type of a file in the AwsS3, OpenCloud, and AzureBlogStorage adapters",
+                "ext-mbstring": "*",
+                "ext-mongo": "*",
+                "ext-zip": "to use the Zip adapter",
+                "herzult/php-ssh": "to use SFtp adapter",
+                "knplabs/knp-gaufrette-bundle": "to use with Symfony2",
+                "microsoft/windowsazure": "to use Microsoft Azure Blob Storage adapter",
+                "phpseclib/phpseclib": "to user PhpseclibSftp adapter",
+                "rackspace/php-opencloud": "to use Opencloud adapter"
+            },
+            "type": "library",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "0.2.x-dev"
+                }
+            },
+            "autoload": {
+                "psr-0": {
+                    "Gaufrette": "src/"
+                }
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "The contributors",
+                    "homepage": "http://github.com/knplabs/Gaufrette/contributors"
+                },
+                {
+                    "name": "KnpLabs Team",
+                    "homepage": "http://knplabs.com"
+                }
+            ],
+            "description": "PHP5 library that provides a filesystem abstraction layer",
+            "homepage": "http://knplabs.com",
+            "keywords": [
+                "abstraction",
+                "file",
+                "filesystem",
+                "media"
+            ],
+            "time": "2014-01-28 08:20:10"
         },
         {
             "name": "pear-pear.cakephp.org/CakePHP",
@@ -739,7 +871,8 @@
     "minimum-stability": "dev",
     "stability-flags": {
         "croogo/croogo": 20,
-        "junichi11/plupload": 20
+        "junichi11/plupload": 20,
+        "burzum/filestorage": 20
     },
     "platform": [
 

@@ -22,6 +22,7 @@ Plugin/Ckeditor/
 Plugin/Migrations/
 Plugin/Search/
 Plugin/Plupload/
+Plugin/FileStorage/
 
 # composer
 Vendor/autoload.php
@@ -31,3 +32,4 @@ Vendor/phpunit/
 Vendor/symfony/
 Vendor/pear-pear.cakephp.org/
 Vendor/croogo/
+Vendor/knplabs/gaufrette/
