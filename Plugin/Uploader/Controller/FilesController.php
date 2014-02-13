@@ -365,6 +365,7 @@ class FilesController extends UploaderAppController {
 	public function deleteFolder($folderId) {
 		$this->UploadedFile->id = $folderId;
 		$folderName = $this->UploadedFile->field('filename');
+		$folderParentId = $this->UploadedFile->field('parent_id');
 		if ($this->UploadedFile->removeFolder($folderId, $this->Auth->user('id'))) {
 			$messageFlash = __d('uploader', 'Folder "%s" was successfully deleted', $folderName);
 			$class = array('class' => 'success');
@@ -374,7 +375,7 @@ class FilesController extends UploaderAppController {
 		}
 
 		$this->Session->setFlash($messageFlash, 'default', $class);
-		$this->redirect(array('action' => 'browse'));
+		$this->redirect(array('action' => 'browse', $folderParentId));
 	}
 
 
@@ -385,6 +386,8 @@ class FilesController extends UploaderAppController {
 				'FileStorage.id' => $fileStorageId
 			),
 		));
+
+
 		$this->UploadedFile->id = $fileStorage['FileStorage']['foreign_key'];
 		$file = $this->UploadedFile->findById($fileId);
 		if ($this->UploadedFile->removeFile($fileId, $fileStorageId, $this->Auth->user('id'))) {
@@ -396,7 +399,7 @@ class FilesController extends UploaderAppController {
 		}
 
 		$this->Session->setFlash($messageFlash, 'default', $class);
-		$this->redirect(array('action' => 'browse'));
+		$this->redirect(array('action' => 'browse', $file['UploadedFile']['parent_id']));
 	}
 
 	protected function _decodeCustomBase64($encodedString, $replacementCaracters = array('-' => '/', '_' => '=')) {
