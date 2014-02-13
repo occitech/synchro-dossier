@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "9a5b0b7d1c729aa6c6ff442f1ab71a01",
+    "hash": "f9cf888a9b51fed8255764b3e8ed91d7",
     "packages": [
         {
             "name": "burzum/FileStorage",
@@ -348,6 +348,51 @@
             "description": "Croogo - Open Source CMS built for everyone",
             "homepage": "http://github.com/croogo/croogo",
             "time": "2014-02-13 13:09:56"
+        },
+        {
+            "name": "croogo/locale",
+            "version": "dev-patch-1",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/chadrien/locale.git",
+                "reference": "9880b1a9d9db7a980ca6ec49ab93bb003bc4338f"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/chadrien/locale/zipball/9880b1a9d9db7a980ca6ec49ab93bb003bc4338f",
+                "reference": "9880b1a9d9db7a980ca6ec49ab93bb003bc4338f",
+                "shasum": ""
+            },
+            "require": {
+                "croogo/croogo": "2.0.x-dev"
+            },
+            "type": "library",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Fahad Ibnay Heylall",
+                    "email": "contact@fahad19.com",
+                    "homepage": "http://fahad19.com"
+                },
+                {
+                    "name": "Rachman Chavik",
+                    "email": "contact@xintesa.com",
+                    "homepage": "http://xintesa.com"
+                },
+                {
+                    "name": "Kyle Robinson Young",
+                    "email": "kyle@dontkry.com",
+                    "homepage": "http://dontkry.com"
+                }
+            ],
+            "description": "Croogo - Translations",
+            "homepage": "http://github.com/croogo/locale",
+            "support": {
+                "source": "https://github.com/chadrien/locale/tree/patch-1"
+            },
+            "time": "2014-02-13 15:26:31"
         },
         {
             "name": "junichi11/plupload",
@@ -1032,7 +1077,8 @@
         "croogo/croogo": 20,
         "junichi11/plupload": 20,
         "burzum/filestorage": 20,
-        "occitech/capistrano-recipes": 20
+        "occitech/capistrano-recipes": 20,
+        "croogo/locale": 20
     },
     "platform": [
 

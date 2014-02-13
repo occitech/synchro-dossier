@@ -59,6 +59,7 @@ spl_autoload_register(array('App', 'load'), true, true);
  */
 App::build(array(
 	'Plugin' => array(APP . 'Vendor' . DS . 'croogo' . DS . 'croogo' . DS ),
+	'Locale' => array(APP . 'Vendor' . DS . 'croogo' . DS . 'locale' . DS ),
 ), App::APPEND);
 
 CakePlugin::load('Croogo', array('bootstrap' => true));
