@@ -4,9 +4,6 @@
 [submodule "FileStorage"]
 	path = Plugin/FileStorage
 	url = git://github.com/burzum/FileStorage.git
-[submodule "Plupload"]
-	path = Plugin/Plupload
-	url = git://github.com/occitech/CakePHP-Plupload-Plugin.git
 [submodule "SynchroDossier/webroot/bootstrap"]
 	path = Plugin/SynchroDossier/webroot/bootstrap
 	url = git://github.com/twitter/bootstrap.git
