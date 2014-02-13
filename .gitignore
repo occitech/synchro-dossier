@@ -24,6 +24,7 @@ Plugin/Search/
 Plugin/Plupload/
 Plugin/FileStorage/
 Plugin/DebugKit/
+Plugin/Chosen/
 
 # composer
 Vendor/autoload.php
