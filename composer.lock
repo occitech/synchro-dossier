@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "b8d35dbba447d7ba396d48a04e4fe178",
+    "hash": "9404255226d481a3e06693107011deb4",
     "packages": [
         {
             "name": "burzum/FileStorage",
@@ -460,6 +460,41 @@
                 "media"
             ],
             "time": "2014-01-28 08:20:10"
+        },
+        {
+            "name": "occitech/capistrano-recipes",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/occitech/capistrano-recipes.git",
+                "reference": "04ebf9335cf9e32f47a842fe4db53bb5b8d792a9"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/occitech/capistrano-recipes/zipball/04ebf9335cf9e32f47a842fe4db53bb5b8d792a9",
+                "reference": "04ebf9335cf9e32f47a842fe4db53bb5b8d792a9",
+                "shasum": ""
+            },
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Occitech",
+                    "homepage": "http://www.occi-tech.com"
+                }
+            ],
+            "description": "Several Apache/PHP related Capistrano recipes",
+            "homepage": "http://www.occi-tech.com",
+            "keywords": [
+                "cakephp",
+                "capistrano",
+                "deployment",
+                "magento"
+            ],
+            "time": "2013-12-02 15:37:02"
         },
         {
             "name": "paulredmond/chosen-cakephp",
@@ -969,7 +1004,8 @@
     "stability-flags": {
         "croogo/croogo": 20,
         "junichi11/plupload": 20,
-        "burzum/filestorage": 20
+        "burzum/filestorage": 20,
+        "occitech/capistrano-recipes": 20
     },
     "platform": [
 

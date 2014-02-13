@@ -28,7 +28,8 @@
         "junichi11/plupload": "dev-develop",
         "burzum/FileStorage": "dev-master",
         "cakephp/debug_kit": "~2.2",
-        "paulredmond/chosen-cakephp": "~2.1"
+        "paulredmond/chosen-cakephp": "~2.1",
+        "occitech/capistrano-recipes": "dev-master"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
