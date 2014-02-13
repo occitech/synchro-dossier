@@ -44,7 +44,7 @@
         "vendor-dir": "Vendor"
     },
     "scripts": {
-        "post-install-cmd": "if [[ ! -e Plugin/SynchroDossier/webroot/bootstrap ]]; then ln -s $(pwd)/$(composer config vendor-dir)/twbs/bootstrap Plugin/SynchroDossier/webroot/bootstrap; fi",
-        "post-update-cmd": "if [[ ! -e Plugin/SynchroDossier/webroot/bootstrap ]]; then ln -s $(pwd)/$(composer config vendor-dir)/twbs/bootstrap Plugin/SynchroDossier/webroot/bootstrap; fi"
+        "post-install-cmd": "if test ! -e Plugin/SynchroDossier/webroot/bootstrap; then ln -s $(pwd)/$(composer config vendor-dir)/twbs/bootstrap Plugin/SynchroDossier/webroot/bootstrap; fi",
+        "post-update-cmd": "if test ! -e Plugin/SynchroDossier/webroot/bootstrap; then ln -s $(pwd)/$(composer config vendor-dir)/twbs/bootstrap Plugin/SynchroDossier/webroot/bootstrap; fi"
     }
 }
