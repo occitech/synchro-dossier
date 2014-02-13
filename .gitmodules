@@ -7,6 +7,3 @@
 [submodule "Config/Recipes"]
 	path = Config/Recipes
 	url = git://github.com/occitech/capistrano-recipes
-[submodule "Plugin/Chosen"]
-	path = Plugin/Chosen
-	url = git://github.com/paulredmond/chosen-cakephp.git
