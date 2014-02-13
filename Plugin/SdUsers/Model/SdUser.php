@@ -18,7 +18,7 @@ class SdUser extends User {
 	public $alias = 'User';
 
 	public $findMethods = array(
-		'createdBy' =>  true,
+		'visibleBy' =>  true,
 		'superAdmin' => true
 	);
 
@@ -26,16 +26,10 @@ class SdUser extends User {
 		'Role' => array(
 			'className' => 'Role',
 			'foreignKey' => 'role_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
 		),
 		'Creator' => array(
 			'className' => 'SdUsers.User',
 			'foreignKey' => 'creator_id',
-			'conditions' => '',
-			'fields' => '',
-			'order' => ''
 		)
 	);
 
@@ -116,14 +110,22 @@ class SdUser extends User {
 		return $this->saveAssociated($data);
 	}
 
-	protected function _findCreatedBy($state, $query, $results = array()) {
-		if (empty($query['creatorId'])) {
-			trigger_error('The key "creatorId" is mandatory');
+	protected function _findVisibleBy($state, $query, $results = array()) {
+		if (empty($query['userId'])) {
+			trigger_error('The key "userId" is mandatory');
 		}
 
+		$userRole = $this->field('role_id', array('id' => $query['userId']));
 		if ($state == 'before') {
-			$query['conditions'][$this->alias . '.creator_id'] = $query['creatorId'];
+			$query['conditions'][$this->escapeField() . ' !='] = $query['userId'];
+			$query['conditions'][]['OR'] = array(
+				$this->alias . '.creator_id' => $query['userId'],
+				$this->alias . '.role_id' => $userRole,
+			);
 			return $query;
+		}
+		if($userRole != self::ROLE_ADMIN_ID) {
+			return array();
 		}
 		return $results;
 	}

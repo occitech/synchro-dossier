@@ -91,6 +91,57 @@ class SdUsersUserFixture extends CakeTestFixture {
 			'updated' => '2012-11-02 12:30:36',
 			'created' => '2012-11-02 12:30:36'
 		),
+		array(
+			'id' => '4',
+			'role_id' => '5',
+			'creator_id' => '1',
+			'username' => 'admin1',
+			'password' => '102307eeb5d160ab5a1040437de4f7575ca508b4',
+			'name' => 'admin1',
+			'email' => 'admin1@admin1.com',
+			'website' => '',
+			'activation_key' => '9354921ba996586aad6eb6c2f1977f5e',
+			'image' => null,
+			'bio' => null,
+			'timezone' => '0',
+			'status' => 1,
+			'updated' => '2012-11-02 12:30:36',
+			'created' => '2012-11-02 12:30:36'
+		),
+		array(
+			'id' => '5',
+			'role_id' => '5',
+			'creator_id' => '1',
+			'username' => 'admin2',
+			'password' => '102307eeb5d160ab5a1040437de4f7575ca508b4',
+			'name' => 'admin2',
+			'email' => 'admin2@admin2.com',
+			'website' => '',
+			'activation_key' => '9354921ba996586aad6eb6c2f1977f5e',
+			'image' => null,
+			'bio' => null,
+			'timezone' => '0',
+			'status' => 1,
+			'updated' => '2012-11-02 12:30:36',
+			'created' => '2012-11-02 12:30:36'
+		),
+		array(
+			'id' => '6',
+			'role_id' => '6',
+			'creator_id' => '4',
+			'username' => 'user1',
+			'password' => '102307eeb5d160ab5a1040437de4f7575ca508b4',
+			'name' => 'user1',
+			'email' => 'user1@user1.com',
+			'website' => '',
+			'activation_key' => '9354921ba996586aad6eb6c2f1977f5e',
+			'image' => null,
+			'bio' => null,
+			'timezone' => '0',
+			'status' => 1,
+			'updated' => '2012-11-02 12:30:36',
+			'created' => '2012-11-02 12:30:36'
+		),
 	);
 
 }

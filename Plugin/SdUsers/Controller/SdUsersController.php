@@ -26,11 +26,11 @@ class SdUsersController extends SdUsersAppController {
 	public function index() {
 		$this->loadModel('Uploader.UploaderAclAco');
 		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
-		if ($this->Auth->user('role_id') == SdUser::ROLE_ADMIN_ID) {
-			$this->paginate['findType'] = 'createdBy';
-			$this->paginate['creatorId'] = $this->Auth->user('id');
-		}
+
+		$this->paginate['findType'] = 'visibleBy';
+		$this->paginate['userId'] = $this->Auth->user('id');
 		$this->paginate['contain'] = array('Role', 'Creator', 'Profile');
+
 		$users = $this->paginate();
 		$this->set(compact('users', 'can'));
 	}

@@ -20,6 +20,8 @@ class SdUserTestController extends Controller {
 
 class SdUserTest extends CroogoTestCase {
 
+	private $__usersCount;
+
 	public $fixtures = array(
 		'plugin.sd_users.sd_users_user',
 		'plugin.sd_users.profile',
@@ -33,6 +35,7 @@ class SdUserTest extends CroogoTestCase {
 		Configure::write('Acl.database', 'test');
 		parent::setUp();
 		$this->SdUser = ClassRegistry::init('SdUsers.SdUser');
+		$this->__usersCount = $this->SdUser->find('count', array('recursive' =>  -1, 'noRoleChecking' => true));
 		$this->Aro = ClassRegistry::init('Aro');
 	}
 
@@ -62,7 +65,7 @@ class SdUserTest extends CroogoTestCase {
 		$lastUserAdded = $this->SdUser->find('first', array('order' => 'User.id DESC'));
 
 		$this->assertTrue($result);
-		$this->_assertCountSdUsers(4, array('noRoleChecking' => true));
+		$this->_assertCountSdUsers($this->__usersCount + 1, array('noRoleChecking' => true));
 		$this->assertEqual($creatorId, $lastUserAdded['User']['creator_id']);
 	}
 
@@ -129,7 +132,7 @@ class SdUserTest extends CroogoTestCase {
 			'id' => '10',
 			'parent_id' => '5',
 			'model' => 'User',
-			'foreign_key' => '4',
+			'foreign_key' => $this->__usersCount + 1,
 			'alias' => 'coucou',
 			'lft' => '12',
 			'rght' => '13'
@@ -216,19 +219,19 @@ class SdUserTest extends CroogoTestCase {
 			)
 		);
 		$this->assertTrue($this->SdUser->edit($data, $roleId));
-		$this->_assertCountSdUsers(3);
+		$this->_assertCountSdUsers($this->__usersCount);
 	}
 
 /**
- * Test the custom find 'CreatedBy'
+ * Test the custom find 'VisibleBy'
  */
-	public function testFindCreatedBy_TwoResultNedded() {
-		$result = $this->SdUser->find('createdBy', array('creatorId' => 1));
+	public function testFindVisibleByAdmin_TwoResultNedded() {
+		$result = $this->SdUser->find('visibleBy', array('userId' => 4));
 		$this->assertEqual($this->_countUniqueUsers($result), 2);
 	}
 
-	public function testFindCreatedBy_NoResult() {
-		$result = $this->SdUser->find('createdBy', array('creatorId' => 2));
+	public function testFindVisibleByUser_NoResult() {
+		$result = $this->SdUser->find('visibleBy', array('userId' => 6));
 		$this->assertEqual(count($result), 0);
 	}
 
