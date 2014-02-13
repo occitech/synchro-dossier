@@ -10,4 +10,8 @@ App::uses('CroogoAppController', 'Croogo.Controller');
  */
 class AppController extends CroogoAppController {
 
+	protected $_mergeParent = 'CroogoAppController';
+
+	public $components = array('DebugKit.Toolbar');
+
 }

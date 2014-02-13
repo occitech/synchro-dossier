@@ -58,6 +58,7 @@ spl_autoload_register(array('App', 'load'), true, true);
  *
  */
 CakePlugin::load('Croogo', array('bootstrap' => true));
+CakePlugin::load('DebugKit');
 
 Configure::write('Dispatcher.filters', array(
 	'AssetDispatcher',
