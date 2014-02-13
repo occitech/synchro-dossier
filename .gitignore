@@ -23,6 +23,7 @@ Plugin/Migrations/
 Plugin/Search/
 Plugin/Plupload/
 Plugin/FileStorage/
+Plugin/DebugKit/
 
 # composer
 Vendor/autoload.php

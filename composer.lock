@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c8b22833a0ccf01c218498449a4bc68d",
+    "hash": "ff0f2f87d8b86bbcb482247e179b3eb2",
     "packages": [
         {
             "name": "burzum/FileStorage",
@@ -127,6 +127,55 @@
             "description": "The Search plugin allows you to make any kind of data searchable, enabling you to implement a robust searching rapidly.",
             "homepage": "http://github.com/CakeDC/search",
             "time": "2013-10-21 10:51:10"
+        },
+        {
+            "name": "cakephp/debug_kit",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cakephp/debug_kit.git",
+                "reference": "9335a09cd0f8f16562a79c8eccf09fb301118550"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/9335a09cd0f8f16562a79c8eccf09fb301118550",
+                "reference": "9335a09cd0f8f16562a79c8eccf09fb301118550",
+                "shasum": ""
+            },
+            "require": {
+                "composer/installers": "*",
+                "php": ">=5.3.0"
+            },
+            "type": "cakephp-plugin",
+            "extra": {
+                "branch-alias": {
+                    "dev-master": "2.2.x-dev"
+                },
+                "installer-name": "DebugKit"
+            },
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "Mark Story",
+                    "homepage": "http://mark-story.com",
+                    "role": "Author"
+                },
+                {
+                    "name": "CakePHP Community",
+                    "homepage": "https://github.com/cakephp/debug_kit/graphs/contributors"
+                }
+            ],
+            "description": "CakePHP Debug Kit",
+            "homepage": "https://github.com/cakephp/debug_kit",
+            "keywords": [
+                "cakephp",
+                "debug",
+                "kit"
+            ],
+            "time": "2014-02-06 18:59:51"
         },
         {
             "name": "composer/installers",
