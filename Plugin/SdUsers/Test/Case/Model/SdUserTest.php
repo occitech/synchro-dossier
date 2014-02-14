@@ -210,6 +210,7 @@ class SdUserTest extends CroogoTestCase {
 				'role_id' => '5',
 				'username' => 'coucou',
 				'email' => 'coucou@coucou.com',
+				'password' => '',
 				'status' => '1'
 			),
 			'Profile' => array(

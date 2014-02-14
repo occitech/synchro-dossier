@@ -107,6 +107,9 @@ class SdUser extends User {
 	public function edit($data, $creatorRoleId) {
 		$this->_addValidateRuleAboutRole($creatorRoleId);
 		$data[$this->alias]['role_id'] = intval($data[$this->alias]['role_id']);
+		if ($data[$this->alias]['password'] == '') {
+			unset($data[$this->alias]['password']);
+		}
 		return $this->saveAssociated($data);
 	}
 

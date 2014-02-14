@@ -1,6 +1,6 @@
 <?php
 	$this->start('navbar');
-		echo $this->element('SynchroDossier.navbar'); 
+		echo $this->element('SynchroDossier.navbar');
 	$this->end();
 ?>
 <?= $this->Form->create('SdUser');?>
@@ -14,9 +14,14 @@
 		<?php endif ?>
 		<?=
 			$this->Form->input('User.role_id', array('placeholder' => __d('sd_users', 'Role'))) .
-			$this->Form->input('User.email', array('placeholder' => __d('sd_users', 'Email'))) .
-			$this->Form->input('User.password', array('placeholder' => __d('sd_users', 'Mot de passe')));
+			$this->Form->input('User.email', array('placeholder' => __d('sd_users', 'Email')))
 		?>
+		<?php $this->startIfEmpty('password'); ?>
+		<?=
+			$this->Form->input('User.password', array('required' => false, 'value' => '', 'placeholder' => __d('sd_users', 'Mot de passe')));
+		?>
+		<?php $this->end(); ?>
+		<?= $this->fetch('password'); ?>
 	<?= $this->Html->endBox();?>
 
 	<?= $this->Html->beginBox(__d('sd_users', 'Profile'))?>
