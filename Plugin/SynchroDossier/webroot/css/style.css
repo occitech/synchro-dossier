@@ -94,13 +94,17 @@ i.not-allowed:hover{
 
 #content-container{padding:20px 0 0 0 !important;margin-bottom:0 !important;}
 
-.bar > span {
-	top: 5px;
-	z-index: 2;
+.bar {
+	padding-left: 5px;
+}
+
+.progress .bar-success {
 	color: #000;
-	text-align: center;
-	width: 100%;
-	font-size: 17px;
+}
+
+.progress .bar-danger,
+.progress .bar-warning  {
+	color: #fff;
 }
 
 .sidebar-folders a {
@@ -109,4 +113,14 @@ i.not-allowed:hover{
 	overflow: hidden;
 	-o-text-overflow: ellipsis;
 	text-overflow: ellipsis;
+}
+
+.quota {
+	font-size: small;
+ 	text-align: center;
+ 	margin-top: -20px;
+}
+
+.nav-header .home {
+	display: inline-block;
 }

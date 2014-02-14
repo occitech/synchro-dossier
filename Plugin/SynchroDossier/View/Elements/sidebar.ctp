@@ -8,13 +8,22 @@
 			</li>
 		<?php endif ?>
 		<li class="nav-header">
-			<?= __d('synchro_dossier', 'Mes Dossiers'); ?>
+			<span class="pull-right">
+				<a href="#addSharingModal" role="button" data-toggle="modal" rel="tooltip" title="<?= __d('synchro_dossier', 'Ajoutez un dossier'); ?>">
+					<i class="icon-plus-sign"></i>
+				</a>
+			</span>
+			<?= $this->Html->link(
+				__d('synchro_dossier', 'Mes Dossiers'),
+				array(
+					'plugin' => 'uploader',
+					'controller' => 'files',
+					'action' => 'browse'
+				),
+				array('class' => 'home')
+			);
+			?>
 			<?php if ($can['canCreateUser']()): ?>
-				<span style="float: right;">
-					<a href="#addSharingModal" role="button" data-toggle="modal" rel="tooltip" title="<?= __d('synchro_dossier', 'Ajoutez un dossier'); ?>">
-						<i class="icon-plus-sign"></i>
-					</a>
-				</span>
 			<?php endif ?>
 		</li>
 		<?php $currentFolderId = isset($folderId0) ? $folderId : null;?>
@@ -89,7 +98,7 @@
 							array(
 								'plugin' => 'sd_users',
 								'controller' => 'sd_users',
-								'action' => 'edit', 
+								'action' => 'edit',
 								$aro['User']['id']
 							)
 						); ?>
@@ -105,7 +114,7 @@
 						array(
 							'plugin' => 'sd_users',
 							'controller' => 'sd_users',
-							'action' => 'edit', 
+							'action' => 'edit',
 							$superAdmin['User']['id']
 						)
 					); ?>
