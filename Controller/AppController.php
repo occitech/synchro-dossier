@@ -39,8 +39,8 @@ class AppController extends CroogoAppController {
 		$this->Session->write('Config', $sessionConfig);
 		Configure::write('Config.language', $sessionConfig['lang']);
 		$this->loadModel('Settings.Language');
-		$languages = $this->Language->find('all', array('fields' => array('title', 'id')));
-		$languages = Hash::combine($languages, '{n}.Language.id', '{n}.Language.title');
+		$languages = $this->Language->find('all', array('fields' => array('native', 'id')));
+		$languages = Hash::combine($languages, '{n}.Language.id', '{n}.Language.native');
 		$this->set('languages', $languages);
 	}
 }
