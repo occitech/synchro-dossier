@@ -17,6 +17,13 @@
 				'label' => false
 			)
 		);?>
+		<?= $this->Form->input(
+			'SdAlertEmail.subscribe',
+			array(
+				'label' => __d('uploader', 'Inscription aux Alertes email'),
+				'type' => 'checkbox'
+			)
+		); ?>
 	</div>
 	<div class="modal-footer">
 		<?= $this->Form->submit(__d('synchro_dossier', 'Créez un dossier'), array('class' => 'btn')); ?>
