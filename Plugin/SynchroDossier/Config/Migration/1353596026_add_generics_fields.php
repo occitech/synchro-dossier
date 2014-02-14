@@ -17,17 +17,20 @@ class AddGenericsFields extends CakeMigration {
  */
 	public $migration = array(
 		'up' => array(
-			'create_field' => array(
-				'comments' => array(
-					'model' => array('type' => 'string', 'null' => true, 'default' => NULL, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'after' => 'node_id'),
-					'foreign_key' => array('type' => 'integer', 'null' => true, 'default' => NULL, 'after' => 'model'),
-				),
-			),
+//			This migration was here for legacy reason
+//			these fields have been added in Croogo2
+
+//			'create_field' => array(
+//				'comments' => array(
+//					'model' => array('type' => 'string', 'null' => true, 'default' => NULL, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8', 'after' => 'node_id'),
+//					'foreign_key' => array('type' => 'integer', 'null' => true, 'default' => NULL, 'after' => 'model'),
+//				),
+//			),
 		),
 		'down' => array(
-			'drop_field' => array(
-				'comments' => array('model', 'foreign_key',),
-			),
+//			'drop_field' => array(
+//				'comments' => array('model', 'foreign_key',),
+//			),
 		),
 	);
 
