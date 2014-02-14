@@ -46,7 +46,8 @@ class SynchroDossierHelper extends AppHelper {
 				}
 				$link = $this->Html->link(
 					$folder['UploadedFile']['filename'],
-					array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse', $folder['UploadedFile']['id'])
+					array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse', $folder['UploadedFile']['id']),
+					array('title' => $folder['UploadedFile']['filename'])
 				);
 				$output .= $this->Html->tag('li', $link . "\n" . $subfolderOutput, array(
 					'id' => 'folder' . $folder['UploadedFile']['id'],

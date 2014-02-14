@@ -102,3 +102,11 @@ i.not-allowed:hover{
 	width: 100%;
 	font-size: 17px;
 }
+
+.sidebar-folders a {
+	box-sizing: border-box;
+	width: 100%;
+	overflow: hidden;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
