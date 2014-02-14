@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "c7e80d67bb8f3dd1705dd18cf22ff04b",
+    "hash": "a89cd6ec4c792e463d5cb849479ee547",
     "packages": [
         {
             "name": "burzum/FileStorage",
@@ -351,30 +351,32 @@
         },
         {
             "name": "croogo/locale",
-            "version": "dev-patch-1",
+            "version": "2.0.x-dev",
             "source": {
                 "type": "git",
-                "url": "https://github.com/chadrien/locale.git",
-                "reference": "9880b1a9d9db7a980ca6ec49ab93bb003bc4338f"
+                "url": "https://github.com/croogo/locale.git",
+                "reference": "888582c43a679a52327ac56c25b1ce7f38850d2f"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/chadrien/locale/zipball/9880b1a9d9db7a980ca6ec49ab93bb003bc4338f",
-                "reference": "9880b1a9d9db7a980ca6ec49ab93bb003bc4338f",
+                "url": "https://api.github.com/repos/croogo/locale/zipball/888582c43a679a52327ac56c25b1ce7f38850d2f",
+                "reference": "888582c43a679a52327ac56c25b1ce7f38850d2f",
                 "shasum": ""
             },
             "require": {
                 "croogo/croogo": "2.0.x-dev"
             },
             "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
             "license": [
                 "MIT"
             ],
             "authors": [
                 {
-                    "name": "Fahad Ibnay Heylall",
-                    "email": "contact@fahad19.com",
-                    "homepage": "http://fahad19.com"
+                    "name": "Kyle Robinson Young",
+                    "email": "kyle@dontkry.com",
+                    "homepage": "http://dontkry.com",
+                    "role": "Developer"
                 },
                 {
                     "name": "Rachman Chavik",
@@ -382,17 +384,15 @@
                     "homepage": "http://xintesa.com"
                 },
                 {
-                    "name": "Kyle Robinson Young",
-                    "email": "kyle@dontkry.com",
-                    "homepage": "http://dontkry.com"
+                    "name": "Fahad Ibnay Heylall",
+                    "email": "contact@fahad19.com",
+                    "homepage": "http://fahad19.com",
+                    "role": "Developer"
                 }
             ],
             "description": "Croogo - Translations",
             "homepage": "http://github.com/croogo/locale",
-            "support": {
-                "source": "https://github.com/chadrien/locale/tree/patch-1"
-            },
-            "time": "2014-02-13 15:26:31"
+            "time": "2014-02-14 04:10:55"
         },
         {
             "name": "junichi11/plupload",
@@ -650,12 +650,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "34d4ff4aa8ee0de5fcc99b5d8f14107e5deb6092"
+                "reference": "cbb4e7cf04ef180ddef5c275d06f2f5ca1022fbf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/34d4ff4aa8ee0de5fcc99b5d8f14107e5deb6092",
-                "reference": "34d4ff4aa8ee0de5fcc99b5d8f14107e5deb6092",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/cbb4e7cf04ef180ddef5c275d06f2f5ca1022fbf",
+                "reference": "cbb4e7cf04ef180ddef5c275d06f2f5ca1022fbf",
                 "shasum": ""
             },
             "require": {
@@ -703,7 +703,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-02-12 16:38:11"
+            "time": "2014-02-14 05:47:30"
         },
         {
             "name": "phpunit/php-file-iterator",

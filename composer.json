@@ -20,10 +20,6 @@
         {
             "type": "vcs",
             "url": "git@github.com:burzum/FileStorage.git"
-        },
-        {
-            "type": "vcs",
-            "url": "git@github.com:chadrien/locale.git"
         }
     ],
     "require": {
@@ -35,7 +31,7 @@
         "paulredmond/chosen-cakephp": "~2.1",
         "occitech/capistrano-recipes": "dev-master",
         "twbs/bootstrap": "2.3.2",
-        "croogo/locale": "patch-1-dev"
+        "croogo/locale": "2.0.x-dev"
     },
     "require-dev": {
         "phpunit/phpunit": "3.7.*"
