@@ -12,6 +12,7 @@ class SdQuotaManagerTest extends CroogoTestCase {
 		'plugin.uploader.uploader_role',
 		'plugin.sd_users.profile',
 		'plugin.uploader.uploaded_file',
+		'plugin.settings.setting',
 	);
 
 	public function setUp() {

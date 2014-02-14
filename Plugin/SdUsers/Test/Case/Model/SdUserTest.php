@@ -28,7 +28,8 @@ class SdUserTest extends CroogoTestCase {
 		'plugin.sd_users.sd_users_role',
 		'plugin.sd_users.sd_users_aros_aco',
 		'plugin.sd_users.sd_users_aro',
-		'plugin.sd_users.sd_users_aco'
+		'plugin.sd_users.sd_users_aco',
+		'plugin.settings.setting',
 	);
 
 	public function setUp() {
