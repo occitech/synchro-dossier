@@ -32,12 +32,33 @@ class FilesController extends UploaderAppController {
 	);
 
 	public $paginate;
+	public $presetVars;
 
 	private $__messageFlashDownloadNotAvailable;
 	private $__listRights = array('read', 'create', 'delete');
 
+	public function __construct($request = null, $response = null) {
+		parent::__construct($request, $response);
+
+		$this->presetVars = array_fill_keys(
+			array(
+				'filename_extension',
+				'is_folder',
+				'size_min',
+				'size_max',
+				'created_min',
+				'created_max',
+				'username',
+				'tags',
+			),
+			array('type' => 'value')
+		);
+		$this->presetVars['parent_id'] = array('type' => 'int');
+	}
+
 	public function beforeFilter() {
 		parent::beforeFilter();
+
 		if (empty($this->__messageFlashDownloadNotAvailable)) {
 			$this->__messageFlashDownloadNotAvailable =__d(
 				'uploader',

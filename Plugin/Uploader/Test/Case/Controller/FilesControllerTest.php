@@ -13,6 +13,7 @@ class FilesControllerTest extends CroogoControllerTestCase {
 		'plugin.sd_users.sd_users_user',
 		'plugin.nodes.node',
 		'plugin.menus.menu',
+		'plugin.settings.setting',
 		'plugin.settings.language',
 		'plugin.taxonomy.type',
 		'plugin.taxonomy.types_vocabulary',
@@ -111,6 +112,26 @@ class FilesControllerTest extends CroogoControllerTestCase {
 		));
 
 		$this->assertArrayHasKey('superAdmins', $vars);
+	}
+
+	public function testFindFiltersCorrespondingFileEntries() {
+		$this->testAction('/uploader/files/find/filename:fraise', array(
+			'data' => array(
+				'UploadedFile' => array(
+					'filename' => 'raise',
+				),
+			),
+		));
+
+		// "hack" to be able to use it in a new testaction
+		$redirectUrl = preg_replace('#http://[^/]+' . dirname($_SERVER['PHP_SELF']) . '#', '', $this->headers['Location']);
+
+		$vars = $this->testAction($redirectUrl, array(
+			'method' => 'get',
+			'return' => 'vars',
+		));
+
+		$this->assertContains('raise', $vars['files'][0]['UploadedFile']['filename']);
 	}
 
 }
