@@ -226,7 +226,17 @@ class SdUserTest extends CroogoTestCase {
 /**
  * Test the custom find 'VisibleBy'
  */
-	public function testFindVisibleByAdmin_TwoResultNedded() {
+	public function testFindVisibleByOccitech_FiveResultsNeeded() {
+		$result = $this->SdUser->find('visibleBy', array('userId' => 1));
+		$this->assertEqual($this->_countUniqueUsers($result), 5);
+	}
+
+	public function testFindVisibleBySuperAdmin_FourResultsNeeded() {
+		$result = $this->SdUser->find('visibleBy', array('userId' => 3));
+		$this->assertEqual($this->_countUniqueUsers($result), 4);
+	}
+
+	public function testFindVisibleByAdmin_TwoResultsNeeded() {
 		$result = $this->SdUser->find('visibleBy', array('userId' => 4));
 		$this->assertEqual($this->_countUniqueUsers($result), 2);
 	}

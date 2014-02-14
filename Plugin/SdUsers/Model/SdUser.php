@@ -120,16 +120,22 @@ class SdUser extends User {
 
 		$userRole = $this->field('role_id', array('id' => $query['userId']));
 		if ($state == 'before') {
-			$query['conditions'][$this->escapeField() . ' !='] = $query['userId'];
-			$query['conditions'][]['OR'] = array(
-				$this->alias . '.creator_id' => $query['userId'],
-				$this->alias . '.role_id' => $userRole,
-			);
+			if ($userRole == self::ROLE_ADMIN_ID) {
+				$query['conditions'][$this->escapeField() . ' !='] = $query['userId'];
+				$query['conditions'][]['OR'] = array(
+					$this->alias . '.creator_id' => $query['userId'],
+					$this->alias . '.role_id' => $userRole,
+				);
+			} else if ($userRole == self::ROLE_SUPERADMIN_ID || $userRole == self::ROLE_OCCITECH_ID) {
+				$query['conditions'][$this->escapeField() . ' !='] = $query['userId'];
+			}
 			return $query;
 		}
-		if($userRole != self::ROLE_ADMIN_ID) {
+
+		if($userRole == self::ROLE_UTILISATEUR_ID) {
 			return array();
 		}
+
 		return $results;
 	}
 
