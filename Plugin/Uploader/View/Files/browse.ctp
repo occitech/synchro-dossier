@@ -10,6 +10,31 @@
 	<?php endif ?>
 <?php $this->end();	?>
 
+<ul class="breadcrumb">
+	<?php
+		$i = 0;
+		$folderCount = count($folderTree);
+	?>
+	<?php foreach ($folderTree as $id => $folderName): ?>
+		<?php $isLastElement = ++$i == $folderCount; ?>
+		<li <?php if ($isLastElement) echo 'class="active"'; ?>>
+			<?php
+				if ($id === 0) {
+					$url = '/';
+				} else {
+					$url = $this->Html->url(array('action' => 'browse', $id));
+				}
+			?>
+			<?php if ($isLastElement): ?>
+				<?= $folderName ?>
+			<?php else: ?>
+				<a href="<?= $url ?>"><?= $folderName; ?></a>
+				<span class="divider">/</span>
+			<?php endif ?>
+		</li>
+	<?php endforeach; ?>
+</ul>
+
 <?php if (isset($folderId) && !is_null($folderId) && $this->UploaderAcl->userCan($folderAco['Aco'], 'create')): ?>
 	<?= $this->element('Uploader.plupload_widget'); ?>
 <?php endif ?>

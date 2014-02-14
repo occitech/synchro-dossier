@@ -134,4 +134,13 @@ class FilesControllerTest extends CroogoControllerTestCase {
 		$this->assertContains('raise', $vars['files'][0]['UploadedFile']['filename']);
 	}
 
+	public function testBrowsingThroughFoldersShouldSetFolderTree() {
+		$vars = $this->testAction('/uploader/files/browse/3', array(
+			'method' => 'get',
+			'return' => 'vars',
+		));
+
+		$this->assertEquals(array(0 => __d('uploader', 'Home'), 1 => 'Photos', 3 => 'Fruits'), $vars['folderTree']);
+	}
+
 }
