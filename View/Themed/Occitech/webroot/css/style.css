@@ -2,3 +2,11 @@ header {
 	text-align: center;
 	border-bottom: 8px red solid;
 }
+
+#UserProfileForm .span4 {
+	width:31.095%;
+}
+
+#UserProfileForm div.submit {
+  clear:both;
+}

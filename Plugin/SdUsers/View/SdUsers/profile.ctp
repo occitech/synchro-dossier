@@ -7,7 +7,6 @@
 	<h2><?php echo $title_for_layout; ?></h2>
 
 	<div class="row">
-		<div class="span12">
 			<h3><?= __d('sd_users', 'Personal Informations:') ?></h3>
 			<?= $this->Form->create('User', array(
 				'url' => array(
@@ -32,16 +31,16 @@
 				'label' => __d('sd_users', 'Update user informations'),
 				'class' => 'btn'
 			)) ?>
-		</div>
 	</div>
-	<?= $this->Form->create('User', array(
-		'url' => array('plugin' => 'sd_users', 'controller' => 'sd_users', 'action' => 'changeUserPassword'),
-		'div' => array('class' => 'row'),
-		'inputDefaults' => array('div' => array('class' => 'span3'))
-	)); ?>
+	<div class="row">
+		<?= $this->Form->create('User', array(
+			'url' => array('plugin' => 'sd_users', 'controller' => 'sd_users', 'action' => 'changeUserPassword'),
+			'inputDefaults' => array('div' => array('class' => 'span4')),
+		)); ?>
 
 		<legend><?= __d('sd_users', 'Change your password') ?></legend>
 		<?= $this->Form->hidden('id', array('value' => $user['User']['id'])); ?>
+
 		<?= $this->Form->input('oldPassword', array(
 			'label' => __d('sd_users', 'Old password'),
 			'type' => 'password',
@@ -57,8 +56,9 @@
 			'type' => 'password',
 			'required' => true
 		)) ?>
-	<?= $this->Form->end(array('label' => __d('sd_users', 'Change your password'), 'class' => 'btn', 'div' => array('class' => 'span3'))) ?>
-
+		<?= $this->Form->submit(__d('sd_users', 'Change your password'), array('class' => 'btn')) ?>
+		<?= $this->Form->end();?>
+	</div>
 	<div class="row">
 		<div class="span12">
 		<h3><?= __d('sd_users', 'Your Folders') ?></h3>
