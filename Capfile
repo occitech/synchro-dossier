@@ -3,4 +3,4 @@ require 'railsless-deploy'
 
 load 'Config/deploy'
 
-['Config/Recipes/CakePHP2x-Recipe.rb'].each { |plugin| load(plugin) }
+['Vendor/occitech/capistrano-recipes/CakePHP2x-Recipe.rb'].each { |plugin| load(plugin) }

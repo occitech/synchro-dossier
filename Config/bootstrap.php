@@ -57,6 +57,11 @@ spl_autoload_register(array('App', 'load'), true, true);
  * Inflector::rules('plural', array('rules' => array(), 'irregular' => array(), 'uninflected' => array()));
  *
  */
+App::build(array(
+	'Plugin' => array(APP . 'Vendor' . DS . 'croogo' . DS . 'croogo' . DS ),
+	'Locale' => array(APP . 'Vendor' . DS . 'croogo' . DS . 'locale' . DS ),
+), App::APPEND);
+
 CakePlugin::load('Croogo', array('bootstrap' => true));
 CakePlugin::load('DebugKit');
 

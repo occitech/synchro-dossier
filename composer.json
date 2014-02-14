@@ -1,9 +1,6 @@
 {
     "name": "occitech/synchro-dossier",
     "description": "Synchro Dossier",
-    "require-dev": {
-        "phpunit/phpunit": "3.7.*"
-    },
     "authors": [
         {
             "name": "occitech",
@@ -11,10 +8,39 @@
         }
     ],
     "minimum-stability": "dev",
+    "repositories": [
+        {
+            "type": "pear",
+            "url": "http://pear.cakephp.org"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:occitech/CakePHP-Plupload-Plugin.git"
+        },
+        {
+            "type": "vcs",
+            "url": "git@github.com:burzum/FileStorage.git"
+        }
+    ],
     "require": {
-
+        "pear-cakephp/cakephp": "~2.4",
+        "croogo/croogo": "2.0.x-dev",
+        "junichi11/plupload": "dev-develop",
+        "burzum/FileStorage": "dev-master",
+        "cakephp/debug_kit": "~2.2",
+        "paulredmond/chosen-cakephp": "~2.1",
+        "occitech/capistrano-recipes": "dev-master",
+        "twbs/bootstrap": "2.3.2",
+        "croogo/locale": "2.0.x-dev"
+    },
+    "require-dev": {
+        "phpunit/phpunit": "3.7.*"
     },
     "config": {
         "vendor-dir": "Vendor"
+    },
+    "scripts": {
+        "post-install-cmd": "if test ! -e Plugin/SynchroDossier/webroot/bootstrap; then ln -s $(pwd)/$(composer config vendor-dir)/twbs/bootstrap Plugin/SynchroDossier/webroot/bootstrap; fi",
+        "post-update-cmd": "if test ! -e Plugin/SynchroDossier/webroot/bootstrap; then ln -s $(pwd)/$(composer config vendor-dir)/twbs/bootstrap Plugin/SynchroDossier/webroot/bootstrap; fi"
     }
 }
