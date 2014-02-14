@@ -5,6 +5,9 @@ App::uses('CroogoTestCase', 'Croogo.TestSuite');
 
 class RecordsGeneratorTest extends CroogoTestCase {
 
+	public $fixtures = array(
+		'plugin.settings.setting'
+	);
 	public function testGenerate() {
 		$acosTree = array(
 			array(
