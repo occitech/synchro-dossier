@@ -14,37 +14,4 @@ class AppController extends CroogoAppController {
 
 	public $components = array('DebugKit.Toolbar');
 
-	public function beforeFilter() {
-		parent::beforeFilter();
-
-		$sessionConfig = array('lang'=> Configure::read('Config.language'));
-		if ($this->Session->check('Config')) {
-			$sessionConfig = array_merge(
-				$sessionConfig,
-				$this->Session->read('Config')
-			);
-		}
-
-		if ($this->Auth->loggedIn()) {
-			$userId = $this->Auth->user('id');
-			$this->loadModel('SdUsers.Profile', $userId);
-			$userSetting = $this->Profile->find(
-				'first',
-				array(
-					'conditions' => array($this->Profile->escapeField('user_id') => $userId),
-					'contain' => 'Language',
-					'fields' => array('Language.alias')
-				)
-			);
-			$this->set('userLang', $userSetting['Language']['alias']);
-			$sessionConfig['lang'] = $userSetting['Language']['alias'];
-		}
-
-		$this->Session->write('Config', $sessionConfig);
-		Configure::write('Config.language', $sessionConfig['lang']);
-		$this->loadModel('Settings.Language');
-		$languages = $this->Language->find('all', array('fields' => array('native', 'id')));
-		$languages = Hash::combine($languages, '{n}.Language.id', '{n}.Language.native');
-		$this->set('languages', $languages);
-	}
 }

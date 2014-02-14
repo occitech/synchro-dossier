@@ -1,8 +1,10 @@
 <?php
 Croogo::hookComponent('Users', 'SdUsers.Login');
+Croogo::hookComponent('*', 'SdUsers.UsersLanguage');
 
 App::uses('User', 'Users.Model');
 App::uses('SdUser', 'SdUsers.Model');
+
 // Information about Sd roles
 $OccitechId = SdUser::ROLE_OCCITECH_ID;
 $SuperAdminRoleId = SdUser::ROLE_SUPERADMIN_ID;
