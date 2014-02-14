@@ -22,8 +22,9 @@ class FilesController extends UploaderAppController {
 					'rename' 					=> 'create',
 					'downloadZipFolder' 		=> 'read',
 					'upload' 					=> 'create',
+					'addTags' 					=> 'read',
 					'download' 					=> 'read',
-					'rights'						=> 'change_right',
+					'rights'					=> 'change_right',
 					'removeRight'				=> 'change_right',
 					'toggleRight'				=> 'change_right'
 				),
@@ -409,7 +410,6 @@ class FilesController extends UploaderAppController {
 
 
 	public function deleteFile($fileId, $fileStorageId) {
-
 		$fileStorage = $this->UploadedFile->FileStorage->find('first', array(
 			'conditions' => array(
 				'FileStorage.id' => $fileStorageId
