@@ -243,8 +243,8 @@
 									</td>
 									<td><?= $fileVersion['uploader_name']; ?></td>
 									<td><?= $this->Time->format('j/m/Y H:i', $fileVersion['created']); ?></td>
-									<td><?= $this->File->size($fileVersion['filesize']); ?></td>
-									<td></td>
+									<td><?= $this->File->size($fileVersion['filesize'], 'o'); ?></td>
+									<td><?= $this->File->mimeType($lastVersion['mime_type']); ?></td>
 									<td>
 										<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
 											<?= $this->Html->link(
