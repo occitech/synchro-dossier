@@ -1,7 +1,6 @@
 <?php
 
-App::uses('ActionsAuthorizer', 'Lib');
-App::uses('AclExtras', 'Acl.Lib');
+App::uses('AclLoader', 'Lib');
 
 class AddFileTagsVocabulary extends CakeMigration {
 
@@ -39,17 +38,6 @@ class AddFileTagsVocabulary extends CakeMigration {
 		),
 	);
 
-	private $__actionRoles = array(
-		'Uploader/Files/addTags' => array(
-			'sdSuperAdmin','sdAdmin'
-		),
-	);
-
-	private $__rolesActionMethod = array(
-		'up'   => 'allowRolesForAction',
-		'down' => 'removeRolesForAction'
-	);
-
 /**
  * Before migration callback
  *
@@ -58,8 +46,6 @@ class AddFileTagsVocabulary extends CakeMigration {
  * @access public
  */
 	public function before($direction) {
-		$success = false;
-
 		$vocabularyName = 'File Tags';
 		$Vocabulary = $this->generateModel('Vocabulary');
 
@@ -76,22 +62,6 @@ class AddFileTagsVocabulary extends CakeMigration {
 			$success = $Vocabulary->deleteAll(array($Vocabulary->escapeField('title') => $vocabularyName));
 		}
 
-		$AclExtras = new AclExtras();
-		$AclExtras->startup();
-		$AclExtras->aco_update();
-
-		$addAco = $this->__rolesActionMethod[$direction];
-		$ActionsAuthorizer = new ActionsAuthorizer();
-
-		foreach ($this->__actionRoles as $action => $roles) {
-			try {
-				$ActionsAuthorizer->{$addAco}($action, $roles);
-				$success = $success && true;
-			} catch (Exception $e) {
-				$success = $success && false;
-			}
-		}
-
 		return $success;
 	}
 
@@ -105,4 +75,5 @@ class AddFileTagsVocabulary extends CakeMigration {
 	public function after($direction) {
 		return true;
 	}
+
 }
