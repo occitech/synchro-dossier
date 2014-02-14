@@ -306,12 +306,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/croogo/croogo.git",
-                "reference": "7786ddc7fcf864a2434ed0a3ba26337c986fc0b6"
+                "reference": "5d7afc1c223962dd6c0d1ec94cf9ac8cba3a762b"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/croogo/croogo/zipball/7786ddc7fcf864a2434ed0a3ba26337c986fc0b6",
-                "reference": "7786ddc7fcf864a2434ed0a3ba26337c986fc0b6",
+                "url": "https://api.github.com/repos/croogo/croogo/zipball/5d7afc1c223962dd6c0d1ec94cf9ac8cba3a762b",
+                "reference": "5d7afc1c223962dd6c0d1ec94cf9ac8cba3a762b",
                 "shasum": ""
             },
             "require": {
@@ -320,6 +320,9 @@
                 "composer/installers": "~1.0",
                 "croogo/ckeditor": "~1.0",
                 "php": ">=5.3.0"
+            },
+            "suggest": {
+                "croogo/locale": "Localization for Croogo"
             },
             "type": "library",
             "notification-url": "https://packagist.org/downloads/",
@@ -347,7 +350,7 @@
             ],
             "description": "Croogo - Open Source CMS built for everyone",
             "homepage": "http://github.com/croogo/croogo",
-            "time": "2014-02-13 13:09:56"
+            "time": "2014-02-14 08:38:47"
         },
         {
             "name": "croogo/locale",
