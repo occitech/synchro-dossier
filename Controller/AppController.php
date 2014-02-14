@@ -16,10 +16,14 @@ class AppController extends CroogoAppController {
 
 	public function beforeFilter() {
 		parent::beforeFilter();
-		$sessionConfig = array_merge(
-			array('lang'=> Configure::read('Config.language')),
-			$this->Session->read('Config')
-		);
+
+		$sessionConfig = array('lang'=> Configure::read('Config.language'));
+		if ($this->Session->check('Config')) {
+			$sessionConfig = array_merge(
+				$sessionConfig,
+				$this->Session->read('Config')
+			);
+		}
 
 		if ($this->Auth->loggedIn()) {
 			$userId = $this->Auth->user('id');
