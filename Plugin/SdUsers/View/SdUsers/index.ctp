@@ -34,7 +34,7 @@
 						$actions .= ' ' . $this->Form->postLink(
 							'',
 							array('action' => 'delete',	$user['User']['id']),
-							array('icon' => 'remove', 'tooltip' => __d('sd_users', 'Supprimer cet utilisateur'), 'class' => 'red'),
+							array('icon' => 'remove', 'tooltip' => __d('sd_users', 'Supprimer cet utilisateur'), 'class' => 'red', 'escape' => false),
 							__d('sd_users', 'Are you sure?')
 						);
 
