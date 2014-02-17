@@ -9,7 +9,7 @@
 		<?= $this->element('SynchroDossier.sidebar', array('can' => $can)); ?>
 	<?php endif ?>
 <?php $this->end();	?>
-
+<?php if (!empty($folderTree)):?>
 <ul class="breadcrumb">
 	<?php
 		$i = 0;
@@ -34,6 +34,7 @@
 		</li>
 	<?php endforeach; ?>
 </ul>
+<?php endif ?>
 
 <?php if (isset($folderId) && !is_null($folderId) && $this->UploaderAcl->userCan($folderAco['Aco'], 'create')): ?>
 	<?= $this->element('Uploader.plupload_widget'); ?>
@@ -55,7 +56,6 @@
 		</thead>
 		<tbody>
 			<?php foreach ($files as $file): ?>
-
 				<?php if ($this->UploaderAcl->userCan($file['Aco'], 'read')): ?>
 					<?php if (!$file['UploadedFile']['is_folder']): ?>
 						<?php $lastVersion = $file['FileStorage'][sizeof($file['FileStorage']) - 1]; ?>
