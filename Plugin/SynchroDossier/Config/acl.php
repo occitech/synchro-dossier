@@ -3,6 +3,7 @@
 $ROLE_SUPER_ADMIN = 'sdSuperAdmin';
 $ROLE_SD_ADMIN = 'sdAdmin';
 $ROLE_SD_USER = 'sdUtilisateur';
+$ROLE_PUBLIC = 'public';
 
 $EVERYONE = array(
 	$ROLE_SUPER_ADMIN, $ROLE_SD_USER, $ROLE_SD_ADMIN
@@ -49,6 +50,9 @@ $usersAcl = array(
 	'SdUsers/SdUsers/profile' => $EVERYONE,
 	'SdUsers/SdUsers/manageAlertEmail' => $EVERYONE,
 	'SdUsers/SdUsers/changeUserPassword' => $EVERYONE,
+
+	'SdUsers/SdUsers/forgot' => array($ROLE_PUBLIC),
+	'SdUsers/SdUsers/reset' => array($ROLE_PUBLIC),
 
 	'Users/Users/logout' => $EVERYONE,
 	'Users/Users/login' => $EVERYONE,
