@@ -23,8 +23,6 @@
 				array('class' => 'home')
 			);
 			?>
-			<?php if ($can['canCreateUser']()): ?>
-			<?php endif ?>
 		</li>
 		<?php $currentFolderId = isset($folderId0) ? $folderId : null;?>
 		<div class="sidebar-folders" data-current-folder-id="<?= $folderId;?>">
