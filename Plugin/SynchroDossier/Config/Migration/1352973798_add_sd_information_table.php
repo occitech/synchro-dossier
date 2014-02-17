@@ -55,14 +55,15 @@ class AddSdInformationTable extends CakeMigration {
  * @access public
  */
 	public function after($direction) {
+		if ($direction === 'down') {
+			return true;
+		}
 
 		$SdInformationModel = $this->generateModel('SdInformation', 'sd_information');
-
 		$infos = array(
 			'quota_mb' => 10000,
 			'current_quota_mb' => 0
 		);
-
 		return $SdInformationModel->save($infos);
 	}
 }

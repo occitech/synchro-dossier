@@ -11,8 +11,8 @@ class UploaderActivation {
 	}
 
 	public function onActivation(&$controller) {
-		$this->__CroogoPlugin->migrate('Uploader');
 		$this->__CroogoPlugin->migrate('FileStorage');
+		$this->__CroogoPlugin->migrate('Uploader');
 		$this->__addRootUploadedFileAco();
 	}
 
