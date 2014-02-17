@@ -1,4 +1,5 @@
 <?php
+App::uses('AclLoader', 'Lib');
 
 class SynchroDossierActivation {
 
@@ -6,39 +7,6 @@ class SynchroDossierActivation {
 		array('id' => '4', 'title' => 'SuperAdmin', 'alias' => 'sdSuperAdmin'),
 		array('id' => '5', 'title' => 'Admin', 'alias' => 'sdAdmin'),
 		array('id' => '6', 'title' => 'Utilisateur', 'alias' => 'sdUtilisateur')
-	);
-
-	private $__occitechAcos = array(
-		'SynchroDossier/SdInformations/admin_quota'
-	);
-
-	private $__usersCRUDAcos = array(
-		'SdUsers/SdUsers/admin_index',
-		'SdUsers/SdUsers/admin_edit',
-		'SdUsers/SdUsers/admin_add',
-		'SdUsers/SdUsers/admin_delete',
-		'Users/Users/admin_logout'
-	);
-
-	private $__filesAcos = array(
-		'Uploader/Files/browse',
-		'Uploader/Files/upload',
-		'Uploader/Files/download',
-		'Uploader/Files/rename',
-		'Uploader/Files/createFolder',
-		'Uploader/Files/downloadZipFolder'
-	);
-
-	private $__filesAcosAccessLimited = array(
-		'Uploader/Files/createSharing',
-		'Uploader/Files/rights',
-		'Uploader/Files/toggleRight',
-		'Uploader/Files/removeRight',
-	);
-
-	private $__allUsersAcos = array(
-		'Users/Users/logout',
-		'Users/Users/index',
 	);
 
 	private $__links = array(
@@ -72,8 +40,6 @@ class SynchroDossierActivation {
 		)
 	);
 
-	private $__sdRoles = array('sdSuperAdmin', 'sdUtilisateur', 'sdAdmin');
-
 	public function onActivation(&$controller) {
 		$this->Role = ClassRegistry::init('Users.Role');
 		$this->Link = ClassRegistry::init('Menus.Link');
@@ -87,24 +53,25 @@ class SynchroDossierActivation {
 				$this->__addSynchroRoles() &&
 				$this->__removeAllMainMenuLink() &&
 				$this->__addNewMainMenuLink() &&
-				$this->__addUsersCRUDAcos($controller) &&
-				$this->__addFilesAcos($controller) &&
-				$this->__addOccitechAco($controller) &&
-				$this->__addSuperAdminAllRightOnUploadedFile($controller) &&
-				$this->__addAllUsersAcos($controller);
+				$this->__addAllAcls() &&
+				$this->__addSuperAdminAllRightOnUploadedFile($controller);
 
 		return $success;
 	}
 
 	public function onDeactivation(&$controller) {
+		$this->Role = ClassRegistry::init('Users.Role');
+
 		App::uses('CroogoPlugin', 'Extensions.Lib');
 		$CroogoPlugin = new CroogoPlugin();
 		$CroogoPlugin->unmigrate('SynchroDossier');
 
 		$success =
-			$this->__removeAllAcos($controller) &&
+			$this->__removeAllAcls() &&
 			$this->__removeSynchroRoles() &&
 			$this->__renameAdminRole('Admin');
+
+		return $success;
 	}
 
 	public function beforeActivation(&$controller) {
@@ -146,50 +113,14 @@ class SynchroDossierActivation {
 		return $this->Link->saveMany($this->__links, array('deep' => true));
 	}
 
-	private function __addUsersCRUDAcos (&$controller) {
-		foreach ($this->__usersCRUDAcos as $aco) {
-			$controller->Croogo->removeAco($aco);
-			$controller->Croogo->addAco($aco, array('sdSuperAdmin', 'sdAdmin'));
-		}
-		return true;
+	private function __addAllAcls() {
+		$Loader = new AclLoader('SynchroDossier.acl');
+		return $Loader->addAuthorizations();
 	}
 
-	private function __addFilesAcos(&$controller) {
-		foreach ($this->__filesAcos as $aco) {
-			$controller->Croogo->addAco($aco, $this->__sdRoles);
-		}
-
-		foreach ($this->__filesAcosAccessLimited as $aco) {
-			$controller->Croogo->addAco($aco, array('sdSuperAdmin', 'sdAdmin'));
-		}
-
-		return true;
+	private function __removeAllAcls() {
+		$Loader = new AclLoader('SynchroDossier.acl');
+		return $Loader->removeAuthorizations();
 	}
 
-	public function __addAllUsersAcos($controller) {
-		foreach ($this->__allUsersAcos as $aco) {
-			$controller->Croogo->addAco($aco, array('sdSuperAdmin', 'sdAdmin', 'sdUtilisateur'));
-		}
-
-		return true;
-	}
-
-	private function __removeAllAcos(&$controller) {
-		$allAcos = array_merge(
-			$this->__usersCRUDAcos,
-			$this->__filesAcos,
-			$this->__occitechAcos
-		);
-		foreach ($allAcos as $aco) {
-			$controller->Croogo->removeAco($aco);
-		}
-	}
-
-	private function __addOccitechAco(&$controller) {
-		foreach ($this->__occitechAcos as $aco) {
-			$controller->Croogo->addAco($aco);
-		}
-
-		return true;
-	}
 }
