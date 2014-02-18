@@ -106,7 +106,6 @@
 							<?php endif ?>
 						</td>
 
-
 						<td>
 							<?php if ($file['UploadedFile']['is_folder']): ?>
 								<?php if (!empty($file['ChildUploadedFile'])):?>
@@ -250,42 +249,42 @@
 						</td>
 					</tr>
 					<?php if ($file['UploadedFile']['current_version'] > 1): ?>
-							<?php $version = $file['UploadedFile']['current_version'] - 1; ?>
-							<?php $fileVersions = array_reverse($file['FileStorage']); ?>
-							<?php array_shift($fileVersions); ?>
-							<?php foreach ($fileVersions as $fileVersion): ?>
-								<tr style="display:none;" class="versions-<?= $file['UploadedFile']['id'] ?> sub-version">
-									<td>
-										V<?= $version--; ?>
+						<?php $version = $file['UploadedFile']['current_version'] - 1; ?>
+						<?php $fileVersions = array_reverse($file['FileStorage']); ?>
+						<?php array_shift($fileVersions); ?>
+						<?php foreach ($fileVersions as $fileVersion): ?>
+							<tr style="display:none;" class="versions-<?= $file['UploadedFile']['id'] ?> sub-version">
+								<td>
+									V<?= $version--; ?>
+									<?= $this->Html->link(
+										$file['UploadedFile']['filename'],
+										array(
+											'controller' => 'files',
+											'action' => 'download',
+											$fileVersion['id']
+										)
+									); ?>
+								</td>
+								<td><?= $fileVersion['uploader_name']; ?></td>
+								<td><?= $this->Time->format('j/m/Y H:i', $fileVersion['created']); ?></td>
+								<td><?= $this->File->size($fileVersion['filesize'], 'o'); ?></td>
+								<td><?= $this->File->mimeType($lastVersion['mime_type']); ?></td>
+								<td>
+									<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
 										<?= $this->Html->link(
-											$file['UploadedFile']['filename'],
+											__d('uploader', '<i class="icon-remove"></i>'),
+											array('controller' => 'files', 'action' => 'deleteFile', $file['UploadedFile']['id'], $fileVersion['id']),
 											array(
-												'controller' => 'files',
-												'action' => 'download',
-												$fileVersion['id']
-											)
+												'rel' => 'tooltip',
+												'title' => __d('uploader', 'Supprimer le fichier'),
+												'escape' => false
+											),
+											__d('uploader', 'You are about to delete file "%s". Are you sure ?', $file['UploadedFile']['filename'])
 										); ?>
-									</td>
-									<td><?= $fileVersion['uploader_name']; ?></td>
-									<td><?= $this->Time->format('j/m/Y H:i', $fileVersion['created']); ?></td>
-									<td><?= $this->File->size($fileVersion['filesize'], 'o'); ?></td>
-									<td><?= $this->File->mimeType($lastVersion['mime_type']); ?></td>
-									<td>
-										<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
-											<?= $this->Html->link(
-												__d('uploader', '<i class="icon-remove"></i>'),
-												array('controller' => 'files', 'action' => 'deleteFile', $file['UploadedFile']['id'], $fileVersion['id']),
-												array(
-													'rel' => 'tooltip',
-													'title' => __d('uploader', 'Supprimer le fichier'),
-													'escape' => false
-												),
-												__d('uploader', 'You are about to delete file "%s". Are you sure ?', $file['UploadedFile']['filename'])
-											); ?>
-										<?php endif ?>
-									</td>
-								</tr>
-							<?php endforeach ?>
+									<?php endif ?>
+								</td>
+							</tr>
+						<?php endforeach ?>
 					<?php endif ?>
 
 				<?php endif ?>
