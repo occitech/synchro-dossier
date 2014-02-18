@@ -177,8 +177,8 @@ class FilesController extends UploaderAppController {
 		$listRights = array('read', 'create', 'delete');
 
 		$isNewUserRight = false;
-		if (isset($this->request->data['User']['user_id'])) {
-			$userId = $this->request->data['User']['user_id'];
+		if (isset($this->request->query['user_id'])) {
+			$userId = $this->request->query['user_id'];
 			$isNewUserRight = true;
 		}
 

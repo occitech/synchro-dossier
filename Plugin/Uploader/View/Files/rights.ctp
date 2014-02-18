@@ -18,7 +18,7 @@
 				'controller' => 'Files',
 				'action' => 'toggleRight',
 				$acos['Aco']['foreign_key']
-			)), array('class' => 'form-inline')) .
+			), 'type' => 'GET'), array('class' => 'form-inline')) .
 			$this->Chosen->select(
 				'user_id',
 				$usersNotInFolder,
