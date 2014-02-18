@@ -3,12 +3,12 @@
 	<head>
 		<meta charset="utf-8">
 		<title><?php echo __(Configure::read('Site.title')); ?></title>
-		
+
 		<?php
 		echo $this->Html->css(array(
 			'/croogo/css/croogo-bootstrap',
 			'/croogo/css/croogo-bootstrap-responsive',
-			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css',
+			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css',
 			'SynchroDossier.smoothness/jquery-ui-1.9.2.custom.min',
 			'SynchroDossier.style',
 			'style'
@@ -17,7 +17,7 @@
 			'/croogo/js/croogo-bootstrap.js',
 			'SynchroDossier.jquery.1.8.3.min',
 			'SynchroDossier.jquery-ui-1.9.2.custom.min',
-			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/js/bootstrap.min.js',
+			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js',
 			'SynchroDossier._lib/jquery.cookie',
 			'SynchroDossier.jquery.jstree',
 		));
