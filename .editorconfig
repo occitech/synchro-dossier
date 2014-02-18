@@ -4,12 +4,13 @@ root = true
 charset = utf-8
 end_of_line = lf
 insert_final_newline = true
+trim_trailing_whitespace = true
 
 [*.{php,ctp}]
 indent_style = tab
 tab_size = 4
 
-[*.js]
+[*.{js,css}]
 indent_style = tab
 
 [*.html]

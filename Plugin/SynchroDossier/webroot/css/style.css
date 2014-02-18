@@ -1,32 +1,98 @@
+/**
+ * Helpers
+ */
 .no-overflow-y {
 	overflow-y: visible;
 }
 
-.sub-version {
-	background-color: whiteSmoke;
+/**
+ * Layout
+ */
+.nav-header .home {
+	display: inline-block;
 }
 
-.sub-version td:first-child {
-	padding-left: 45px;
-}
-
-footer a, a {
-	color: black;
-}
-
-.sidebar{
+.sidebar {
 	width: 200px;
 	float: left;
-}
-
-#content {
-	margin-left: 250px;
 }
 
 .sidebar .btn {
 	margin-bottom: 10px;
 }
 
+.sidebar-folders a {
+	box-sizing: border-box;
+	width: 100%;
+	overflow: hidden;
+	-o-text-overflow: ellipsis;
+	text-overflow: ellipsis;
+}
+
+.quota {
+	font-size: small;
+	text-align: center;
+	margin-top: -20px;
+}
+
+#content {
+	margin-left: 250px;
+}
+
+#content-container {
+	background: none;
+	padding: 20px 0 0 0 !important;
+	margin-bottom: 0 !important;
+}
+
+footer {
+	text-align: center;
+	margin: auto;
+	border-top: 1px #E3E3E3 solid;
+	border-bottom: 1px #E3E3E3 solid;
+	background-color: whiteSmoke;
+	color: #333333;
+}
+
+footer a, a {
+	color: black;
+}
+
+/**
+ * Icons
+ */
+[class^="icon-"]:before,
+[class*=" icon-"]:before {
+	content: none;
+}
+
+i.not-allowed {
+	opacity: 0.5;
+}
+
+i.not-allowed:hover {
+	cursor: not-allowed;
+}
+
+/**
+ * Progress bars
+ */
+.bar {
+	padding-left: 5px;
+}
+
+.progress .bar-success {
+	color: #000;
+}
+
+.progress .bar-danger,
+.progress .bar-warning {
+	color: #fff;
+}
+
+/**
+ * Popover improvements
+ */
 .popover {
 	width: 325px;
 }
@@ -35,16 +101,43 @@ footer a, a {
 	width: 95%;
 }
 
+/**
+ * Tooltip improvements
+ */
+.tooltip-inner {
+	max-width: 300px;
+}
+
+/**
+ * Modal improvements
+ */
+.modal.fade.in {
+	top: 50%;
+}
+
+/**
+ * Files listing
+ */
+.sub-version {
+	background-color: whiteSmoke;
+}
+
+.sub-version td:first-child {
+	padding-left: 45px;
+}
+
+/**
+ * Rights management for a folder
+ */
 #UserUserId_chzn {
 	float: left;
 	margin-right: 5px;
 	margin-top: 3px;
 }
 
-.tooltip-inner {
-	max-width: 300px;
-
-}
+/**
+ * Files Search form
+ */
 .search .checkbox {
 	float: left;
 	margin-left: 5px;
@@ -60,67 +153,4 @@ footer a, a {
 
 .search input[type='text'] {
 	margin-left: 2px;
-}
-
-footer {
-	text-align: center;
-	margin: auto;
-	border-top: 1px #E3E3E3 solid;
-	border-bottom: 1px #E3E3E3 solid;
-	background-color: whiteSmoke;
-    color: #333333;
-}
-
-#content-container {
-  background: none;
-}
-
-[class^="icon-"]:before,
-[class*=" icon-"]:before {
-	content:none;
-}
-
-.modal.fade.in{
-	top:50%;
-}
-
-i.not-allowed {
-	opacity:0.5;
-}
-
-i.not-allowed:hover{
-	cursor:not-allowed;
-}
-
-#content-container{padding:20px 0 0 0 !important;margin-bottom:0 !important;}
-
-.bar {
-	padding-left: 5px;
-}
-
-.progress .bar-success {
-	color: #000;
-}
-
-.progress .bar-danger,
-.progress .bar-warning  {
-	color: #fff;
-}
-
-.sidebar-folders a {
-	box-sizing: border-box;
-	width: 100%;
-	overflow: hidden;
-	-o-text-overflow: ellipsis;
-	text-overflow: ellipsis;
-}
-
-.quota {
-	font-size: small;
- 	text-align: center;
- 	margin-top: -20px;
-}
-
-.nav-header .home {
-	display: inline-block;
 }
