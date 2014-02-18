@@ -15,6 +15,7 @@ class FilesController extends UploaderAppController {
 			'settings' => array(
 				'actionMap' => array(
 					'browse' 					=> 'read',
+					'find'						=> 'read',
 					'preview' 					=> 'read',
 					'allFilesUploadedInBatch'	=> 'read',
 					'createFolder' 				=> 'create',
