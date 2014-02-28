@@ -7,10 +7,11 @@ espace de stockage.', $user['email']); ?>
 
 <?= __d('synchro_dossier', 'Voici les informations du fichier que l\'utilisateur a essayé d\'envoyer :'); ?>
 
- * <?= __d('synchro_dossier', 'Nom : '); ?><?= $data['file']['name']; ?>
+<ul>
+	<li><?= __d('synchro_dossier', 'Nom : '); ?><?= $data['file']['name']; ?></li>
 
- * <?= __d('synchro_dossier', 'Taille : '); ?> <?= $this->File->size($data['file']['size']); ?>
-
+	<li><?= __d('synchro_dossier', 'Taille : '); ?> <?= $this->File->size($data['file']['size']); ?></li>
+</ul>
 
 <?= __d('synchro_dossier', 'Pour que vos utilisateurs puissent de nouveau envoyer des fichiers vous devez
 augmenter votre quota ou supprimer des fichiers.'); ?>
