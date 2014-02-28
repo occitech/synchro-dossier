@@ -16,7 +16,8 @@ class SdQuotaManager implements CakeEventListener {
 		return array(
 			'Model.UploadedFile.beforeUpload' => 'checkUploadAllowed',
 			'Model.UploadedFile.afterUploadFailed' => 'sendInsufficientQuotaNotification',
-			'Model.UploadedFile.afterUploadSuccess' => 'updateCurrentQuota'
+			'Model.UploadedFile.afterUploadSuccess' => 'updateCurrentQuota',
+			'Model.UploadedFile.afterRemoveData' => 'updateCurrentQuota'
 		);
 	}
 

@@ -346,6 +346,11 @@ class UploadedFile extends UploaderAppModel {
 
 		if ($canDelete) {
 			$success = $this->delete($folderId);
+			$this->getEventManager()->dispatch(new CakeEvent(
+				'Model.UploadedFile.afterRemoveData',
+				$this,
+				array()
+			));
 		}
 
 		return $success;
@@ -396,6 +401,11 @@ class UploadedFile extends UploaderAppModel {
 				$this->_deleteFileFolderInRemote($path);
 
 			}
+			$this->getEventManager()->dispatch(new CakeEvent(
+				'Model.UploadedFile.afterRemoveData',
+				$this,
+				array()
+			));
 		}
 
 		return $success;
