@@ -56,7 +56,7 @@ class SdQuotaManager implements CakeEventListener {
 				->helpers(array('Uploader.File'))
 				->from(Configure::read('sd.mail.quotaExceeded.from'))
 				->to($to)
-				->subject(Configure::read('sd.mail.quotaExceeded.subject'))
+				->subject(__d('synchro_dossier', Configure::read('sd.mail.quotaExceeded.subject')))
 				->viewVars(array('user' => $event->data['user'], 'data' => $event->data['data']))
 				->send();
 		}

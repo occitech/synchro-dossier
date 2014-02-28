@@ -53,7 +53,7 @@ class SdAlertEmailManager implements CakeEventListener {
 				->helpers(array('Uploader.File', 'Html'))
 				->from(Configure::read('sd.mail.alertEmailNewUpload.from'))
 				->to($usersToAlert['to'])
-				->subject(Configure::read('sd.mail.alertEmailNewUpload.subject'))
+				->subject(__d('synchro_dossier', Configure::read('sd.mail.alertEmailNewUpload.subject')))
 				->viewVars(array('user' => $event->data['user'], 'files' => $usersToAlert['files']))
 				->send();
 		}
