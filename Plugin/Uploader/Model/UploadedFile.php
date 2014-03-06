@@ -385,11 +385,17 @@ class UploadedFile extends UploaderAppModel {
 		if ($canDelete) {
 			$version = $this->field('current_version');
 			$filename = $this->field('filename');
+			$fileSize = $this->field('size');
 			$path = $this->_getPathFile($userId, $fileId, $version, $filename);
 
-			$this->FileStorage->findById($fileStorageId);
+			$fileStorageSize = $this->FileStorage->field(
+				'filesize',
+				array('id' => $fileStorageId)
+			);
+
 			$success = $this->FileStorage->delete($fileStorageId);
 
+			$this->saveField('size', $fileSize - $fileStorageSize);
 			$this->saveField('current_version',  $version - 1);
 
 			$fileStorage = $this->FileStorage->find('first', array(
@@ -536,12 +542,14 @@ class UploadedFile extends UploaderAppModel {
 			$this->id = $originalFileInfos['UploadedFile']['id'];
 			$userId = $originalFileInfos['UploadedFile']['user_id'];
 			$version = $originalFileInfos['UploadedFile']['current_version'] + 1;
+			$size = $originalFileInfos['UploadedFile']['size'] + $fileInfos['size'];
 
 			$path = $this->_sendFileOnRemote($userId, $version, $fileInfos);
 
 			$this->Behaviors->unload('Acl');
 			$this->Behaviors->unload('RowLevelAcl');
 			$this->saveField('current_version', $version, array('callback' => false));
+			$this->saveField('size', $size);
 			$this->id = $originalFileInfos['UploadedFile']['id'];
 
 			return $this->_saveFileStorage($path, $userId, $fileInfos);
