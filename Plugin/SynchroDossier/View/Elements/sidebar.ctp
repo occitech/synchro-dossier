@@ -34,20 +34,6 @@
 		<li class="nav-header">
 			<?= __d('synchro_dossier', 'Actions') ?>
 		</li>
-		<?php if ($can['canCreateUser']()): ?>
-			<li>
-				<?= $this->Html->link(
-					__d('synchro_dossier', 'Créez un utilisateur'),
-					array(
-						'plugin' => 'sd_users',
-						'controller' => 'sd_users',
-						'action' => 'add'
-					),
-					array('class' => 'btn')
-				);
-				?>
-			</li>
-		<?php endif ?>
 		<?php if (isset($folderId)): ?>
 			<?php if ($this->UploaderAcl->userCan($folderAco['Aco'], 'create')): ?>
 				<li>
