@@ -19,14 +19,15 @@
         },
         {
             "type": "vcs",
-            "url": "git@github.com:burzum/FileStorage.git"
+            "url": "git@github.com:burzum/cakephp-file-storage.git"
         }
+
     ],
     "require": {
         "pear-cakephp/cakephp": "~2.4",
         "croogo/croogo": "2.0.x-dev",
         "junichi11/plupload": "dev-develop",
-        "burzum/FileStorage": "dev-master",
+        "burzum/file-storage": "dev-master",
         "cakephp/debug_kit": "~2.2",
         "paulredmond/chosen-cakephp": "~2.1",
         "occitech/capistrano-recipes": "dev-master",

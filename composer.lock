@@ -3,20 +3,20 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "aefa93f94a4a600ea15273e2333f0088",
+    "hash": "acb4534daca5b4b24edc1f43dc76ef03",
     "packages": [
         {
-            "name": "burzum/FileStorage",
+            "name": "burzum/file-storage",
             "version": "dev-master",
             "source": {
                 "type": "git",
-                "url": "https://github.com/burzum/FileStorage.git",
-                "reference": "ec53030e5d110806dd83fdbf92589db7ec68d4be"
+                "url": "https://github.com/burzum/cakephp-file-storage.git",
+                "reference": "ca591e9549513a1d08e9cd86b1b6e4ff11fe5bdf"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/burzum/FileStorage/zipball/ec53030e5d110806dd83fdbf92589db7ec68d4be",
-                "reference": "ec53030e5d110806dd83fdbf92589db7ec68d4be",
+                "url": "https://api.github.com/repos/burzum/cakephp-file-storage/zipball/ca591e9549513a1d08e9cd86b1b6e4ff11fe5bdf",
+                "reference": "ca591e9549513a1d08e9cd86b1b6e4ff11fe5bdf",
                 "shasum": ""
             },
             "require": {
@@ -24,7 +24,7 @@
                 "php": ">=5.3.2"
             },
             "suggest": {
-                "cakedc/Imagine": "Required if you want to use the image processing feature of FileStorage",
+                "burzum/cakephp-image-plugin": "Required if you want to use the image processing feature of FileStorage",
                 "cakedc/migrations": "If you want to use the database migrations that come with FileStorage"
             },
             "type": "cakephp-plugin",
@@ -38,7 +38,7 @@
                 }
             ],
             "description": "This plugin is giving you the possibility to store files in virtually and kind of storage backend. This plugin is wrapping the Gaufrette library (https://github.com/KnpLabs/Gaufrette) library in a CakePHP fashion and provides a simple way to use the storage adapters through the StorageManager class.",
-            "homepage": "http://github.com/burzum/FileStorage",
+            "homepage": "http://github.com/burzum/cakephp-file-storage-plugin",
             "keywords": [
                 "abstraction",
                 "cakephp",
@@ -49,10 +49,10 @@
                 "upload"
             ],
             "support": {
-                "source": "https://github.com/burzum/FileStorage/tree/0.3.3",
-                "issues": "https://github.com/burzum/FileStorage/issues"
+                "source": "https://github.com/burzum/cakephp-file-storage/tree/0.4.0",
+                "issues": "https://github.com/burzum/cakephp-file-storage/issues"
             },
-            "time": "2013-11-24 19:27:54"
+            "time": "2014-02-19 02:40:41"
         },
         {
             "name": "cakedc/migrations",
@@ -134,12 +134,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/debug_kit.git",
-                "reference": "9335a09cd0f8f16562a79c8eccf09fb301118550"
+                "reference": "9285f06568dc86d5b6ebd53d351999fb26f5dbb2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/9335a09cd0f8f16562a79c8eccf09fb301118550",
-                "reference": "9335a09cd0f8f16562a79c8eccf09fb301118550",
+                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/9285f06568dc86d5b6ebd53d351999fb26f5dbb2",
+                "reference": "9285f06568dc86d5b6ebd53d351999fb26f5dbb2",
                 "shasum": ""
             },
             "require": {
@@ -175,7 +175,7 @@
                 "debug",
                 "kit"
             ],
-            "time": "2014-02-06 18:59:51"
+            "time": "2014-03-04 17:11:13"
         },
         {
             "name": "composer/installers",
@@ -183,12 +183,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/composer/installers.git",
-                "reference": "4127333b03e8b4c08d081958548aae5419d1a2fa"
+                "reference": "848de789c66ac609e7b2862c3500dd708afb72ce"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/composer/installers/zipball/4127333b03e8b4c08d081958548aae5419d1a2fa",
-                "reference": "4127333b03e8b4c08d081958548aae5419d1a2fa",
+                "url": "https://api.github.com/repos/composer/installers/zipball/848de789c66ac609e7b2862c3500dd708afb72ce",
+                "reference": "848de789c66ac609e7b2862c3500dd708afb72ce",
                 "shasum": ""
             },
             "replace": {
@@ -259,7 +259,7 @@
                 "zend",
                 "zikula"
             ],
-            "time": "2014-02-24 04:21:34"
+            "time": "2014-03-04 04:29:18"
         },
         {
             "name": "croogo/ckeditor",
@@ -307,12 +307,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/croogo/croogo.git",
-                "reference": "ad670d1f15203c750e25f664d62a3874c59ba1a5"
+                "reference": "f167b527a0655f9240537dda2a2aecdc3df9ab1a"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/croogo/croogo/zipball/ad670d1f15203c750e25f664d62a3874c59ba1a5",
-                "reference": "ad670d1f15203c750e25f664d62a3874c59ba1a5",
+                "url": "https://api.github.com/repos/croogo/croogo/zipball/f167b527a0655f9240537dda2a2aecdc3df9ab1a",
+                "reference": "f167b527a0655f9240537dda2a2aecdc3df9ab1a",
                 "shasum": ""
             },
             "require": {
@@ -351,7 +351,7 @@
             ],
             "description": "Croogo - Open Source CMS built for everyone",
             "homepage": "http://github.com/croogo/croogo",
-            "time": "2014-02-28 00:53:32"
+            "time": "2014-03-01 06:34:56"
         },
         {
             "name": "croogo/locale",
@@ -433,12 +433,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/KnpLabs/Gaufrette.git",
-                "reference": "4663c6605e3c96d4b9affa1c38dc66a4d8e1fedf"
+                "reference": "338febb0137b971152363fe184cfb6f01871e665"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/KnpLabs/Gaufrette/zipball/4663c6605e3c96d4b9affa1c38dc66a4d8e1fedf",
-                "reference": "4663c6605e3c96d4b9affa1c38dc66a4d8e1fedf",
+                "url": "https://api.github.com/repos/KnpLabs/Gaufrette/zipball/338febb0137b971152363fe184cfb6f01871e665",
+                "reference": "338febb0137b971152363fe184cfb6f01871e665",
                 "shasum": ""
             },
             "require": {
@@ -456,7 +456,7 @@
                 "phpspec/phpspec": "2.0.*",
                 "phpunit/phpunit": "3.7.*",
                 "rackspace/php-cloudfiles": "*",
-                "rackspace/php-opencloud": "1.6.*"
+                "rackspace/php-opencloud": "1.9.*"
             },
             "suggest": {
                 "amazonwebservices/aws-sdk-for-php": "to use the legacy Amazon S3 adapters",
@@ -508,7 +508,7 @@
                 "filesystem",
                 "media"
             ],
-            "time": "2014-02-24 18:17:33"
+            "time": "2014-03-05 19:58:17"
         },
         {
             "name": "occitech/capistrano-recipes",
@@ -516,12 +516,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/occitech/capistrano-recipes.git",
-                "reference": "04ebf9335cf9e32f47a842fe4db53bb5b8d792a9"
+                "reference": "867d4d086a49f7ef29dd9f04eca53722cfee77d2"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/occitech/capistrano-recipes/zipball/04ebf9335cf9e32f47a842fe4db53bb5b8d792a9",
-                "reference": "04ebf9335cf9e32f47a842fe4db53bb5b8d792a9",
+                "url": "https://api.github.com/repos/occitech/capistrano-recipes/zipball/867d4d086a49f7ef29dd9f04eca53722cfee77d2",
+                "reference": "867d4d086a49f7ef29dd9f04eca53722cfee77d2",
                 "shasum": ""
             },
             "type": "library",
@@ -543,7 +543,7 @@
                 "deployment",
                 "magento"
             ],
-            "time": "2013-12-02 15:37:02"
+            "time": "2014-03-07 13:01:57"
         },
         {
             "name": "paulredmond/chosen-cakephp",
@@ -595,10 +595,10 @@
         },
         {
             "name": "pear-pear.cakephp.org/CakePHP",
-            "version": "2.4.5",
+            "version": "2.4.6",
             "dist": {
                 "type": "file",
-                "url": "http://pear.cakephp.org/get/CakePHP-2.4.5.tgz",
+                "url": "http://pear.cakephp.org/get/CakePHP-2.4.6.tgz",
                 "reference": null,
                 "shasum": null
             },
@@ -606,7 +606,7 @@
                 "php": ">=5.2.8.0"
             },
             "replace": {
-                "pear-cakephp/cakephp": "== 2.4.5.0"
+                "pear-cakephp/cakephp": "== 2.4.6.0"
             },
             "type": "pear-library",
             "autoload": {
@@ -650,22 +650,22 @@
     "packages-dev": [
         {
             "name": "phpunit/php-code-coverage",
-            "version": "1.2.x-dev",
+            "version": "1.2.13",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-code-coverage.git",
-                "reference": "69e55e68481cf708a6db43aff0b504e31402fe27"
+                "reference": "466e7cd2554b4e264c9e3f31216d25ac0e5f3d94"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/69e55e68481cf708a6db43aff0b504e31402fe27",
-                "reference": "69e55e68481cf708a6db43aff0b504e31402fe27",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-code-coverage/zipball/466e7cd2554b4e264c9e3f31216d25ac0e5f3d94",
+                "reference": "466e7cd2554b4e264c9e3f31216d25ac0e5f3d94",
                 "shasum": ""
             },
             "require": {
                 "php": ">=5.3.3",
                 "phpunit/php-file-iterator": ">=1.3.0@stable",
-                "phpunit/php-text-template": ">=1.2.0@stable",
+                "phpunit/php-text-template": ">=1.1.1@stable",
                 "phpunit/php-token-stream": ">=1.1.3@stable"
             },
             "require-dev": {
@@ -707,11 +707,11 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-02-25 03:34:05"
+            "time": "2013-09-10 08:14:32"
         },
         {
             "name": "phpunit/php-file-iterator",
-            "version": "dev-master",
+            "version": "1.3.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-file-iterator.git",
@@ -756,16 +756,16 @@
         },
         {
             "name": "phpunit/php-text-template",
-            "version": "dev-master",
+            "version": "1.1.4",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-text-template.git",
-                "reference": "206dfefc0ffe9cebf65c413e3d0e809c82fbf00a"
+                "reference": "5180896f51c5b3648ac946b05f9ec02be78a0b23"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/206dfefc0ffe9cebf65c413e3d0e809c82fbf00a",
-                "reference": "206dfefc0ffe9cebf65c413e3d0e809c82fbf00a",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-text-template/zipball/5180896f51c5b3648ac946b05f9ec02be78a0b23",
+                "reference": "5180896f51c5b3648ac946b05f9ec02be78a0b23",
                 "shasum": ""
             },
             "require": {
@@ -796,11 +796,11 @@
             "keywords": [
                 "template"
             ],
-            "time": "2014-01-30 17:20:04"
+            "time": "2012-10-31 18:15:28"
         },
         {
             "name": "phpunit/php-timer",
-            "version": "dev-master",
+            "version": "1.0.5",
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-timer.git",
@@ -848,12 +848,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/php-token-stream.git",
-                "reference": "292f4d5772dad5a12775be69f4a8dd663b20f103"
+                "reference": "ad4e1e23ae01b483c16f600ff1bebec184588e32"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/292f4d5772dad5a12775be69f4a8dd663b20f103",
-                "reference": "292f4d5772dad5a12775be69f4a8dd663b20f103",
+                "url": "https://api.github.com/repos/sebastianbergmann/php-token-stream/zipball/ad4e1e23ae01b483c16f600ff1bebec184588e32",
+                "reference": "ad4e1e23ae01b483c16f600ff1bebec184588e32",
                 "shasum": ""
             },
             "require": {
@@ -890,7 +890,7 @@
             "keywords": [
                 "tokenizer"
             ],
-            "time": "2013-10-21 14:03:39"
+            "time": "2014-03-03 05:10:30"
         },
         {
             "name": "phpunit/phpunit",
@@ -898,12 +898,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/sebastianbergmann/phpunit.git",
-                "reference": "2752cbb9ea5bd84c2811b34b6953f76965ec7a2f"
+                "reference": "4dbc3ab5de25a9ffd07796519f9f7f4aaddc37e0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/2752cbb9ea5bd84c2811b34b6953f76965ec7a2f",
-                "reference": "2752cbb9ea5bd84c2811b34b6953f76965ec7a2f",
+                "url": "https://api.github.com/repos/sebastianbergmann/phpunit/zipball/4dbc3ab5de25a9ffd07796519f9f7f4aaddc37e0",
+                "reference": "4dbc3ab5de25a9ffd07796519f9f7f4aaddc37e0",
                 "shasum": ""
             },
             "require": {
@@ -913,9 +913,9 @@
                 "ext-spl": "*",
                 "php": ">=5.3.3",
                 "phpunit/php-code-coverage": "~1.2.1",
-                "phpunit/php-file-iterator": ">=1.3.1",
-                "phpunit/php-text-template": ">=1.1.1",
-                "phpunit/php-timer": ">=1.0.4",
+                "phpunit/php-file-iterator": "~1.3.1",
+                "phpunit/php-text-template": "~1.1.1",
+                "phpunit/php-timer": "~1.0.4",
                 "phpunit/phpunit-mock-objects": "~1.2.0",
                 "symfony/yaml": "~2.0"
             },
@@ -926,7 +926,7 @@
                 "ext-json": "*",
                 "ext-simplexml": "*",
                 "ext-tokenizer": "*",
-                "phpunit/php-invoker": ">=1.1.0,<1.2.0"
+                "phpunit/php-invoker": "~1.1"
             },
             "bin": [
                 "composer/bin/phpunit"
@@ -964,7 +964,7 @@
                 "testing",
                 "xunit"
             ],
-            "time": "2014-02-25 03:47:29"
+            "time": "2014-03-05 12:52:24"
         },
         {
             "name": "phpunit/phpunit-mock-objects",
@@ -1030,12 +1030,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/symfony/Yaml.git",
-                "reference": "e49a47d60348665261f6e279ba383241deb73cab"
+                "reference": "6194137af5f12fbcfc0cb21e269f47542b8beb47"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/symfony/Yaml/zipball/e49a47d60348665261f6e279ba383241deb73cab",
-                "reference": "e49a47d60348665261f6e279ba383241deb73cab",
+                "url": "https://api.github.com/repos/symfony/Yaml/zipball/6194137af5f12fbcfc0cb21e269f47542b8beb47",
+                "reference": "6194137af5f12fbcfc0cb21e269f47542b8beb47",
                 "shasum": ""
             },
             "require": {
@@ -1070,7 +1070,7 @@
             ],
             "description": "Symfony Yaml Component",
             "homepage": "http://symfony.com",
-            "time": "2014-02-24 16:21:51"
+            "time": "2014-03-03 12:53:01"
         }
     ],
     "aliases": [
@@ -1080,7 +1080,7 @@
     "stability-flags": {
         "croogo/croogo": 20,
         "junichi11/plupload": 20,
-        "burzum/filestorage": 20,
+        "burzum/file-storage": 20,
         "occitech/capistrano-recipes": 20,
         "croogo/locale": 20
     },
