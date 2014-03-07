@@ -15,6 +15,7 @@ class UploaderProfileFixture extends CakeTestFixture {
 		'indexes' => array(
 			'PRIMARY' => array('column' => 'id', 'unique' => 1)
 		),
+		'language_id' => array('type' => 'integer', 'null' => false, 'default' => null),
 		'tableParameters' => array('charset' => 'utf8', 'collate' => 'utf8_unicode_ci', 'engine' => 'InnoDB')
 	);
 }

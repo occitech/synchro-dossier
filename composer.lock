@@ -307,12 +307,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/croogo/croogo.git",
-                "reference": "f167b527a0655f9240537dda2a2aecdc3df9ab1a"
+                "reference": "a3ba495e037304dca556d8161f4d6923878321c0"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/croogo/croogo/zipball/f167b527a0655f9240537dda2a2aecdc3df9ab1a",
-                "reference": "f167b527a0655f9240537dda2a2aecdc3df9ab1a",
+                "url": "https://api.github.com/repos/croogo/croogo/zipball/a3ba495e037304dca556d8161f4d6923878321c0",
+                "reference": "a3ba495e037304dca556d8161f4d6923878321c0",
                 "shasum": ""
             },
             "require": {
@@ -351,7 +351,7 @@
             ],
             "description": "Croogo - Open Source CMS built for everyone",
             "homepage": "http://github.com/croogo/croogo",
-            "time": "2014-03-01 06:34:56"
+            "time": "2014-03-07 13:17:41"
         },
         {
             "name": "croogo/locale",

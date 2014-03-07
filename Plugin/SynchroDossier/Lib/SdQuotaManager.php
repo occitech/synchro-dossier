@@ -45,20 +45,30 @@ class SdQuotaManager implements CakeEventListener {
 			$UserModel = ClassRegistry::init('SdUsers.SdUser');
 			$superAdmins = $UserModel->find('superAdmin');
 
-			$to = array();
+			$originalLang = Configure::read('Config.language');
+			$LangModel = ClassRegistry::init('Croogo.Language');
+
 			foreach ($superAdmins as $superAdmin) {
-				$to[$superAdmin['User']['email']] = $superAdmin['Profile']['name'] . ' ' . $superAdmin['Profile']['firstname'];
+				$to = array($superAdmin['User']['email'] => $superAdmin['Profile']['name'] . ' ' . $superAdmin['Profile']['firstname']);
+
+				Configure::write('Config.language', $LangModel->field(
+					'alias',
+					array('id' => $superAdmin['Profile']['language_id'])
+				));
+
+				$this->cakeEmail->reset();
+				$this->cakeEmail
+					->template('SynchroDossier.quota_exceeded', 'SynchroDossier.default')
+					->emailFormat('both')
+					->helpers(array('Uploader.File'))
+					->from(Configure::read('sd.mail.quotaExceeded.from'))
+					->to($to)
+					->subject(__d('synchro_dossier', Configure::read('sd.mail.quotaExceeded.subject')))
+					->viewVars(array('user' => $event->data['user'], 'data' => $event->data['data']))
+					->send();
 			}
 
-			$this->cakeEmail
-				->template('SynchroDossier.quota_exceeded', 'SynchroDossier.default')
-				->emailFormat('both')
-				->helpers(array('Uploader.File'))
-				->from(Configure::read('sd.mail.quotaExceeded.from'))
-				->to($to)
-				->subject(__d('synchro_dossier', Configure::read('sd.mail.quotaExceeded.subject')))
-				->viewVars(array('user' => $event->data['user'], 'data' => $event->data['data']))
-				->send();
+			Configure::write('Config.language', $originalLang);
 		}
 	}
 
