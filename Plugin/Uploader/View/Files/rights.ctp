@@ -24,7 +24,7 @@
 				$usersNotInFolder,
 				array('data-placeholder' => __d('uploader', 'Select user'))
 			) .
-			$this->Form->submit(__d('uploader', 'Add user'), array('class' => 'btn')) .
+			$this->Form->submit(__d('uploader', 'Share folder'), array('class' => 'btn')) .
 			$this->Form->end();
 		?>
 	</div>

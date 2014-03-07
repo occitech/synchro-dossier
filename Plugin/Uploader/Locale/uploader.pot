@@ -235,7 +235,7 @@ msgid "Select user"
 msgstr ""
 
 #: View/Files/rights.ctp:27
-msgid "Add user"
+msgid "Share folder"
 msgstr ""
 
 #: View/Files/rights.ctp:33
