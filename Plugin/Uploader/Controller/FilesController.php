@@ -313,8 +313,9 @@ class FilesController extends UploaderAppController {
 			$folder = $this->UploadedFile->findById($folderId);
 			if (!empty($folder)) {
 				$this->response->download($folder['UploadedFile']['filename'] . '.zip');
+				$this->response->type('zip');
 				$this->response->body($this->UploadedFile->createZip($folderId));
-				$this->response->send();
+				return $this->response;
 			}
 		} else {
 			$messageFlash =
