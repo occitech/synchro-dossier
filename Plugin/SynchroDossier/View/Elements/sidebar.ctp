@@ -75,34 +75,6 @@
 		<?php if (!empty($SynchroDossier_aroAccessFolder) && isset($folderId)): ?>
 			<?php if ($this->UploaderAcl->userCan($folderAco['Aco'], 'change_right')): ?>
 				<li class="nav-header">
-					<?= __d('synchro_dossier', 'Utilisateurs du dossier'); ?>
-						<span style="float: right;">
-							<?= $this->Html->link(
-								'<i class="icon-plus-sign"></i>',
-								array('controller' => 'files', 'action' => 'rights', $folderId),
-								array(
-									'data-toggle' => 'modal',
-									'rel' => 'tooltip',
-									'title' => __d('synchro_dossier', 'Ajoutez un utilisateur à ce dossier'),
-									'escape' => false
-								)
-							); ?>
-						</span>
-				</li>
-				<?php foreach ($SynchroDossier_aroAccessFolder as $aro): ?>
-					<li>
-						<?= $this->Html->link(
-							$aro['User']['username'],
-							array(
-								'plugin' => 'sd_users',
-								'controller' => 'sd_users',
-								'action' => 'edit',
-								$aro['User']['id']
-							)
-						); ?>
-					</li>
-				<?php endforeach ?>
-				<li class="nav-header">
 					<?= __d('synchro_dossier', 'Super Administrateurs'); ?>
 				</li>
 				<?php foreach ($superAdmins as $superAdmin): ?>
