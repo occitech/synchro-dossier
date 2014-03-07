@@ -29,7 +29,7 @@ uploaderWidget = function() {
 			uploader.start();
 			uploader.refresh();
 		});
-		
+
 		$('p.upload-cancel > a.btn.cancel').on('click', function(event) {
 			event.preventDefault();
 			uploader.splice(0, uploader.files.length);
@@ -69,8 +69,8 @@ uploaderWidget = function() {
 			__nbFilesToSend--;
 			$(__nbFilesToSendElt).text(__nbFilesToSend);
 			responseJson = $.parseJSON(response.response);
-			if (responseJson.error !== undefined) {
-				alert(responseJson.error.message);
+			if (responseJson.response.error !== undefined) {
+				alert(responseJson.response.error.message);
 				up.stop();
 				location.assign(location.href);
 				location.reload();

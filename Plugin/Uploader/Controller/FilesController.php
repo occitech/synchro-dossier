@@ -344,9 +344,11 @@ class FilesController extends UploaderAppController {
 				if (!$uploadOk) {
 					$error = $this->UploadedFile->FileStorage->invalidFields();
 					if (isset($error['file'][0])) {
-						$response = $this->Plupload->generateJsonMessage(array(
+						$this->viewClass = 'Json';
+						$this->set('response', array(
 							'error' => array('code' => 104, 'message' => $error['file'][0])
 						));
+						$this->set('_serialize', array('response'));
 					}
 				}
 			}
