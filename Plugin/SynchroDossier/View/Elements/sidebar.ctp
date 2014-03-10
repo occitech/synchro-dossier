@@ -49,6 +49,21 @@
 					?>
 				</li>
 			<?php endif ?>
+			<?php if ($this->UploaderAcl->userCan($folderAco['Aco'], 'change_right')): ?>
+				<li>
+					<?= $this->Html->link(
+						__d('synchro_dossier', 'Patager ce dossier'),
+						array(
+							'plugin' => 'uploader',
+							'controller' => 'files',
+							'action' => 'rights',
+							$folderId
+						),
+						array('class' => 'btn')
+					);
+					?>
+				</li>
+			<?php endif ?>
 		<?php endif ?>
 
 		<li class="nav-header">
