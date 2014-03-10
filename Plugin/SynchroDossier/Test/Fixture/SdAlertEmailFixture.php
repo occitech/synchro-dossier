@@ -31,6 +31,11 @@ class SdAlertEmailFixture extends CakeTestFixture {
 			'user_id' => 2,
 			'uploaded_file_id' => 1
 		),
+		array(
+			'id' => 2,
+			'user_id' => 1,
+			'uploaded_file_id' => 1
+		),
 	);
 
 }

@@ -172,8 +172,8 @@ msgstr "Welcome,"
 
 #: View/Emails/html/alert_email_new_upload.ctp:3
 #: View/Emails/text/alert_email_new_upload.ctp:3
-msgid "L'un de vos utilisateurs (dont l'adresse email est '%s') vient d'envoyer de nouveaux fichiers sur votre espace de stockage"
-msgstr "One of your users (which email address is '%s') just send new files on your storage"
+msgid "L'un de vos utilisateurs %s %s (dont l'adresse email est '%s') vient d'envoyer de nouveaux fichiers dans le dossier '%s' de votre espace de stockage"
+msgstr "One of your users %s %s (which email address is '%s') just send new files in folder '%s' of your storage"
 
 #: View/Emails/html/alert_email_new_upload.ctp:8
 #: View/Emails/text/alert_email_new_upload.ctp:8

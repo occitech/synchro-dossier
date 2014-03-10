@@ -174,7 +174,7 @@ msgstr ""
 
 #: View/Emails/html/alert_email_new_upload.ctp:3
 #: View/Emails/text/alert_email_new_upload.ctp:3
-msgid "L'un de vos utilisateurs (dont l'adresse email est '%s') vient d'envoyer de nouveaux fichiers sur votre espace de stockage"
+msgid "L'un de vos utilisateurs %s %s (dont l'adresse email est '%s') vient d'envoyer de nouveaux fichiers dans le dossier '%s' de votre espace de stockage"
 msgstr ""
 
 #: View/Emails/html/alert_email_new_upload.ctp:8

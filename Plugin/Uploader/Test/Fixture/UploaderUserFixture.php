@@ -47,7 +47,7 @@ class UploaderUserFixture extends CakeTestFixture {
 			'username' => 'admin',
 			'password' => 'd1e03fcbc79398c3f93a7c875a86baae3aa99d42',
 			'name' => 'admin',
-			'email' => '',
+			'email' => 'admin@occitech.fr',
 			'website' => null,
 			'activation_key' => '4a150a31c5b8e892b6e21251d4d8f884',
 			'image' => null,
