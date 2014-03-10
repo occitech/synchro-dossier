@@ -148,6 +148,8 @@ class UploadedFile extends UploaderAppModel {
 
 	public function parseCriteria($data) {
 		if (!empty($data['size_min']) || !empty($data['size_max'])) {
+			$data['size_min'] = $data['size_min'] * 1024;
+			$data['size_max'] = $data['size_max'] * 1024;
 			$data['size'] = true;
 		}
 		if (!empty($data['created_min']) || !empty($data['created_max'])) {
