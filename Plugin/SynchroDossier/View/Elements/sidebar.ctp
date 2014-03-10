@@ -52,7 +52,7 @@
 			<?php if ($this->UploaderAcl->userCan($folderAco['Aco'], 'change_right')): ?>
 				<li>
 					<?= $this->Html->link(
-						__d('synchro_dossier', 'Patager ce dossier'),
+						__d('synchro_dossier', 'Partager ce dossier'),
 						array(
 							'plugin' => 'uploader',
 							'controller' => 'files',
@@ -60,6 +60,21 @@
 							$folderId
 						),
 						array('class' => 'btn')
+					);
+					?>
+				</li>
+			<?php endif ?>
+		<?php else: ?>
+			<?php if ($this->UploaderAcl->userCanCreateSharing()): ?>
+				<li>
+					<?= $this->Html->link(
+						__d('synchro_dossier', 'Créer un dossier'),
+						'#addSharingModal',
+						array(
+							'class' => 'btn',
+							'role' => 'button',
+							'data-toggle' => 'modal',
+						)
 					);
 					?>
 				</li>

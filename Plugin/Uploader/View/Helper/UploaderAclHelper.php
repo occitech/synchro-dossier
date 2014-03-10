@@ -16,6 +16,21 @@ class UploaderAclHelper extends Helper {
 		}
 	}
 
+	public function userCanCreateSharing() {
+		$userCan = false;
+
+		if ($this->__userId == 1) {
+			return true;
+		}
+
+		$userCan = $userCan || ClassRegistry::init('Permission')->check(
+			array('model' => 'User', 'foreign_key' => $this->__userId),
+			'createSharing'
+		);
+
+		return $userCan;
+	}
+
 	public function userCan($uploadedFileAco, $action = 'read') {
 		$userCan = false;
 		$action = '_' . $action;
@@ -23,6 +38,7 @@ class UploaderAclHelper extends Helper {
 		if ($this->__userId == 1) {
 			return true;
 		}
+
 
 		foreach ($this->__userRights as $aco) {
 			if ($aco['lft'] <= $uploadedFileAco['lft'] && $aco['rght'] >= $uploadedFileAco['rght']) {
