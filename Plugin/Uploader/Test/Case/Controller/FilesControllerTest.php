@@ -28,6 +28,7 @@ class FilesControllerTest extends CroogoControllerTestCase {
 		'plugin.uploader.taxonomies_uploaded_file',
 		'plugin.uploader.file_storage',
 		'plugin.uploader.uploader_comment',
+		'plugin.taxonomy.model_taxonomy'
 	);
 
 	public function tearDown() {
