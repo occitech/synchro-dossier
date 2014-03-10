@@ -39,6 +39,14 @@ class ProfileFixture extends CakeTestFixture {
 			'society' => '',
 			'user_id' => 5,
 			'language_id' => 1
+		),
+		array(
+			'id' => '3',
+			'name' => 'toto',
+			'firstname' => 'tata',
+			'society' => '',
+			'user_id' => 4,
+			'language_id' => 1
 		)
 	);
 }

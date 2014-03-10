@@ -16,7 +16,8 @@ class SdAlertEmailManager implements CakeEventListener {
 		return array(
 			'Model.UploadedFile.afterUploadSuccess' => 'saveFileForAlertEmail',
 			'Model.UploadedFile.AfterSharingCreation' => 'subscribeToAlertEmail',
-			'Controller.Files.allFilesUploadedInBatch' => 'sendAlertsEmail'
+			'Controller.Files.allFilesUploadedInBatch' => 'sendAlertsEmail',
+			'Controller.FilesController.afterChangeRight' => 'sendInvitedOnFolderEmail'
 		);
 	}
 
@@ -60,5 +61,25 @@ class SdAlertEmailManager implements CakeEventListener {
 				->viewVars(array('user' => $event->data['user'], 'profile' => $userProfile['Profile'], 'files' => $usersToAlert['files'], 'rootFolder' => $usersToAlert['rootFolder']))
 				->send();
 		}
+	}
+
+	public function sendInvitedOnFolderEmail($event) {
+		$SdUserModel = ClassRegistry::init('SdUsers.SdUser');
+		$user = $SdUserModel->find('first', array(
+			'conditions' => array('User.id' => $event->data['user']['id']),
+			'recursive' => -1,
+			'contain' => array('Profile')
+		));
+		$username = $user['Profile']['firstname'] . ' ' . $user['Profile']['name'];
+		$to = array($user['User']['email'] => $username);
+
+		$this->cakeEmail
+			->template('SynchroDossier.alert_email_folder_invitation', 'SynchroDossier.default')
+			->emailFormat('both')
+			->from(Configure::read('sd.mail.alertEmailNewUpload.from'))
+			->to($to)
+			->subject(__d('synchro_dossier', Configure::read('sd.mail.alertEmailNewUpload.subject')))
+			->viewVars(array('user' => $event->data['user']))
+			->send();
 	}
 }
