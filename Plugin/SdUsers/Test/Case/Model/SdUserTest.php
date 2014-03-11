@@ -329,9 +329,17 @@ class SdUserTest extends CroogoTestCase {
 		$result = $this->SdUser->find('visibleBy', array('userId' => 3));
 		$this->assertEqual($this->_countUniqueUsers($result), 4);
 	}
-	public function testFindVisibleByAdmin_TwoResultsNeeded() {
-		$result = $this->SdUser->find('visibleBy', array('userId' => 4));
-		$this->assertEqual($this->_countUniqueUsers($result), 2);
+
+	public function testFindVisibleByShouldReturnsUniqueUsers() {
+		$result = $this->SdUser->find('visibleBy', array(
+			'userId' => 4,
+			'fields' => array('id')
+		));
+		$userIds = Hash::extract($result, '{n}.User.id');
+		sort($userIds);
+		$expected = array(2,5,6);
+
+		$this->assertEquals($expected, $userIds);
 	}
 
 	public function testFindVisibleByUser_NoResult() {
@@ -347,7 +355,6 @@ class SdUserTest extends CroogoTestCase {
 
 		$visibleByAdmin1 = Hash::extract($visibleByAdmin1, '{n}.User.id');
 		$visibleByAdmin2 = $this->SdUser->find('visibleBy', array(
-			'recursive' => -1,
 			'userId' => 5,
 			'fields' => 'id'
 		));

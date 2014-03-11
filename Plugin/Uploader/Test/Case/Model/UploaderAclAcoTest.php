@@ -129,10 +129,7 @@ class UploaderAclAcoTest extends CakeTestCase {
 			'id' => 2,
 			'role_id' => Configure::read('sd.Admin.roleId')
 		);
-		$ressource[0] = array(
-			'UsersCollaboration' => array(
-				'parent_id' => $userData['id']
-		));
+		$ressource['role_id'] = Configure::read('sd.Utilisateur.roleId');
 
 		$result = $this->Aco->can(
 			$userData,
@@ -148,10 +145,7 @@ class UploaderAclAcoTest extends CakeTestCase {
 			'id' => 2,
 			'role_id' => Configure::read('sd.Admin.roleId')
 		);
-		$ressource[0] = array(
-			'UsersCollaboration' => array(
-				'parent_id' => 4
-		));
+		$ressource['role_id'] = Configure::read('sd.Admin.roleId');
 
 		$result = $this->Aco->can(
 			$userData,

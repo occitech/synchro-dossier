@@ -26,10 +26,9 @@ class SdUsersController extends SdUsersAppController {
 	public function index() {
 		$this->loadModel('Uploader.UploaderAclAco');
 		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
-
 		$this->paginate['findType'] = 'visibleBy';
 		$this->paginate['userId'] = $this->Auth->user('id');
-		$this->paginate['contain'] = array('Role', 'Collaboration', 'Profile');
+		$this->paginate['contain'] = array('Role', 'Profile');
 		$this->paginate['limit'] = 10;
 
 		$users = $this->paginate();

@@ -27,7 +27,7 @@
 						array('icon' => 'envelope', 'tooltip' => __d('sd_users', 'Envoyer un email à cet utilisateur'))
 					);
 					$actions .= ' ' . $this->Croogo->adminRowActions($user['User']['id']);
-					if ($can['canUpdateUser']($user['Collaboration'])) :
+					if ($can['canUpdateUser']($user['User'])) :
 						$actions .= ' ' . $this->Html->link(
 							'',
 							array('action' => 'edit', $user['User']['id']),
