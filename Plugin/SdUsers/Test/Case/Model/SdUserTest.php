@@ -93,7 +93,6 @@ class SdUserTest extends CroogoTestCase {
 
 		$this->assertEqual($expected + 1, $result);
 	}
-
 	public function testAddExistingUser_ShouldNotCreateANewUser() {
 		$creatorId = 3;
 		$roleId = 1;
@@ -110,9 +109,7 @@ class SdUserTest extends CroogoTestCase {
 				'society' => 'occitech'
 			)
 		);
-		$result = $this->SdUser->add($data, $creatorId, $roleId);
 
-		$this->assertTrue($result);
 		$this->_assertCountSdUsers($this->__usersCount, array('noRoleChecking' => true));
 	}
 
@@ -134,7 +131,7 @@ class SdUserTest extends CroogoTestCase {
 		);
 
 		$this->SdUser->add($data, $creatorId, $roleId);
-		$result = $this->SdUser->Collaboration->hasAny(array(
+		$result = $this->SdUser->UsersCollaboration->hasAny(array(
 			'user_id' => 6,
 			'parent_id' => 3,
 		));
@@ -344,18 +341,20 @@ class SdUserTest extends CroogoTestCase {
 
 	public function testUserCanBeVisibleBy2Admins() {
 		$visibleByAdmin1 = $this->SdUser->find('visibleBy', array(
-			'recursive' => -1,
 			'userId' => 4,
 			'fields' => 'id'
 		));
+
+		$visibleByAdmin1 = Hash::extract($visibleByAdmin1, '{n}.User.id');
 		$visibleByAdmin2 = $this->SdUser->find('visibleBy', array(
 			'recursive' => -1,
 			'userId' => 5,
 			'fields' => 'id'
 		));
+		$visibleByAdmin2 = Hash::extract($visibleByAdmin2, '{n}.User.id');
 
-		$this->assertContains(array('User' => array('id' => 2)), $visibleByAdmin1);
-		$this->assertContains(array('User' => array('id' => 2)), $visibleByAdmin2);
+		$this->assertContains(2, $visibleByAdmin1);
+		$this->assertContains(2, $visibleByAdmin2);
 	}
 
 /**

@@ -29,7 +29,7 @@ class SdUsersController extends SdUsersAppController {
 
 		$this->paginate['findType'] = 'visibleBy';
 		$this->paginate['userId'] = $this->Auth->user('id');
-		$this->paginate['contain'] = array('Role', 'Creator', 'Profile');
+		$this->paginate['contain'] = array('Role', 'Collaboration', 'Profile');
 		$this->paginate['limit'] = 10;
 
 		$users = $this->paginate();
@@ -40,11 +40,12 @@ class SdUsersController extends SdUsersAppController {
 		if (!empty($this->request->data)) {
 			$userId = $this->Auth->user('id');
 			$roleId = $this->Auth->user('role_id');
+			$messages = $this->SdUser->getUserCreationFlashMessage($this->request->data, $userId);
 			if ($this->SdUser->add($this->request->data, $userId, $roleId)) {
-				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur à été enregistré'), 'default', array('class' => 'success'));
+				$this->Session->setFlash($messages['success'], 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur ne peux pas être ajouté'), 'default', array('class' => 'error'));
+				$this->Session->setFlash($messages['fail'], 'default', array('class' => 'error'));
 				unset($this->request->data['User']['password']);
 			}
 		}

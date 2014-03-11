@@ -46,7 +46,7 @@ class SdUser extends User {
 
 	public $hasAndBelongsToMany = array(
 		'Collaboration' => array(
-			'className' => 'UsersCollaboration',
+			'className' => 'SdUsers.SdUser',
 			'joinTable' => 'users_collaborations',
 			'foreign_key' => 'user_id',
 			'associationForeignKey' => 'parent_id',
@@ -100,10 +100,24 @@ class SdUser extends User {
 		return $queryData;
 	}
 
+	public function getUserCreationFlashMessage($data, $creatorId) {
+		$messages = array();
+		$userId = $this->field('id', array('email' => $data[$this->alias]['email']));
+
+		if(!empty($userId)) {
+			$messages['success'] = __d('sd_users', 'Un utilisateur avec la même adresse email existe déjà, il a été ajouté à votre liste');
+			$messages['fail'] = __d('sd_users', 'Un utilisateur avec la même adresse email est déjà présent dans votre liste');
+		} else {
+			$messages['success'] = __d('sd_users', 'L\'utilisateur à été enregistré');
+			$messages['fail'] = __d('sd_users', 'L\'utilisateur ne peux pas être ajouté');
+		}
+		return $messages;
+	}
+
 	public function add($data, $creatorId, $creatorRoleId) {
 		$userId = $this->field('id', array('email' => $data[$this->alias]['email']));
 
-		if(!empty($userId) && !$this->Collaboration->hasAny(array('user_id' => $userId, 'parent_id' => $creatorId))) {
+		if(!empty($userId) && !$this->__isCollaboratorWith($userId, $creatorId)) {
 			return $this->__addCollaboration($userId, $creatorId);
 		}
 
@@ -117,8 +131,12 @@ class SdUser extends User {
 			$data[$this->alias]['username'] = strtolower(sprintf('%s%s', $data[$this->Profile->alias]['name'], $data[$this->Profile->alias]['firstname']));
 		}
 		$data[$this->alias]['name'] = sprintf('%s %s', $data[$this->Profile->alias]['name'], $data[$this->Profile->alias]['firstname']);
-		$data[$this->Collaboration->alias]['parent_id'] = $creatorId;
+		$data[$this->UsersCollaboration->alias]['parent_id'] = $creatorId;
 		return $this->saveAssociated($data);
+	}
+
+	private function __isCollaboratorWith($userId, $parentId) {
+		return $this->UsersCollaboration->hasAny(array('user_id' => $userId, 'parent_id' => $parentId));
 	}
 
 	public function edit($data, $creatorRoleId) {
@@ -222,7 +240,7 @@ class SdUser extends User {
 	}
 
 	private function __addCollaboration($userId, $creatorId) {
-		return (bool)$this->Collaboration->save(array(
+		return (bool)$this->UsersCollaboration->save(array(
 			'user_id' => $userId,
 			'parent_id' => $creatorId
 		));
