@@ -28,20 +28,11 @@ class SdAlertEmailManagerTest extends CroogoTestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$methods = array('template', 'emailFormat', 'from', 'to', 'subject', 'viewVars', 'send');
-
-		$this->SdAlertEmailManager->cakeEmail = $this->getMockBuilder('CakeEmail')
-			->disableOriginalConstructor()
-			->getMock('CakeEmail', $methods);
-
-		foreach ($methods as $method) {
-			$this->SdAlertEmailManager->cakeEmail
-				->expects($this->once())
-				->method($method)
-				->will($this->returnSelf());
-		}
+		$this->__mockCakeEmailAndCheckSendCount(1);
 
 		$event->data['user']['id'] = 4;
+		$event->data['folder']['id'] = '1';
+		$event->data['folder']['name'] = 'A super folder';
 
 		$this->SdAlertEmailManager->sendInvitedOnFolderEmail($event);
 	}
@@ -51,18 +42,7 @@ class SdAlertEmailManagerTest extends CroogoTestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$methods = array('template', 'emailFormat', 'from', 'to', 'subject', 'viewVars', 'send');
-
-		$this->SdAlertEmailManager->cakeEmail = $this->getMockBuilder('CakeEmail')
-			->disableOriginalConstructor()
-			->getMock('CakeEmail', $methods);
-
-		foreach ($methods as $method) {
-			$this->SdAlertEmailManager->cakeEmail
-				->expects($this->once())
-				->method($method)
-				->will($this->returnSelf());
-		}
+		$this->__mockCakeEmailAndCheckSendCount(1);
 
 		$this->SdAlertEmailManager->cakeEmail
 			->expects($this->once())
@@ -72,7 +52,24 @@ class SdAlertEmailManagerTest extends CroogoTestCase {
 			)));
 
 		$event->data['user']['id'] = 4;
+		$event->data['folder']['id'] = '1';
+		$event->data['folder']['name'] = 'A super folder';
 
 		$this->SdAlertEmailManager->sendInvitedOnFolderEmail($event);
+	}
+
+	private function __mockCakeEmailAndCheckSendCount($numberOfEmailToBeSend) {
+		$methods = array('template', 'theme', 'emailFormat', 'from', 'to', 'subject', 'viewVars', 'send');
+
+		$this->SdAlertEmailManager->cakeEmail = $this->getMockBuilder('CakeEmail')
+			->disableOriginalConstructor()
+			->getMock('CakeEmail', array('to'));
+
+		foreach ($methods as $method) {
+			$this->SdAlertEmailManager->cakeEmail
+				->expects($this->exactly($numberOfEmailToBeSend))
+				->method($method)
+				->will($this->returnSelf());
+		}
 	}
 }

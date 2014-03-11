@@ -180,11 +180,15 @@ class FilesController extends UploaderAppController {
 		if (isset($this->request->query['user_id'])) {
 			$userId = $this->request->query['user_id'];
 			$isNewUserRight = true;
+			$folder = array();
+			$folder['id'] = $this->UploadedFile->getRootFolderId($uploadedFileId);
+			$folder['name'] =  $this->UploadedFile->field('filename', array('id' => $folder['id']));
 			$this->getEventManager()->dispatch(new CakeEvent(
 				'Controller.FilesController.newUserRight',
 				$this,
 				array(
-					'user' => array('id' => $userId)
+					'user' => array('id' => $userId),
+					'folder' => $folder
 				)
 			));
 		}
