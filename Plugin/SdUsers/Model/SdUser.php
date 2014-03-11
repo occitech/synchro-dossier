@@ -156,27 +156,31 @@ class SdUser extends User {
 		$userRole = $this->field('role_id', array('id' => $query['userId']));
 		if ($state == 'before') {
 			if ($userRole == self::ROLE_ADMIN_ID) {
-				$query['conditions'][$this->escapeField() . ' !='] = $query['userId'];
-				$query['joins'][] = array(
-					'alias' => 'Collaboration',
-					'table' => 'users_collaborations',
-					'type' => 'INNER',
-					'conditions' => array('AND' => array(
-						'User.id = Collaboration.user_id',
-						'parent_id =' . $query['userId']
+				$query['recursive'] = -1;
+				$childrenOfMine = $this->UsersCollaboration->find('all', array(
+					'conditions' => array('parent_id' => $query['userId']),
+					'fields' => array('user_id')
+				));
 
-				)));
+				$adminIds = $this->find('all', array(
+					'conditions' => array(
+						$this->escapefield('role_id') => self::ROLE_ADMIN_ID,
+						$this->escapefield() .' !=' => $query['userId']
+					),
+					'fields' => array('id')
+				));
+
+				$adminIds = Hash::extract($adminIds, '{n}.User.id');
+				$userIds = Hash::extract($childrenOfMine, '{n}.UsersCollaboration.user_id');
+				$query['conditions'][$this->escapefield()] = array_merge($adminIds, $userIds);
+
 			} else if ($userRole == self::ROLE_SUPERADMIN_ID || $userRole == self::ROLE_OCCITECH_ID) {
 				$query['conditions'][$this->escapeField() . ' !='] = $query['userId'];
 			}
 			return $query;
+		} else {
+			return $userRole == self::ROLE_UTILISATEUR_ID ? array() : $results;
 		}
-
-		if($userRole == self::ROLE_UTILISATEUR_ID) {
-			return array();
-		}
-
-		return $results;
 	}
 
 	protected function _findSuperAdmin($state, $query, $results = array()) {
