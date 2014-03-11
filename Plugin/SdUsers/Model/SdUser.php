@@ -101,8 +101,9 @@ class SdUser extends User {
 	}
 
 	public function add($data, $creatorId, $creatorRoleId) {
-		if($this->hasAny(array('email' => $data[$this->alias]['email']))) {
-			$userId = $this->field('id', array('email' => $data[$this->alias]['email']));
+		$userId = $this->field('id', array('email' => $data[$this->alias]['email']));
+
+		if(!empty($userId) && !$this->Collaboration->hasAny(array('user_id' => $userId, 'parent_id' => $creatorId))) {
 			return $this->__addCollaboration($userId, $creatorId);
 		}
 
@@ -116,6 +117,7 @@ class SdUser extends User {
 			$data[$this->alias]['username'] = strtolower(sprintf('%s%s', $data[$this->Profile->alias]['name'], $data[$this->Profile->alias]['firstname']));
 		}
 		$data[$this->alias]['name'] = sprintf('%s %s', $data[$this->Profile->alias]['name'], $data[$this->Profile->alias]['firstname']);
+		$data[$this->Collaboration->alias]['parent_id'] = $creatorId;
 		return $this->saveAssociated($data);
 	}
 

@@ -71,6 +71,29 @@ class SdUserTest extends CroogoTestCase {
 		$this->assertEqual($creatorId, $lastUserAdded['User']['creator_id']);
 	}
 
+	public function testAddUser_ShouldCreateACollaboration() {
+		$creatorId = 3;
+		$roleId = 1;
+		$data = array(
+			'User' => array(
+				'role_id' => '6',
+				'username' => 'coucou',
+				'email' => 'coucou@coucou.com',
+				'status' => '1'
+			),
+			'Profile' => array(
+				'name' => 'sdfsqfsdf',
+				'firstname' => 'sdf',
+				'society' => 'qsqssdf'
+			)
+		);
+		$expected = $this->SdUser->Collaboration->find('count');
+		$this->SdUser->add($data, $creatorId, $roleId);
+		$result = $this->SdUser->Collaboration->find('count');
+
+		$this->assertEqual($expected + 1, $result);
+	}
+
 	public function testAddExistingUser_ShouldNotCreateANewUser() {
 		$creatorId = 3;
 		$roleId = 1;
@@ -119,8 +142,7 @@ class SdUserTest extends CroogoTestCase {
 		$this->assertTrue($result);
 	}
 
-	public function testAddExistingUserIAlreadyCollaborateWith_ShouldNotCreateACollaboration() {
-		$this->markTestIncomplete();
+	public function testAddExistingCollaboration_ShouldNotCreateANewCollaboration() {
 		$creatorId = 1;
 		$roleId = 1;
 		$data = array(
