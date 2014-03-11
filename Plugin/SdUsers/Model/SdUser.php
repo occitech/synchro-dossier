@@ -44,6 +44,16 @@ class SdUser extends User {
 		)
 	);
 
+	public $hasAndBelongsToMany = array(
+		'Collaboration' => array(
+			'className' => 'UsersCollaboration',
+			'joinTable' => 'users_collaborations',
+			'foreign_key' => 'user_id',
+			'associationForeignKey' => 'parent_id',
+			'unique' => true,
+		)
+	);
+
 
 	public function __construct($id = false, $table = null, $ds = null) {
 		$this->validate = array(
@@ -91,6 +101,11 @@ class SdUser extends User {
 	}
 
 	public function add($data, $creatorId, $creatorRoleId) {
+		if($this->hasAny(array('email' => $data[$this->alias]['email']))) {
+			$userId = $this->field('id', array('email' => $data[$this->alias]['email']));
+			return $this->__addCollaboration($userId, $creatorId);
+		}
+
 		$this->_addValidateRuleAboutRole($creatorRoleId);
 		$this->create();
 		$data[$this->alias]['role_id'] = intval($data[$this->alias]['role_id']);
@@ -122,10 +137,15 @@ class SdUser extends User {
 		if ($state == 'before') {
 			if ($userRole == self::ROLE_ADMIN_ID) {
 				$query['conditions'][$this->escapeField() . ' !='] = $query['userId'];
-				$query['conditions'][]['OR'] = array(
-					$this->alias . '.creator_id' => $query['userId'],
-					$this->alias . '.role_id' => $userRole,
-				);
+				$query['joins'][] = array(
+					'alias' => 'Collaboration',
+					'table' => 'users_collaborations',
+					'type' => 'INNER',
+					'conditions' => array('AND' => array(
+						'User.id = Collaboration.user_id',
+						'parent_id =' . $query['userId']
+
+				)));
 			} else if ($userRole == self::ROLE_SUPERADMIN_ID || $userRole == self::ROLE_OCCITECH_ID) {
 				$query['conditions'][$this->escapeField() . ' !='] = $query['userId'];
 			}
@@ -197,6 +217,13 @@ class SdUser extends User {
 			}
 		}
 		return $success;
+	}
+
+	private function __addCollaboration($userId, $creatorId) {
+		return (bool)$this->Collaboration->save(array(
+			'user_id' => $userId,
+			'parent_id' => $creatorId
+		));
 	}
 
 }

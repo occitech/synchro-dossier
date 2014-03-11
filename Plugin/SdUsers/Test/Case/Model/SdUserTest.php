@@ -30,6 +30,7 @@ class SdUserTest extends CroogoTestCase {
 		'plugin.sd_users.sd_users_aro',
 		'plugin.sd_users.sd_users_aco',
 		'plugin.settings.setting',
+		'plugin.sd_users.sd_users_collaboration',
 	);
 
 	public function setUp() {
@@ -68,6 +69,79 @@ class SdUserTest extends CroogoTestCase {
 		$this->assertTrue($result);
 		$this->_assertCountSdUsers($this->__usersCount + 1, array('noRoleChecking' => true));
 		$this->assertEqual($creatorId, $lastUserAdded['User']['creator_id']);
+	}
+
+	public function testAddExistingUser_ShouldNotCreateANewUser() {
+		$creatorId = 3;
+		$roleId = 1;
+		$data = array(
+			'User' => array(
+				'role_id' => '6',
+				'username' => 'user1',
+				'email' => 'user1@user1.com',
+				'status' => '1'
+			),
+			'Profile' => array(
+				'name' => 'user',
+				'firstname' => 'name',
+				'society' => 'occitech'
+			)
+		);
+		$result = $this->SdUser->add($data, $creatorId, $roleId);
+
+		$this->assertTrue($result);
+		$this->_assertCountSdUsers($this->__usersCount, array('noRoleChecking' => true));
+	}
+
+	public function testAddExistingUser_ShouldCreateACollaboration() {
+		$creatorId = 3;
+		$roleId = 1;
+		$data = array(
+			'User' => array(
+				'role_id' => '6',
+				'username' => 'user1',
+				'email' => 'user1@user1.com',
+				'status' => '1'
+			),
+			'Profile' => array(
+				'name' => 'user',
+				'firstname' => 'name',
+				'society' => 'occitech'
+			)
+		);
+
+		$this->SdUser->add($data, $creatorId, $roleId);
+		$result = $this->SdUser->Collaboration->hasAny(array(
+			'user_id' => 6,
+			'parent_id' => 3,
+		));
+
+		$this->assertTrue($result);
+	}
+
+	public function testAddExistingUserIAlreadyCollaborateWith_ShouldNotCreateACollaboration() {
+		$this->markTestIncomplete();
+		$creatorId = 1;
+		$roleId = 1;
+		$data = array(
+			'User' => array(
+				'role_id' => '6',
+				'username' => 'aymeric',
+				'email' => 'aymeric@derbois.com',
+				'status' => '1'
+			),
+			'Profile' => array(
+				'name' => 'aymeric',
+				'firstname' => 'Derbois',
+				'society' => ''
+			)
+		);
+
+		$expected = $this->SdUser->Collaboration->find('count');
+		$this->SdUser->add($data, $creatorId, $roleId);
+		$result = $this->SdUser->Collaboration->find('count');
+
+		$this->assertEqual($expected, $result);
 	}
 
 	protected function _assertCountSdUsers($expected, $parameters=array()) {
@@ -236,7 +310,6 @@ class SdUserTest extends CroogoTestCase {
 		$result = $this->SdUser->find('visibleBy', array('userId' => 3));
 		$this->assertEqual($this->_countUniqueUsers($result), 4);
 	}
-
 	public function testFindVisibleByAdmin_TwoResultsNeeded() {
 		$result = $this->SdUser->find('visibleBy', array('userId' => 4));
 		$this->assertEqual($this->_countUniqueUsers($result), 2);
@@ -245,6 +318,22 @@ class SdUserTest extends CroogoTestCase {
 	public function testFindVisibleByUser_NoResult() {
 		$result = $this->SdUser->find('visibleBy', array('userId' => 6));
 		$this->assertEqual(count($result), 0);
+	}
+
+	public function testUserCanBeVisibleBy2Admins() {
+		$visibleByAdmin1 = $this->SdUser->find('visibleBy', array(
+			'recursive' => -1,
+			'userId' => 4,
+			'fields' => 'id'
+		));
+		$visibleByAdmin2 = $this->SdUser->find('visibleBy', array(
+			'recursive' => -1,
+			'userId' => 5,
+			'fields' => 'id'
+		));
+
+		$this->assertContains(array('User' => array('id' => 2)), $visibleByAdmin1);
+		$this->assertContains(array('User' => array('id' => 2)), $visibleByAdmin2);
 	}
 
 /**
