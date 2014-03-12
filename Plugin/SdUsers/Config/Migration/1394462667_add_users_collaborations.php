@@ -29,13 +29,21 @@ class AddUsersCollaborations extends CakeMigration {
 					),
 				),
 			),
+			'drop_field' => array(
+				'users' => array('creator_id',),
+			),
 		),
 		'down' => array(
 			'drop_table' => array(
 				'users_collaborations',
 			),
+			'create_field' => array(
+				'users' => array('creator_id' => array('type' => 'integer', 'null' => false, 'default' => null)),
+			),
 		),
 	);
+
+	private $__collaborations = array();
 
 /**
  * Before migration callback
@@ -45,6 +53,14 @@ class AddUsersCollaborations extends CakeMigration {
  * @access public
  */
 	public function before($direction) {
+		if($direction == 'up'){
+			$SdUser = $this->generateModel('User');
+			$Collaboration = $this->generateModel('UsersCollaboration');
+			$this->__collaborations = $SdUser->find('list', array(
+				'fields' => array('User.id', 'User.creator_id'),
+				'conditions' => array('User.creator_id !=' => 0),
+			));
+		}
 		return true;
 	}
 
@@ -59,13 +75,8 @@ class AddUsersCollaborations extends CakeMigration {
 		$success = true;
 
 		if($direction == 'up'){
-			$SdUser = $this->generateModel('User');
 			$Collaboration = $this->generateModel('UsersCollaboration');
-			$collaborations = $SdUser->find('list', array(
-				'fields' => array('User.id', 'User.creator_id'),
-				'conditions' => array('User.creator_id !=' => 0),
-			));
-			foreach ($collaborations as $id => $creatorId) {
+			foreach ($this->__collaborations as $id => $creatorId) {
 				$Collaboration->create();
 				$success = $success && $Collaboration->save(array(
 					'user_id' => $id,

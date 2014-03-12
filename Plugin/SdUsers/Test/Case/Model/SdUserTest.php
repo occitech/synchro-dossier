@@ -49,14 +49,14 @@ class SdUserTest extends CroogoTestCase {
 
 	public function testAdd_Ok() {
 		$creatorId = 3;
-		$roleId = 1;
 		$data = $this->__userData;
+		$email = $data['User']['email'];
 		$result = $this->SdUser->addCollaborator($data, $creatorId);
 		$lastUserAdded = $this->SdUser->find('first', array('order' => 'User.id DESC'));
 
 		$this->assertTrue($result);
 		$this->_assertCountSdUsers($this->__usersCount + 1, array('noRoleChecking' => true));
-		$this->assertEquals($creatorId, $lastUserAdded['User']['creator_id']);
+		$this->assertEquals($email, $lastUserAdded['User']['email']);
 	}
 
 	public function testAddUser_ShouldCreateACollaboration() {
@@ -78,9 +78,7 @@ class SdUserTest extends CroogoTestCase {
 
 		$this->assertEquals($oldCount, $newCount);
 	}
-	/**
-	 * @group bogus
-	 */
+
 	public function testAddUserByOccitech_ShouldNotCreateACollaboration() {
 		$creatorId = 1;
 		$data = $this->__userData;

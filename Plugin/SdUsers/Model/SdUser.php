@@ -27,10 +27,6 @@ class SdUser extends User {
 			'className' => 'Role',
 			'foreignKey' => 'role_id',
 		),
-		'Creator' => array(
-			'className' => 'SdUsers.User',
-			'foreignKey' => 'creator_id',
-		)
 	);
 
 	public $hasOne = array(
@@ -134,7 +130,6 @@ class SdUser extends User {
 		$this->create();
 		$data[$this->alias]['role_id'] = intval($data[$this->alias]['role_id']);
 		$data[$this->alias]['activation_key'] = md5(uniqid());
-		$data[$this->alias]['creator_id'] = $creatorId;
 		$data[$this->alias]['status'] = 1;
 		if (empty($data[$this->alias]['username'])) {
 			$data[$this->alias]['username'] = strtolower(sprintf('%s%s', $data['Profile']['name'], $data['Profile']['firstname']));
@@ -210,7 +205,7 @@ class SdUser extends User {
 	protected function _findSuperAdmin($state, $query, $results = array()) {
 		if ($state == 'before') {
 			$query['conditions'][$this->alias . '.role_id'] = Configure::read('sd.SuperAdmin.roleId');
-			$query['contain'] = array('Profile', 'Role', 'Creator');
+			$query['contain'] = array('Profile', 'Role');
 			return $query;
 		}
 		return $results;

@@ -5,7 +5,6 @@ class UserFixture extends CakeTestFixture {
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 20, 'key' => 'primary'),
 		'role_id' => array('type' => 'integer', 'null' => false, 'default' => null),
-		'creator_id' => array('type' => 'integer', 'null' => false, 'default' => null),
 		'username' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 60, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'password' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 50, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
@@ -28,7 +27,6 @@ class UserFixture extends CakeTestFixture {
 		array(
 			'id' => '1',
 			'role_id' => '1',
-			'creator_id' => '0',
 			'username' => 'admin',
 			'password' => '7c4a5f2150be09b35c9fd6d41ab44990aaf6cf88',
 			'name' => 'admin',
