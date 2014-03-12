@@ -17,7 +17,8 @@ class SdAlertEmailManager implements CakeEventListener {
 			'Model.UploadedFile.afterUploadSuccess' => 'saveFileForAlertEmail',
 			'Model.UploadedFile.AfterSharingCreation' => 'subscribeToAlertEmail',
 			'Controller.Files.allFilesUploadedInBatch' => 'sendAlertsEmail',
-			'Controller.FilesController.newUserRight' => 'sendInvitedOnFolderEmail'
+			'Controller.FilesController.newUserRight' => 'sendInvitedOnFolderEmail',
+			'Controller.FilesController.toggleEmailSubscription' => 'toggleSubscriptionToAlertEmail',
 		);
 	}
 
@@ -39,6 +40,11 @@ class SdAlertEmailManager implements CakeEventListener {
 
 			$SdAlertEmailModel->save($data);
 		}
+	}
+
+	public function toggleSubscriptionToAlertEmail($event) {
+		$SdAlertEmailModel = ClassRegistry::init('SynchroDossier.SdAlertEmail');
+		$SdAlertEmailModel->toggleEmailAlert($event);
 	}
 
 	public function sendAlertsEmail($event) {

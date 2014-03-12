@@ -1,7 +1,7 @@
 <?php
 
 App::uses('CroogoTestCase', 'Croogo.TestSuite');
-App::uses('SdQuotaManager', 'SynchroDossier.Lib');
+App::uses('SdQuotaManager', 'SynchroDossier.Event');
 App::uses('CakeEvent', 'Event');
 
 class SdQuotaManagerTest extends CroogoTestCase {

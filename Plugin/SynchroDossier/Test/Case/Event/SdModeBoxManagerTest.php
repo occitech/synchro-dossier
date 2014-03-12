@@ -1,7 +1,7 @@
 <?php
 
 App::import('Vendor', 'OccitechCakeTestCase');
-App::uses('SdModeBoxManagerTest', 'SynchroDossier.Lib');
+App::uses('SdModeBoxManagerTest', 'SynchroDossier.Event');
 App::uses('UploadedFile', 'Uploader.Model');
 App::uses('CakeEvent', 'Event');
 

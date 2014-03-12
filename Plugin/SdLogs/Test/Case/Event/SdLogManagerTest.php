@@ -1,7 +1,7 @@
 <?php
 
 App::uses('CroogoTestCase', 'Croogo.TestSuite');
-App::uses('SdLogManager', 'SdLogs.Lib');
+App::uses('SdLogManager', 'SdLogs.Event');
 App::uses('SdLog', 'SdLogs.SdLog');
 App::uses('CakeEvent', 'Event');
 

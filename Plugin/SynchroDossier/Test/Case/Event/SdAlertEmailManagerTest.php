@@ -1,7 +1,7 @@
 <?php
 
 App::uses('CroogoTestCase', 'Croogo.TestSuite');
-App::uses('SdAlertEmailManager', 'SynchroDossier.Lib');
+App::uses('SdAlertEmailManager', 'SynchroDossier.Event');
 App::uses('CakeEvent', 'Event');
 
 class SdAlertEmailManagerTest extends CroogoTestCase {
@@ -11,6 +11,7 @@ class SdAlertEmailManagerTest extends CroogoTestCase {
 		'plugin.uploader.uploader_user',
 		'plugin.uploader.uploader_role',
 		'plugin.sd_users.profile',
+		'plugin.synchro_dossier.sd_alert_email',
 	);
 
 	public function setUp() {
@@ -72,4 +73,5 @@ class SdAlertEmailManagerTest extends CroogoTestCase {
 				->will($this->returnSelf());
 		}
 	}
+
 }
