@@ -81,13 +81,6 @@ class SdUser extends User {
 		parent::__construct($id, $table, $ds);
 	}
 
-	protected function _addValidateRuleAboutRole($creatorRoleId) {
-		$this->validator()->add('role_id', array(
-			'rule' => array('inList', Configure::read('sd.' .  $creatorRoleId . '.authorizeRoleCreation')),
-			'message' => __d('sd_users', 'Vous ne pouvez pas créer d\'utilisateur de ce groupe')
-		));
-	}
-
 	public function beforeFind($queryData) {
 		if (!array_key_exists('noRoleChecking', $queryData)) {
 			$queryData['conditions'] = Hash::merge((array) $queryData['conditions'], array(
@@ -99,42 +92,94 @@ class SdUser extends User {
 		return $queryData;
 	}
 
-	public function add($data, $creatorId, $creatorRoleId) {
-		$userId = $this->getUserIdIfAlreadyRegistered($data[$this->alias]['email']);
+	public function addCollaborator($data, $creatorId) {
+		$this->__ensureUserCanAssignRole($creatorId, $data[$this->alias]['role_id']);
 
-		if(!empty($userId) && !$this->__isCollaboratorWith($userId, $creatorId)) {
-			return $this->__markAsCollaboratorOf($userId, $creatorId);
+		$userId = $this->__idOfUniqueUser($data, $creatorId);
+		return !empty($userId) && $this->__markAsCollaboratorOf($userId, $creatorId);
+	}
+
+	private function __idOfUniqueUser($data, $creatorId) {
+		$userEmail = $data[$this->alias]['email'];
+		if (!$this->hasAny(array('email' => $userEmail))) {
+			$res = $this->__createNewUserForCreator($data, $creatorId);
 		}
 
-		$this->_addValidateRuleAboutRole($creatorRoleId);
+		return $this->field('id', array(
+			$this->escapeField('email') => $userEmail
+		));
+	}
+
+	private function __ensureUserCanAssignRole($userId, $roleId) {
+		$creatorRoleId = $this->find('first', array(
+				'conditions' => array($this->escapeField() => $userId),
+				'noRoleChecking' => true,
+				'fields' => array('role_id'),
+				'recursive' => -1,
+			)
+		);
+
+		$allowedRoleIds = Configure::read('sd.' .  $creatorRoleId['User']['role_id'] . '.authorizeRoleCreation');
+		if (!in_array($roleId, $allowedRoleIds)) {
+			throw new UnauthorizedException(__d(
+				'sd_users',
+				'The role %s cannot create users with role %s',
+				$creatorRoleId,
+				$roleId
+			));
+		}
+	}
+
+	private function __createNewUserForCreator($data, $creatorId) {
 		$this->create();
 		$data[$this->alias]['role_id'] = intval($data[$this->alias]['role_id']);
 		$data[$this->alias]['activation_key'] = md5(uniqid());
 		$data[$this->alias]['creator_id'] = $creatorId;
 		$data[$this->alias]['status'] = 1;
 		if (empty($data[$this->alias]['username'])) {
-			$data[$this->alias]['username'] = strtolower(sprintf('%s%s', $data[$this->Profile->alias]['name'], $data[$this->Profile->alias]['firstname']));
+			$data[$this->alias]['username'] = strtolower(sprintf('%s%s', $data['Profile']['name'], $data['Profile']['firstname']));
 		}
-		$data[$this->alias]['name'] = sprintf('%s %s', $data[$this->Profile->alias]['name'], $data[$this->Profile->alias]['firstname']);
-		$data[$this->UsersCollaboration->alias]['parent_id'] = $creatorId;
+		$data[$this->alias]['name'] = sprintf('%s %s', $data['Profile']['name'], $data['Profile']['firstname']);
 		return $this->saveAssociated($data);
 	}
 
-	public function getUserIdIfAlreadyRegistered($email) {
-		return $userId = $this->field('id', array('email' => $email));
-	}
-
 	private function __isCollaboratorWith($userId, $parentId) {
+		$parentRole = $this->find('first', array(
+				'conditions' => array($this->escapeField() => $parentId),
+				'noRoleChecking' => true,
+				'fields' => array('role_id'),
+				'recursive' => -1,
+			)
+		);
+		if ($parentRole['User']['role_id'] == self::ROLE_OCCITECH_ID || $parentRole['User']['role_id'] == self::ROLE_SUPERADMIN_ID) {
+			return true;
+		}
+
 		return $this->UsersCollaboration->hasAny(array('user_id' => $userId, 'parent_id' => $parentId));
 	}
 
-	public function edit($data, $creatorRoleId) {
-		$this->_addValidateRuleAboutRole($creatorRoleId);
-		$data[$this->alias]['role_id'] = intval($data[$this->alias]['role_id']);
+	public function editCollaborator($data, $creatorId) {
+		$roleId = intval($data[$this->alias]['role_id']);
+
+		$this->__ensureUserCanAssignRole($creatorId, $roleId);
+		$this->__ensureIsCollaboratorOf($data[$this->alias][$this->primaryKey], $creatorId);
+
+		$data[$this->alias]['role_id'] = $roleId;
 		if ($data[$this->alias]['password'] == '') {
 			unset($data[$this->alias]['password']);
 		}
 		return $this->saveAssociated($data);
+	}
+
+	private function __ensureIsCollaboratorOf($userId, $collaboratorId) {
+		if (!$this->__isCollaboratorWith($userId, $collaboratorId)) {
+			throw new UnauthorizedException(__d(
+				'sd_users',
+				'The user %s is not collaborator with %s',
+				$userId,
+				$collaboratorId
+			));
+		}
 	}
 
 	protected function _findVisibleBy($state, $query, $results = array()) {
@@ -223,7 +268,11 @@ class SdUser extends User {
 	}
 
 	private function __markAsCollaboratorOf($userId, $collaboratorId) {
-		return (bool)$this->UsersCollaboration->save(array(
+		if ($this->__isCollaboratorWith($userId, $collaboratorId)) {
+			return true;
+		}
+
+		return (bool) $this->UsersCollaboration->save(array(
 			'user_id' => $userId,
 			'parent_id' => $collaboratorId
 		));

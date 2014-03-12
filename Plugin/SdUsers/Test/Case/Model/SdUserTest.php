@@ -51,7 +51,7 @@ class SdUserTest extends CroogoTestCase {
 		$creatorId = 3;
 		$roleId = 1;
 		$data = $this->__userData;
-		$result = $this->SdUser->add($data, $creatorId, $roleId);
+		$result = $this->SdUser->addCollaborator($data, $creatorId);
 		$lastUserAdded = $this->SdUser->find('first', array('order' => 'User.id DESC'));
 
 		$this->assertTrue($result);
@@ -60,49 +60,66 @@ class SdUserTest extends CroogoTestCase {
 	}
 
 	public function testAddUser_ShouldCreateACollaboration() {
-		$creatorId = 3;
-		$roleId = 1;
+		$creatorId = 4;
 		$data = $this->__userData;
-		$oldCount = $this->SdUser->Collaboration->find('count');
-		$this->SdUser->add($data, $creatorId, $roleId);
-		$newCount = $this->SdUser->Collaboration->find('count');
+		$oldCount = $this->SdUser->UsersCollaboration->find('count');
+		$this->SdUser->addCollaborator($data, $creatorId);
+		$newCount = $this->SdUser->UsersCollaboration->find('count');
 
 		$this->assertEquals($oldCount + 1, $newCount);
 	}
 
+	public function testAddUserBySuperAdmin_ShouldNotCreateACollaboration() {
+		$creatorId = 3;
+		$data = $this->__userData;
+		$oldCount = $this->SdUser->UsersCollaboration->find('count');
+		$this->SdUser->addCollaborator($data, $creatorId);
+		$newCount = $this->SdUser->UsersCollaboration->find('count');
+
+		$this->assertEquals($oldCount, $newCount);
+	}
+	/**
+	 * @group bogus
+	 */
+	public function testAddUserByOccitech_ShouldNotCreateACollaboration() {
+		$creatorId = 1;
+		$data = $this->__userData;
+		$oldCount = $this->SdUser->UsersCollaboration->find('count');
+		$this->SdUser->addCollaborator($data, $creatorId);
+		$newCount = $this->SdUser->UsersCollaboration->find('count');
+
+		$this->assertEquals($oldCount, $newCount);
+	}
+
 	public function testAddExistingUser_ShouldNotCreateANewUser() {
 		$creatorId = 3;
-		$roleId = 1;
 		$data = $this->__userData;
 		$data['User']['email'] = 'user1@user1.com';
+		$this->SdUser->addCollaborator($data, $creatorId);
 
 		$this->_assertCountSdUsers($this->__usersCount, array('noRoleChecking' => true));
 	}
 
 	public function testAddExistingUser_ShouldCreateACollaboration() {
-		$creatorId = 3;
-		$roleId = 1;
+		$creatorId = 5;
 		$data = $this->__userData;
 		$data['User']['email'] = 'user1@user1.com';
 
-		$this->SdUser->add($data, $creatorId, $roleId);
-		$result = $this->SdUser->UsersCollaboration->hasAny(array(
-			'user_id' => 6,
-			'parent_id' => 3,
-		));
+		$oldCount = $this->SdUser->UsersCollaboration->find('count');
+		$this->SdUser->addCollaborator($data, $creatorId);
+		$newCount = $this->SdUser->UsersCollaboration->find('count');
 
-		$this->assertTrue($result);
+		$this->assertEquals($oldCount + 1, $newCount);
 	}
 
 	public function testAddExistingCollaboration_ShouldNotCreateANewCollaboration() {
 		$creatorId = 1;
-		$roleId = 1;
 		$data = $this->__userData;
 		$data['User']['email'] = 'aymeric@derbois.com';
 
-		$oldCount = $this->SdUser->Collaboration->find('count');
-		$this->SdUser->add($data, $creatorId, $roleId);
-		$newCount = $this->SdUser->Collaboration->find('count');
+		$oldCount = $this->SdUser->UsersCollaboration->find('count');
+		$this->SdUser->addCollaborator($data, $creatorId);
+		$newCount = $this->SdUser->UsersCollaboration->find('count');
 
 		$this->assertEquals($oldCount, $newCount);
 	}
@@ -122,11 +139,10 @@ class SdUserTest extends CroogoTestCase {
 
 	public function testAdd_FillUsernameField() {
 		$creatorId = 3;
-		$roleId = 1;
 		$data = $this->__userData;
 		$data['User']['username'] = 'user1';
 
-		$result = $this->SdUser->add($data, $creatorId, $roleId);
+		$result = $this->SdUser->addCollaborator($data, $creatorId);
 		$lastUserAdded = $this->SdUser->find('first', array('order' => 'User.id DESC'));
 
 		$this->assertTrue($result);
@@ -141,7 +157,7 @@ class SdUserTest extends CroogoTestCase {
 		$data = $this->__userData;
 		$data['User']['role_id'] = 4;
 
-		$this->SdUser->add($data, $creatorId, $roleId);
+		$this->SdUser->addCollaborator($data, $creatorId);
 		$result = $this->Aro->find('first', array('order' => 'id DESC'));
 		$expected = array(
 			'id' => '10',
@@ -162,7 +178,7 @@ class SdUserTest extends CroogoTestCase {
 		$data['User']['role_id'] = 4;
 		$data['User']['username'] = 'user1';
 
-		$result = $this->SdUser->add($data, $creatorId, $roleId);
+		$result = $this->SdUser->addCollaborator($data, $creatorId);
 		$this->SdUser->bindModel(array(
 			'hasOne' => array(
 				'Aro' => array(
@@ -188,24 +204,23 @@ class SdUserTest extends CroogoTestCase {
 
 	public function testAdd_NoUsernameGiven() {
 		$creatorId = 3;
-		$roleId = 4;
 		$data = $this->__userData;
 		$data['User']['role_id'] = 4;
+		unset($data['User']['username']);
 
-		$result = $this->SdUser->add($data, $creatorId, $roleId);
+		$result = $this->SdUser->addCollaborator($data, $creatorId);
 		$this->assertTrue($result);
 	}
 
 	public function testEdit_Ok() {
 		$creatorId = 3;
-		$roleId = 1;
 		$data = $this->__userData;
 		$data['User']['id'] = 1;
 		$data['User']['password'] = '';
 		$data['User']['role_id'] = 5;
 		$data['User']['email'] = 'coucou@coucou.com';
 
-		$this->assertTrue($this->SdUser->edit($data, $roleId));
+		$this->assertTrue($this->SdUser->editCollaborator($data, $creatorId));
 		$this->_assertCountSdUsers($this->__usersCount);
 	}
 
