@@ -54,7 +54,6 @@ class SdUser extends User {
 		)
 	);
 
-
 	public function __construct($id = false, $table = null, $ds = null) {
 		$this->validate = array(
 			'email' => array(
@@ -100,25 +99,11 @@ class SdUser extends User {
 		return $queryData;
 	}
 
-	public function getUserCreationFlashMessage($data, $creatorId) {
-		$messages = array();
-		$userId = $this->field('id', array('email' => $data[$this->alias]['email']));
-
-		if(!empty($userId)) {
-			$messages['success'] = __d('sd_users', 'Un utilisateur avec la même adresse email existe déjà, il a été ajouté à votre liste');
-			$messages['fail'] = __d('sd_users', 'Un utilisateur avec la même adresse email est déjà présent dans votre liste');
-		} else {
-			$messages['success'] = __d('sd_users', 'L\'utilisateur à été enregistré');
-			$messages['fail'] = __d('sd_users', 'L\'utilisateur ne peux pas être ajouté');
-		}
-		return $messages;
-	}
-
 	public function add($data, $creatorId, $creatorRoleId) {
-		$userId = $this->field('id', array('email' => $data[$this->alias]['email']));
+		$userId = $this->getUserIdIfAlreadyRegistered($data[$this->alias]['email']);
 
 		if(!empty($userId) && !$this->__isCollaboratorWith($userId, $creatorId)) {
-			return $this->__addCollaboration($userId, $creatorId);
+			return $this->__markAsCollaboratorOf($userId, $creatorId);
 		}
 
 		$this->_addValidateRuleAboutRole($creatorRoleId);
@@ -133,6 +118,10 @@ class SdUser extends User {
 		$data[$this->alias]['name'] = sprintf('%s %s', $data[$this->Profile->alias]['name'], $data[$this->Profile->alias]['firstname']);
 		$data[$this->UsersCollaboration->alias]['parent_id'] = $creatorId;
 		return $this->saveAssociated($data);
+	}
+
+	public function getUserIdIfAlreadyRegistered($email) {
+		return $userId = $this->field('id', array('email' => $email));
 	}
 
 	private function __isCollaboratorWith($userId, $parentId) {
@@ -155,27 +144,17 @@ class SdUser extends User {
 
 		$userRole = $this->field('role_id', array('id' => $query['userId']));
 		if ($state == 'before') {
+			$query['conditions'][$this->escapeField() . ' !='] = $query['userId'];
 			if ($userRole == self::ROLE_ADMIN_ID) {
 				$query['recursive'] = -1;
 				$childrenOfMine = $this->UsersCollaboration->find('all', array(
 					'conditions' => array('parent_id' => $query['userId']),
 					'fields' => array('user_id')
 				));
-
-				$adminIds = $this->find('all', array(
-					'conditions' => array(
-						$this->escapefield('role_id') => self::ROLE_ADMIN_ID,
-						$this->escapefield() .' !=' => $query['userId']
-					),
-					'fields' => array('id')
-				));
-
-				$adminIds = Hash::extract($adminIds, '{n}.User.id');
-				$userIds = Hash::extract($childrenOfMine, '{n}.UsersCollaboration.user_id');
-				$query['conditions'][$this->escapefield()] = array_merge($adminIds, $userIds);
-
-			} else if ($userRole == self::ROLE_SUPERADMIN_ID || $userRole == self::ROLE_OCCITECH_ID) {
-				$query['conditions'][$this->escapeField() . ' !='] = $query['userId'];
+				$query['conditions'][]['OR'] = array(
+					  $this->escapeField() => Hash::extract($childrenOfMine, '{n}.UsersCollaboration.user_id'),
+					  $this->escapefield('role_id') => self::ROLE_ADMIN_ID,
+				);
 			}
 			return $query;
 		} else {
@@ -243,10 +222,10 @@ class SdUser extends User {
 		return $success;
 	}
 
-	private function __addCollaboration($userId, $creatorId) {
+	private function __markAsCollaboratorOf($userId, $collaboratorId) {
 		return (bool)$this->UsersCollaboration->save(array(
 			'user_id' => $userId,
-			'parent_id' => $creatorId
+			'parent_id' => $collaboratorId
 		));
 	}
 

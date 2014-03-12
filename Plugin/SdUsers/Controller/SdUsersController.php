@@ -39,7 +39,7 @@ class SdUsersController extends SdUsersAppController {
 		if (!empty($this->request->data)) {
 			$userId = $this->Auth->user('id');
 			$roleId = $this->Auth->user('role_id');
-			$messages = $this->SdUser->getUserCreationFlashMessage($this->request->data, $userId);
+			$messages = $this->__getUserCreationFlashMessage($this->request->data['User']['email'], $userId);
 			if ($this->SdUser->add($this->request->data, $userId, $roleId)) {
 				$this->Session->setFlash($messages['success'], 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
@@ -49,6 +49,18 @@ class SdUsersController extends SdUsersAppController {
 			}
 		}
 		$this->set('roles', $this->SdUser->Role->find('list'));
+	}
+
+	private function __getUserCreationFlashMessage($email, $creatorId) {
+		$messages = array();
+		if(!empty($this->SdUser->getUserIdIfAlreadyRegistered($email))) {
+			$messages['success'] = __d('sd_users', 'Un utilisateur avec la même adresse email existe déjà, il a été ajouté à votre liste');
+			$messages['fail'] = __d('sd_users', 'Un utilisateur avec la même adresse email est déjà présent dans votre liste');
+		} else {
+			$messages['success'] = __d('sd_users', 'L\'utilisateur à été enregistré');
+			$messages['fail'] = __d('sd_users', 'L\'utilisateur ne peux pas être ajouté');
+		}
+		return $messages;
 	}
 
 	public function edit($userId) {
