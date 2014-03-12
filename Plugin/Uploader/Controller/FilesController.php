@@ -29,7 +29,8 @@ class FilesController extends UploaderAppController {
 					'download' 					=> 'read',
 					'rights'					=> 'change_right',
 					'removeRight'				=> 'change_right',
-					'toggleRight'				=> 'change_right'
+					'toggleRight'				=> 'change_right',
+					'toggleEmailSubscription'	=> 'change_right'
 				),
 			)
 		)
@@ -113,6 +114,9 @@ class FilesController extends UploaderAppController {
 			$superAdmins = $this->UploadedFile->User->find('superAdmin');
 			$acos = $this->UploaderAclAco->getArosOfFolder('UploadedFile', $folderId);
 
+			$userRegisteredToAlert = ClassRegistry::init('SynchroDossier.SdAlertEmail')->findAllByUploaded_file_id($folderId);
+			$userRegisteredToAlert = Hash::combine($userRegisteredToAlert, '{n}.SdAlertEmail.user_id', '{n}.SdAlertEmail.id');
+
 			$usersNotInFolder = $this->UploaderAclAro->getUserNotInFolder($folderId);
 			$usersVisible = $this->UploadedFile->User->find('visibleBy', array(
 				'userId' => $this->Auth->user('id'),
@@ -122,7 +126,7 @@ class FilesController extends UploaderAppController {
 			$usersVisible = Hash::combine($usersVisible, '{n}.User.id', '{n}.User.username');
 			$usersNotInFolder = array_intersect($usersNotInFolder, $usersVisible);
 
-			$this->set(compact('acos', 'superAdmins', 'folder', 'usersNotInFolder'));
+			$this->set(compact('acos', 'superAdmins', 'folder', 'usersNotInFolder', 'userRegisteredToAlert'));
 		} else {
 			$rootId = $this->UploadedFile->getRootFolderId($folderId);
 			$this->Session->setFlash(
@@ -132,6 +136,20 @@ class FilesController extends UploaderAppController {
 			);
 			$this->redirect(array('action' => 'rights', $rootId));
 		}
+	}
+
+	public function toggleEmailSubscription($userId, $folderId) {
+		$this->getEventManager()->dispatch(new CakeEvent(
+			'Controller.FilesController.toggleEmailSubscription',
+			$this,
+			array(
+				'userId' => $userId,
+				'folderId' => $folderId
+			)
+		));
+
+		$this->autoRender = false;
+		$this->redirect(array('action' => 'rights', $folderId));
 	}
 
 	protected function _removeRight($acoId, $aroId) {

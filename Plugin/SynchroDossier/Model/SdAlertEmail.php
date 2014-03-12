@@ -19,8 +19,6 @@ class SdAlertEmail extends SynchroDossierAppModel {
 
 	public function __construct($id = false, $table = null, $ds = null) {
 		parent::__construct($id, $table, $ds);
-
-		$this->cakeEmail = new CakeEmail();
 	}
 
 	/**
@@ -57,4 +55,25 @@ class SdAlertEmail extends SynchroDossierAppModel {
 
 		return false;
 	}
+
+	public function toggleEmailAlert($event) {
+		$alertEmailId = $this->__idOfSubscription($event);
+		if (!$alertEmailId) {
+			$this->create();
+			$this->save(array(
+				'user_id' => $event->data['userId'],
+				'uploaded_file_id' => $event->data['folderId']
+			));
+		} else {
+			$this->delete($alertEmailId);
+		}
+	}
+
+	private function __idOfSubscription($event) {
+		return $this->field('id', array(
+			'user_id' => $event->data['userId'],
+			'uploaded_file_id' => $event->data['folderId']
+		));
+	}
+
 }

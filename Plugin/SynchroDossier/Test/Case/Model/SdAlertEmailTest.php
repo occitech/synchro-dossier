@@ -62,4 +62,31 @@ class SdAlertEmailTest extends CakeTestCase {
 
 		$this->assertArrayNotHasKey('aymeric@derbois.com', $result['to']);
 	}
+
+	public function testToggleAlertMailWithUserNotYetSubscribed_ShouldSubscribeUser() {
+		$userId = 2;
+		$folderId = 2;
+		$event = $this->getMockBuilder('CakeEvent')
+			->disableOriginalConstructor()
+			->getMock();
+
+		$event->data['userId'] = $userId;
+		$event->data['folderId'] = $folderId;
+		$this->SdAlertEmail->toggleEmailAlert($event);
+		$this->assertTrue($this->SdAlertEmail->hasAny(array('user_id' => $userId, 'uploaded_file_id' => $folderId)));
+	}
+
+	public function testToggleAlertMailWithUserAlreadySubscribed_ShouldUnsubscribeUser() {
+		$userId = 2;
+		$folderId = 1;
+		$event = $this->getMockBuilder('CakeEvent')
+			->disableOriginalConstructor()
+			->getMock();
+
+		$event->data['userId'] = $userId;
+		$event->data['folderId'] = $folderId;
+		$this->SdAlertEmail->toggleEmailAlert($event);
+		// debug($this->SdAlertEmail->find('all'));
+		$this->assertFalse($this->SdAlertEmail->hasAny(array('user_id' => $userId, 'uploaded_file_id' => $folderId)));
+	}
 }

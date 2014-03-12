@@ -34,6 +34,7 @@
 			<td><?= __d('uploader', 'Lecture') ?></td>
 			<td><?= __d('uploader', 'Upload') ?></td>
 			<td><?= __d('uploader', 'Suppression') ?></td>
+			<td><?= __d('uploader', 'Toggle mail') ?></td>
 			<td><?= __d('uploader', 'Actions') ?></td>
 		</tr>
 		<?php foreach ($superAdmins as $superAdmin): ?>
@@ -114,6 +115,21 @@
 							); ?>
 						<?php else: ?>
 							<?= $this->Layout->status($aro['ArosAco']['_delete']) ?>
+						<?php endif ?>
+					</td>
+					<td>
+						<?php if ($hasRightToChangeRight): ?>
+							<?= $this->Html->link(
+								$this->Layout->status(array_key_exists($aro['User']['id'], $userRegisteredToAlert)),
+								array(
+									'action' => 'toggleEmailSubscription',
+									$aro['User']['id'],
+									$folderId
+								),
+								array('escape' => false)
+							); ?>
+						<?php else: ?>
+							<?= $this->Layout->status(array_key_exists($aro['User']['id'], $userRegisteredToAlert)) ?>
 						<?php endif ?>
 					</td>
 					<td>
