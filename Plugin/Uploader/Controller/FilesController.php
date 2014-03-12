@@ -110,7 +110,16 @@ class FilesController extends UploaderAppController {
 			$folder = $this->UploadedFile->findById($folderId);
 			$superAdmins = $this->UploadedFile->User->find('superAdmin');
 			$acos = $this->UploaderAclAco->getArosOfFolder('UploadedFile', $folderId);
+
 			$usersNotInFolder = $this->UploaderAclAro->getUserNotInFolder($folderId);
+			$usersVisible = $this->UploadedFile->User->find('visibleBy', array(
+				'userId' => $this->Auth->user('id'),
+				'fields' => array('id', 'username'),
+				'recursive' => -1
+			));
+			$usersVisible = Hash::combine($usersVisible, '{n}.User.id', '{n}.User.username');
+			$usersNotInFolder = array_intersect($usersNotInFolder, $usersVisible);
+
 			$this->set(compact('acos', 'superAdmins', 'folder', 'usersNotInFolder'));
 		} else {
 			$rootId = $this->UploadedFile->getRootFolderId($folderId);

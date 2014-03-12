@@ -41,7 +41,7 @@ class UploaderAclAco extends AclNode {
 				'User' => array(
 					'className' => 'SdUsers.SdUser',
 					'foreignKey' => 'foreign_key'
- 				) 
+				)
 			)
 		));
 
@@ -131,7 +131,7 @@ class UploaderAclAco extends AclNode {
 		$func = function ($ressource) use ($userData) {
 			$can = true;
 			if ($userData['role_id'] == Configure::read('sd.Admin.roleId')) {
-				$can = $ressource['creator_id'] == $userData['id'];
+				$can = $ressource['role_id'] == Configure::read('sd.Utilisateur.roleId');
 			}
 			return $can;
 		};

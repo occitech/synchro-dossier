@@ -26,10 +26,9 @@ class SdUsersController extends SdUsersAppController {
 	public function index() {
 		$this->loadModel('Uploader.UploaderAclAco');
 		$can = $this->UploaderAclAco->getRightsCheckFunctions($this->Auth->user());
-
 		$this->paginate['findType'] = 'visibleBy';
 		$this->paginate['userId'] = $this->Auth->user('id');
-		$this->paginate['contain'] = array('Role', 'Creator', 'Profile');
+		$this->paginate['contain'] = array('Role', 'Profile');
 		$this->paginate['limit'] = 10;
 
 		$users = $this->paginate();
@@ -38,23 +37,33 @@ class SdUsersController extends SdUsersAppController {
 
 	public function add() {
 		if (!empty($this->request->data)) {
-			$userId = $this->Auth->user('id');
-			$roleId = $this->Auth->user('role_id');
-			if ($this->SdUser->add($this->request->data, $userId, $roleId)) {
-				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur à été enregistré'), 'default', array('class' => 'success'));
+			$messages = $this->__getUserCreationFlashMessage($this->request->data['User']['email']);
+			if ($this->SdUser->addCollaborator($this->request->data, $this->Auth->user('id'))) {
+				$this->Session->setFlash($messages['success'], 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			} else {
-				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur ne peux pas être ajouté'), 'default', array('class' => 'error'));
+				$this->Session->setFlash($messages['fail'], 'default', array('class' => 'error'));
 				unset($this->request->data['User']['password']);
 			}
 		}
 		$this->set('roles', $this->SdUser->Role->find('list'));
 	}
 
+	private function __getUserCreationFlashMessage($email) {
+		$messages = array();
+		if(!empty($this->SdUser->hasAny(array('email' => $email)))) {
+			$messages['success'] = __d('sd_users', 'Un utilisateur avec la même adresse email existe déjà, il a été ajouté à votre liste');
+			$messages['fail'] = __d('sd_users', 'Un utilisateur avec la même adresse email est déjà présent dans votre liste');
+		} else {
+			$messages['success'] = __d('sd_users', 'L\'utilisateur à été enregistré');
+			$messages['fail'] = __d('sd_users', 'L\'utilisateur ne peux pas être ajouté');
+		}
+		return $messages;
+	}
+
 	public function edit($userId) {
 		if ($this->request->data) {
-			$roleId = $this->Auth->user('role_id');
-			if ($this->SdUser->edit($this->request->data, $roleId)) {
+			if ($this->SdUser->editCollaborator($this->request->data, $this->Auth->user('id'))) {
 				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur à été mis à jour'), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			} else {

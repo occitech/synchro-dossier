@@ -15,7 +15,6 @@ class SdUsersUserFixture extends CakeTestFixture {
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'length' => 20, 'key' => 'primary'),
 		'role_id' => array('type' => 'integer', 'null' => false, 'default' => null),
-		'creator_id' => array('type' => 'integer', 'null' => false, 'default' => null),
 		'username' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 60, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'password' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 100, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
 		'name' => array('type' => 'string', 'null' => false, 'default' => null, 'length' => 50, 'collate' => 'utf8_unicode_ci', 'charset' => 'utf8'),
@@ -43,7 +42,6 @@ class SdUsersUserFixture extends CakeTestFixture {
 		array(
 			'id' => '1',
 			'role_id' => '1',
-			'creator_id' => '0',
 			'username' => 'admin',
 			'password' => 'd1e03fcbc79398c3f93a7c875a86baae3aa99d42',
 			'name' => 'admin',
@@ -60,7 +58,6 @@ class SdUsersUserFixture extends CakeTestFixture {
 		array(
 			'id' => '2',
 			'role_id' => '6',
-			'creator_id' => '1',
 			'username' => 'aymeric',
 			'password' => '935dce4494121f848ffe2d3337ed2c05192526b1',
 			'name' => 'Derbois',
@@ -77,7 +74,6 @@ class SdUsersUserFixture extends CakeTestFixture {
 		array(
 			'id' => '3',
 			'role_id' => '4',
-			'creator_id' => '1',
 			'username' => 'spadm1',
 			'password' => '102307eeb5d160ab5a1040437de4f7575ca508b4',
 			'name' => 'spadm1',
@@ -94,7 +90,6 @@ class SdUsersUserFixture extends CakeTestFixture {
 		array(
 			'id' => '4',
 			'role_id' => '5',
-			'creator_id' => '1',
 			'username' => 'admin1',
 			'password' => '102307eeb5d160ab5a1040437de4f7575ca508b4',
 			'name' => 'admin1',
@@ -111,7 +106,6 @@ class SdUsersUserFixture extends CakeTestFixture {
 		array(
 			'id' => '5',
 			'role_id' => '5',
-			'creator_id' => '1',
 			'username' => 'admin2',
 			'password' => '102307eeb5d160ab5a1040437de4f7575ca508b4',
 			'name' => 'admin2',
@@ -128,7 +122,6 @@ class SdUsersUserFixture extends CakeTestFixture {
 		array(
 			'id' => '6',
 			'role_id' => '6',
-			'creator_id' => '4',
 			'username' => 'user1',
 			'password' => '102307eeb5d160ab5a1040437de4f7575ca508b4',
 			'name' => 'user1',

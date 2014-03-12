@@ -30,6 +30,7 @@ class SdUserTest extends CroogoTestCase {
 		'plugin.sd_users.sd_users_aro',
 		'plugin.sd_users.sd_users_aco',
 		'plugin.settings.setting',
+		'plugin.sd_users.sd_users_collaboration',
 	);
 
 	public function setUp() {
@@ -48,33 +49,84 @@ class SdUserTest extends CroogoTestCase {
 
 	public function testAdd_Ok() {
 		$creatorId = 3;
-		$roleId = 1;
-		$data = array(
-			'User' => array(
-				'role_id' => '6',
-				'username' => 'coucou',
-				'email' => 'coucou@coucou.com',
-				'status' => '1'
-			),
-			'Profile' => array(
-				'name' => 'sdfsqfsdf',
-				'firstname' => 'sdf',
-				'society' => 'qsqssdf'
-			)
-		);
-		$result = $this->SdUser->add($data, $creatorId, $roleId);
+		$data = $this->__userData;
+		$email = $data['User']['email'];
+		$result = $this->SdUser->addCollaborator($data, $creatorId);
 		$lastUserAdded = $this->SdUser->find('first', array('order' => 'User.id DESC'));
 
 		$this->assertTrue($result);
 		$this->_assertCountSdUsers($this->__usersCount + 1, array('noRoleChecking' => true));
-		$this->assertEqual($creatorId, $lastUserAdded['User']['creator_id']);
+		$this->assertEquals($email, $lastUserAdded['User']['email']);
+	}
+
+	public function testAddUser_ShouldCreateACollaboration() {
+		$creatorId = 4;
+		$data = $this->__userData;
+		$oldCount = $this->SdUser->UsersCollaboration->find('count');
+		$this->SdUser->addCollaborator($data, $creatorId);
+		$newCount = $this->SdUser->UsersCollaboration->find('count');
+
+		$this->assertEquals($oldCount + 1, $newCount);
+	}
+
+	public function testAddUserBySuperAdmin_ShouldNotCreateACollaboration() {
+		$creatorId = 3;
+		$data = $this->__userData;
+		$oldCount = $this->SdUser->UsersCollaboration->find('count');
+		$this->SdUser->addCollaborator($data, $creatorId);
+		$newCount = $this->SdUser->UsersCollaboration->find('count');
+
+		$this->assertEquals($oldCount, $newCount);
+	}
+
+	public function testAddUserByOccitech_ShouldNotCreateACollaboration() {
+		$creatorId = 1;
+		$data = $this->__userData;
+		$oldCount = $this->SdUser->UsersCollaboration->find('count');
+		$this->SdUser->addCollaborator($data, $creatorId);
+		$newCount = $this->SdUser->UsersCollaboration->find('count');
+
+		$this->assertEquals($oldCount, $newCount);
+	}
+
+	public function testAddExistingUser_ShouldNotCreateANewUser() {
+		$creatorId = 3;
+		$data = $this->__userData;
+		$data['User']['email'] = 'user1@user1.com';
+		$this->SdUser->addCollaborator($data, $creatorId);
+
+		$this->_assertCountSdUsers($this->__usersCount, array('noRoleChecking' => true));
+	}
+
+	public function testAddExistingUser_ShouldCreateACollaboration() {
+		$creatorId = 5;
+		$data = $this->__userData;
+		$data['User']['email'] = 'user1@user1.com';
+
+		$oldCount = $this->SdUser->UsersCollaboration->find('count');
+		$this->SdUser->addCollaborator($data, $creatorId);
+		$newCount = $this->SdUser->UsersCollaboration->find('count');
+
+		$this->assertEquals($oldCount + 1, $newCount);
+	}
+
+	public function testAddExistingCollaboration_ShouldNotCreateANewCollaboration() {
+		$creatorId = 1;
+		$data = $this->__userData;
+		$data['User']['email'] = 'aymeric@derbois.com';
+
+		$oldCount = $this->SdUser->UsersCollaboration->find('count');
+		$this->SdUser->addCollaborator($data, $creatorId);
+		$newCount = $this->SdUser->UsersCollaboration->find('count');
+
+		$this->assertEquals($oldCount, $newCount);
 	}
 
 	protected function _assertCountSdUsers($expected, $parameters=array()) {
 		$parameters['fields'] = array($this->SdUser->primaryKey);
 		$result = $this->SdUser->find('all', $parameters);
 		$resultCount = $this->_countUniqueUsers($result);
-		$this->assertEqual($expected, $resultCount);
+		$this->assertEquals($expected, $resultCount);
 	}
 
 	protected function _countUniqueUsers($result) {
@@ -85,50 +137,26 @@ class SdUserTest extends CroogoTestCase {
 
 	public function testAdd_FillUsernameField() {
 		$creatorId = 3;
-		$roleId = 1;
-		$data = array(
-			'User' => array(
-				'role_id' => '6',
-				'username' => '',
-				'email' => 'coucou@coucou.com',
-				'status' => '1'
-			),
-			'Profile' => array(
-				'name' => 'sdfsqfsdf',
-				'firstname' => 'sdf',
-				'society' => 'qsqssdf'
-			)
-		);
-		$result = $this->SdUser->add($data, $creatorId, $roleId);
+		$data = $this->__userData;
+		$data['User']['username'] = 'user1';
+
+		$result = $this->SdUser->addCollaborator($data, $creatorId);
 		$lastUserAdded = $this->SdUser->find('first', array('order' => 'User.id DESC'));
 
 		$this->assertTrue($result);
 		$this->assertTrue(!empty($lastUserAdded['User']['username']));
 
-		$this->assertEquals('sdfsqfsdfsdf', $lastUserAdded['User']['username']);
+		$this->assertEquals('user1', $lastUserAdded['User']['username']);
 	}
 
 	public function testAdd_AroCorrectlyAdded() {
 		$creatorId = 3;
 		$roleId = 1;
-		$data = array(
-			'User' => array(
-				'role_id' => '4',
-				'username' => 'coucou',
-				'email' => 'coucou@coucou.com',
-				'status' => '1'
-			),
-			'Profile' => array(
-				'name' => 'sdfsqfsdf',
-				'firstname' => 'sdf',
-				'society' => 'qsqssdf'
-			)
-		);
+		$data = $this->__userData;
+		$data['User']['role_id'] = 4;
 
-		$this->SdUser->add($data, $creatorId, $roleId);
-
+		$this->SdUser->addCollaborator($data, $creatorId);
 		$result = $this->Aro->find('first', array('order' => 'id DESC'));
-
 		$expected = array(
 			'id' => '10',
 			'parent_id' => '5',
@@ -138,28 +166,17 @@ class SdUserTest extends CroogoTestCase {
 			'lft' => '12',
 			'rght' => '13'
 		);
-		$this->assertEqual($result['Aro'], $expected);
+		$this->assertEquals($result['Aro'], $expected);
 	}
 
 	public function testAdd_NewUserCanAccesToFile_WithInheritsRights() {
 		$creatorId = 3;
 		$roleId = 1;
-		$data = array(
-			'User' => array(
-				'role_id' => '4',
-				'username' => 'coucou',
-				'email' => 'coucou@coucou.com',
-				'status' => '1'
-			),
-			'Profile' => array(
-				'name' => 'sdfsqfsdf',
-				'firstname' => 'sdf',
-				'society' => 'qsqssdf'
-			)
-		);
+		$data = $this->__userData;
+		$data['User']['role_id'] = 4;
+		$data['User']['username'] = 'user1';
 
-		$result = $this->SdUser->add($data, $creatorId, $roleId);
-
+		$result = $this->SdUser->addCollaborator($data, $creatorId);
 		$this->SdUser->bindModel(array(
 			'hasOne' => array(
 				'Aro' => array(
@@ -185,42 +202,23 @@ class SdUserTest extends CroogoTestCase {
 
 	public function testAdd_NoUsernameGiven() {
 		$creatorId = 3;
-		$roleId = 4;
-		$data = array(
-			'User' => array(
-				'role_id' => '4',
-				'email' => 'coucou@coucou.com',
-				'status' => '1'
-			),
-			'Profile' => array(
-				'name' => 'sdfsqfsdf',
-				'firstname' => 'sdf',
-				'society' => 'qsqssdf'
-			)
-		);
-		$result = $this->SdUser->add($data, $creatorId, $roleId);
+		$data = $this->__userData;
+		$data['User']['role_id'] = 4;
+		unset($data['User']['username']);
+
+		$result = $this->SdUser->addCollaborator($data, $creatorId);
 		$this->assertTrue($result);
 	}
 
 	public function testEdit_Ok() {
 		$creatorId = 3;
-		$roleId = 1;
-		$data = array(
-			'User' => array(
-				'id' => '1',
-				'role_id' => '5',
-				'username' => 'coucou',
-				'email' => 'coucou@coucou.com',
-				'password' => '',
-				'status' => '1'
-			),
-			'Profile' => array(
-				'name' => 'sdfsqfsdf',
-				'firstname' => 'sdf',
-				'society' => 'qsqssdf'
-			)
-		);
-		$this->assertTrue($this->SdUser->edit($data, $roleId));
+		$data = $this->__userData;
+		$data['User']['id'] = 1;
+		$data['User']['password'] = '';
+		$data['User']['role_id'] = 5;
+		$data['User']['email'] = 'coucou@coucou.com';
+
+		$this->assertTrue($this->SdUser->editCollaborator($data, $creatorId));
 		$this->_assertCountSdUsers($this->__usersCount);
 	}
 
@@ -229,22 +227,46 @@ class SdUserTest extends CroogoTestCase {
  */
 	public function testFindVisibleByOccitech_FiveResultsNeeded() {
 		$result = $this->SdUser->find('visibleBy', array('userId' => 1));
-		$this->assertEqual($this->_countUniqueUsers($result), 5);
+		$this->assertEquals($this->_countUniqueUsers($result), 5);
 	}
 
 	public function testFindVisibleBySuperAdmin_FourResultsNeeded() {
 		$result = $this->SdUser->find('visibleBy', array('userId' => 3));
-		$this->assertEqual($this->_countUniqueUsers($result), 4);
+		$this->assertEquals($this->_countUniqueUsers($result), 4);
 	}
 
-	public function testFindVisibleByAdmin_TwoResultsNeeded() {
-		$result = $this->SdUser->find('visibleBy', array('userId' => 4));
-		$this->assertEqual($this->_countUniqueUsers($result), 2);
+	public function testFindVisibleByShouldReturnsUniqueUsers() {
+		$result = $this->SdUser->find('visibleBy', array(
+			'userId' => 4,
+			'fields' => array('id')
+		));
+		$userIds = Hash::extract($result, '{n}.User.id');
+		sort($userIds);
+		$expected = array(2,5,6);
+
+		$this->assertEquals($expected, $userIds);
 	}
 
 	public function testFindVisibleByUser_NoResult() {
 		$result = $this->SdUser->find('visibleBy', array('userId' => 6));
-		$this->assertEqual(count($result), 0);
+		$this->assertEquals(count($result), 0);
+	}
+
+	public function testUserCanBeVisibleBy2Admins() {
+		$visibleByAdmin1 = $this->SdUser->find('visibleBy', array(
+			'userId' => 4,
+			'fields' => 'id'
+		));
+
+		$visibleByAdmin1 = Hash::extract($visibleByAdmin1, '{n}.User.id');
+		$visibleByAdmin2 = $this->SdUser->find('visibleBy', array(
+			'userId' => 5,
+			'fields' => 'id'
+		));
+		$visibleByAdmin2 = Hash::extract($visibleByAdmin2, '{n}.User.id');
+
+		$this->assertContains(2, $visibleByAdmin1);
+		$this->assertContains(2, $visibleByAdmin2);
 	}
 
 /**
@@ -252,7 +274,7 @@ class SdUserTest extends CroogoTestCase {
  */
 	public function testFindSuperAdmin() {
 		$result = $this->SdUser->find('superAdmin');
-		$this->assertEqual($this->_countUniqueUsers($result), 1);
+		$this->assertEquals($this->_countUniqueUsers($result), 1);
 	}
 
 /**
@@ -262,7 +284,7 @@ class SdUserTest extends CroogoTestCase {
 		$userId = 3;
 		$result = $this->SdUser->getAllRights($userId);
 
-		$this->assertEqual(count($result['Aro']['Aco']), 2);
+		$this->assertEquals(count($result['Aro']['Aco']), 2);
 	}
 
 /**
@@ -303,5 +325,19 @@ class SdUserTest extends CroogoTestCase {
 
 		$this->SdUser->changePassword($userId, $oldPassword, $newPassword, $newPasswordConfirmation);
 	}
+
+	private $__userData = array(
+			'User' => array(
+				'role_id' => 6,
+				'username' => 'coucou',
+				'email' => 'Coucou@coucou.com',
+				'status' => '1'
+			),
+			'Profile' => array(
+				'name' => 'user',
+				'firstname' => 'name',
+				'society' => 'occitech'
+			)
+		);
 
 }

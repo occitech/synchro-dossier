@@ -84,7 +84,7 @@ class UploaderAclAcoTest extends CakeTestCase {
 			array($aroUserId, $aroRoleId, $folderCreatorId)
 		);
 
-		
+
 		$this->assertFalse($result);
 	}
 
@@ -102,7 +102,7 @@ class UploaderAclAcoTest extends CakeTestCase {
 			'canChangeRight',
 			array($aroUserId, $aroRoleId, $folderCreatorId)
 		);
-		
+
 		$this->assertTrue($result);
 	}
 
@@ -120,7 +120,7 @@ class UploaderAclAcoTest extends CakeTestCase {
 			'canChangeRight',
 			array($aroUserId, $aroRoleId, $folderCreatorId)
 		);
-		
+
 		$this->assertFalse($result);
 	}
 
@@ -129,14 +129,14 @@ class UploaderAclAcoTest extends CakeTestCase {
 			'id' => 2,
 			'role_id' => Configure::read('sd.Admin.roleId')
 		);
-		$ressource['creator_id'] = $userData['id'];
+		$ressource['role_id'] = Configure::read('sd.Utilisateur.roleId');
 
 		$result = $this->Aco->can(
 			$userData,
 			'canUpdateUser',
 			array($ressource)
 		);
-		
+
 		$this->assertTrue($result);
 	}
 
@@ -145,14 +145,14 @@ class UploaderAclAcoTest extends CakeTestCase {
 			'id' => 2,
 			'role_id' => Configure::read('sd.Admin.roleId')
 		);
-		$ressource['creator_id'] = 4;
+		$ressource['role_id'] = Configure::read('sd.Admin.roleId');
 
 		$result = $this->Aco->can(
 			$userData,
 			'canUpdateUser',
 			array($ressource)
 		);
-		
+
 		$this->assertFalse($result);
 	}
 

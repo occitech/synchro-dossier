@@ -78,7 +78,6 @@ class FilesControllerTest extends CroogoControllerTestCase {
 			->will($this->returnValue(array(
 				'id' => '2',
 				'role_id' => '6',
-				'creator_id' => '0',
 				'username' => 'aymeric',
 				'password' => '935dce4494121f848ffe2d3337ed2c05192526b1',
 				'name' => 'Derbois',
