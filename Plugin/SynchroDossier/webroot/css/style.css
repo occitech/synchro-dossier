@@ -66,11 +66,6 @@ footer a, a {
 /**
  * Icons
  */
-[class^="icon-"]:before,
-[class*=" icon-"]:before {
-	content: none;
-}
-
 i.not-allowed {
 	opacity: 0.5;
 }
