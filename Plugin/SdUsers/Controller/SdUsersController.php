@@ -55,7 +55,7 @@ class SdUsersController extends SdUsersAppController {
 			$messages['success'] = __d('sd_users', 'Un utilisateur avec la même adresse email existe déjà, il a été ajouté à votre liste');
 			$messages['fail'] = __d('sd_users', 'Un utilisateur avec la même adresse email est déjà présent dans votre liste');
 		} else {
-			$messages['success'] = __d('sd_users', 'L\'utilisateur à été enregistré');
+			$messages['success'] = __d('sd_users', 'L\'utilisateur a été enregistré');
 			$messages['fail'] = __d('sd_users', 'L\'utilisateur ne peux pas être ajouté');
 		}
 		return $messages;
@@ -64,7 +64,7 @@ class SdUsersController extends SdUsersAppController {
 	public function edit($userId) {
 		if ($this->request->data) {
 			if ($this->SdUser->editCollaborator($this->request->data, $this->Auth->user('id'))) {
-				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur à été mis à jour'), 'default', array('class' => 'success'));
+				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur a été mis à jour'), 'default', array('class' => 'success'));
 				$this->redirect(array('action' => 'index'));
 			} else {
 				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur ne peux pas être modifié'), 'default', array('class' => 'error'));
@@ -84,7 +84,7 @@ class SdUsersController extends SdUsersAppController {
 			$httpCode = 404;
 		} else {
 			if ($this->SdUser->delete($id)) {
-				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur à été supprimé'), 'default', array('class' => 'success'));
+				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur a été supprimé'), 'default', array('class' => 'success'));
 			} else {
 				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur ne peux pas être supprimé'), 'default', array('class' => 'error'));
 			}

@@ -14,8 +14,8 @@
 			'style'
 		));
 		echo $this->Html->script(array(
-			'/croogo/js/croogo-bootstrap.js',
 			'SynchroDossier.jquery.1.8.3.min',
+			'/croogo/js/croogo-bootstrap.js',
 			'SynchroDossier.jquery-ui-1.9.2.custom.min',
 			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js',
 			'SynchroDossier._lib/jquery.cookie',

@@ -24,4 +24,6 @@
     * Uploader
     * SynchroDossier
 
+  * Go to the admin panel Extensions > Themes and activate Occitech Theme
+
   * Finally `Vendor/bin/cake Migrations.migration run all`
