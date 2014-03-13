@@ -6,7 +6,6 @@
 
 <?php echo $this->Html->link(__d('sd_users', 'Créez un utilisateur'), array('plugin' => 'sd_users', 'action' => 'add'), array('class' => 'btn', 'style' => 'margin-bottom:15px')) ?>
 
-<?php echo $this->Form->create('User', array('url' => array('controller' => 'sd_users', 'action' => 'process'))); ?>
 <div class="row-fluid">
 	<div class="span12">
 		<table class="table table-striped">
@@ -36,7 +35,12 @@
 						$actions .= ' ' . $this->Form->postLink(
 							'',
 							array('action' => 'delete',	$user['User']['id']),
-							array('icon' => 'remove', 'tooltip' => __d('sd_users', 'Supprimer cet utilisateur'), 'class' => 'red', 'escape' => false),
+							array(
+								'icon' => 'remove',
+								'tooltip' => __d('sd_users', 'Supprimer cet utilisateur'),
+								'class' => 'red',
+								'escape' => false
+							),
 							__d('sd_users', 'Are you sure?')
 						);
 
