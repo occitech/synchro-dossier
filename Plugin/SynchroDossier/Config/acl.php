@@ -29,6 +29,7 @@ $uploaderAcls = array(
 	'Uploader/Files/deleteFile' => $EVERYONE,
 	'Uploader/Files/deleteFolder' => $ADMINISTRATORS,
 
+	'Uploader/Files/toggleEmailSubscription' => $ADMINISTRATORS,
 	'Uploader/Files/find' => $EVERYONE,
 	'Uploader/Files/allFilesUploadedInBatch' => $EVERYONE,
 	'Uploader/Files/preview' => $EVERYONE,

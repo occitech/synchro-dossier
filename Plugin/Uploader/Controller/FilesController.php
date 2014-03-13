@@ -29,8 +29,7 @@ class FilesController extends UploaderAppController {
 					'download' 					=> 'read',
 					'rights'					=> 'change_right',
 					'removeRight'				=> 'change_right',
-					'toggleRight'				=> 'change_right',
-					'toggleEmailSubscription'	=> 'change_right'
+					'toggleRight'				=> 'change_right'
 				),
 			)
 		)

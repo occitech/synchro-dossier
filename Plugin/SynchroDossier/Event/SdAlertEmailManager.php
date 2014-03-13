@@ -53,7 +53,8 @@ class SdAlertEmailManager implements CakeEventListener {
 
 		$usersToAlert = $SdAlertEmailModel->getUserToAlert($event->data['user']['id']);
 		$userProfile = $SdUserModel->find('first', array(
-			'conditions' => array('User.id' => $event->data['user']['id'])
+			'conditions' => array('User.id' => $event->data['user']['id']),
+			'noRoleChecking' => true
 		));
 		if (!empty($usersToAlert['to'])) {
 			$this->cakeEmail
