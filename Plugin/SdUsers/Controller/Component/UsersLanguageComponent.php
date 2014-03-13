@@ -24,8 +24,11 @@ class UsersLanguageComponent extends Component {
 					'fields' => array('Language.alias')
 				)
 			);
-			$controller->set('userLang', $userSetting['Language']['alias']);
-			$sessionConfig['lang'] = $userSetting['Language']['alias'];
+
+            $language = empty($userSetting['Language']['alias']) ?"fra" : $userSetting['Language']['alias'];
+
+			$controller->set('userLang', $language);
+			$sessionConfig['lang'] = $language;
 		}
 
 		$controller->Session->write('Config', $sessionConfig);
