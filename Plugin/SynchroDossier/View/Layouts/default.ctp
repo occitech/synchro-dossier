@@ -8,7 +8,6 @@
 		echo $this->Html->css(array(
 			'/croogo/css/croogo-bootstrap',
 			'/croogo/css/croogo-bootstrap-responsive',
-			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/css/bootstrap-combined.min.css',
 			'SynchroDossier.smoothness/jquery-ui-1.9.2.custom.min',
 			'SynchroDossier.style',
 			'style'
@@ -17,7 +16,6 @@
 			'SynchroDossier.jquery.1.8.3.min',
 			'/croogo/js/croogo-bootstrap.js',
 			'SynchroDossier.jquery-ui-1.9.2.custom.min',
-			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.3.2/js/bootstrap.min.js',
 			'SynchroDossier._lib/jquery.cookie',
 			'SynchroDossier.jquery.jstree',
 		));
