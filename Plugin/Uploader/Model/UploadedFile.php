@@ -30,7 +30,7 @@ class UploadedFile extends UploaderAppModel {
 		'Aco' => array(
 			'className' => 'Aco',
 			'foreignKey' => 'foreign_key',
-			'conditions' => array('Aco.model' => 'UploadedFile', 'Aco.parent_id' => 321)
+			'conditions' => array('Aco.model' => 'UploadedFile')
 		)
 	);
 
