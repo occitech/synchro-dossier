@@ -63,9 +63,9 @@
 					<tr>
 						<td>
 							<?php if (!$file['UploadedFile']['is_folder']): ?>
-								<span class="badge">V<?= $file['UploadedFile']['current_version']; ?></span>
+								<span class="badge">V<?= $file['FileStorage'][0]['file_version']; ?></span>
 								<?= $this->File->iconPreview($file['UploadedFile']); ?>
-								<?php if ($file['UploadedFile']['current_version'] > 1): ?>
+								<?php if (count($file['FileStorage']) > 1): ?>
 									<?= $this->Html->link('<i class="icon-chevron-right"></i>',
 										'#',
 										array('class' => 'show-versions', 'id' => $file['UploadedFile']['id'], 'escape' => false)); ?>
@@ -251,13 +251,12 @@
 						</td>
 					</tr>
 					<?php if ($file['UploadedFile']['current_version'] > 1): ?>
-						<?php $version = $file['UploadedFile']['current_version'] - 1; ?>
-						<?php $fileVersions = array_reverse($file['FileStorage']); ?>
+						<?php $fileVersions = $file['FileStorage']; ?>
 						<?php array_shift($fileVersions); ?>
 						<?php foreach ($fileVersions as $fileVersion): ?>
 							<tr style="display:none;" class="versions-<?= $file['UploadedFile']['id'] ?> sub-version">
 								<td>
-									V<?= $version--; ?>
+									V<?= $fileVersion['file_version']; ?>
 									<?= $this->Html->link(
 										$file['UploadedFile']['filename'],
 										array(
