@@ -31,6 +31,11 @@ class SdUserTest extends CroogoTestCase {
 		'plugin.sd_users.sd_users_aco',
 		'plugin.settings.setting',
 		'plugin.sd_users.sd_users_collaboration',
+		'plugin.sd_users.sd_users_uploaded_file',
+		'plugin.uploader.file_storage',
+		'plugin.uploader.uploader_comment',
+		'plugin.uploader.uploader_taxonomy',
+		'plugin.uploader.taxonomies_uploaded_file',
 	);
 
 	public function setUp() {
@@ -39,6 +44,7 @@ class SdUserTest extends CroogoTestCase {
 		$this->SdUser = ClassRegistry::init('SdUsers.SdUser');
 		$this->__usersCount = $this->SdUser->find('count', array('recursive' =>  -1, 'noRoleChecking' => true));
 		$this->Aro = ClassRegistry::init('Aro');
+		$this->ArosAco = ClassRegistry::init('ArosAco');
 	}
 
 	public function tearDown() {
@@ -324,6 +330,29 @@ class SdUserTest extends CroogoTestCase {
 		$newPasswordConfirmation = '';
 
 		$this->SdUser->changePassword($userId, $oldPassword, $newPassword, $newPasswordConfirmation);
+	}
+
+	public function testDeleteByAdmin_ShouldDeleteCollaboration() {
+		$parentId = 4;
+		$userId = 2;
+		$collaborationId = 6;
+
+		$this->SdUser->removeCollaborator($userId, $parentId);
+		$this->assertFalse($this->SdUser->UsersCollaboration->hasAny(array('id' => $collaborationId)));
+	}
+
+	public function testDeletebyAdmin_ShouldRemoveArosAcosOfUserForAdminFolder() {
+		$parentId = 4;
+		$userId = 2;
+		$folderOfParent = ClassRegistry::init('Uploader.UploadedFile')->find('all', array(
+			'conditions' => array('UploadedFile.user_id' => 4),
+			'fields' => array('id'),
+			'recursive' => -1
+		));
+
+		$this->SdUser->removeCollaborator($userId, $parentId);
+		$this->assertFalse($this->ArosAco->hasAny(array('id' => 3)));
+		$this->assertFalse($this->ArosAco->hasAny(array('id' => 4)));
 	}
 
 	private $__userData = array(

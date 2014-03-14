@@ -4,7 +4,6 @@
  *
  */
 class SdUsersArosAcoFixture extends CakeTestFixture {
-
 	public $name = 'ArosAco';
 
 /**
@@ -44,6 +43,24 @@ class SdUsersArosAcoFixture extends CakeTestFixture {
 		array(
 			'id' => '2',
 			'aro_id' => '5',
+			'aco_id' => '3',
+			'_create' => '1',
+			'_read' => '1',
+			'_update' => '1',
+			'_delete' => '1'
+		),
+		array(
+			'id' => '3',
+			'aro_id' => '8',
+			'aco_id' => '1',
+			'_create' => '1',
+			'_read' => '1',
+			'_update' => '1',
+			'_delete' => '0'
+		),
+		array(
+			'id' => '4',
+			'aro_id' => '8',
 			'aco_id' => '3',
 			'_create' => '1',
 			'_read' => '1',

@@ -3,8 +3,9 @@
  * UploadedFileFixture
  *
  */
-class UploadedFileFixture extends CakeTestFixture {
+class SdUsersUploadedFileFixture extends CakeTestFixture {
 
+	public $name = 'UploadedFile';
 /**
  * Fields
  *
@@ -38,7 +39,7 @@ class UploadedFileFixture extends CakeTestFixture {
 			'id' => '1',
 			'filename' => 'Photos',
 			'size' => '0',
-			'user_id' => '1',
+			'user_id' => '4',
 			'current_version' => '0',
 			'available' => '0',
 			'parent_id' => null,
@@ -51,7 +52,7 @@ class UploadedFileFixture extends CakeTestFixture {
 			'id' => '2',
 			'filename' => 'Documents',
 			'size' => '0',
-			'user_id' => '1',
+			'user_id' => '4',
 			'current_version' => '0',
 			'available' => '0',
 			'parent_id' => null,
@@ -64,7 +65,7 @@ class UploadedFileFixture extends CakeTestFixture {
 			'id' => '3',
 			'filename' => 'Fruits',
 			'size' => '0',
-			'user_id' => '1',
+			'user_id' => '4',
 			'current_version' => '0',
 			'available' => '0',
 			'parent_id' => '1',
@@ -77,7 +78,7 @@ class UploadedFileFixture extends CakeTestFixture {
 			'id' => '4',
 			'filename' => 'Fraise.jpg',
 			'size' => '34639',
-			'user_id' => '1',
+			'user_id' => '4',
 			'current_version' => '1',
 			'available' => '0',
 			'parent_id' => '3',
@@ -90,7 +91,7 @@ class UploadedFileFixture extends CakeTestFixture {
 			'id' => '5',
 			'filename' => 'pommes.jpg',
 			'size' => '4385',
-			'user_id' => '1',
+			'user_id' => '4',
 			'current_version' => '1',
 			'available' => '0',
 			'parent_id' => '3',
@@ -103,7 +104,7 @@ class UploadedFileFixture extends CakeTestFixture {
 			'id' => '6',
 			'filename' => '2012-comptes.ods',
 			'size' => '13681',
-			'user_id' => '1',
+			'user_id' => '4',
 			'current_version' => '1',
 			'available' => '0',
 			'parent_id' => '2',
