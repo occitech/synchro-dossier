@@ -105,10 +105,6 @@ class FilesControllerTest extends CroogoControllerTestCase {
 		$this->assertEquals($varsBeforeTag['files'][0]['Aco'], $varsAfterTag['files'][0]['Aco']);
 	}
 
-	public function testUserTaggingFileWhichIsNOtOWnerShouldStillSeeTaggedFile() {
-
-	}
-
 	public function testFindFunctionShouldReturnSuperAdmin() {
 		$vars = $this->testAction('/uploader/files/find', array(
 			'method' => 'GET',

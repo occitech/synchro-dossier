@@ -803,4 +803,14 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		return $result;
 	}
 
+	public function testParentNodeShouldReturnParentIdWhenExistingButNotSetInData() {
+		$this->UploadedFile->data = array($this->UploadedFile->alias => array($this->UploadedFile->primaryKey => 4));
+		$parentId = $this->UploadedFile->parentNode();
+		$expectedParentId = array(
+			$this->UploadedFile->alias => array('id' => 3)
+		);
+
+		$this->assertEquals($expectedParentId, $parentId);
+	}
+
 }

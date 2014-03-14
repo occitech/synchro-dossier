@@ -489,9 +489,6 @@ class FilesController extends UploaderAppController {
 					}
 				}
 
-				$this->UploadedFile->unbindModel(array('hasOne' => array('Aco')));
-				$this->UploadedFile->Behaviors->detach('Tree');
-
 				if ($this->UploadedFile->save($data)) {
 					$messageFlash = __d('uploader', 'Tags successfuly added to file');
 					$class = array('class' => 'success');

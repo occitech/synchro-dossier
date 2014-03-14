@@ -30,7 +30,7 @@ class UploadedFile extends UploaderAppModel {
 		'Aco' => array(
 			'className' => 'Aco',
 			'foreignKey' => 'foreign_key',
-			'conditions' => array('Aco.model' => 'UploadedFile')
+			'conditions' => array('Aco.model' => 'UploadedFile', 'Aco.parent_id' => 321)
 		)
 	);
 
@@ -110,13 +110,20 @@ class UploadedFile extends UploaderAppModel {
 	}
 
 	public function parentNode() {
-		$parentId = null;
-		if (isset($this->data['UploadedFile']['parent_id'])) {
-			$parentId = array('UploadedFile' => array(
-				'id' => $this->data['UploadedFile']['parent_id']
+		if (empty($this->data[$this->alias]['parent_id'])) {
+			$parentId = $this->field('parent_id', array($this->primaryKey => $this->data[$this->alias][$this->primaryKey]));
+		} else {
+			$parentId = $this->data[$this->alias]['parent_id'];
+		}
+
+		$acoData = null;
+		if (!empty($parentId)) {
+			$acoData =	array($this->alias => array(
+				$this->primaryKey => $parentId
 			));
 		}
-		return $parentId;
+
+		return $acoData;
 	}
 
 ////////////////////////////////
