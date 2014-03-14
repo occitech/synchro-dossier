@@ -5,9 +5,9 @@
 ?>
 
 <?php echo $this->Html->link(__d('sd_users', 'Créez un utilisateur'), array('plugin' => 'sd_users', 'action' => 'add'), array('class' => 'btn', 'style' => 'margin-bottom:15px')) ?>
-
 <div class="row-fluid">
 	<div class="span12">
+<?php if(!empty($users)):?>
 		<table class="table table-striped">
 			<?php
 				$tableHeaders =  $this->Html->tableHeaders(array(
@@ -59,6 +59,12 @@
 				echo $tableHeaders;
 			?>
 		</table>
+		<?php else: ?>
+			<p class="alert-error alert">
+				<button class="close" data-dismiss="alert" type="button">×</button>
+				<?php echo __d('sd_users', 'No users found') ;?>
+			</p>
+		<?php endif; ?>
 	</div>
 </div>
 <div class="row-fluid">
