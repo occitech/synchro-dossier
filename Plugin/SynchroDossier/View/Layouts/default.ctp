@@ -14,8 +14,8 @@
 		));
 		echo $this->Html->script(array(
 			'SynchroDossier.jquery.1.8.3.min',
-			'/croogo/js/croogo-bootstrap.js',
 			'SynchroDossier.jquery-ui-1.9.2.custom.min',
+			'/croogo/js/croogo-bootstrap.js',
 			'SynchroDossier._lib/jquery.cookie',
 			'SynchroDossier.jquery.jstree',
 		));
