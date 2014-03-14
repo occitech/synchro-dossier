@@ -534,7 +534,7 @@ class UploadedFile extends UploaderAppModel {
 		return $newExt === $lastExt;
 	}
 
-	protected function _uploadNewFileVersion($data, $userId, $parentId, $originalFilename) {
+	protected function _uploadNewFileVersion($data, $parentId, $originalFilename) {
 		$fileInfos = $data['file'];
 		$isValid = true;
 
@@ -618,7 +618,7 @@ class UploadedFile extends UploaderAppModel {
 			if (is_null($originalFilename) && !$this->_isANewVersion($fileInfos['name'], $parentId)) {
 				$result = $this->_uploadNewFile($data, $user['id'], $parentId);
 			} else {
-				$result = $this->_uploadNewFileVersion($data, $user['id'], $parentId, $originalFilename);
+				$result = $this->_uploadNewFileVersion($data, $parentId, $originalFilename);
 			}
 		}
 
