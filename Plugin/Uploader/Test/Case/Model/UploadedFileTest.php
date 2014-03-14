@@ -28,6 +28,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		'plugin.uploader.uploader_aros_aco',
 		'plugin.uploader.uploader_comment',
 		'plugin.uploader.uploader_sd_information',
+		'plugin.sd_users.sd_users_collaboration',
 	);
 
 	protected $_settings = array(
@@ -811,6 +812,118 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		);
 
 		$this->assertEquals($expectedParentId, $parentId);
+	}
+
+	public function testFirstUploadCreateVersionOneFile() {
+		$this->data['file']['name'] = 'ICertainlyDontExistYet.impossibleExtension';
+		$this->UploadedFile->upload($this->data, array('id' => 1), 1);
+
+		$uploadedFile = $this->UploadedFile->find('first', array(
+			'conditions' => array(
+				$this->UploadedFile->escapeField() => $this->UploadedFile->getLastInsertId(),
+			),
+			'contain' => array(
+				'FileStorage' => array(
+					'order' => array('FileStorage.file_version DESC'),
+				),
+			),
+		));
+
+		$this->assertEquals(1, $uploadedFile['UploadedFile']['current_version']);
+		$this->assertEquals(1, $uploadedFile['FileStorage'][0]['file_version']);
+	}
+
+	public function testSecondUploadCreateVersionTwoFile() {
+		$this->data['file']['name'] = 'ICertainlyDontExistYet.impossibleExtension';
+		$this->UploadedFile->upload($this->data, array('id' => 1), 1);
+		$this->UploadedFile->upload($this->data, array('id' => 1), 1);
+
+		$uploadedFile = $this->UploadedFile->find('first', array(
+			'conditions' => array(
+				$this->UploadedFile->escapeField() => $this->UploadedFile->getLastInsertId(),
+			),
+			'contain' => array(
+				'FileStorage' => array(
+					'order' => array('FileStorage.file_version DESC'),
+				),
+			),
+		));
+
+		$this->assertEquals(2, $uploadedFile['UploadedFile']['current_version']);
+		$this->assertEquals(2, $uploadedFile['FileStorage'][0]['file_version']);
+	}
+
+	public function testDeletingAVersionKeepTheCurrentVersionAtItsCurrentValue() {
+		$this->data['file']['name'] = 'ICertainlyDontExistYet.impossibleExtension';
+		$this->UploadedFile->upload($this->data, array('id' => 1), 1);
+		$this->UploadedFile->upload($this->data, array('id' => 1), 1);
+
+		$uploadedFile = $this->UploadedFile->find('first', array(
+			'conditions' => array(
+				$this->UploadedFile->escapeField() => $this->UploadedFile->getLastInsertId(),
+			),
+			'contain' => array(
+				'FileStorage' => array(
+					'order' => array('FileStorage.file_version DESC'),
+				),
+			),
+		));
+
+		$this->UploadedFile->removeFile(
+			$uploadedFile['UploadedFile']['id'],
+			$uploadedFile['FileStorage'][0]['id'],
+			1
+		);
+
+		$uploadedFile = $this->UploadedFile->find('first', array(
+			'conditions' => array(
+				$this->UploadedFile->escapeField() => $this->UploadedFile->getLastInsertId(),
+			),
+			'contain' => array(
+				'FileStorage' => array(
+					'order' => array('FileStorage.file_version DESC'),
+				),
+			),
+		));
+		$this->assertEquals(2, $uploadedFile['UploadedFile']['current_version']);
+	}
+
+	public function testDeletingVersionTwoAndUploadingANewVersionCreateVersion3() {
+		$this->data['file']['name'] = 'ICertainlyDontExistYet.impossibleExtension';
+		$this->UploadedFile->upload($this->data, array('id' => 1), 1);
+		$this->UploadedFile->upload($this->data, array('id' => 1), 1);
+
+		$uploadedFile = $this->UploadedFile->find('first', array(
+			'conditions' => array(
+				$this->UploadedFile->escapeField() => $this->UploadedFile->getLastInsertId(),
+			),
+			'contain' => array(
+				'FileStorage' => array(
+					'order' => array('FileStorage.file_version DESC'),
+				),
+			),
+		));
+
+		$this->UploadedFile->removeFile(
+			$uploadedFile['UploadedFile']['id'],
+			$uploadedFile['FileStorage'][0]['id'],
+			1
+		);
+
+		$this->UploadedFile->upload($this->data, array('id' => 1), 1);
+
+		$uploadedFile = $this->UploadedFile->find('first', array(
+			'conditions' => array(
+				$this->UploadedFile->escapeField() => $this->UploadedFile->getLastInsertId(),
+			),
+			'contain' => array(
+				'FileStorage' => array(
+					'order' => array('FileStorage.file_version DESC'),
+				),
+			),
+		));
+		$this->assertEquals(3, $uploadedFile['UploadedFile']['current_version']);
+		$this->assertEquals(3, $uploadedFile['FileStorage'][0]['file_version']);
 	}
 
 }

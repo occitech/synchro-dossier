@@ -253,7 +253,13 @@ class FilesController extends UploaderAppController {
 		} else {
 			$this->paginate = array(
 				'conditions' => array('UploadedFile.parent_id' => $folderId),
-				'contain' => array('User', 'Aco', 'FileStorage'),
+				'contain' => array(
+					'User',
+					'Aco',
+					'FileStorage' => array(
+						'order' => array('FileStorage.file_version DESC'),
+					)
+				),
 				'group' => 'Aco.foreign_key'
 			);
 		}

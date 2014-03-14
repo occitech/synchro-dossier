@@ -405,7 +405,6 @@ class UploadedFile extends UploaderAppModel {
 			$success = $this->FileStorage->delete($fileStorageId);
 
 			$this->saveField('size', $fileSize - $fileStorageSize);
-			$this->saveField('current_version',  $version - 1);
 
 			$fileStorage = $this->FileStorage->find('first', array(
 				'conditions' => array('FileStorage.foreign_key' => $file['UploadedFile']['id'])
@@ -492,7 +491,7 @@ class UploadedFile extends UploaderAppModel {
 		return $this->save($data);
 	}
 
-	protected function _saveFileStorage($path, $userId, $fileInfos) {
+	protected function _saveFileStorage($path, $userId, $fileInfos, $version) {
 		$this->FileStorage->create();
 		$data['FileStorage']['foreign_key'] = $this->id;
 		$data['FileStorage']['model'] = get_class($this);
@@ -501,6 +500,7 @@ class UploadedFile extends UploaderAppModel {
 		$data['FileStorage']['adapter'] = Configure::read('FileStorage.adapter');
 		$data['FileStorage']['mime_type'] = $fileInfos['type'];
 		$data['FileStorage']['filesize'] = $fileInfos['size'];
+		$data['FileStorage']['file_version'] = $version;
 		return $this->FileStorage->save($data);
 	}
 
@@ -561,7 +561,7 @@ class UploadedFile extends UploaderAppModel {
 			$this->saveField('size', $size);
 			$this->id = $originalFileInfos['UploadedFile']['id'];
 
-			return $this->_saveFileStorage($path, $userId, $fileInfos);
+			return $this->_saveFileStorage($path, $userId, $fileInfos, $version);
 		}
 		return false;
 	}
@@ -572,7 +572,7 @@ class UploadedFile extends UploaderAppModel {
 
 		if ($this->_saveUploadedFile($fileInfos, $userId, $parentId)) {
 			$path = $this->_sendFileOnRemote($userId, $version, $fileInfos);
-			return $this->_saveFileStorage($path, $userId, $fileInfos);
+			return $this->_saveFileStorage($path, $userId, $fileInfos, $version);
 		}
 		return false;
 	}
