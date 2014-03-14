@@ -102,7 +102,11 @@ class FilesControllerTest extends CroogoControllerTestCase {
 		));
 		$varsAfterTag = $this->testAction('/browse/3', array('method' => 'GET', 'return' => 'vars'));
 
-		$this->assertEquals($varsBeforeTag['files'][0]['Aco'], $varsBeforeTag['files'][0]['Aco']);
+		$this->assertEquals($varsBeforeTag['files'][0]['Aco'], $varsAfterTag['files'][0]['Aco']);
+	}
+
+	public function testUserTaggingFileWhichIsNOtOWnerShouldStillSeeTaggedFile() {
+
 	}
 
 	public function testFindFunctionShouldReturnSuperAdmin() {
