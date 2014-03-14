@@ -90,9 +90,8 @@ class SdUsersController extends SdUsersAppController {
 				$success = $this->SdUser->delete($id);
 			}
 
-
 			if ($success) {
-				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur à été supprimé'), 'default', array('class' => 'success'));
+				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur a été supprimé'), 'default', array('class' => 'success'));
 			} else {
 				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur ne peux pas être supprimé'), 'default', array('class' => 'error'));
 			}
