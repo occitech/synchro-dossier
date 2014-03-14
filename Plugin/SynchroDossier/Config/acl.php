@@ -26,7 +26,7 @@ $uploaderAcls = array(
 	'Uploader/Files/rights' => $ADMINISTRATORS,
 	'Uploader/Files/toggleRight' => $ADMINISTRATORS,
 	'Uploader/Files/removeRight' => $ADMINISTRATORS,
-	'Uploader/Files/deleteFile' => $ADMINISTRATORS,
+	'Uploader/Files/deleteFile' => $EVERYONE,
 	'Uploader/Files/deleteFolder' => $ADMINISTRATORS,
 
 	'Uploader/Files/find' => $EVERYONE,
