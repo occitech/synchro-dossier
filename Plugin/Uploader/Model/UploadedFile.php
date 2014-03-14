@@ -388,7 +388,7 @@ class UploadedFile extends UploaderAppModel {
 			$version = $this->field('current_version');
 			$filename = $this->field('filename');
 			$fileSize = $this->field('size');
-			$path = $this->_getPathFile($userId, $fileId, $version, $filename);
+			$path = $this->_getPathFile($file['UploadedFile']['user_id'], $fileId, $version, $filename);
 
 			$fileStorageSize = $this->FileStorage->field(
 				'filesize',
