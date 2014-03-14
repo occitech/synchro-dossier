@@ -371,7 +371,7 @@ class UploadedFile extends UploaderAppModel {
 	}
 
 	public function removeFile($fileId, $fileStorageId, $userId) {
-		$canDelete = $success = false;
+		$success = false;
 
 		$file = $this->findById($fileId);
 		$this->id = $fileId;
