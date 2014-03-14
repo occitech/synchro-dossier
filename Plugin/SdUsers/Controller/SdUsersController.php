@@ -83,7 +83,14 @@ class SdUsersController extends SdUsersAppController {
 		if (is_null($id)) {
 			$httpCode = 404;
 		} else {
-			if ($this->SdUser->delete($id)) {
+			$success = true;
+			if($this->Auth->user('role_id') == SdUser::ROLE_ADMIN_ID){
+				$success = $this->SdUser->removeCollaborator($id, $this->Auth->user('id'));
+			} else {
+				$success = $this->SdUser->delete($id);
+			}
+
+			if ($success) {
 				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur a été supprimé'), 'default', array('class' => 'success'));
 			} else {
 				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur ne peux pas être supprimé'), 'default', array('class' => 'error'));

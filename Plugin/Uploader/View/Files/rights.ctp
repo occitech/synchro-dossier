@@ -28,7 +28,7 @@
 			$this->Form->end();
 		?>
 	</div>
- 	<table class="table table-hover">
+	<table class="table table-hover">
 		<tr>
 			<td><?= __d('uploader', 'Name') ?></td>
 			<td><?= __d('uploader', 'Lecture') ?></td>
@@ -122,7 +122,6 @@
 								__d('uploader', 'Supprimer l\'utilisateur de ce dossier'),
 								array(
 									'action' => 'removeRight',
-									$folder['UploadedFile']['id'],
 									$aro['ArosAco']['aco_id'],
 									$aro['ArosAco']['aro_id']
 								)

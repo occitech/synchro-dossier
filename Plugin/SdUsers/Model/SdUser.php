@@ -153,6 +153,45 @@ class SdUser extends User {
 		return $this->UsersCollaboration->hasAny(array('user_id' => $userId, 'parent_id' => $parentId));
 	}
 
+	public function removeCollaborator($userId, $parentId) {
+		$success = $this->UsersCollaboration->deleteAll(array('user_id' => $userId, 'parent_id' => $parentId, ));
+		if ($success) {
+			$this->deleteAroAcoForParentFolder($userId, $parentId);
+		}
+		return $success;
+	}
+
+	public function deleteAroAcoForParentFolder($userId, $parentId) {
+		$folderOfParent = ClassRegistry::init('Uploader.UploadedFile')->find('all', array(
+			'conditions' => array('UploadedFile.user_id' => 4),
+			'fields' => array('id'),
+			'recursive' => -1
+		));
+
+		$userAroId = $this->Aro->find('first', array(
+			'noRoleChecking' => '',
+			'conditions' => array(
+				'Aro.model' => 'User',
+				'Aro.foreign_key' => $userId
+			),
+		));
+
+		$foldersAco = $this->Aro->Aco->find('all', array(
+			'noRoleChecking' => true,
+			'conditions' => array('foreign_key' => Hash::extract($folderOfParent, '{n}.UploadedFile.id')),
+			'recursive' => -1
+		));
+
+		$ArosAcoModel = ClassRegistry::init('ArosAco');
+		foreach ($foldersAco as $aco) {
+			$ArosAcoModel->deleteAll(array(
+				'aco_id' => $aco['Aco']['id'],
+				'aro_id' => $userAroId['Aro']['id']
+			));
+		}
+
+	}
+
 	public function editCollaborator($data, $creatorId) {
 		$roleId = intval($data[$this->alias]['role_id']);
 
