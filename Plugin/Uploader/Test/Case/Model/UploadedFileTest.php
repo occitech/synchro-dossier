@@ -818,16 +818,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->data['file']['name'] = 'ICertainlyDontExistYet.impossibleExtension';
 		$this->UploadedFile->upload($this->data, array('id' => 1), 1);
 
-		$uploadedFile = $this->UploadedFile->find('first', array(
-			'conditions' => array(
-				$this->UploadedFile->escapeField() => $this->UploadedFile->getLastInsertId(),
-			),
-			'contain' => array(
-				'FileStorage' => array(
-					'order' => array('FileStorage.file_version DESC'),
-				),
-			),
-		));
+		$uploadedFile = $this->__getLatestUploadedFiled();
 
 		$this->assertEquals(1, $uploadedFile['UploadedFile']['current_version']);
 		$this->assertEquals(1, $uploadedFile['FileStorage'][0]['file_version']);
@@ -838,16 +829,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->UploadedFile->upload($this->data, array('id' => 1), 1);
 		$this->UploadedFile->upload($this->data, array('id' => 1), 1);
 
-		$uploadedFile = $this->UploadedFile->find('first', array(
-			'conditions' => array(
-				$this->UploadedFile->escapeField() => $this->UploadedFile->getLastInsertId(),
-			),
-			'contain' => array(
-				'FileStorage' => array(
-					'order' => array('FileStorage.file_version DESC'),
-				),
-			),
-		));
+		$uploadedFile = $this->__getLatestUploadedFiled();
 
 		$this->assertEquals(2, $uploadedFile['UploadedFile']['current_version']);
 		$this->assertEquals(2, $uploadedFile['FileStorage'][0]['file_version']);
@@ -858,16 +840,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->UploadedFile->upload($this->data, array('id' => 1), 1);
 		$this->UploadedFile->upload($this->data, array('id' => 1), 1);
 
-		$uploadedFile = $this->UploadedFile->find('first', array(
-			'conditions' => array(
-				$this->UploadedFile->escapeField() => $this->UploadedFile->getLastInsertId(),
-			),
-			'contain' => array(
-				'FileStorage' => array(
-					'order' => array('FileStorage.file_version DESC'),
-				),
-			),
-		));
+		$uploadedFile = $this->__getLatestUploadedFiled();
 
 		$this->UploadedFile->removeFile(
 			$uploadedFile['UploadedFile']['id'],
@@ -875,16 +848,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 			1
 		);
 
-		$uploadedFile = $this->UploadedFile->find('first', array(
-			'conditions' => array(
-				$this->UploadedFile->escapeField() => $this->UploadedFile->getLastInsertId(),
-			),
-			'contain' => array(
-				'FileStorage' => array(
-					'order' => array('FileStorage.file_version DESC'),
-				),
-			),
-		));
+		$uploadedFile = $this->__getLatestUploadedFiled();
 		$this->assertEquals(2, $uploadedFile['UploadedFile']['current_version']);
 	}
 
@@ -893,16 +857,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->UploadedFile->upload($this->data, array('id' => 1), 1);
 		$this->UploadedFile->upload($this->data, array('id' => 1), 1);
 
-		$uploadedFile = $this->UploadedFile->find('first', array(
-			'conditions' => array(
-				$this->UploadedFile->escapeField() => $this->UploadedFile->getLastInsertId(),
-			),
-			'contain' => array(
-				'FileStorage' => array(
-					'order' => array('FileStorage.file_version DESC'),
-				),
-			),
-		));
+		$uploadedFile = $this->__getLatestUploadedFiled();
 
 		$this->UploadedFile->removeFile(
 			$uploadedFile['UploadedFile']['id'],
@@ -912,7 +867,14 @@ class UploadedFileTest extends OccitechCakeTestCase {
 
 		$this->UploadedFile->upload($this->data, array('id' => 1), 1);
 
-		$uploadedFile = $this->UploadedFile->find('first', array(
+		$uploadedFile = $this->__getLatestUploadedFiled();
+		$this->assertEquals(3, $uploadedFile['UploadedFile']['current_version']);
+		$this->assertEquals(3, $uploadedFile['FileStorage'][0]['file_version']);
+	}
+
+	private function __getLatestUploadedFiled()
+	{
+		return $this->UploadedFile->find('first', array(
 			'conditions' => array(
 				$this->UploadedFile->escapeField() => $this->UploadedFile->getLastInsertId(),
 			),
@@ -922,8 +884,6 @@ class UploadedFileTest extends OccitechCakeTestCase {
 				),
 			),
 		));
-		$this->assertEquals(3, $uploadedFile['UploadedFile']['current_version']);
-		$this->assertEquals(3, $uploadedFile['FileStorage'][0]['file_version']);
 	}
 
 }
