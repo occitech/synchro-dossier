@@ -335,11 +335,11 @@ msgstr "Nom"
 
 #: Plugin/Uploader/View/Files/rights.ctp:34
 msgid "Lecture"
-msgstr "Leture"
+msgstr "Lecture"
 
 #: Plugin/Uploader/View/Files/rights.ctp:35
 msgid "Upload"
-msgstr "Envoie"
+msgstr "Envoi"
 
 #: Plugin/Uploader/View/Files/rights.ctp:36
 msgid "Suppression"
