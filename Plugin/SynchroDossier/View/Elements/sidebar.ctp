@@ -83,7 +83,7 @@
 			<?= $this->element('Uploader.search'); ?>
 		</li>
 
-		<?php if (!empty($SynchroDossier_aroAccessFolder) && isset($folderId)): ?>
+		<?php if ($this->Session->read('Auth.User.Role.alias') != 'sdUtilisateur' && !empty($SynchroDossier_aroAccessFolder) && isset($folderId)): ?>
 			<?php if ($this->UploaderAcl->userCan($folderAco['Aco'], 'change_right')): ?>
 				<li class="nav-header">
 					<?= __d('synchro_dossier', 'Super Administrateurs'); ?>
