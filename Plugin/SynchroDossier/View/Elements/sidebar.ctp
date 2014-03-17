@@ -44,7 +44,7 @@
 					?>
 				</li>
 			<?php endif ?>
-			<?php if ($this->UploaderAcl->userCan($folderAco['Aco'], 'change_right')): ?>
+			<?php if (!$this->SynchroDossier->hasUserRole(CakeSession::read('Auth.User.role_id')) && $this->UploaderAcl->userCan($folderAco['Aco'], 'change_right')): ?>
 				<li>
 					<?= $this->Html->link(
 						__d('synchro_dossier', 'Partager ce dossier'),

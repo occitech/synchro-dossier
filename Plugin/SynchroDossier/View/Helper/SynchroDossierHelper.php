@@ -1,5 +1,6 @@
 <?php
 
+App::uses('SdUser', 'SdUsers.Model');
 App::uses('AppHelper', 'View/Helper');
 
 class SynchroDossierHelper extends AppHelper {
@@ -10,6 +11,10 @@ class SynchroDossierHelper extends AppHelper {
 		'Form',
 		'Uploader.UploaderAcl'
 	);
+
+	public function hasUserRole($roleId) {
+		return $roleId == SdUser::ROLE_UTILISATEUR_ID;
+	}
 
 	public function getQuotaData() {
 		return $this->_View->getVar('quota');
@@ -123,7 +128,6 @@ class SynchroDossierHelper extends AppHelper {
 			)
 		);
 	}
-
 	public function routeIsActive($route) {
 		$isActive = true;
 		$_keysToCheck = array('plugin', 'controller', 'action');
