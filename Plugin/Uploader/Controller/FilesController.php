@@ -482,6 +482,7 @@ class FilesController extends UploaderAppController {
 				$tags = array_map('trim', explode(',', $this->request->data['Tags']['tags']));
 
 				foreach ($tags as $tag) {
+					$this->UploadedFile->FileTag->Term->create();
 					$termId = $this->UploadedFile->FileTag->Term->saveAndGetId(array(
 						'title' => $tag,
 						'slug' => Inflector::slug(strtolower($tag), '-'),
