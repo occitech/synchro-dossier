@@ -20,6 +20,8 @@ class FilesController extends UploaderAppController {
 					'allFilesUploadedInBatch'	=> 'read',
 					'createFolder' 				=> 'create',
 					'delete' 					=> 'delete',
+					'deleteFile'				=> 'delete',
+					'deleteFolder'				=> 'delete',
 					'rename' 					=> 'create',
 					'downloadZipFolder' 		=> 'read',
 					'upload' 					=> 'create',
