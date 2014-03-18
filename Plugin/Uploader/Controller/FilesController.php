@@ -176,7 +176,11 @@ class FilesController extends UploaderAppController {
 		}
 	}
 
-	public function removeRight($acoId, $aroId) {
+	/**
+	 * $folderId must be there because RowLevelAcl take first parameter as folderId in our case,
+	 * and will deny action if not set ir not a folder Id.
+	 */
+	public function removeRight($folderId, $acoId, $aroId) {
 		$result = $this->_removeRight($acoId, $aroId);
 		if (!$result) {
 			$this->Session->setFlash(__d('uploader', 'There was an error while deleting the right. Thank you try again or contact an administrator'), 'default', array('class' => 'alert alert-danger'));
@@ -500,7 +504,7 @@ class FilesController extends UploaderAppController {
 				}
 
 				if ($this->UploadedFile->save($data)) {
-					$messageFlash = __d('uploader', 'Tags successfuly added to file');
+					$messageFlash = __dn('uploader', 'Tags successfully added to file', 'Tag successfully added to file', count($tags));
 					$class = array('class' => 'success');
 				} else {
 					$messageFlash = __d('uploader', 'There was an error while tagging the file');

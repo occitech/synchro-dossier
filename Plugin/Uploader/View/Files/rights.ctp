@@ -122,6 +122,7 @@
 								__d('uploader', 'Supprimer l\'utilisateur de ce dossier'),
 								array(
 									'action' => 'removeRight',
+									$folderId,
 									$aro['ArosAco']['aco_id'],
 									$aro['ArosAco']['aro_id']
 								)
