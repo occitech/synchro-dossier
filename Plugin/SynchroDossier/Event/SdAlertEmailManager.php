@@ -58,7 +58,7 @@ class SdAlertEmailManager implements CakeEventListener {
 		));
 		if (!empty($usersToAlert['to'])) {
 			$this->cakeEmail
-				->template('SynchroDossier.alert_email_new_upload', 'SynchroDossier.default')
+				->template('SynchroDossier.alert_email_new_upload')
 				->theme(Configure::read('Site.theme'))
 				->emailFormat('both')
 				->helpers(array('Uploader.File', 'Html'))
@@ -81,7 +81,7 @@ class SdAlertEmailManager implements CakeEventListener {
 		$to = array($user['User']['email'] => $username);
 
 		$this->cakeEmail
-			->template('SynchroDossier.alert_email_folder_invitation', 'SynchroDossier.default')
+			->template('SynchroDossier.alert_email_folder_invitation')
 			->theme(Configure::read('Site.theme'))
 			->emailFormat('both')
 			->from(Configure::read('sd.mail.alertEmailNewUpload.from'))
