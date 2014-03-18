@@ -491,6 +491,7 @@ class FilesController extends UploaderAppController {
 					if ($taxonomyId = $this->UploadedFile->FileTag->termInScope($termId)) {
 						array_push($data['FileTag'], array('taxonomy_id' => $taxonomyId));
 					} else {
+						$this->UploadedFile->FileTag->create();
 						$taxonomy = $this->UploadedFile->FileTag->save(array('FileTag' => array('term_id' => $termId)));
 						if ($taxonomy) {
 							array_push($data['FileTag'], array('taxonomy_id' => $this->UploadedFile->FileTag->getLastInsertId()));
