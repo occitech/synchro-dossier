@@ -314,8 +314,7 @@ class UploadedFile extends UploaderAppModel {
 			if ($f['remote_path'] != null) {
 				$content = StorageManager::adapter($f['adapter'])->read($f['remote_path']);
 				$filename = $shouldSluggifyFilename ? $this->sluggifyFilename($f['real_path']) : $f['real_path'];
-				$filename = mb_convert_encoding($filename, 'ISO-8859-1', 'UTF-8'); //Does not cover any environment cases.
-				StorageManager::adapter('Zip')->write($filename, $content);
+				StorageManager::adapter('Zip')->write($this->__fixNameForZipFile($filename), $content);
 			}
 		}
 		$content = file_get_contents($zipfile);
@@ -323,6 +322,11 @@ class UploadedFile extends UploaderAppModel {
 		return $content;
 	}
 
+	private function __fixNameForZipFile($name) {
+		// To be improved in #5656 because so far it removes accented chars
+		setlocale(LC_CTYPE, "en_US.utf8");
+		return iconv('UTF-8', 'ASCII//TRANSLIT', $name);
+	}
 
 	public function rename($data) {
 		$fileInfos = $this->findById($data[$this->alias]['id']);
