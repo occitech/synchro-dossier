@@ -154,7 +154,7 @@
 										)
 									); ?>
 								<?php endif ?>
-								<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
+								<?php if (!$this->SynchroDossier->hasUserRole(CakeSession::read('Auth.User.role_id')) && $this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
 									<?= $this->Html->link(
 										__d('uploader', '<i class="icon-remove"></i>'),
 										array('controller' => 'files', 'action' => 'deleteFolder', $file['UploadedFile']['id']),
