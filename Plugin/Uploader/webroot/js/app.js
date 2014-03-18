@@ -105,3 +105,13 @@ jQuery(document).ready(function($) {
 		}));
 	});
 });
+
+(function($){
+	$('#advancedSearch.collapse')
+		.on('shown', function() {
+			$(this).css('overflow', 'visible');
+		})
+		.on('hide', function() {
+			$(this).css('overflow', 'hidden');
+		})
+})(jQuery)

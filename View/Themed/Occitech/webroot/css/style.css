@@ -10,3 +10,7 @@ header {
 #UserProfileForm div.submit {
   clear:both;
 }
+
+#UploadedFileTags_chzn {
+	margin: 10px 0;
+}
