@@ -11,14 +11,14 @@
     <td align="center" valign="top" style="padding:20px 0 20px 0">
         <table bgcolor="#FFFFFF" cellspacing="0" cellpadding="10" border="0" width="650" style="border:1px solid #E0E0E0;">
             <tr>
-                <td valign="top"><a href="<?= $this->Html->link(
+                <td valign="top"><?= $this->Html->link(
                     $this->Html->image(
                         'header.jpg',
                         array('style' => 'margin-bottom:10px;border:none', 'fullBase' => true)
                     ),
                     $this->Html->url('/', true),
                     array('escape' => false)
-               	) ?>"></td>
+               	) ?></td>
             </tr>
             <tr>
                 <td valign="top">
