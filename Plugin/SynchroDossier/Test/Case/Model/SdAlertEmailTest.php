@@ -49,11 +49,41 @@ class SdAlertEmailTest extends CakeTestCase {
 		$result = $this->SdAlertEmail->getUserToAlert($uploaderId);
 
 		$expected = array(
-			'aymeric@derbois.com' => 'aymeric',
-			'admin@occitech.fr' => 'admin'
+			'aymeric@derbois.com' => array(
+				'id' => '2',
+				'role_id' => '6',
+				'username' => 'aymeric',
+				'password' => '935dce4494121f848ffe2d3337ed2c05192526b1',
+				'name' => 'Derbois',
+				'email' => 'aymeric@derbois.com',
+				'website' => '',
+				'activation_key' => 'd6b0ca85517794669b14460dec519714',
+				'image' => null,
+				'bio' => null,
+				'timezone' => '0',
+				'status' => 1,
+				'updated' => '2012-10-31 17:21:32',
+				'created' => '2012-10-31 17:21:32'
+			),
+			'admin@occitech.fr' => array(
+				'id' => '1',
+				'role_id' => '1',
+				'username' => 'admin',
+				'password' => 'd1e03fcbc79398c3f93a7c875a86baae3aa99d42',
+				'name' => 'admin',
+				'email' => 'admin@occitech.fr',
+				'website' => null,
+				'activation_key' => '4a150a31c5b8e892b6e21251d4d8f884',
+				'image' => null,
+				'bio' => null,
+				'timezone' => '0',
+				'status' => 1,
+				'updated' => '2012-10-31 12:51:05',
+				'created' => '2012-10-31 12:51:05'
+			)
 		);
 
-		$this->assertEqual($result['to'], $expected);
+		$this->assertEquals($expected, $result['to']);
 	}
 
 	public function testGetUserToAlert_DontAlertMyselfWhenIUploadAFile() {

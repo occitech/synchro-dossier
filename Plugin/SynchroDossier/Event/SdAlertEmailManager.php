@@ -57,16 +57,19 @@ class SdAlertEmailManager implements CakeEventListener {
 			'noRoleChecking' => true
 		));
 		if (!empty($usersToAlert['to'])) {
-			$this->cakeEmail
-				->template('SynchroDossier.alert_email_new_upload')
-				->theme(Configure::read('Site.theme'))
-				->emailFormat('both')
-				->helpers(array('Uploader.File', 'Html'))
-				->from(Configure::read('sd.mail.alertEmailNewUpload.from'))
-				->to($usersToAlert['to'])
-				->subject(__d('synchro_dossier', Configure::read('sd.mail.alertEmailNewUpload.subject')))
-				->viewVars(array('user' => $event->data['user'], 'profile' => $userProfile['Profile'], 'files' => $usersToAlert['files'], 'rootFolder' => $usersToAlert['rootFolder']))
-				->send();
+			foreach((array) $usersToAlert['to'] as $receiver) {
+				$this->cakeEmail->reset();
+				$this->cakeEmail
+					->template('SynchroDossier.alert_email_new_upload', 'SynchroDossier.default')
+					->theme(Configure::read('Site.theme'))
+					->emailFormat('both')
+					->helpers(array('Uploader.File', 'Html'))
+					->from(Configure::read('sd.mail.alertEmailNewUpload.from'))
+					->to($receiver['email'])
+					->subject(__d('synchro_dossier', Configure::read('sd.mail.alertEmailNewUpload.subject')))
+					->viewVars(array('receiver' => $receiver, 'uploader' => $event->data['user'], 'profile' => $userProfile['Profile'], 'files' => $usersToAlert['files'], 'rootFolder' => $usersToAlert['rootFolder']))
+					->send();
+			}
 		}
 	}
 
@@ -81,7 +84,7 @@ class SdAlertEmailManager implements CakeEventListener {
 		$to = array($user['User']['email'] => $username);
 
 		$this->cakeEmail
-			->template('SynchroDossier.alert_email_folder_invitation')
+			->template('SynchroDossier.alert_email_folder_invitation', 'SynchroDossier.default')
 			->theme(Configure::read('Site.theme'))
 			->emailFormat('both')
 			->from(Configure::read('sd.mail.alertEmailNewUpload.from'))

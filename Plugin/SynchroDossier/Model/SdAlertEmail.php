@@ -44,7 +44,7 @@ class SdAlertEmail extends SynchroDossierAppModel {
 
 			foreach ($usersToAlert as $user) {
 				if ($user['User']['id'] != $userId) {
-					$result['to'][$user['User']['email']] = $user['User']['username'];
+					$result['to'][$user['User']['email']] = $user['User'];
 				}
 			}
 
