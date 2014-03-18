@@ -504,7 +504,7 @@ class FilesController extends UploaderAppController {
 				}
 
 				if ($this->UploadedFile->save($data)) {
-					$messageFlash = __dn('uploader', 'Tags successfully added to file', 'Tag successfully added to file', count($tags));
+					$messageFlash = __dn('uploader', 'Tag successfully added to file', 'Tags successfully added to file', count($tags));
 					$class = array('class' => 'success');
 				} else {
 					$messageFlash = __d('uploader', 'There was an error while tagging the file');

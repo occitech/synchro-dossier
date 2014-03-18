@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2013-05-15 15:10+0200\n"
+"POT-Creation-Date: 2014-03-18 11:29+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,59 +14,102 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Controller/FilesController.php:72
+#: Controller/FilesController.php:67
+msgid "You cannot download this folder as a zip archive (Max Size Exceeded).<br>Please fill an email to %s to get an access to your zip archive."
+msgstr ""
+
+#: Controller/FilesController.php:84
+msgid "Ce dossier n'existe pas"
+msgstr ""
+
+#: Controller/FilesController.php:129
 msgid "Vous ne pouvez pas donner de droit à un sous dossier. Nous vous avons donc redirigé sur la page permettant de donner les droits au dossier racine. Les droits s'appliqueront aussi au sous dossier"
 msgstr ""
 
-#: Controller/FilesController.php:125
+#: Controller/FilesController.php:186
 msgid "There was an error while deleting the right. Thank you try again or contact an administrator"
 msgstr ""
 
-#: Controller/FilesController.php:162
+#: Controller/FilesController.php:234
 msgid "Given information are incorrect"
 msgstr ""
 
-#: Controller/FilesController.php:215;231
+#: Controller/FilesController.php:285
+#: Test/Case/Controller/FilesControllerTest.php:143
+msgid "Home"
+msgstr ""
+
+#: Controller/FilesController.php:311;327
 msgid "Le dossier a correctement été créé"
 msgstr ""
 
-#: Controller/FilesController.php:222;233
+#: Controller/FilesController.php:318;329
 msgid "Il y a des erreurs dans les données du formulaire"
 msgstr ""
 
-#: Controller/FilesController.php:322
-msgid "Folder #%s was successfully deleted"
+#: Controller/FilesController.php:436
+msgid "Folder \"%s\" was successfully deleted"
 msgstr ""
 
-#: Controller/FilesController.php:325
-msgid "You cannot delete folder #%s"
+#: Controller/FilesController.php:439
+msgid "You cannot delete folder \"%s\""
 msgstr ""
 
-#: Model/UploadedFile.php:309
+#: Controller/FilesController.php:459
+msgid "The file \"%s\" was successfully deleted"
+msgstr ""
+
+#: Controller/FilesController.php:462
+msgid "You cannot delete file \"%s\""
+msgstr ""
+
+#: Controller/FilesController.php:510
+msgid "There was an error while tagging the file"
+msgstr ""
+
+#: Controller/FilesController.php:507
+msgid "Tag successfully added to file"
+msgid_plural "Tags successfully added to file"
+msgstr[0] ""
+msgstr[1] ""
+
+#: Model/UploadedFile.php:287
+msgid "Invalid Folder Id #%s"
+msgstr ""
+
+#: Model/UploadedFile.php:291
+msgid "You Cannot download a file as Zip archive"
+msgstr ""
+
+#: Model/UploadedFile.php:370;435
 msgid "Invalid user with id#%s"
 msgstr ""
 
-#: Model/UploadedFile.php:312
+#: Model/UploadedFile.php:373
 msgid "Invalid Folder with id#%s"
 msgstr ""
 
-#: Model/UploadedFile.php:315
+#: Model/UploadedFile.php:376
 msgid "Current id %s is not a folder"
 msgstr ""
 
-#: Model/UploadedFile.php:421
+#: Model/UploadedFile.php:438
+msgid "Invalid File with id#%s"
+msgstr ""
+
+#: Model/UploadedFile.php:544
 msgid "Le fichier doit avoir la même extension que le fichier d'origine"
 msgstr ""
 
-#: Model/UploadedFile.php:462
+#: Model/UploadedFile.php:587
 msgid "La taille du fichier dépasse la limite autorisée"
 msgstr ""
 
-#: Model/UploadedFile.php:465
+#: Model/UploadedFile.php:590
 msgid "Aucun fichier n'a été uploadé"
 msgstr ""
 
-#: Model/UploadedFile.php:468
+#: Model/UploadedFile.php:593
 msgid "Il y a eu une erreur pendant l'upload de votre fichier"
 msgstr ""
 
@@ -90,118 +133,150 @@ msgstr ""
 msgid "Envoyer"
 msgstr ""
 
-#: View/Elements/search.ctp:11
+#: View/Elements/plupload_widget.ctp:32
+msgid "Annuler"
+msgstr ""
+
+#: View/Elements/search.ctp:12
 msgid "Rechercher dans ce dossier"
 msgstr ""
 
-#: View/Elements/search.ctp:16
+#: View/Elements/search.ctp:20
 msgid "Nom du fichier"
 msgstr ""
 
-#: View/Elements/search.ctp:20
+#: View/Elements/search.ctp:24
 msgid "Ext"
 msgstr ""
 
-#: View/Elements/search.ctp:27
-msgid "Fichiers"
-msgstr ""
-
-#: View/Elements/search.ctp:27
-msgid "Dossiers"
-msgstr ""
-
-#: View/Elements/search.ctp:32
-msgid "Utilisateur"
+#: View/Elements/search.ctp:28
+msgid "Recherche avancée"
 msgstr ""
 
 #: View/Elements/search.ctp:36
-msgid "Taille min - ko"
+msgid "Auteur du fichier"
 msgstr ""
 
-#: View/Elements/search.ctp:40
-msgid "Taille max - ko"
+#: View/Elements/search.ctp:36
+msgid "Utilisateur"
 msgstr ""
 
-#: View/Elements/search.ctp:44
+#: View/Elements/search.ctp:43
+msgid "Taille min - Mo"
+msgstr ""
+
+#: View/Elements/search.ctp:47
+msgid "Taille max - Mo"
+msgstr ""
+
+#: View/Elements/search.ctp:51
 msgid "Date min"
 msgstr ""
 
-#: View/Elements/search.ctp:48
+#: View/Elements/search.ctp:55
 msgid "Date max"
 msgstr ""
 
-#: View/Elements/search.ctp:50
+#: View/Elements/search.ctp:60
+msgid "File tags"
+msgstr ""
+
+#: View/Elements/search.ctp:65
 msgid "Rechercher"
 msgstr ""
 
-#: View/Files/browse.ctp:23
+#: View/Files/add_tags.ctp:2
+msgid "Tags list (separated by commas)"
+msgstr ""
+
+#: View/Files/add_tags.ctp:3
+msgid "Submit tags"
+msgstr ""
+
+#: View/Files/browse.ctp:49
 msgid "Fichier"
 msgstr ""
 
-#: View/Files/browse.ctp:24
+#: View/Files/browse.ctp:50
 msgid "Auteur"
 msgstr ""
 
-#: View/Files/browse.ctp:25
+#: View/Files/browse.ctp:51
 msgid "Date"
 msgstr ""
 
-#: View/Files/browse.ctp:26
+#: View/Files/browse.ctp:52
 msgid "Taille"
 msgstr ""
 
-#: View/Files/browse.ctp:27
+#: View/Files/browse.ctp:53
 msgid "Type"
 msgstr ""
 
-#: View/Files/browse.ctp:28
+#: View/Files/browse.ctp:54
 #: View/Files/rights.ctp:37
 msgid "Actions"
 msgstr ""
 
-#: View/Files/browse.ctp:89
+#: View/Files/browse.ctp:117
+msgid "Folder size limit exceeded"
+msgstr ""
+
+#: View/Files/browse.ctp:122
 msgid "<i class=\"icon-download-alt\"></i>"
 msgstr ""
 
-#: View/Files/browse.ctp:93
+#: View/Files/browse.ctp:126
 msgid "Download folder as zipfile"
 msgstr ""
 
-#: View/Files/browse.ctp:103
+#: View/Files/browse.ctp:137
 msgid "Renommer le dossier"
 msgstr ""
 
-#: View/Files/browse.ctp:114
+#: View/Files/browse.ctp:148
 msgid "<i class=\"icon-user\"></i>"
 msgstr ""
 
-#: View/Files/browse.ctp:118
+#: View/Files/browse.ctp:152
 msgid "Gérer les droits"
 msgstr ""
 
-#: View/Files/browse.ctp:125
+#: View/Files/browse.ctp:159;239;276
 msgid "<i class=\"icon-remove\"></i>"
 msgstr ""
 
-#: View/Files/browse.ctp:129
+#: View/Files/browse.ctp:163
 msgid "Supprimer le dossier"
 msgstr ""
 
-#: View/Files/browse.ctp:132
-msgid "You are about to delete folder #%s. Are you sure ?"
+#: View/Files/browse.ctp:166
+msgid "You are about to delete folder \"%s\". Are you sure ?"
 msgstr ""
 
-#: View/Files/browse.ctp:145
+#: View/Files/browse.ctp:179
 #: View/Files/view.ctp:37
 msgid "Download"
 msgstr ""
 
-#: View/Files/browse.ctp:161
+#: View/Files/browse.ctp:195
 msgid "New version"
 msgstr ""
 
-#: View/Files/browse.ctp:180
+#: View/Files/browse.ctp:215
 msgid "Commentaires"
+msgstr ""
+
+#: View/Files/browse.ctp:232
+msgid "File Tags"
+msgstr ""
+
+#: View/Files/browse.ctp:243;280
+msgid "Supprimer le fichier"
+msgstr ""
+
+#: View/Files/browse.ctp:246;283
+msgid "You are about to delete file \"%s\". Are you sure ?"
 msgstr ""
 
 #: View/Files/create_folder.ctp:4
@@ -258,7 +333,7 @@ msgstr ""
 msgid "This User has all rights on this folder"
 msgstr ""
 
-#: View/Files/rights.ctp:123
+#: View/Files/rights.ctp:122
 msgid "Supprimer l'utilisateur de ce dossier"
 msgstr ""
 
