@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2013-05-15 12:20+0200\n"
-"PO-Revision-Date: 2013-05-15 13:17+0100\n"
+"POT-Creation-Date: 2014-03-18 12:13+0100\n"
+"PO-Revision-Date: 2014-03-18 12:16+0100\n"
 "Last-Translator: Damien Biasotto <damien.biasotto@gmail.com>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "Language: \n"
@@ -23,14 +23,6 @@ msgstr ""
 msgid "Quota"
 msgstr ""
 
-#: Config/bootstrap.php:64
-msgid "Synchro-Dossier - Quota dépassé"
-msgstr ""
-
-#: Config/bootstrap.php:66
-msgid "Synchro-Dossier - Nouveaux fichiers envoyés"
-msgstr ""
-
 #: Controller/SdInformationsController.php:9
 msgid "Quota mis à jour"
 msgstr ""
@@ -39,19 +31,19 @@ msgstr ""
 msgid "Pour accéder à cette page vous devez vous connecter"
 msgstr ""
 
-#: Lib/SdQuotaManager.php:28
+#: Lib/SdQuotaManager.php:29
 msgid "Il n'y a plus de place pour ce dossier"
 msgstr ""
 
-#: Lib/SdQuotaManager.php:29
+#: Lib/SdQuotaManager.php:30
 msgid "Désolé, l'envoie de fichier n'est actuellement pas disponible."
 msgstr ""
 
-#: Lib/SdQuotaManager.php:30
+#: Lib/SdQuotaManager.php:31
 msgid "Le quota est atteint, vous devez contacter un SuperAdmin, ou supprimer des fichiers."
 msgstr ""
 
-#: Lib/SdQuotaManager.php:31
+#: Lib/SdQuotaManager.php:32
 msgid "Le quota est atteint, vous devez commander plus de quota ou supprimer des fichiers."
 msgstr ""
 
@@ -67,7 +59,7 @@ msgstr ""
 msgid "Ajoutez une nouvelle version"
 msgstr ""
 
-#: View/Elements/addSharingModal.ctp:4;22
+#: View/Elements/addSharingModal.ctp:4;29
 msgid "Créez un dossier"
 msgstr ""
 
@@ -76,7 +68,7 @@ msgid "Nom du dossier"
 msgstr ""
 
 #: View/Elements/createFolderModal.ctp:4
-#: View/Elements/sidebar.ctp:47
+#: View/Elements/sidebar.ctp:36
 msgid "Créez un sous dossier"
 msgstr ""
 
@@ -91,6 +83,10 @@ msgstr ""
 #: View/Elements/formCommentModal.ctp:4
 msgid "Commentaires"
 msgstr ""
+
+#: View/Elements/formFileTagsModal.ctp:4
+msgid "File tags"
+msgstr "Mot-clé"
 
 #: View/Elements/navbar.ctp:4
 msgid "Espace client"
@@ -120,6 +116,12 @@ msgstr ""
 msgid "Connexion"
 msgstr ""
 
+#: View/Elements/paging.ctp:38
+msgid "%s matching result"
+msgid_plural "%s matching results"
+msgstr[0] "%s résultat correspondant"
+msgstr[1] "%s résultats correspondant"
+
 #: View/Elements/renameFolderModal.ctp:4
 msgid "Renommez le dossier"
 msgstr ""
@@ -132,44 +134,56 @@ msgstr ""
 msgid "Votre Quota"
 msgstr ""
 
-#: View/Elements/sidebar.ctp:11
+#: View/Elements/sidebar.ctp:12
 msgid "Mes Dossiers"
 msgstr ""
 
-#: View/Elements/sidebar.ctp:14
-msgid "Ajoutez un dossier"
-msgstr ""
-
-#: View/Elements/sidebar.ctp:27
+#: View/Elements/sidebar.ctp:30
 msgid "Actions"
 msgstr ""
 
-#: View/Elements/sidebar.ctp:32
-msgid "Créez un utilisateur"
+#: View/Elements/sidebar.ctp:50
+msgid "Partager ce dossier"
 msgstr ""
 
-#: View/Elements/sidebar.ctp:61
+#: View/Elements/sidebar.ctp:66
+msgid "Créer un dossier"
+msgstr ""
+
+#: View/Elements/sidebar.ctp:80
 msgid "Recherche"
 msgstr ""
 
-#: View/Elements/sidebar.ctp:70
-msgid "Utilisateurs du dossier"
+#: View/Elements/sidebar.ctp:89
+msgid "Super Administrateurs"
 msgstr ""
 
-#: View/Elements/sidebar.ctp:78
-msgid "Ajoutez un utilisateur à ce dossier"
-msgstr ""
-
-
-#: View/Elements/sidebar.ctp:78
-msgid "Super Administrateur"
-msgstr ""
-
+#: View/Emails/html/alert_email_folder_invitation.ctp:1
 #: View/Emails/html/alert_email_new_upload.ctp:1
 #: View/Emails/html/quota_exceeded.ctp:1
+#: View/Emails/text/alert_email_folder_invitation.ctp:1
 #: View/Emails/text/alert_email_new_upload.ctp:1
 #: View/Emails/text/quota_exceeded.ctp:1
 msgid "Bonjour,"
+msgstr ""
+
+#: View/Emails/html/alert_email_folder_invitation.ctp:3
+#: View/Emails/text/alert_email_folder_invitation.ctp:3
+msgid "Vous avez été invité sur le dossier %s"
+msgstr ""
+
+#: View/Emails/html/alert_email_folder_invitation.ctp:11
+#: View/Emails/text/alert_email_folder_invitation.ctp:12
+msgid "Vous pouvez accéder au dossier en visitant ce lien : %s"
+msgstr ""
+
+#: View/Emails/html/alert_email_folder_invitation.ctp:14
+#: View/Emails/html/alert_email_new_upload.ctp:13
+#: View/Emails/html/quota_exceeded.ctp:20
+#: View/Emails/text/alert_email_folder_invitation.ctp:15
+#: View/Emails/text/alert_email_new_upload.ctp:13
+#: View/Emails/text/quota_exceeded.ctp:19
+msgid "Cordialement"
 msgstr ""
 
 #: View/Emails/html/alert_email_new_upload.ctp:3
@@ -177,23 +191,16 @@ msgstr ""
 msgid "L'un de vos utilisateurs %s %s (dont l'adresse email est '%s') vient d'envoyer de nouveaux fichiers dans le dossier '%s' de votre espace de stockage"
 msgstr ""
 
-#: View/Emails/html/alert_email_new_upload.ctp:8
-#: View/Emails/text/alert_email_new_upload.ctp:8
+#: View/Emails/html/alert_email_new_upload.ctp:7
+#: View/Emails/text/alert_email_new_upload.ctp:7
 msgid "Voici la liste des fichiers envoyés"
 msgstr ""
 
-#: View/Emails/html/alert_email_new_upload.ctp:11
-#: View/Emails/html/quota_exceeded.ctp:10
-#: View/Emails/text/alert_email_new_upload.ctp:11
+#: View/Emails/html/alert_email_new_upload.ctp:10
+#: View/Emails/html/quota_exceeded.ctp:11
+#: View/Emails/text/alert_email_new_upload.ctp:10
 #: View/Emails/text/quota_exceeded.ctp:10
 msgid "Nom : "
-msgstr ""
-
-#: View/Emails/html/alert_email_new_upload.ctp:14
-#: View/Emails/html/quota_exceeded.ctp:19
-#: View/Emails/text/alert_email_new_upload.ctp:14
-#: View/Emails/text/quota_exceeded.ctp:19
-msgid "Cordialement"
 msgstr ""
 
 #: View/Emails/html/quota_exceeded.ctp:3
@@ -209,49 +216,45 @@ msgstr ""
 msgid "Voici les informations du fichier que l'utilisateur a essayé d'envoyer :"
 msgstr ""
 
-#: View/Emails/html/quota_exceeded.ctp:12
+#: View/Emails/html/quota_exceeded.ctp:13
 #: View/Emails/text/quota_exceeded.ctp:12
 msgid "Taille : "
 msgstr ""
 
-#: View/Emails/html/quota_exceeded.ctp:15
+#: View/Emails/html/quota_exceeded.ctp:16
 #: View/Emails/text/quota_exceeded.ctp:15
 msgid ""
 "Pour que vos utilisateurs puissent de nouveau envoyer des fichiers vous devez\n"
 "augmenter votre quota ou supprimer des fichiers."
 msgstr ""
 
-#: View/Helper/SynchroDossierHelper.php:61
+#: View/Helper/SynchroDossierHelper.php:70
 msgid "Read"
 msgstr "lecture"
 
-#: View/Helper/SynchroDossierHelper.php:62
+#: View/Helper/SynchroDossierHelper.php:71
 msgid "Write"
 msgstr "Écriture"
 
-#: View/Helper/SynchroDossierHelper.php:63
+#: View/Helper/SynchroDossierHelper.php:72
 msgid "Delete"
 msgstr "Suppression"
 
-#: View/Helper/SynchroDossierHelper.php:64
+#: View/Helper/SynchroDossierHelper.php:73
 msgid "Create"
 msgstr "Création"
 
-#: View/Helper/SynchroDossierHelper.php:65
+#: View/Helper/SynchroDossierHelper.php:74
 msgid "Change Right"
 msgstr "Changement de droits"
 
-#: View/Helper/SynchroDossierHelper.php:87
+#: View/Helper/SynchroDossierHelper.php:96
 msgid "Subscribe to email alert"
 msgstr "Inscription à l'alerte email"
 
-#: View/Helper/SynchroDossierHelper.php:91
+#: View/Helper/SynchroDossierHelper.php:100
 msgid "Unsubscribe to email alert"
 msgstr "Désinscription à l'alerte email."
-
-#: View/Helper/SynchroDossierHelper.php:114
-msgid "You're about to %s to email alert for folder #%s, Are you sure ?"
-msgstr "Vous êtes sur le point de  vous %s à l'alert email pour le dossier #%s, Êtes-vou sûr(e) ? "
 
 #: View/SdInformations/admin_quota.ctp:15
 msgid "Quota (Mo) : "
@@ -273,3 +276,7 @@ msgstr ""
 msgid "Annuler"
 msgstr ""
 
+#~ msgid "You're about to %s to email alert for folder #%s, Are you sure ?"
+#~ msgstr ""
+#~ "Vous êtes sur le point de  vous %s à l'alert email pour le dossier #%s, "
+#~ "Êtes-vou sûr(e) ? "
