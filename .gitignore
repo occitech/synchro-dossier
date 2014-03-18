@@ -33,7 +33,7 @@ Vendor/bin/
 Vendor/composer/
 Vendor/phpunit/
 Vendor/symfony/
-Vendor/pear-pear.cakephp.org/
+Vendor/cakephp/
 Vendor/croogo/
 Vendor/knplabs/
 Vendor/occitech/

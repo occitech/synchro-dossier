@@ -59,7 +59,7 @@ if (!defined('APP_DIR')) {
 	//define('CAKE_CORE_INCLUDE_PATH', ROOT . DS . 'lib');
 define(
 	'CAKE_CORE_INCLUDE_PATH',
-	ROOT . DS . APP_DIR . '/Vendor/pear-pear.cakephp.org/CakePHP'
+	ROOT . DS . APP_DIR . '/Vendor/cakephp/cakephp/lib/'
 );
 
 /**

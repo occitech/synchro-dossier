@@ -10,10 +10,6 @@
     "minimum-stability": "dev",
     "repositories": [
         {
-            "type": "pear",
-            "url": "http://pear.cakephp.org"
-        },
-        {
             "type": "vcs",
             "url": "git@github.com:occitech/CakePHP-Plupload-Plugin.git"
         },
@@ -24,7 +20,7 @@
 
     ],
     "require": {
-        "pear-cakephp/cakephp": "~2.4",
+        "cakephp/cakephp": "dev-master",
         "croogo/croogo": "2.0.x-dev",
         "junichi11/plupload": "dev-develop",
         "burzum/file-storage": "dev-master",

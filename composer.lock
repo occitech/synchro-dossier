@@ -3,7 +3,7 @@
         "This file locks the dependencies of your project to a known state",
         "Read more about it at http://getcomposer.org/doc/01-basic-usage.md#composer-lock-the-lock-file"
     ],
-    "hash": "acb4534daca5b4b24edc1f43dc76ef03",
+    "hash": "dc95e9ab2c02aa248ca551a5f0640464",
     "packages": [
         {
             "name": "burzum/file-storage",
@@ -129,17 +129,60 @@
             "time": "2013-10-21 10:51:10"
         },
         {
+            "name": "cakephp/cakephp",
+            "version": "dev-master",
+            "source": {
+                "type": "git",
+                "url": "https://github.com/cakephp/cakephp.git",
+                "reference": "23350eb89eba08897c60451a2733ca2c8a830792"
+            },
+            "dist": {
+                "type": "zip",
+                "url": "https://api.github.com/repos/cakephp/cakephp/zipball/23350eb89eba08897c60451a2733ca2c8a830792",
+                "reference": "23350eb89eba08897c60451a2733ca2c8a830792",
+                "shasum": ""
+            },
+            "require": {
+                "ext-mcrypt": "*",
+                "php": ">=5.2.8"
+            },
+            "require-dev": {
+                "cakephp/debug_kit": "2.2.*",
+                "phpunit/phpunit": "3.7.*"
+            },
+            "bin": [
+                "lib/Cake/Console/cake"
+            ],
+            "type": "library",
+            "notification-url": "https://packagist.org/downloads/",
+            "license": [
+                "MIT"
+            ],
+            "authors": [
+                {
+                    "name": "CakePHP Community",
+                    "homepage": "https://github.com/cakephp/cakephp/graphs/contributors"
+                }
+            ],
+            "description": "The CakePHP framework",
+            "homepage": "http://cakephp.org",
+            "keywords": [
+                "framework"
+            ],
+            "time": "2014-03-18 14:07:24"
+        },
+        {
             "name": "cakephp/debug_kit",
             "version": "dev-master",
             "source": {
                 "type": "git",
                 "url": "https://github.com/cakephp/debug_kit.git",
-                "reference": "9285f06568dc86d5b6ebd53d351999fb26f5dbb2"
+                "reference": "c01d0db8da0052f54d70c0532ef774c92e493513"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/9285f06568dc86d5b6ebd53d351999fb26f5dbb2",
-                "reference": "9285f06568dc86d5b6ebd53d351999fb26f5dbb2",
+                "url": "https://api.github.com/repos/cakephp/debug_kit/zipball/c01d0db8da0052f54d70c0532ef774c92e493513",
+                "reference": "c01d0db8da0052f54d70c0532ef774c92e493513",
                 "shasum": ""
             },
             "require": {
@@ -175,7 +218,7 @@
                 "debug",
                 "kit"
             ],
-            "time": "2014-03-04 17:11:13"
+            "time": "2014-03-16 01:54:54"
         },
         {
             "name": "composer/installers",
@@ -307,12 +350,12 @@
             "source": {
                 "type": "git",
                 "url": "https://github.com/croogo/croogo.git",
-                "reference": "a3ba495e037304dca556d8161f4d6923878321c0"
+                "reference": "39b367d51ed3c746ce48835d4fd6ef882157600e"
             },
             "dist": {
                 "type": "zip",
-                "url": "https://api.github.com/repos/croogo/croogo/zipball/a3ba495e037304dca556d8161f4d6923878321c0",
-                "reference": "a3ba495e037304dca556d8161f4d6923878321c0",
+                "url": "https://api.github.com/repos/croogo/croogo/zipball/39b367d51ed3c746ce48835d4fd6ef882157600e",
+                "reference": "39b367d51ed3c746ce48835d4fd6ef882157600e",
                 "shasum": ""
             },
             "require": {
@@ -351,7 +394,7 @@
             ],
             "description": "Croogo - Open Source CMS built for everyone",
             "homepage": "http://github.com/croogo/croogo",
-            "time": "2014-03-07 13:17:41"
+            "time": "2014-03-18 14:18:44"
         },
         {
             "name": "croogo/locale",
@@ -592,32 +635,6 @@
                 "plugin"
             ],
             "time": "2013-05-11 22:25:45"
-        },
-        {
-            "name": "pear-pear.cakephp.org/CakePHP",
-            "version": "2.4.6",
-            "dist": {
-                "type": "file",
-                "url": "http://pear.cakephp.org/get/CakePHP-2.4.6.tgz",
-                "reference": null,
-                "shasum": null
-            },
-            "require": {
-                "php": ">=5.2.8.0"
-            },
-            "replace": {
-                "pear-cakephp/cakephp": "== 2.4.6.0"
-            },
-            "type": "pear-library",
-            "autoload": {
-                "classmap": [
-                    ""
-                ]
-            },
-            "include-path": [
-                "/"
-            ],
-            "description": "CakePHP is an application development framework for PHP 5.2+"
         },
         {
             "name": "twbs/bootstrap",
@@ -1078,6 +1095,7 @@
     ],
     "minimum-stability": "dev",
     "stability-flags": {
+        "cakephp/cakephp": 20,
         "croogo/croogo": 20,
         "junichi11/plupload": 20,
         "burzum/file-storage": 20,
