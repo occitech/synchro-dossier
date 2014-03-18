@@ -40,7 +40,7 @@
 		<?php foreach ($superAdmins as $superAdmin): ?>
 		<tr>
 			<td>
-				<?= $superAdmin['User']['username']; ?>
+				<?= $superAdmin['User']['name']; ?>
 				<span class="label label-SuperAdmin">
 					<?= $superAdmin['Role']['title']; ?>
 				</span>
@@ -64,7 +64,7 @@
 			<?php if (in_array($aro['User']['role_id'], $listRolesToPrint)): ?>
 				<tr>
 					<td>
-						<?= $aro['alias'] ?>
+						<?= $aro['User']['Profile']['full_name'] ?>
 						<span class="label label-<?= $aro['alias'] ?>">
 							<?= $aro['User']['Role']['title']; ?>
 						</span>

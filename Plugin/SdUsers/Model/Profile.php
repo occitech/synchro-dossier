@@ -19,6 +19,10 @@ class Profile extends SdUsersAppModel {
 		)
 	);
 
+	public $virtualFields = array(
+		'full_name' => 'CONCAT(Profile.firstname, " ", Profile.name)',
+	);
+
 	public function __construct($id = false, $table = null, $ds = null) {
 		$this->validate = array(
 			'name' => array(

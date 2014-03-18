@@ -54,7 +54,8 @@ class UploaderAclAco extends AclNode {
 				),
 				'contain' => array(
 					'Aro' => array('conditions' => 'Aro.model = "User"'),
-					'Aro.User.Role'
+					'Aro.User.Role',
+					'Aro.User.Profile',
 				)
 			)
 		);
