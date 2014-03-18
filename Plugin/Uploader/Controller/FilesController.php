@@ -29,7 +29,8 @@ class FilesController extends UploaderAppController {
 					'download' 					=> 'read',
 					'rights'					=> 'change_right',
 					'removeRight'				=> 'change_right',
-					'toggleRight'				=> 'change_right'
+					'toggleRight'				=> 'change_right',
+					'toggleEmailSubscription'	=> 'read',
 				),
 			)
 		)
@@ -137,7 +138,7 @@ class FilesController extends UploaderAppController {
 		}
 	}
 
-	public function toggleEmailSubscription($userId, $folderId) {
+	public function toggleEmailSubscription($folderId, $userId) {
 		$this->getEventManager()->dispatch(new CakeEvent(
 			'Controller.FilesController.toggleEmailSubscription',
 			$this,

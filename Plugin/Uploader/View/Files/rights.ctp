@@ -45,7 +45,7 @@
 					<?= $superAdmin['Role']['title']; ?>
 				</span>
 			</td>
-			<td colspan="4"><?= __d('uploader', 'This User has all rights on this folder'); ?></td>
+			<td colspan="5"><?= __d('uploader', 'This User has all rights on this folder'); ?></td>
 		</tr>
 		<?php endforeach ?>
 
@@ -123,8 +123,8 @@
 								$this->Layout->status(array_key_exists($aro['User']['id'], $userRegisteredToAlert)),
 								array(
 									'action' => 'toggleEmailSubscription',
-									$aro['User']['id'],
-									$folderId
+									$folderId,
+									$aro['User']['id']
 								),
 								array('escape' => false)
 							); ?>
