@@ -223,7 +223,7 @@ class SdUsersController extends SdUsersAppController {
 			$emailSent = $this->_sendEmail(
 				array(Configure::read('Site.title'), $this->__getSenderEmail()),
 				$user['User']['email'],
-				__d('croogo', '[%s] Reset Password', Configure::read('Site.title')),
+				__d('sd_users', '%s - Reset Password', Configure::read('Site.title')),
 				'SdUsers.forgot_password',
 				'reset password',
 				$this->theme,
