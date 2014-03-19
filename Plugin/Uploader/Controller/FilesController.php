@@ -312,6 +312,13 @@ class FilesController extends UploaderAppController {
 	public function find() {
 		$this->Prg->commonProcess();
 		$this->paginate['conditions'] = array($this->UploadedFile->parseCriteria($this->passedArgs));
+		$this->paginate['contain'] = array(
+			'User',
+			'Aco',
+			'FileStorage' => array(
+				'order' => array('FileStorage.file_version DESC'),
+			)
+		);
 		$files = $this->paginate();
 		$parentId = null;
 		$folderId = null;
