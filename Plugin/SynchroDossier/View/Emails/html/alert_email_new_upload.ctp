@@ -1,11 +1,22 @@
-<?= __d('synchro_dossier', 'Bonjour,'); ?><br><br>
+<p><?= __d('synchro_dossier', 'Bonjour %s,', $receiver['name']); ?></p>
 
-<?= __d('synchro_dossier',
-	'L\'un de vos collaborateurs, %s %s vient d\'envoyer de nouveaux fichiers dans le dossier \'%s\' de votre espace de stockage', $profile['firstname'], $profile['name'], $rootFolder
-); ?>.<br><br>
+<p><?= __d(
+	'synchro_dossier',
+	'De nouveaux fichiers ont été envoyés par %s dans le dossier %s :',
+	$uploader['name'],
+	$rootFolder
+);?></p>
 
-<?= __d('synchro_dossier', 'Voici la liste des fichiers envoyés'); ?> :<br><br>
-
+<ul>
+	<?php foreach($files as $file): ?>
+		<li><?= __d(
+			'synchro_dossier',
+			'%s: ajouté le %s',
+			$file['UploadedFile']['filename'],
+			date('d/m/Y H:i', strtotime($file['UploadedFile']['created']))
+		);?></li>
+	<?php endforeach; ?>
+</ul>
 <?php foreach ($files as $file): ?>
 	<?= __d('synchro_dossier', 'Nom : '); ?><?= $file['UploadedFile']['filename']; ?> (<?= $this->File->size($file['UploadedFile']['size']); ?>) <br>
 <?php endforeach ?><br>

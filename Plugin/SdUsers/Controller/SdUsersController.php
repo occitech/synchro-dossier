@@ -298,6 +298,7 @@ class SdUsersController extends SdUsersAppController {
 				$email = new CakeEmail();
 				$email->from($from[1], $from[0]);
 				$email->to($to);
+				$email->emailFormat('both');
 				$email->subject($subject);
 				$email->template($template);
 				$email->viewVars($viewVars);
@@ -321,6 +322,6 @@ class SdUsersController extends SdUsersAppController {
 	}
 
 	private function __getSenderEmail(){
-		return 'croogo@' . preg_replace('#^www\.#', '', strtolower($_SERVER['SERVER_NAME']));
+		return Configure::read('Site.email');
 	}
 }
