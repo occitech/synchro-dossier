@@ -182,7 +182,7 @@ msgstr "Mot de passe"
 
 #: Plugin/SdUsers/View/SdUsers/edit.ctp:11
 msgid "User Login"
-msgstr "Connection Utilisateur"
+msgstr "Connexion Utilisateur"
 
 #: Plugin/SdUsers/View/SdUsers/edit.ctp:16
 #: Plugin/SdUsers/View/SdUsers/index.ctp:17
