@@ -110,9 +110,10 @@ class DbMigration {
 					'gender' => $user['gender'],
 				)
 			);
+			$this->SdUser->create();
 			$result = $this->SdUser->saveAssociated($newUser, array('callbacks' => 'after'));
 			$this->relationOldUserNewUser[$user['id']] = $this->SdUser->id;
-	
+
 			if (!$result) {
 				debug($newUser);
 				break;
@@ -135,9 +136,9 @@ class DbMigration {
 			case 'superadmin':
 				return Configure::read('sd.SuperAdmin.roleId');
 			case 'root':
-				return Configure::read('sd.SuperAdmin.roleId');
+				return Configure::read('sd.Occitech.roleId');
 			default:
-				return Configure::read('sd.Utilisateur.roleId');				
+				return Configure::read('sd.Utilisateur.roleId');
 		}
 	}
 

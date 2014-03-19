@@ -7,24 +7,30 @@ App::uses('Shell', 'Console');
 class DbMigrationTest extends CroogoTestCase {
 
 	public $fixtures = array(
-		'plugin.db_migration.old_user',
-		'plugin.db_migration.old_folder',
+		'plugin.db_migration.aco',
+		'plugin.db_migration.aro',
+		'plugin.db_migration.aros_aco',
+		'plugin.db_migration.comment',
+		'plugin.db_migration.file_storage',
+		'plugin.db_migration.i18n',
+		'plugin.db_migration.node',
 		'plugin.db_migration.old_file',
 		'plugin.db_migration.old_files_comment',
+		'plugin.db_migration.old_folder',
+		'plugin.db_migration.old_orders_user',
+		'plugin.db_migration.old_user',
 		'plugin.db_migration.old_user_alert',
 		'plugin.db_migration.old_user_folder',
-		'plugin.db_migration.old_orders_user',
-		'plugin.db_migration.user',
-		'plugin.db_migration.role',
 		'plugin.db_migration.profile',
-		'plugin.db_migration.aro',
-		'plugin.db_migration.aco',
-		'plugin.db_migration.aros_aco',
-		'plugin.db_migration.uploaded_file',
-		'plugin.db_migration.file_storage',
-		'plugin.db_migration.comment',
-		'plugin.db_migration.sd_information',
+		'plugin.db_migration.role',
 		'plugin.db_migration.sd_alert_email',
+		'plugin.db_migration.sd_information',
+		'plugin.db_migration.sd_users_collaboration',
+		'plugin.db_migration.setting',
+		'plugin.db_migration.taxonomies_uploaded_file',
+		'plugin.db_migration.uploaded_file',
+		'plugin.db_migration.uploader_taxonomy',
+		'plugin.db_migration.user',
 	);
 
 	protected function _rmContentDir($dir) {
@@ -61,24 +67,38 @@ class DbMigrationTest extends CroogoTestCase {
 
 		$this->DbMigration->migrateUser();
 
-		$old = $OldUserModel->find('all');
-		$new = $UserModel->find('all');
+		$old = $OldUserModel->find('all', array('order' => array('email ASC')));
+		$new = $UserModel->find('all', array(
+			'noRoleChecking' => true,
+			'order' => array('email ASC'),
+			'contain' => array('Role', 'Profile') // Caution if Aco is joined it will generate duplicates!
+		));
+		$this->assertEquals('admin', $new[0]['User']['username']);
+		array_shift($new); // we do not need the admin
+
+		$this->assertEquals(
+			Hash::extract($old, '{n}.DbMigrationUser.email'),
+			Hash::extract($new, '{n}.User.email')
+		);
+		$this->assertEquals(count($new), count($old), 'All users have been imported');
+
 		for ($i = 0; $i < sizeof($old); $i++) {
 			$role = $old[$i]['DbMigrationUser']['type'];
 			if (!is_null($old[$i]['OrdersUser']['type']) && $old[$i]['DbMigrationUser']['type'] != 'root') {
 				$role = $old[$i]['OrdersUser']['type'];
 			}
-			$this->assertEqual($new[$i]['Role']['title'], $this->__getRoleFromOldType($role));
-			$this->assertEqual($new[$i]['Profile']['name'], $old[$i]['DbMigrationUser']['lastname']);
-			$this->assertEqual($new[$i]['Profile']['firstname'], $old[$i]['DbMigrationUser']['firstname']);
-			$this->assertEqual($new[$i]['Profile']['society'], $old[$i]['DbMigrationUser']['sct']);
-			$this->assertEqual($new[$i]['Profile']['gender'], $old[$i]['DbMigrationUser']['gender']);
-			$this->assertEqual($new[$i]['User']['email'], $old[$i]['DbMigrationUser']['email']);
-			$this->assertEqual($new[$i]['User']['created'], $old[$i]['DbMigrationUser']['created']);
+			$userEmail = $new[$i]['User']['email'];
+			$this->assertEquals($old[$i]['DbMigrationUser']['email'], $new[$i]['User']['email'], $userEmail);
+			$this->assertEquals($old[$i]['DbMigrationUser']['created'], $new[$i]['User']['created'], $userEmail);
+			$this->assertEquals($this->__expectedRoleFromOldType($role), $new[$i]['Role']['title'], $userEmail);
+			$this->assertEquals($old[$i]['DbMigrationUser']['lastname'], $new[$i]['Profile']['name'], $userEmail);
+			$this->assertEquals($old[$i]['DbMigrationUser']['firstname'], $new[$i]['Profile']['firstname'], $userEmail);
+			$this->assertEquals($old[$i]['DbMigrationUser']['sct'], $new[$i]['Profile']['society'], $userEmail);
+			$this->assertEquals($old[$i]['DbMigrationUser']['gender'], $new[$i]['Profile']['gender'], $userEmail);
 		}
 	}
 
-	private function __getRoleFromOldType($type) {
+	private function __expectedRoleFromOldType($type) {
 		switch ($type) {
 			case 'admin':
 				return 'Admin';
@@ -96,16 +116,26 @@ class DbMigrationTest extends CroogoTestCase {
 		$OldFolderModel = ClassRegistry::init('DbMigration.DbMigrationFolder');
 
 		$this->DbMigration->relationOldUserNewUser = array(
-			1 => 2, 2 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7,	8 => 8
+			1 => 2, 2 => 3, 4 => 4, 5 => 5, 6 => 6, 7 => 7, 8 => 8
 		);
 
 		$this->DbMigration->migrateFolders();
 
-		$old = $OldFolderModel->find('all');
-		$new = $UploadedFileModel->find('all');
+		$old = $OldFolderModel->find('all', array('order' => 'name ASC'));
+		$new = $UploadedFileModel->find('all', array(
+			'order' => 'UploadedFile.filename ASC',
+			'recursive' => -1
+		));
+
+		$this->assertEquals(
+			Hash::extract($old, '{n}.DbMigrationFolder.name'),
+			Hash::extract($new, '{n}.UploadedFile.filename')
+		);
+
+		$this->assertEquals(count($new), count($old), 'All folders have been imported');
 
 		for ($i = 0; $i < sizeof($old); $i++) {
-			$newUserIdExpected = 2;
+			$newUserIdExpected = 1;
 			if (array_key_exists($old[$i]['DbMigrationFolder']['owner_id'], $this->DbMigration->relationOldUserNewUser)) {
 				$newUserIdExpected = $this->DbMigration->relationOldUserNewUser[$old[$i]['DbMigrationFolder']['owner_id']];
 			}
@@ -140,11 +170,12 @@ class DbMigrationTest extends CroogoTestCase {
 		$countAllFilesOld = $OldFileModel->find('count', array('conditions' => array(
 			'version' => 1
 		)));
-		$countAllFilesNew = $UploadedFileModel->find('count', array('conditions' => array(
-			'UploadedFile.is_folder' => 0
-		)));
+		$countAllFilesNew = $UploadedFileModel->find('count', array(
+			'conditions' => array('UploadedFile.is_folder' => 0),
+			'recursive' => -1
+		));
 
-		$this->assertEqual($countAllFilesOld, $countAllFilesNew);
+		$this->assertEquals($countAllFilesOld, $countAllFilesNew);
 	}
 
 	protected function _generateUploadFolder() {
