@@ -21,6 +21,7 @@ class DbMigrationTest extends CroogoTestCase {
 		'plugin.db_migration.old_user',
 		'plugin.db_migration.old_user_alert',
 		'plugin.db_migration.old_user_folder',
+		'plugin.db_migration.old_users_user',
 		'plugin.db_migration.profile',
 		'plugin.db_migration.role',
 		'plugin.db_migration.sd_alert_email',
@@ -67,7 +68,11 @@ class DbMigrationTest extends CroogoTestCase {
 
 		$this->DbMigration->migrateUser();
 
-		$old = $OldUserModel->find('all', array('order' => array('email ASC')));
+		$expectedNotImportedIds = 8;
+		$old = $OldUserModel->find('all', array(
+			'conditions' => array('DbMigrationUser.id !=' => $expectedNotImportedIds),
+			'order' => array('email ASC')
+		));
 		$new = $UserModel->find('all', array(
 			'noRoleChecking' => true,
 			'order' => array('email ASC'),
@@ -80,7 +85,7 @@ class DbMigrationTest extends CroogoTestCase {
 			Hash::extract($old, '{n}.DbMigrationUser.email'),
 			Hash::extract($new, '{n}.User.email')
 		);
-		$this->assertEquals(count($new), count($old), 'All users have been imported');
+		$this->assertEquals(count($old), count($new), 'All users but ont have been imported');
 
 		for ($i = 0; $i < sizeof($old); $i++) {
 			$role = $old[$i]['DbMigrationUser']['type'];

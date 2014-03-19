@@ -1,18 +1,15 @@
 <?php
-/**
- * OrdersUserFixture
- *
- */
-class OldOrdersUserFixture extends CakeTestFixture {
+class OldUsersUserFixture extends CakeTestFixture {
 
 	public $useDbConfig = 'testold';
 
-	public $table = 'orders_users';
+	public $table = 'users_users';
 
 	public $fields = array(
 		'order_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
+		'owner_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
 		'user_id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
-		'type' => array('type' => 'string', 'null' => false, 'length' => 16, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
+		'created' => array('type' => 'datetime', 'null' => true, 'default' => null),
 		'indexes' => array(
 			'PRIMARY' => array('column' => array('order_id', 'user_id'), 'unique' => 1)
 		),
@@ -21,19 +18,28 @@ class OldOrdersUserFixture extends CakeTestFixture {
 
 	public $records = array(
 		array(
-			'order_id' => '1',
-			'user_id' => '1',
-			'type' => 'superadmin'
+			'order_id' => 1,
+			'owner_id' => 1,
+			'user_id' => 4,
+			'created' => '2010-06-09 09:47:02'
 		),
 		array(
-			'order_id' => '2',
-			'user_id' => '2',
-			'type' => 'superadmin'
+			'order_id' => 1,
+			'owner_id' => 1,
+			'user_id' => 5,
+			'created' => '2010-06-09 09:47:02'
 		),
 		array(
-			'order_id' => '2',
-			'user_id' => '7',
-			'type' => 'admin'
+			'order_id' => 1,
+			'owner_id' => 1,
+			'user_id' => 6,
+			'created' => '2010-06-09 09:47:02'
+		),
+		array(
+			'order_id' => 1,
+			'owner_id' => 1,
+			'user_id' => 7,
+			'created' => '2010-06-09 09:47:02'
 		),
 	);
 }

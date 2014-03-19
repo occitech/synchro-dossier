@@ -46,6 +46,7 @@ class DbMigration {
 		$this->DbMigrationAlert = ClassRegistry::init('DbMigration.DbMigrationAlert');
 		$this->DbMigrationUserFolder = ClassRegistry::init('DbMigration.DbMigrationUserFolder');
 		$this->DbMigrationOrdersUser = ClassRegistry::init('DbMigration.DbMigrationOrdersUser');
+		$this->DbMigrationUsersUser = ClassRegistry::init('DbMigration.DbMigrationUsersUser');
 		$this->SdUser = ClassRegistry::init('SdUsers.SdUser');
 		$this->UploadedFile = ClassRegistry::init('Uploader.UploadedFile');
 		$this->Comment = ClassRegistry::init('Uploader.Comment');
@@ -77,13 +78,17 @@ class DbMigration {
 		$this->__Shell->out('');
 		$this->__Shell->out('User Migration');
 
-		$oldUsers = $this->DbMigrationUser->find('all');
+		$oldUsersNotSoftDeleted = $this->DbMigrationUsersUser->find('all', array(
+			'fields' => 'DISTINCT user_id',
+			'recursive' => -1
+		));
+		$conditions = array('OR' => array(
+			'DbMigrationUser.type' => array('root', 'admin', 'superadmin'),
+			'DbMigrationUser.id' => Hash::extract($oldUsersNotSoftDeleted, '{n}.DbMigrationUsersUser.user_id')
+		));
+		$oldUsers = $this->DbMigrationUser->find('all', compact('conditions'));
 
-
-
-		$newUsers = array();
 		$result = true;
-
 		foreach ($oldUsers as $user) {
 			$role = $user['DbMigrationUser']['type'];
 			if (!is_null($user['OrdersUser']['type']) && $user['DbMigrationUser']['type'] != 'root') {
