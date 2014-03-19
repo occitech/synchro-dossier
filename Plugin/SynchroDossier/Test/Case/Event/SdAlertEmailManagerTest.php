@@ -37,10 +37,6 @@ class SdAlertEmailManagerTest extends CroogoTestCase {
 		parent::tearDown();
 	}
 
-
-	/**
-	 * @group bug
-	 */
 	public function testSendAlertsEmailShouldSendToEachUsers() {
 		$event = $this->getMockBuilder('CakeEvent')
 			->disableOriginalConstructor()
