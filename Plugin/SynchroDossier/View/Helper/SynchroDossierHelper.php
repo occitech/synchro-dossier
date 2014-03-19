@@ -121,10 +121,10 @@ class SynchroDossierHelper extends AppHelper {
 			),
 			$options,
 			__d(
-				'SynchroDossier',
-				'You\'re about to %s to email alert for folder #%s, Are you sure ?',
-				$options['value'] ? 'subscribe' : 'unsubscribe',
-				$folderId
+				'synchro_dossier',
+				'You\'re about to %s to email alert for folder %s. Are you sure ?',
+				$options['value'] ? __d('synchro_dossier', 'subscribe') : __d('synchro_dossier', 'unsubscribe'),
+				$folderData['UploadedFile']['filename']
 			)
 		);
 	}

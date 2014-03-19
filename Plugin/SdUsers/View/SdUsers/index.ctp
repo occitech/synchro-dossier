@@ -4,7 +4,7 @@
 	$this->end();
 ?>
 
-<?php echo $this->Html->link(__d('sd_users', 'Créez un utilisateur'), array('plugin' => 'sd_users', 'action' => 'add'), array('class' => 'btn', 'style' => 'margin-bottom:15px')) ?>
+<?php echo $this->Html->link(__d('sd_users', 'Créer un utilisateur'), array('plugin' => 'sd_users', 'action' => 'add'), array('class' => 'btn', 'style' => 'margin-bottom:15px')) ?>
 <div class="row-fluid">
 	<div class="span12">
 <?php if(!empty($users)):?>

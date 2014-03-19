@@ -142,7 +142,6 @@ class SdUsersController extends SdUsersAppController {
 
 	public function manageAlertEmail($userId, $folderId, $register = true) {
 		$SdAlertEmail = ClassRegistry::init('SynchroDossier.sdAlertEmail');
-		$_methodToCall = '';
 		$data = array('user_id' => $userId, 'uploaded_file_id' => $folderId);
 
 		if ($register) {
@@ -152,20 +151,21 @@ class SdUsersController extends SdUsersAppController {
 		}
 
 		$success = $SdAlertEmail->{$_methodToCall}($data);
+		$folderName = ClassRegistry::init('Uploader.UploadedFile')->field('filename', array('id' => $folderId));
 
 		if ($success) {
 			$class = array('class' => 'success');
 			if ($register) {
-				$messageFlash = __d('sd_users', 'You are successfully subscribed to email alert for folder #%s', $folderId);
+				$messageFlash = __d('sd_users', 'You are successfully subscribed to email alert for folder %s (#%s)', $folderName, $folderId);
 			} else {
-				$messageFlash = __d('sd_users', 'You have successfully cancel your subscription to folder #%s', $folderId);
+				$messageFlash = __d('sd_users', 'You have successfully cancel your subscription to folder %s (#%s)', $folderName, $folderId);
 			}
 		} else {
 			$class = array('class' => 'error');
 			if ($register) {
-				$messageFlash = __d('sd_users', 'Something went wrong when subscribing to folder #%s ', $folderId);
+				$messageFlash = __d('sd_users', 'Something went wrong when subscribing to folder %s (#%s)', $folderName, $folderId);
 			} else {
-				$messageFlash = __d('sd_users', 'Something went wrong when canceling your subscription to folder #%s ', $folderId);
+				$messageFlash = __d('sd_users', 'Something went wrong when canceling your subscription to folder %s (#%s)', $folderName, $folderId);
 			}
 		}
 
