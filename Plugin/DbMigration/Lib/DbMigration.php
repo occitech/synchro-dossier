@@ -46,6 +46,7 @@ class DbMigration {
 		$this->DbMigrationAlert = ClassRegistry::init('DbMigration.DbMigrationAlert');
 		$this->DbMigrationUserFolder = ClassRegistry::init('DbMigration.DbMigrationUserFolder');
 		$this->DbMigrationOrdersUser = ClassRegistry::init('DbMigration.DbMigrationOrdersUser');
+		$this->DbMigrationUsersUser = ClassRegistry::init('DbMigration.DbMigrationUsersUser');
 		$this->SdUser = ClassRegistry::init('SdUsers.SdUser');
 		$this->UploadedFile = ClassRegistry::init('Uploader.UploadedFile');
 		$this->Comment = ClassRegistry::init('Uploader.Comment');
@@ -77,13 +78,17 @@ class DbMigration {
 		$this->__Shell->out('');
 		$this->__Shell->out('User Migration');
 
-		$oldUsers = $this->DbMigrationUser->find('all');
+		$oldUsersNotSoftDeleted = $this->DbMigrationUsersUser->find('all', array(
+			'fields' => 'DISTINCT user_id',
+			'recursive' => -1
+		));
+		$conditions = array('OR' => array(
+			'DbMigrationUser.type' => array('root', 'admin', 'superadmin'),
+			'DbMigrationUser.id' => Hash::extract($oldUsersNotSoftDeleted, '{n}.DbMigrationUsersUser.user_id')
+		));
+		$oldUsers = $this->DbMigrationUser->find('all', compact('conditions'));
 
-
-
-		$newUsers = array();
 		$result = true;
-
 		foreach ($oldUsers as $user) {
 			$role = $user['DbMigrationUser']['type'];
 			if (!is_null($user['OrdersUser']['type']) && $user['DbMigrationUser']['type'] != 'root') {
@@ -110,9 +115,10 @@ class DbMigration {
 					'gender' => $user['gender'],
 				)
 			);
+			$this->SdUser->create();
 			$result = $this->SdUser->saveAssociated($newUser, array('callbacks' => 'after'));
 			$this->relationOldUserNewUser[$user['id']] = $this->SdUser->id;
-	
+
 			if (!$result) {
 				debug($newUser);
 				break;
@@ -135,9 +141,9 @@ class DbMigration {
 			case 'superadmin':
 				return Configure::read('sd.SuperAdmin.roleId');
 			case 'root':
-				return Configure::read('sd.SuperAdmin.roleId');
+				return Configure::read('sd.Occitech.roleId');
 			default:
-				return Configure::read('sd.Utilisateur.roleId');				
+				return Configure::read('sd.Utilisateur.roleId');
 		}
 	}
 
@@ -324,20 +330,19 @@ class DbMigration {
 		$this->__Shell->out('Alerts Subscription Migration');
 
 
-		$oldAlertsSubscipt = $this->DbMigrationAlert->find('all');
+		$oldAlertsSubscript = $this->DbMigrationAlert->find('all');
 		$result = true;
 
-		foreach ($oldAlertsSubscipt as $alertSubscipt) {
-			$alertSubscipt = $alertSubscipt['DbMigrationAlert'];
+		foreach ($oldAlertsSubscript as $alertSubscript) {
+			$alertSubscript = $alertSubscript['DbMigrationAlert'];
 
-			// Le if est la pour un cas spécial, lorsque le dossier a été supprimé et pas l'alerte 
-			if (array_key_exists($alertSubscipt['folder_id'], $this->relationOldFolderNewFolder)) {
-				$newAlertSubscipt = array(
-					'user_id' => $this->relationOldUserNewUser[$alertSubscipt['user_id']],
-					'uploaded_file_id' => $this->relationOldFolderNewFolder[$alertSubscipt['folder_id']]	
+			if ($this->__isImportedUser($alertSubscript['user_id']) && $this->__isImportedFolder($alertSubscript['folder_id'])) {
+				$newAlertSubscript = array(
+					'user_id' => $this->relationOldUserNewUser[$alertSubscript['user_id']],
+					'uploaded_file_id' => $this->relationOldFolderNewFolder[$alertSubscript['folder_id']]
 				);
 				$this->SdAlertEmail->create();
-				$result = $this->SdAlertEmail->save($newAlertSubscipt);
+				$result = $this->SdAlertEmail->save($newAlertSubscript);
 				if (!$result) {
 					break;
 				}
@@ -352,6 +357,14 @@ class DbMigration {
 		return $result;
 	}
 
+	private function __isImportedFolder($folderId) {
+		return array_key_exists($folderId, $this->relationOldFolderNewFolder);
+	}
+
+	private function __isImportedUser($userId) {
+		return array_key_exists($userId, $this->relationOldUserNewUser);
+	}
+
 /**
  * Migrate ACL
  */
@@ -360,7 +373,7 @@ class DbMigration {
 		$this->__Shell->out('Acls Migration');
 
 		$oldAcls = $this->DbMigrationUserFolder->find('all');
-		
+
 		foreach ($oldAcls as $acl) {
 			$acl = $acl['DbMigrationUserFolder'];
 
@@ -458,4 +471,5 @@ class DbMigration {
 			return $this->relationOldUserNewUser[$oldId];
 		}
 	}
+
 }

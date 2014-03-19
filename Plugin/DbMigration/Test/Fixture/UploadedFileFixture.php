@@ -4,7 +4,7 @@ class UploadedFileFixture extends CakeTestFixture {
 
 	public $fields = array(
 		'id' => array('type' => 'integer', 'null' => false, 'default' => null, 'key' => 'primary'),
-		'filename' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_bin', 'charset' => 'utf8'),
+		'filename' => array('type' => 'string', 'null' => false, 'default' => null, 'collate' => 'utf8_general_ci', 'charset' => 'utf8'),
 		'size' => array('type' => 'integer', 'null' => false, 'default' => null, 'comment' => 'Size of all versions'),
 		'user_id' => array('type' => 'integer', 'null' => false, 'default' => null),
 		'current_version' => array('type' => 'integer', 'null' => false, 'default' => null),
