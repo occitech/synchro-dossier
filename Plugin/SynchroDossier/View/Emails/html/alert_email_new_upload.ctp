@@ -17,8 +17,3 @@
 		);?></li>
 	<?php endforeach; ?>
 </ul>
-<?php foreach ($files as $file): ?>
-	<?= __d('synchro_dossier', 'Nom : '); ?><?= $file['UploadedFile']['filename']; ?> (<?= $this->File->size($file['UploadedFile']['size']); ?>) <br>
-<?php endforeach ?><br>
-
-<?= __d('synchro_dossier', 'Cordialement'); ?>
