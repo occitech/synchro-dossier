@@ -330,20 +330,19 @@ class DbMigration {
 		$this->__Shell->out('Alerts Subscription Migration');
 
 
-		$oldAlertsSubscipt = $this->DbMigrationAlert->find('all');
+		$oldAlertsSubscript = $this->DbMigrationAlert->find('all');
 		$result = true;
 
-		foreach ($oldAlertsSubscipt as $alertSubscipt) {
-			$alertSubscipt = $alertSubscipt['DbMigrationAlert'];
+		foreach ($oldAlertsSubscript as $alertSubscript) {
+			$alertSubscript = $alertSubscript['DbMigrationAlert'];
 
-			// Le if est la pour un cas spécial, lorsque le dossier a été supprimé et pas l'alerte
-			if (array_key_exists($alertSubscipt['folder_id'], $this->relationOldFolderNewFolder)) {
-				$newAlertSubscipt = array(
-					'user_id' => $this->relationOldUserNewUser[$alertSubscipt['user_id']],
-					'uploaded_file_id' => $this->relationOldFolderNewFolder[$alertSubscipt['folder_id']]
+			if ($this->__isImportedUser($alertSubscript['user_id']) && $this->__isImportedFolder($alertSubscript['folder_id'])) {
+				$newAlertSubscript = array(
+					'user_id' => $this->relationOldUserNewUser[$alertSubscript['user_id']],
+					'uploaded_file_id' => $this->relationOldFolderNewFolder[$alertSubscript['folder_id']]
 				);
 				$this->SdAlertEmail->create();
-				$result = $this->SdAlertEmail->save($newAlertSubscipt);
+				$result = $this->SdAlertEmail->save($newAlertSubscript);
 				if (!$result) {
 					break;
 				}
@@ -356,6 +355,14 @@ class DbMigration {
 			$this->__Shell->out('Alerts Subscription Migration Error');
 		}
 		return $result;
+	}
+
+	private function __isImportedFolder($folderId) {
+		return array_key_exists($folderId, $this->relationOldFolderNewFolder);
+	}
+
+	private function __isImportedUser($userId) {
+		return array_key_exists($userId, $this->relationOldUserNewUser);
 	}
 
 /**
@@ -464,4 +471,5 @@ class DbMigration {
 			return $this->relationOldUserNewUser[$oldId];
 		}
 	}
+
 }
