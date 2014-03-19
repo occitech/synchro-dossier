@@ -349,7 +349,7 @@ class FilesController extends UploaderAppController {
 	public function createFolder($parentId) {
 		if ($this->request->is('post')) {
 			if ($this->UploadedFile->addFolder($this->request->data, $parentId, $this->Auth->user('id'))) {
-				$this->Session->setFlash(__d('uploader', 'Le dossier a correctement été créé'), 'default', array('class' => 'alert'));
+				$this->Session->setFlash(__d('uploader', 'Le dossier a correctement été créé'), 'default', array('class' => 'success'));
 			} else {
 				$this->Session->setFlash(__d('uploader', 'Il y a des erreurs dans les données du formulaire'), 'default', array('class' => 'alert alert-danger'));
 			}

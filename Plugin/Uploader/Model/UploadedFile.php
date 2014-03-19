@@ -80,7 +80,7 @@ class UploadedFile extends UploaderAppModel {
 			),
 			'isUniqueName' => array(
 				'rule' => 'isUniqueName',
-				'message' => 'Ce nom est déjà utilisé par un autre dossier'
+				'message' => 'Ce nom est déjà utilisé par un autre fichier'
 			)
 		)
 	);
@@ -97,6 +97,10 @@ class UploadedFile extends UploaderAppModel {
 
 
 	public function isUniqueName($check) {
+		if (!empty($this->data[$this->alias]['is_folder'])) {
+			return true;
+		}
+
 		$parentId = $this->data['UploadedFile']['parent_id'];
 		$result = $this->_findByFilenameParent_id($check['filename'], $parentId);
 		if (!empty($result)) {
@@ -219,7 +223,6 @@ class UploadedFile extends UploaderAppModel {
 	 */
 	public function addSharing($data, $user) {
 		$rootAco = $this->Aco->findByAlias('uploadedFileAco');
-
 		$result = $this->addFolder($data, null, $user['id']);
 
 		if ($result) {

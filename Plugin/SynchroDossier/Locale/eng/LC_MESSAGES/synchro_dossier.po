@@ -74,6 +74,10 @@ msgstr "Create a folder"
 msgid "Nom du dossier"
 msgstr "Folder name"
 
+#: Plugin/SynchroDossier/View/Elements/sidebar.ctp:50
+msgid "Partager ce dossier"
+msgstr "Share this folder"
+
 #: View/Elements/createFolderModal.ctp:4
 #: View/Elements/sidebar.ctp:47
 msgid "Créer un sous dossier"

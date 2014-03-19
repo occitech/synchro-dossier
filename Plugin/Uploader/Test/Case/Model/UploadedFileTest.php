@@ -464,12 +464,12 @@ class UploadedFileTest extends OccitechCakeTestCase {
 	public function testAcoAfterAddSharingAlreadyExist() {
 		$Aco = ClassRegistry::init('Aco');
 
-		$userId = 1;
+		$user['id'] = 1;
 		$data = array('UploadedFile' => array('filename' => 'Photos'));
 		$nbAcoBeforeInsert = $Aco->find('count');
-		$this->UploadedFile->addSharing($data, $userId);
+		$this->UploadedFile->addSharing($data, $user);
 		$nbAcoAfterInsert = $Aco->find('count');
-		$this->assertEqual($nbAcoAfterInsert, $nbAcoBeforeInsert);
+		$this->assertEqual($nbAcoAfterInsert, $nbAcoBeforeInsert+1);
 	}
 
 	public function testAcoAfterAddFolder() {
