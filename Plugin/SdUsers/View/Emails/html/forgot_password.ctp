@@ -7,7 +7,7 @@ $resetLink = $this->Html->link(__d('sd_users', 'réinitialiser votre mot de pass
     $activationKey,
 ), true));
 
-$mailToLink = '<a mailto="' . Configure::read('Site.email') . '">' . __('sd_users', 'l\'administrateur du site') . '</a>';
+$mailToLink = '<a href="mailto:' . Configure::read('Site.email') . '">' . __d('sd_users', 'l\'administrateur du site') . '</a>';
 
 $homeLink = $this->Html->link(Configure::read('Site.title'), Router::url(array(
 	'plugin' => 'uploader',
