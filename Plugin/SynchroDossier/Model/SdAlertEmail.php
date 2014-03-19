@@ -39,6 +39,7 @@ class SdAlertEmail extends SynchroDossierAppModel {
 				$result['files'][0]['UploadedFile']['id']
 			);
 			$result['rootFolder'] = $this->UploadedFile->field('filename', array('id' => $rootFolderId));
+			$this->contain(array('User.Profile'));
 			$usersToAlert = $this->findAllByUploaded_file_id($rootFolderId);
 			$result['to'] = array();
 

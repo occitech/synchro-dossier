@@ -209,6 +209,7 @@ class SdUsersController extends SdUsersAppController {
 		$this->set('title_for_layout', __d('croogo', 'Forgot Password'));
 
 		if (!empty($this->request->data) && isset($this->request->data['User']['email'])) {
+			$this->SdUser->contain(array('Profile'));
 			$user = $this->SdUser->findByEmail($this->request->data['User']['email']);
 			if (!isset($user['User']['id'])) {
 				$this->Session->setFlash(__d('croogo', 'Invalid email.'), 'default', array('class' => 'error'));

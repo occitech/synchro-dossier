@@ -18,12 +18,12 @@ $homeLink = $this->Html->link(Configure::read('Site.title'), Router::url(array(
 <p><?= __d(
     'sd_users',
     'Bonjour %s,',
-    $user['User']['name']
+    $user['Profile']['full_name']
 );?></p>
 
 <p><?= __d(
     'sd_users',
-    'Une demande de nouveau mot de passe a été envoyée depuis %s',
+    'Une demande de nouveau mot de passe a été envoyé depuis %s',
     $homeLink
 );?>.<p>
 

@@ -16,12 +16,12 @@ $homeUrl = Router::url(array(
 <?= __d(
     'sd_users',
     'Bonjour %s,',
-    $user['User']['name']
+    $user['Profile']['full_name']
 );?>
 
 <?= __d(
     'sd_users',
-    'Une demande de nouveau mot de passe a été envoyée depuis %s (%s)',
+    'Une demande de nouveau mot de passe a été envoyé depuis %s (%s)',
     Configure::read('Site.title'),
     $homeUrl
 );?>.<p>

@@ -1,9 +1,9 @@
-<p><?= __d('synchro_dossier', 'Bonjour %s,', $receiver['name']); ?></p>
+<p><?= __d('synchro_dossier', 'Bonjour %s,', $receiver['Profile']['full_name']); ?></p>
 
 <p><?= __d(
 	'synchro_dossier',
 	'De nouveaux fichiers ont été envoyés par %s dans le dossier %s :',
-	$uploader['name'],
+	$profile['full_name'],
 	$rootFolder
 );?></p>
 

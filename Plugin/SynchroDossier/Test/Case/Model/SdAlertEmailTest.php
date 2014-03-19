@@ -12,6 +12,7 @@ class SdAlertEmailTest extends CakeTestCase {
 	public $fixtures = array(
 		'plugin.uploader.uploader_user',
 		'plugin.uploader.uploaded_file',
+		'plugin.sd_users.profile',
 		'plugin.synchro_dossier.sd_alert_email',
 		'plugin.synchro_dossier.sd_file_email',
 	);
@@ -63,7 +64,10 @@ class SdAlertEmailTest extends CakeTestCase {
 				'timezone' => '0',
 				'status' => 1,
 				'updated' => '2012-10-31 17:21:32',
-				'created' => '2012-10-31 17:21:32'
+				'created' => '2012-10-31 17:21:32',
+				'Profile' => array(
+
+				),
 			),
 			'admin@occitech.fr' => array(
 				'id' => '1',
@@ -79,7 +83,10 @@ class SdAlertEmailTest extends CakeTestCase {
 				'timezone' => '0',
 				'status' => 1,
 				'updated' => '2012-10-31 12:51:05',
-				'created' => '2012-10-31 12:51:05'
+				'created' => '2012-10-31 12:51:05',
+				'Profile' => array(
+
+				)
 			)
 		);
 
