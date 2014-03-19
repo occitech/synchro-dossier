@@ -61,16 +61,16 @@ msgid "Quota must be highter than 0"
 msgstr "Le quote doit être supérieur à 0."
 
 #: Plugin/SynchroDossier/View/Elements/addNewVersionModal.ctp:4
-msgid "Ajoutez une nouvelle version de"
-msgstr "Ajoutez une nouvelle version de"
+msgid "Ajouter une nouvelle version de"
+msgstr "Ajouter une nouvelle version de"
 
 #: Plugin/SynchroDossier/View/Elements/addNewVersionModal.ctp:14
-msgid "Ajoutez une nouvelle version"
-msgstr "Ajoutez une nouvelle version"
+msgid "Ajouter une nouvelle version"
+msgstr "Ajouter une nouvelle version"
 
 #: Plugin/SynchroDossier/View/Elements/addSharingModal.ctp:4;29
-msgid "Créez un dossier"
-msgstr "Créez un dossier"
+msgid "Créer un dossier"
+msgstr "Créer un dossier"
 
 #: Plugin/SynchroDossier/View/Elements/addSharingModal.ctp:16
 msgid "Nom du dossier"
@@ -78,16 +78,16 @@ msgstr "Nom du dossier"
 
 #: Plugin/SynchroDossier/View/Elements/createFolderModal.ctp:4
 #: Plugin/SynchroDossier/View/Elements/sidebar.ctp:36
-msgid "Créez un sous dossier"
-msgstr "Créez un sous dossier"
+msgid "Créer un sous dossier"
+msgstr "Créer un sous dossier"
 
 #: Plugin/SynchroDossier/View/Elements/createFolderModal.ctp:20
 msgid "Nom du sous dossier"
 msgstr "Nom du sous dossier"
 
 #: Plugin/SynchroDossier/View/Elements/createFolderModal.ctp:26
-msgid "Créez le sous dossier"
-msgstr "Créez le sous dossier"
+msgid "Créer le sous dossier"
+msgstr "Créer le sous dossier"
 
 #: Plugin/SynchroDossier/View/Elements/formCommentModal.ctp:4
 msgid "Commentaires"
@@ -132,12 +132,12 @@ msgstr[0] "%s résultat correspondant"
 msgstr[1] "%s résultats correspondant"
 
 #: Plugin/SynchroDossier/View/Elements/renameFolderModal.ctp:4
-msgid "Renommez le dossier"
-msgstr "Renommez le dossier"
+msgid "Renommer le dossier"
+msgstr "Renommer le dossier"
 
 #: Plugin/SynchroDossier/View/Elements/renameFolderModal.ctp:26
-msgid "Renommez"
-msgstr "Renommez"
+msgid "Renommer"
+msgstr "Renomme"
 
 #: Plugin/SynchroDossier/View/Elements/sidebar.ctp:4
 msgid "Votre Quota"
@@ -320,3 +320,9 @@ msgstr "Sauver"
 #: Plugin/SynchroDossier/View/SdInformations/admin_quota.ctp:27
 msgid "Annuler"
 msgstr "Annuler"
+
+msgid "Propulsé par"
+msgstr "Propulsé par"
+
+msgid "Tous"
+msgstr "Tous"

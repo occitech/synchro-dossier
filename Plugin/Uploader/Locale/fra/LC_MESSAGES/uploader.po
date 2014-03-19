@@ -402,3 +402,9 @@ msgstr "Ce nom est déjà utilisé par un autre dossier"
 
 #~ msgid "Dossiers"
 #~ msgstr "Directories"
+
+msgid "Tous"
+msgstr "Tous"
+
+msgid "ou"
+msgstr "ou"

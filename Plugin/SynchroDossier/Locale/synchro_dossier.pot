@@ -60,7 +60,7 @@ msgid "Ajoutez une nouvelle version"
 msgstr ""
 
 #: Plugin/SynchroDossier/View/Elements/addSharingModal.ctp:4;29
-msgid "Créez un dossier"
+msgid "Créer un dossier"
 msgstr ""
 
 #: Plugin/SynchroDossier/View/Elements/addSharingModal.ctp:16
@@ -69,7 +69,7 @@ msgstr ""
 
 #: Plugin/SynchroDossier/View/Elements/createFolderModal.ctp:4
 #: Plugin/SynchroDossier/View/Elements/sidebar.ctp:36
-msgid "Créez un sous dossier"
+msgid "Créer un sous dossier"
 msgstr ""
 
 #: Plugin/SynchroDossier/View/Elements/createFolderModal.ctp:20
@@ -77,7 +77,7 @@ msgid "Nom du sous dossier"
 msgstr ""
 
 #: Plugin/SynchroDossier/View/Elements/createFolderModal.ctp:26
-msgid "Créez le sous dossier"
+msgid "Créer le sous dossier"
 msgstr ""
 
 #: Plugin/SynchroDossier/View/Elements/formCommentModal.ctp:4

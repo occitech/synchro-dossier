@@ -59,15 +59,15 @@ msgid "Quota must be highter than 0"
 msgstr "Quota must be highter than 0"
 
 #: View/Elements/addNewVersionModal.ctp:4
-msgid "Ajoutez une nouvelle version de"
+msgid "Ajouter une nouvelle version de"
 msgstr "Add a new version of"
 
 #: View/Elements/addNewVersionModal.ctp:14
-msgid "Ajoutez une nouvelle version"
+msgid "Ajouter une nouvelle version"
 msgstr "Add a new version"
 
 #: View/Elements/addSharingModal.ctp:4;22
-msgid "Créez un dossier"
+msgid "Créer un dossier"
 msgstr "Create a folder"
 
 #: View/Elements/addSharingModal.ctp:16
@@ -76,7 +76,7 @@ msgstr "Folder name"
 
 #: View/Elements/createFolderModal.ctp:4
 #: View/Elements/sidebar.ctp:47
-msgid "Créez un sous dossier"
+msgid "Créer un sous dossier"
 msgstr "Create a subfolder"
 
 #: View/Elements/createFolderModal.ctp:20
@@ -84,7 +84,7 @@ msgid "Nom du sous dossier"
 msgstr "Subfolder name"
 
 #: View/Elements/createFolderModal.ctp:26
-msgid "Créez le sous dossier"
+msgid "Créer le sous dossier"
 msgstr "Create the subfolder"
 
 #: View/Elements/formCommentModal.ctp:4
@@ -120,11 +120,11 @@ msgid "Connexion"
 msgstr "Login"
 
 #: View/Elements/renameFolderModal.ctp:4
-msgid "Renommez le dossier"
+msgid "Renommer le dossier"
 msgstr "Rename the folder"
 
 #: View/Elements/renameFolderModal.ctp:26
-msgid "Renommez"
+msgid "Renommer"
 msgstr "Rename"
 
 #: View/Elements/sidebar.ctp:4
@@ -136,7 +136,7 @@ msgid "Mes Dossiers"
 msgstr "My Folders"
 
 #: View/Elements/sidebar.ctp:14
-msgid "Ajoutez un dossier"
+msgid "Ajouter un dossier"
 msgstr "Add a folder"
 
 #: View/Elements/sidebar.ctp:27
@@ -144,7 +144,7 @@ msgid "Actions"
 msgstr "Actions"
 
 #: View/Elements/sidebar.ctp:32
-msgid "Créez un utilisateur"
+msgid "Créer un utilisateur"
 msgstr "Create a user"
 
 #: View/Elements/sidebar.ctp:61
@@ -154,10 +154,6 @@ msgstr "Search"
 #: View/Elements/sidebar.ctp:70
 msgid "Utilisateurs du dossier"
 msgstr "Folder users"
-
-#: View/Elements/sidebar.ctp:78
-msgid "Ajoutez un utilisateur à ce dossier"
-msgstr "Add a user to this folder"
 
 #: View/Elements/sidebar.ctp:78
 msgid "Super Administrateur"
@@ -276,3 +272,6 @@ msgstr "Save"
 msgid "Annuler"
 msgstr "Cancel"
 
+#: View/Elements/navbar.ctp:51
+msgid "Propulsé par"
+msgstr "Powered by"

@@ -253,7 +253,7 @@ msgstr "Aucun utilisateur trouvé"
 
 #: Plugin/SdUsers/View/SdUsers/login.ctp:2
 msgid "Connexion utilisateur"
-msgstr "Connection utilisateur"
+msgstr "Connexion utilisateur"
 
 #: Plugin/SdUsers/View/SdUsers/login.ctp:6
 msgid "Adresse email"

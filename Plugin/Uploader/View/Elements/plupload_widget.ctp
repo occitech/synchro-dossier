@@ -11,7 +11,7 @@
 <div class="row-fluid" id="plupload">
 	<div id="drop-area">
 		<p><?= __d('uploader', 'Glissez/Déposez vos fichiers ici'); ?></p>
-		<span>ou</span>
+		<span><?= __d('uploader', 'ou'); ?></span>
 		<a href="#" id="browse" class="btn"><?= __d('uploader', 'Parcourir'); ?></a>
 
 		<div class="progress progress-striped active">

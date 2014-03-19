@@ -4,7 +4,7 @@
 		<meta charset="utf-8">
 		<title><?php echo $title_for_layout; ?> - <?php echo __(Configure::read('Site.title')); ?></title>
 		<script src="//ajax.googleapis.com/ajax/libs/jquery/1.8.3/jquery.min.js"></script>
-		
+
 		<?php
 		echo $this->Html->css(array(
 			'//netdna.bootstrapcdn.com/twitter-bootstrap/2.2.2/css/bootstrap-combined.min.css',
@@ -43,7 +43,7 @@
 		<footer>
 			<?= Configure::read('SynchroDossier.footer') ?>
 			<p>
-				Propulsé par <a href="http://www.synchro-dossier.fr/" title="Synchro Dossier">Synchro&nbsp;Dossier</a>
+				<?= __d('synchro_dossier', 'Propulsé par') ?> <a href="http://www.synchro-dossier.fr/" title="Synchro Dossier">Synchro&nbsp;Dossier</a>
 			</p>
 		</footer>
 	</body>

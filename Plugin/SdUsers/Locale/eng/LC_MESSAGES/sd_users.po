@@ -53,6 +53,10 @@ msgstr "User can't be deleted"
 msgid "Your Profile"
 msgstr ""
 
+#: View/Elements/sidebar.ctp:32
+msgid "Créer un utilisateur"
+msgstr "Create a user"
+
 #: Controller/SdUsersController.php:85
 msgid "User #%s Not Found"
 msgstr ""

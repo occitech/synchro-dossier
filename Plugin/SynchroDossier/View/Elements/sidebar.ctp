@@ -33,7 +33,7 @@
 			<?php if ($this->UploaderAcl->userCan($folderAco['Aco'], 'create')): ?>
 				<li>
 					<?= $this->Html->link(
-						__d('synchro_dossier', 'Créez un sous dossier'),
+						__d('synchro_dossier', 'Créer un sous dossier'),
 						'#createFolderModal',
 						array(
 							'class' => 'btn',

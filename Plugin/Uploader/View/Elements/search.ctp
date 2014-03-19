@@ -33,7 +33,7 @@ $this->Form->input(
 	<?=
 	$this->Form->input(
 		'username',
-		array('label' => __d('uploader', 'Auteur du fichier'), 'placeholder' => __d('uploader', 'Utilisateur'), 'class' => 'span12', 'empty' => __('Tous'))
+		array('label' => __d('uploader', 'Auteur du fichier'), 'placeholder' => __d('uploader', 'Utilisateur'), 'class' => 'span12', 'empty' => __d('uploader', 'Tous'))
 	)
 	?>
 	<?php endif ?>

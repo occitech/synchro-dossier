@@ -1,7 +1,7 @@
 <div id="addSharingModal" class="modal hide fade" role="dialog" aria-labelledby="myModalLabel" aria-hidden="true">
 	<div class="modal-header">
 		<button type="button" class="close" data-dismiss="modal" aria-hidden="true">×</button>
-		<h3 id="myModalLabel"><?= __d('synchro_dossier', 'Créez un dossier'); ?></h3>
+		<h3 id="myModalLabel"><?= __d('synchro_dossier', 'Créer un dossier'); ?></h3>
 	</div>
 	<div class="modal-body">
 		<?= $this->Form->create('UploadedFile', array('url' => array(
@@ -26,7 +26,7 @@
 		); ?>
 	</div>
 	<div class="modal-footer">
-		<?= $this->Form->submit(__d('synchro_dossier', 'Créez un dossier'), array('class' => 'btn')); ?>
+		<?= $this->Form->submit(__d('synchro_dossier', 'Créer un dossier'), array('class' => 'btn')); ?>
 		<?= $this->Form->end(); ?>
 	</div>
 </div>

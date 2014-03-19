@@ -43,6 +43,14 @@ msgstr ""
 msgid "You cannot delete folder #%s"
 msgstr ""
 
+#: Plugin/Uploader/View/Elements/search.ctp:36
+msgid "Auteur du fichier"
+msgstr "File author"
+
+#: Plugin/Uploader/View/Elements/search.ctp:28
+msgid "Recherche avancée"
+msgstr "Advanced search"
+
 #: Model/UploadedFile.php:309
 msgid "Invalid user with id#%s"
 msgstr ""
@@ -293,3 +301,11 @@ msgstr "This field cannot be left empty"
 msgid "Ce nom est déjà utilisé par un autre dossier"
 msgstr "This name is already in use for another directory"
 
+msgid "Tous"
+msgstr "All"
+
+msgid "ou"
+msgstr "or"
+
+msgid "Supprimer le fichier"
+msgstr "Delete file"
