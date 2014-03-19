@@ -11,14 +11,14 @@ class DbMigrationShell extends AppShell {
 
 	public function admin_reset() {
 		$newPassword = rand (111111, 999999);
-		$email = 'admin@occi-tech.com';
+		$email = 'admin@occitech.fr';
 
 		$UserModel = ClassRegistry::init('Users.User');
 		$admin = $UserModel->findById(1);
 		$UserModel->id = 1;
 		$UserModel->Behaviors->unload('Acl');
 		$UserModel->saveField('password', $newPassword);
-		$UserModel->saveField('email', 'admin@occi-tech.com');
+		$UserModel->saveField('email', 'admin@occitech.fr');
 
 		$this->out('Le nouvel email admin est : ' . $email);
 		$this->out('Le nouveau password admin est : ' . $newPassword);
