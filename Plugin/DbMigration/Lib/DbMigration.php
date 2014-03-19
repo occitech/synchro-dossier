@@ -336,11 +336,11 @@ class DbMigration {
 		foreach ($oldAlertsSubscipt as $alertSubscipt) {
 			$alertSubscipt = $alertSubscipt['DbMigrationAlert'];
 
-			// Le if est la pour un cas spécial, lorsque le dossier a été supprimé et pas l'alerte 
+			// Le if est la pour un cas spécial, lorsque le dossier a été supprimé et pas l'alerte
 			if (array_key_exists($alertSubscipt['folder_id'], $this->relationOldFolderNewFolder)) {
 				$newAlertSubscipt = array(
 					'user_id' => $this->relationOldUserNewUser[$alertSubscipt['user_id']],
-					'uploaded_file_id' => $this->relationOldFolderNewFolder[$alertSubscipt['folder_id']]	
+					'uploaded_file_id' => $this->relationOldFolderNewFolder[$alertSubscipt['folder_id']]
 				);
 				$this->SdAlertEmail->create();
 				$result = $this->SdAlertEmail->save($newAlertSubscipt);
@@ -366,7 +366,7 @@ class DbMigration {
 		$this->__Shell->out('Acls Migration');
 
 		$oldAcls = $this->DbMigrationUserFolder->find('all');
-		
+
 		foreach ($oldAcls as $acl) {
 			$acl = $acl['DbMigrationUserFolder'];
 
