@@ -40,11 +40,11 @@ $this->Form->input(
 	<?=
 	$this->Form->input(
 		'size_min',
-		array('label' => false, 'placeholder' => __d('uploader', 'Taille min - Mo'), 'class' => 'span6 placeholder-size', 'div' => false)
+		array('label' => false, 'placeholder' => __d('uploader', '1 Mo'), 'class' => 'span6 placeholder-size', 'div' => false, 'title' => 'Poids en Mo')
 	) .
 	$this->Form->input(
 		'size_max',
-		array('label' => false, 'placeholder' => __d('uploader', 'Taille max - Mo'), 'class' => 'span6 placeholder-size', 'div' => false)
+		array('label' => false, 'placeholder' => __d('uploader', '5 Mo'), 'class' => 'span6 placeholder-size', 'div' => false, 'title' => 'Poids en Mo')
 	) .
 	$this->Form->input(
 		'created_min',
