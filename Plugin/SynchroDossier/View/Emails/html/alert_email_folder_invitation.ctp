@@ -1,7 +1,7 @@
-<?= __d('synchro_dossier', 'Bonjour,'); ?>
+<p><?= __d('synchro_dossier', 'Bonjour,'); ?></p>
 
-<?= __d('synchro_dossier', 'Vous avez été invité sur le dossier %s', $folder['name']) ?><br><br>
-<?php
+<p><?= __d('synchro_dossier', 'Vous avez été invité sur le dossier %s', $folder['name']) ?></p>
+<p><?php
 	$url = Router::url(array(
 		'plugin' => 'uploader',
 		'controller' => 'files',
@@ -9,6 +9,9 @@
 		$folder['id']
 	), true);
 	echo __d('synchro_dossier', 'Vous pouvez accéder au dossier en visitant ce lien : %s', $url);
-?>
+?></p>
 
-<?= __d('synchro_dossier', 'Cordialement'); ?>
+<p>
+	<?= __d('synchro_dossier', 'Cordialement'); ?><br />
+	<?= Configure::read('Site.title') ?>
+</p>
