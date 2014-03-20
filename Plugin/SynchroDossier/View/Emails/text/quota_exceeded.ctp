@@ -12,8 +12,7 @@ espace de stockage.', $user['email']); ?>
  * <?= __d('synchro_dossier', 'Taille : '); ?> <?= $this->File->size($data['file']['size']); ?>
 
 
-<?= __d('synchro_dossier', 'Pour que vos utilisateurs puissent de nouveau envoyer des fichiers vous devez
-augmenter votre quota ou supprimer des fichiers.'); ?>
+<?= __d('synchro_dossier', 'Pour que vos utilisateurs puissent de nouveau envoyer des fichiers vous devez augmenter votre quota ou supprimer des fichiers.'); ?>
 
 
 <?= __d('synchro_dossier', 'Cordialement'); ?>

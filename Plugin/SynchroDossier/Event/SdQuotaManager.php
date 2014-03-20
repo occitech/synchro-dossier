@@ -27,9 +27,9 @@ class SdQuotaManager implements CakeEventListener {
 
 		$messages = array(
 			Configure::read('sd.Occitech.roleId') => __d('synchro_dossier', 'Il n\'y a plus de place pour ce dossier'),
-			Configure::read('sd.Utilisateur.roleId') => __d('synchro_dossier', 'Désolé, l\'envoie de fichier n\'est actuellement pas disponible.'),
-			Configure::read('sd.Admin.roleId') => __d('synchro_dossier', 'Le quota est atteint, vous devez contacter un SuperAdmin, ou supprimer des fichiers.'),
-			Configure::read('sd.SuperAdmin.roleId') => __d('synchro_dossier', 'Le quota est atteint, vous devez commander plus de quota ou supprimer des fichiers.')
+			Configure::read('sd.Utilisateur.roleId') => __d('synchro_dossier', 'Il n\'y a plus suffisamment de place pour ajouter ce fichier, un administrateur a été prévenu.'),
+			Configure::read('sd.Admin.roleId') => __d('synchro_dossier', 'Vous ne disposez plus de suffisamment de place pour ajouter ce fichier, contactez le responsable de l\'application pour commander de l\'espace supplémentaire ou supprimez d\'anciens fichiers.'),
+			Configure::read('sd.SuperAdmin.roleId') => __d('synchro_dossier', 'Vous ne disposez plus de suffisamment de place pour ajouter ce fichier. Merci de contactez Occitech afin d\'augmenter votre quota d\'espace disque ou libérez de l\'espace en supprimant des fichiers.')
 		);
 
 		$event->result['hasError'] = false;
