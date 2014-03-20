@@ -11,7 +11,7 @@
 
 
 <div class="rights uploader">
-	<h2><?= __d('uploader', 'Rights management for folder "%s"', $folder['UploadedFile']['filename']) ?></h2>
+	<h2><?= __d('uploader', 'Share the folder "%s" with other people', $folder['UploadedFile']['filename']) ?></h2>
 	<div class="add-right">
 		<?=
 			$this->Form->create('User', array('url' => array(

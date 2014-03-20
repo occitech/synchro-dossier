@@ -84,7 +84,7 @@ msgstr "Commentaires"
 
 #: View/Elements/formFileTagsModal.ctp:4
 msgid "File tags"
-msgstr "Tags de fichier"
+msgstr "Mots-clés"
 
 #: View/Elements/navbar.ctp:4
 msgid "Espace client"

@@ -302,7 +302,7 @@ msgid "Inscription aux Alertes email"
 msgstr ""
 
 #: View/Files/find.ctp:3
-msgid "Résultat de la recherche"
+msgid "Résultats de la recherche"
 msgstr ""
 
 #: View/Files/rename.ctp:7
@@ -310,7 +310,7 @@ msgid "Rename"
 msgstr ""
 
 #: View/Files/rights.ctp:14
-msgid "Rights management for folder \"%s\""
+msgid "Share the folder \"%s\" with other people"
 msgstr ""
 
 #: View/Files/rights.ctp:25

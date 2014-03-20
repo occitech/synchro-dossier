@@ -303,16 +303,16 @@ msgid "Inscription aux Alertes email"
 msgstr "Inscription aux Alertes email"
 
 #: View/Files/find.ctp:3
-msgid "Résultat de la recherche"
-msgstr "Résultat de la recherche"
+msgid "Résultats de la recherche"
+msgstr "Résultats de la recherche"
 
 #: View/Files/rename.ctp:7
 msgid "Rename"
 msgstr "Renommer"
 
 #: View/Files/rights.ctp:14
-msgid "Rights management for folder \"%s\""
-msgstr "Gestion des droits pour le dossier \"%s\""
+msgid "Share the folder \"%s\" with other people"
+msgstr "Partager le dossier \"%s\" avec d'autres personnes"
 
 #: View/Files/rights.ctp:25
 msgid "Select user"
