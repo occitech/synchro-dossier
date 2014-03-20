@@ -7,7 +7,7 @@
 	<h2><?php echo $title_for_layout; ?></h2>
 
 	<div class="row">
-			<h3><?= __d('sd_users', 'Personal Informations:') ?></h3>
+			<h3><?= __d('sd_users', 'Personal Information:') ?></h3>
 			<?= $this->Form->create('User', array(
 				'url' => array(
 					'plugin' => 'sd_users',
