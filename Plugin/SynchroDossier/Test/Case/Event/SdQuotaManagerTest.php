@@ -107,7 +107,7 @@ class SdQuotaManagerTest extends CroogoTestCase {
 		$this->SdQuotaManager->cakeEmail
 			->expects($this->once())
 			->method('subject')
-			->with($this->equalTo('Synchro-Dossier - Quota exceeded'));
+			->with($this->equalTo('Synchro-Dossier - Quota dépassé'));
 
 		$event->data['user']['role_id'] = 5;
 		$event->data['user']['email'] = 'coucou@coucou.fr';

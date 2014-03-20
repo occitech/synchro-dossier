@@ -4,9 +4,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Synchro Dossier\n"
-"POT-Creation-Date: 2014-03-19 11:14+0100\n"
-"PO-Revision-Date: 2014-03-19 11:18+0100\n"
-"Last-Translator: Hadrien Collongues <hadrien@occitech.fr>\n"
+"POT-Creation-Date: 2014-03-20 10:50+0100\n"
+"PO-Revision-Date: 2014-03-20 11:35+0100\n"
+"Last-Translator: \n"
 "Language-Team: Occitech <conctact@occitech.fr>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
@@ -16,18 +16,12 @@ msgstr ""
 "X-Generator: Poedit 1.6.4\n"
 
 #: Plugin/SdUsers/Controller/SdUsersController.php:55
-msgid ""
-"Un utilisateur avec la même adresse email existe déjà, il a été ajouté à "
-"votre liste"
-msgstr ""
-"Un utilisateur avec la même adresse email existe déjà, il a été ajouté à "
-"votre liste"
+msgid "Un utilisateur avec la même adresse email existe déjà, il a été ajouté à votre liste"
+msgstr "Un utilisateur avec la même adresse email existe déjà, il a été ajouté à votre liste"
 
 #: Plugin/SdUsers/Controller/SdUsersController.php:56
-msgid ""
-"Un utilisateur avec la même adresse email est déjà présent dans votre liste"
-msgstr ""
-"Un utilisateur avec la même adresse email est déjà présent dans votre liste"
+msgid "Un utilisateur avec la même adresse email est déjà présent dans votre liste"
+msgstr "Un utilisateur avec la même adresse email est déjà présent dans votre liste"
 
 #: Plugin/SdUsers/Controller/SdUsersController.php:58
 msgid "L'utilisateur a été enregistré"
@@ -71,9 +65,7 @@ msgstr "Succès de la mise à jour des informations utilisateur"
 
 #: Plugin/SdUsers/Controller/SdUsersController.php:125
 msgid "A problem occurs when updating user informations. Please retry."
-msgstr ""
-"Il y a eu un problème lors de la mise à jour des informations de "
-"l'utilisateur. Veuillez réessayer."
+msgstr "Il y a eu un problème lors de la mise à jour des informations de l'utilisateur. Veuillez réessayer."
 
 #: Plugin/SdUsers/Controller/SdUsersController.php:159
 msgid "You are successfully subscribed to email alert for folder %s (#%s)"
@@ -85,16 +77,11 @@ msgstr "Vous ne recevrez plus d'alertes email pour le dossier %s (#%s)"
 
 #: Plugin/SdUsers/Controller/SdUsersController.php:166
 msgid "Something went wrong when subscribing to folder %s (#%s)"
-msgstr ""
-"Une erreur s'est produite lors de la souscription aux alertes email pour le "
-"dossier %s (#%s)"
+msgstr "Une erreur s'est produite lors de la souscription aux alertes email pour le dossier %s (#%s)"
 
 #: Plugin/SdUsers/Controller/SdUsersController.php:168
-msgid ""
-"Something went wrong when canceling your subscription to folder %s (#%s)"
-msgstr ""
-"Une erreur s'est produite lors de la désinscription aux alertes email pour "
-"le dossier %s (#%s)"
+msgid "Something went wrong when canceling your subscription to folder %s (#%s)"
+msgstr "Une erreur s'est produite lors de la désinscription aux alertes email pour le dossier %s (#%s)"
 
 #: Plugin/SdUsers/Controller/SdUsersController.php:187
 msgid "Password has been successfully changed"
@@ -103,6 +90,10 @@ msgstr "Le mot de passe a été mis à jour avec succès"
 #: Plugin/SdUsers/Controller/SdUsersController.php:190
 msgid "Something went wrong when updating password"
 msgstr "Une erreur s'est produite lors de la mise à jour du mot de passe"
+
+#: Plugin/SdUsers/Controller/SdUsersController.php:227
+msgid "%s - Reset Password"
+msgstr "%s - Réinitialiser le mot de passe"
 
 #: Plugin/SdUsers/Model/Profile.php:30
 msgid "Ce champ ne peut pas être laissé vide"
@@ -135,6 +126,53 @@ msgstr "L'utilisateur #%s est introuvable"
 #: Plugin/SdUsers/Model/SdUser.php:290
 msgid "Empty password is not allowed"
 msgstr "Un mot de passe vide n'est pas autorisé"
+
+#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:2
+msgid "réinitialiser votre mot de passe"
+msgstr "réinitialiser votre mot de passe"
+
+#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:10
+msgid "l'administrateur du site"
+msgstr "l'administrateur du site"
+
+#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:18
+#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:16
+msgid "Bonjour %s,"
+msgstr "Bonjour %s,"
+
+#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:24
+msgid "Une demande de nouveau mot de passe a été envoyé depuis %s"
+msgstr "Une demande de nouveau mot de passe a été envoyé depuis %s"
+
+#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:30
+msgid "Si vous n'avez pas demander à changer de mot de passe, ignorez ce message et contactez %s"
+msgstr "Si vous n'avez pas demander à changer de mot de passe, ignorez ce message et contactez %s"
+
+#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:36
+msgid "Vous devez suivre le lien pour %s"
+msgstr "Vous devez suivre le lien pour %s"
+
+#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:43
+#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:41
+msgid "Vous pourrez ensuite personnaliser votre mot de passe dans votre compte."
+msgstr "Vous pourrez ensuite personnaliser votre mot de passe dans votre compte."
+
+#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:45
+#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:43
+msgid "Merci,"
+msgstr "Merci,"
+
+#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:22
+msgid "Une demande de nouveau mot de passe a été envoyé depuis %s (%s)"
+msgstr "Une demande de nouveau mot de passe a été envoyé depuis %s (%s)"
+
+#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:29
+msgid "Si vous n'avez pas demander à changer de mot de passe, ignorez ce message et contactez l'administrateur du site %s"
+msgstr "Si vous n'avez pas demander à changer de mot de passe, ignorez ce message et contactez l'administrateur du site %s"
+
+#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:35
+msgid "Vous devez suivre le lien suivant pour réinitialiser votre mot de passe : %s"
+msgstr "Vous devez suivre le lien suivant pour réinitialiser votre mot de passe : %s"
 
 #: Plugin/SdUsers/View/Helper/SdUsersHelper.php:76
 msgid "Lastname"
@@ -268,7 +306,7 @@ msgid "Mot de passe oublié ?"
 msgstr "Mot de passe oublié ?"
 
 #: Plugin/SdUsers/View/SdUsers/profile.ctp:10
-msgid "Personal Informations:"
+msgid "Personal Information:"
 msgstr "Informations Personnelles"
 
 #: Plugin/SdUsers/View/SdUsers/profile.ctp:31
@@ -314,3 +352,4 @@ msgstr "Droits"
 #: Plugin/SdUsers/View/SdUsers/profile.ctp:72
 msgid "Notifications"
 msgstr "Alertes"
+

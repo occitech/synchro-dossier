@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-03-19 11:14+0100\n"
+"POT-Creation-Date: 2014-03-20 10:50+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -90,6 +90,10 @@ msgstr ""
 msgid "Something went wrong when updating password"
 msgstr ""
 
+#: Plugin/SdUsers/Controller/SdUsersController.php:227
+msgid "%s - Reset Password"
+msgstr ""
+
 #: Plugin/SdUsers/Model/Profile.php:30
 msgid "Ce champ ne peut pas être laissé vide"
 msgstr ""
@@ -120,6 +124,53 @@ msgstr ""
 
 #: Plugin/SdUsers/Model/SdUser.php:290
 msgid "Empty password is not allowed"
+msgstr ""
+
+#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:2
+msgid "réinitialiser votre mot de passe"
+msgstr ""
+
+#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:10
+msgid "l'administrateur du site"
+msgstr ""
+
+#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:18
+#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:16
+msgid "Bonjour %s,"
+msgstr ""
+
+#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:24
+msgid "Une demande de nouveau mot de passe a été envoyé depuis %s"
+msgstr ""
+
+#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:30
+msgid "Si vous n'avez pas demander à changer de mot de passe, ignorez ce message et contactez %s"
+msgstr ""
+
+#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:36
+msgid "Vous devez suivre le lien pour %s"
+msgstr ""
+
+#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:43
+#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:41
+msgid "Vous pourrez ensuite personnaliser votre mot de passe dans votre compte."
+msgstr ""
+
+#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:45
+#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:43
+msgid "Merci,"
+msgstr ""
+
+#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:22
+msgid "Une demande de nouveau mot de passe a été envoyé depuis %s (%s)"
+msgstr ""
+
+#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:29
+msgid "Si vous n'avez pas demander à changer de mot de passe, ignorez ce message et contactez l'administrateur du site %s"
+msgstr ""
+
+#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:35
+msgid "Vous devez suivre le lien suivant pour réinitialiser votre mot de passe : %s"
 msgstr ""
 
 #: Plugin/SdUsers/View/Helper/SdUsersHelper.php:76
@@ -254,7 +305,7 @@ msgid "Mot de passe oublié ?"
 msgstr ""
 
 #: Plugin/SdUsers/View/SdUsers/profile.ctp:10
-msgid "Personal Informations:"
+msgid "Personal Information:"
 msgstr ""
 
 #: Plugin/SdUsers/View/SdUsers/profile.ctp:31
