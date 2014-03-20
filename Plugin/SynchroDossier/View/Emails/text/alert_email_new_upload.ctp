@@ -2,11 +2,9 @@
 
 <?= __d(
 	'synchro_dossier',
-	'De nouveaux fichiers ont été envoyés par %s dans le dossier %s, le %s à %s :',
+	'De nouveaux fichiers ont été envoyés par %s dans le dossier %s :',
 	$profile['full_name'],
-	$rootFolder,
-	date('d/m/Y'),
-	date('H\hi')
+	$rootFolder
 ) . "\n";?>
 
 <?php foreach($files as $file): ?>

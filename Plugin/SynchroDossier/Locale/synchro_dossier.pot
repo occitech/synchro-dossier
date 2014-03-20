@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-03-20 11:57+0100\n"
+"POT-Creation-Date: 2014-03-20 14:29+0100\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -186,11 +186,11 @@ msgstr ""
 
 #: Plugin/SynchroDossier/View/Emails/html/alert_email_new_upload.ctp:3
 #: Plugin/SynchroDossier/View/Emails/text/alert_email_new_upload.ctp:3
-msgid "De nouveaux fichiers ont été envoyés par %s dans le dossier %s, le %s à %s :"
+msgid "De nouveaux fichiers ont été envoyés par %s dans le dossier %s :"
 msgstr ""
 
-#: Plugin/SynchroDossier/View/Emails/html/alert_email_new_upload.ctp:20
-#: Plugin/SynchroDossier/View/Emails/text/alert_email_new_upload.ctp:19
+#: Plugin/SynchroDossier/View/Emails/html/alert_email_new_upload.ctp:18
+#: Plugin/SynchroDossier/View/Emails/text/alert_email_new_upload.ctp:17
 msgid "Vous recevez cet email car vous êtes abonné aux alertes sur le dossier '%s' du site %s"
 msgstr ""
 
