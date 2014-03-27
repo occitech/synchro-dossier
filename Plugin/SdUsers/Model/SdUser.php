@@ -163,7 +163,7 @@ class SdUser extends User {
 
 	public function deleteAroAcoForParentFolder($userId, $parentId) {
 		$folderOfParent = ClassRegistry::init('Uploader.UploadedFile')->find('all', array(
-			'conditions' => array('UploadedFile.user_id' => 4),
+			'conditions' => array('UploadedFile.user_id' => $parentId),
 			'fields' => array('id'),
 			'recursive' => -1
 		));
