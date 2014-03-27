@@ -83,7 +83,7 @@
 			<?= $this->element('Uploader.search'); ?>
 		</li>
 
-		<?php if (!$this->SynchroDossier->hasUserRole(CakeSession::read('Auth.User.role_id')) && !empty($SynchroDossier_aroAccessFolder) && isset($folderId)): ?>
+		<?php if (!$this->SynchroDossier->hasUserRole(CakeSession::read('Auth.User.role_id')) && !$this->SynchroDossier->hasAdminRole(CakeSession::read('Auth.User.role_id')) && !empty($SynchroDossier_aroAccessFolder) && isset($folderId)): ?>
 			<?php if ($this->UploaderAcl->userCan($folderAco['Aco'], 'change_right')): ?>
 				<li class="nav-header">
 					<?= __d('synchro_dossier', 'Super Administrateurs'); ?>

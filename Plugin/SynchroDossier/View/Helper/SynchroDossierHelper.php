@@ -16,6 +16,10 @@ class SynchroDossierHelper extends AppHelper {
 		return $roleId == SdUser::ROLE_UTILISATEUR_ID;
 	}
 
+	public function hasAdminRole($roleId) {
+		return $roleId == SdUser::ROLE_ADMIN_ID;
+	}
+
 	public function getQuotaData() {
 		return $this->_View->getVar('quota');
 	}
