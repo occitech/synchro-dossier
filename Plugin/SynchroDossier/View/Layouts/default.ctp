@@ -67,6 +67,7 @@
 			<?= Configure::read('SynchroDossier.footer') ?>
 			<p>
 				<?= __d('synchro_dossier', 'Propulsé par') ?> <a href="http://www.synchro-dossier.fr/" title="Synchro Dossier">Synchro&nbsp;Dossier</a>
+				<?= $this->element('SynchroDossier.version'); ?>
 			</p>
 		</footer>
 	</body>
