@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Synchro Dossier\n"
-"POT-Creation-Date: 2014-03-20 10:50+0100\n"
-"PO-Revision-Date: 2014-03-20 11:35+0100\n"
+"POT-Creation-Date: 2014-03-27 16:13+0100\n"
+"PO-Revision-Date: 2014-03-27 16:17+0100\n"
 "Last-Translator: \n"
 "Language-Team: Occitech <conctact@occitech.fr>\n"
 "Language: fr_FR\n"
@@ -15,341 +15,353 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.6.4\n"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:55
+#: Controller/SdUsersController.php:55
 msgid "Un utilisateur avec la même adresse email existe déjà, il a été ajouté à votre liste"
 msgstr "Un utilisateur avec la même adresse email existe déjà, il a été ajouté à votre liste"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:56
+#: Controller/SdUsersController.php:56
 msgid "Un utilisateur avec la même adresse email est déjà présent dans votre liste"
 msgstr "Un utilisateur avec la même adresse email est déjà présent dans votre liste"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:58
+#: Controller/SdUsersController.php:58
 msgid "L'utilisateur a été enregistré"
 msgstr "L'utilisateur a été enregistré"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:59
+#: Controller/SdUsersController.php:59
 msgid "L'utilisateur ne peux pas être ajouté"
 msgstr "L'utilisateur ne peux pas être ajouté"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:67
+#: Controller/SdUsersController.php:68
 msgid "L'utilisateur a été mis à jour"
 msgstr "L'utilisateur a été mis à jour"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:70
+#: Controller/SdUsersController.php:71
 msgid "L'utilisateur ne peux pas être modifié"
 msgstr "L'utilisateur ne peux pas être modifié"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:94
+#: Controller/SdUsersController.php:80
+msgid "You cannot access this page"
+msgstr "Vous ne pouvez pas accéder à cette page"
+
+#: Controller/SdUsersController.php:84
+msgid "You don't have the rights to edit this user"
+msgstr "Vous n'avez pas les droits nécessaires pour éditer cet utilisateur"
+
+#: Controller/SdUsersController.php:102
 msgid "L'utilisateur a été supprimé"
 msgstr "L'utilisateur a été supprimé"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:96
+#: Controller/SdUsersController.php:104
 msgid "L'utilisateur ne peux pas être supprimé"
 msgstr "L'utilisateur ne peux pas être supprimé"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:103
+#: Controller/SdUsersController.php:120
 msgid "Your Profile"
 msgstr "Votre Profil"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:112
+#: Controller/SdUsersController.php:128
 msgid "User #%s Not Found"
 msgstr "Impossible de trouver l'utilisateur #%s"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:117
+#: Controller/SdUsersController.php:133
 msgid "You cannot access others users profiles"
 msgstr "Vous ne pouvez accéder au profil d'autres utilisateurs"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:122
+#: Controller/SdUsersController.php:137
+msgid "You don't have the rights to edit this profile"
+msgstr "Vous n'avez pas les droits nécessaires pour accéder à ce profil utilisateur"
+
+#: Controller/SdUsersController.php:141
 msgid "User informations successfully updated"
 msgstr "Succès de la mise à jour des informations utilisateur"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:125
+#: Controller/SdUsersController.php:144
 msgid "A problem occurs when updating user informations. Please retry."
 msgstr "Il y a eu un problème lors de la mise à jour des informations de l'utilisateur. Veuillez réessayer."
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:159
+#: Controller/SdUsersController.php:178
 msgid "You are successfully subscribed to email alert for folder %s (#%s)"
 msgstr "Vous venez de vous inscrire aux alertes email pour le dossier %s (#%s)"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:161
+#: Controller/SdUsersController.php:180
 msgid "You have successfully cancel your subscription to folder %s (#%s)"
 msgstr "Vous ne recevrez plus d'alertes email pour le dossier %s (#%s)"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:166
+#: Controller/SdUsersController.php:185
 msgid "Something went wrong when subscribing to folder %s (#%s)"
 msgstr "Une erreur s'est produite lors de la souscription aux alertes email pour le dossier %s (#%s)"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:168
+#: Controller/SdUsersController.php:187
 msgid "Something went wrong when canceling your subscription to folder %s (#%s)"
 msgstr "Une erreur s'est produite lors de la désinscription aux alertes email pour le dossier %s (#%s)"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:187
+#: Controller/SdUsersController.php:206
 msgid "Password has been successfully changed"
 msgstr "Le mot de passe a été mis à jour avec succès"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:190
+#: Controller/SdUsersController.php:209
 msgid "Something went wrong when updating password"
 msgstr "Une erreur s'est produite lors de la mise à jour du mot de passe"
 
-#: Plugin/SdUsers/Controller/SdUsersController.php:227
+#: Controller/SdUsersController.php:246
 msgid "%s - Reset Password"
 msgstr "%s - Réinitialiser le mot de passe"
 
-#: Plugin/SdUsers/Model/Profile.php:30
+#: Model/Profile.php:30
 msgid "Ce champ ne peut pas être laissé vide"
 msgstr "Ce champ ne peut pas être laissé vide"
 
-#: Plugin/SdUsers/Model/SdUser.php:58
+#: Model/SdUser.php:58
 msgid "Please provide a valid email address."
 msgstr "Veuillez saisir une adresse mail valide."
 
-#: Plugin/SdUsers/Model/SdUser.php:63
+#: Model/SdUser.php:63
 msgid "Email address already in use."
 msgstr "L'adresse mail est déjà utilisée"
 
-#: Plugin/SdUsers/Model/SdUser.php:70
+#: Model/SdUser.php:70
 msgid "Passwords must be at least 6 characters long."
 msgstr "Les mots de passe doivent avoir au moins 6 caractères"
 
-#: Plugin/SdUsers/Model/SdUser.php:120
+#: Model/SdUser.php:120
 msgid "The role %s cannot create users with role %s"
 msgstr "Le rôle %s ne peut pas créer d'utilisateur ayant le rôle %s"
 
-#: Plugin/SdUsers/Model/SdUser.php:210
+#: Model/SdUser.php:210
 msgid "The user %s is not collaborator with %s"
 msgstr "L'utilisateur %s n'est pas un collaborateur de %s"
 
-#: Plugin/SdUsers/Model/SdUser.php:286
+#: Model/SdUser.php:286
 msgid "User #%s was not found"
 msgstr "L'utilisateur #%s est introuvable"
 
-#: Plugin/SdUsers/Model/SdUser.php:290
+#: Model/SdUser.php:290
 msgid "Empty password is not allowed"
 msgstr "Un mot de passe vide n'est pas autorisé"
 
-#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:2
+#: View/Emails/html/forgot_password.ctp:2
 msgid "réinitialiser votre mot de passe"
 msgstr "réinitialiser votre mot de passe"
 
-#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:10
+#: View/Emails/html/forgot_password.ctp:10
 msgid "l'administrateur du site"
 msgstr "l'administrateur du site"
 
-#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:18
-#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:16
+#: View/Emails/html/forgot_password.ctp:18
+#: View/Emails/text/forgot_password.ctp:16
 msgid "Bonjour %s,"
 msgstr "Bonjour %s,"
 
-#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:24
+#: View/Emails/html/forgot_password.ctp:24
 msgid "Une demande de nouveau mot de passe a été envoyé depuis %s"
 msgstr "Une demande de nouveau mot de passe a été envoyé depuis %s"
 
-#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:30
+#: View/Emails/html/forgot_password.ctp:30
 msgid "Si vous n'avez pas demander à changer de mot de passe, ignorez ce message et contactez %s"
 msgstr "Si vous n'avez pas demander à changer de mot de passe, ignorez ce message et contactez %s"
 
-#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:36
+#: View/Emails/html/forgot_password.ctp:36
 msgid "Vous devez suivre le lien pour %s"
 msgstr "Vous devez suivre le lien pour %s"
 
-#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:43
-#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:41
+#: View/Emails/html/forgot_password.ctp:43
+#: View/Emails/text/forgot_password.ctp:41
 msgid "Vous pourrez ensuite personnaliser votre mot de passe dans votre compte."
 msgstr "Vous pourrez ensuite personnaliser votre mot de passe dans votre compte."
 
-#: Plugin/SdUsers/View/Emails/html/forgot_password.ctp:45
-#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:43
+#: View/Emails/html/forgot_password.ctp:45
+#: View/Emails/text/forgot_password.ctp:43
 msgid "Merci,"
 msgstr "Merci,"
 
-#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:22
+#: View/Emails/text/forgot_password.ctp:22
 msgid "Une demande de nouveau mot de passe a été envoyé depuis %s (%s)"
 msgstr "Une demande de nouveau mot de passe a été envoyé depuis %s (%s)"
 
-#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:29
+#: View/Emails/text/forgot_password.ctp:29
 msgid "Si vous n'avez pas demander à changer de mot de passe, ignorez ce message et contactez l'administrateur du site %s"
 msgstr "Si vous n'avez pas demander à changer de mot de passe, ignorez ce message et contactez l'administrateur du site %s"
 
-#: Plugin/SdUsers/View/Emails/text/forgot_password.ctp:35
+#: View/Emails/text/forgot_password.ctp:35
 msgid "Vous devez suivre le lien suivant pour réinitialiser votre mot de passe : %s"
 msgstr "Vous devez suivre le lien suivant pour réinitialiser votre mot de passe : %s"
 
-#: Plugin/SdUsers/View/Helper/SdUsersHelper.php:76
+#: View/Helper/SdUsersHelper.php:76
 msgid "Lastname"
 msgstr "Nom"
 
-#: Plugin/SdUsers/View/Helper/SdUsersHelper.php:85
+#: View/Helper/SdUsersHelper.php:85
 msgid "Firstname"
 msgstr "Prénom"
 
-#: Plugin/SdUsers/View/Helper/SdUsersHelper.php:94
+#: View/Helper/SdUsersHelper.php:94
 msgid "Society"
 msgstr "Société"
 
-#: Plugin/SdUsers/View/Helper/SdUsersHelper.php:103
-#: Plugin/SdUsers/View/SdUsers/edit.ctp:17
-#: Plugin/SdUsers/View/SdUsers/index.ctp:16
+#: View/Helper/SdUsersHelper.php:103
+#: View/SdUsers/edit.ctp:17
+#: View/SdUsers/index.ctp:16
 msgid "Email"
 msgstr "Email"
 
-#: Plugin/SdUsers/View/Helper/SdUsersHelper.php:125
+#: View/Helper/SdUsersHelper.php:125
 msgid "Language:"
 msgstr "Langue :"
 
-#: Plugin/SdUsers/View/Helper/SdUsersHelper.php:139
+#: View/Helper/SdUsersHelper.php:139
 msgid "Name:"
 msgstr "Nom :"
 
-#: Plugin/SdUsers/View/Helper/SdUsersHelper.php:143
+#: View/Helper/SdUsersHelper.php:143
 msgid "Firstname:"
 msgstr "Prénom :"
 
-#: Plugin/SdUsers/View/Helper/SdUsersHelper.php:147
+#: View/Helper/SdUsersHelper.php:147
 msgid "Society:"
 msgstr "Société :"
 
-#: Plugin/SdUsers/View/Helper/SdUsersHelper.php:151
+#: View/Helper/SdUsersHelper.php:151
 msgid "Email:"
 msgstr "Email :"
 
-#: Plugin/SdUsers/View/SdUsers/add.ctp:4
-#: Plugin/SdUsers/View/SdUsers/edit.ctp:21
-#: Plugin/SdUsers/View/SdUsers/login.ctp:7
+#: View/SdUsers/add.ctp:4
+#: View/SdUsers/edit.ctp:21
+#: View/SdUsers/login.ctp:7
 msgid "Mot de passe"
 msgstr "Mot de passe"
 
-#: Plugin/SdUsers/View/SdUsers/edit.ctp:11
+#: View/SdUsers/edit.ctp:11
 msgid "User Login"
 msgstr "Connexion Utilisateur"
 
-#: Plugin/SdUsers/View/SdUsers/edit.ctp:16
-#: Plugin/SdUsers/View/SdUsers/index.ctp:17
+#: View/SdUsers/edit.ctp:16
+#: View/SdUsers/index.ctp:17
 msgid "Role"
 msgstr "Role"
 
-#: Plugin/SdUsers/View/SdUsers/edit.ctp:27
+#: View/SdUsers/edit.ctp:27
 msgid "Profile"
 msgstr "Profil"
 
-#: Plugin/SdUsers/View/SdUsers/edit.ctp:32
-#: Plugin/SdUsers/View/SdUsers/index.ctp:14
+#: View/SdUsers/edit.ctp:32
+#: View/SdUsers/index.ctp:14
 msgid "Nom"
 msgstr "Nom"
 
-#: Plugin/SdUsers/View/SdUsers/edit.ctp:33
-#: Plugin/SdUsers/View/SdUsers/index.ctp:15
+#: View/SdUsers/edit.ctp:33
+#: View/SdUsers/index.ctp:15
 msgid "Prénom"
 msgstr "Prénom"
 
-#: Plugin/SdUsers/View/SdUsers/edit.ctp:34
+#: View/SdUsers/edit.ctp:34
 msgid "Société"
 msgstr "Société"
 
-#: Plugin/SdUsers/View/SdUsers/edit.ctp:36
+#: View/SdUsers/edit.ctp:36
 msgid "Language"
 msgstr "Langue"
 
-#: Plugin/SdUsers/View/SdUsers/edit.ctp:45
+#: View/SdUsers/edit.ctp:45
 msgid "Publishing"
 msgstr "Publication"
 
-#: Plugin/SdUsers/View/SdUsers/edit.ctp:46
+#: View/SdUsers/edit.ctp:46
 msgid "Sauver"
 msgstr "Sauver"
 
-#: Plugin/SdUsers/View/SdUsers/edit.ctp:47
+#: View/SdUsers/edit.ctp:47
 msgid "Annuler"
 msgstr "Annuler"
 
-#: Plugin/SdUsers/View/SdUsers/index.ctp:7
+#: View/SdUsers/index.ctp:7
 msgid "Créer un utilisateur"
 msgstr "Créer un utilisateur"
 
-#: Plugin/SdUsers/View/SdUsers/index.ctp:18
+#: View/SdUsers/index.ctp:18
 msgid "Actions"
 msgstr "Actions"
 
-#: Plugin/SdUsers/View/SdUsers/index.ctp:26
+#: View/SdUsers/index.ctp:26
 msgid "Envoyer un email à cet utilisateur"
 msgstr "Envoyer un email à cet utilisateur"
 
-#: Plugin/SdUsers/View/SdUsers/index.ctp:33
+#: View/SdUsers/index.ctp:33
 msgid "Modifier cet utilisateur"
 msgstr "Modifier cet utilisateur"
 
-#: Plugin/SdUsers/View/SdUsers/index.ctp:40
+#: View/SdUsers/index.ctp:40
 msgid "Supprimer cet utilisateur"
 msgstr "Supprimer cet utilisateur"
 
-#: Plugin/SdUsers/View/SdUsers/index.ctp:44
+#: View/SdUsers/index.ctp:44
 msgid "Are you sure?"
 msgstr "Êtes vous sûr ?"
 
-#: Plugin/SdUsers/View/SdUsers/index.ctp:65
+#: View/SdUsers/index.ctp:65
 msgid "No users found"
 msgstr "Aucun utilisateur trouvé"
 
-#: Plugin/SdUsers/View/SdUsers/login.ctp:2
+#: View/SdUsers/login.ctp:2
 msgid "Connexion utilisateur"
 msgstr "Connexion utilisateur"
 
-#: Plugin/SdUsers/View/SdUsers/login.ctp:6
+#: View/SdUsers/login.ctp:6
 msgid "Adresse email"
 msgstr "Adresse email"
 
-#: Plugin/SdUsers/View/SdUsers/login.ctp:11
+#: View/SdUsers/login.ctp:11
 msgid "Se connecter"
 msgstr "Se connecter"
 
-#: Plugin/SdUsers/View/SdUsers/login.ctp:16
+#: View/SdUsers/login.ctp:16
 msgid "Mot de passe oublié ?"
 msgstr "Mot de passe oublié ?"
 
-#: Plugin/SdUsers/View/SdUsers/profile.ctp:10
+#: View/SdUsers/profile.ctp:10
 msgid "Personal Information:"
 msgstr "Informations Personnelles"
 
-#: Plugin/SdUsers/View/SdUsers/profile.ctp:31
+#: View/SdUsers/profile.ctp:31
 msgid "Update user informations"
 msgstr "Mettre à jour les informations utilisateur"
 
-#: Plugin/SdUsers/View/SdUsers/profile.ctp:41;59
+#: View/SdUsers/profile.ctp:41;59
 msgid "Change your password"
 msgstr "Modifier votre mot de passe"
 
-#: Plugin/SdUsers/View/SdUsers/profile.ctp:45
+#: View/SdUsers/profile.ctp:45
 msgid "Old password"
 msgstr "Ancien mot de passe"
 
-#: Plugin/SdUsers/View/SdUsers/profile.ctp:50
+#: View/SdUsers/profile.ctp:50
 msgid "New password"
 msgstr "Nouveau mot de passe"
 
-#: Plugin/SdUsers/View/SdUsers/profile.ctp:55
+#: View/SdUsers/profile.ctp:55
 msgid "Confirm new password"
 msgstr "Confirmer le nouveau mot de passe"
 
-#: Plugin/SdUsers/View/SdUsers/profile.ctp:64
+#: View/SdUsers/profile.ctp:64
 msgid "Your Folders"
 msgstr "Vos Dossiers"
 
-#: Plugin/SdUsers/View/SdUsers/profile.ctp:68
+#: View/SdUsers/profile.ctp:68
 msgid "Dossier"
 msgstr "Dossier"
 
-#: Plugin/SdUsers/View/SdUsers/profile.ctp:69
+#: View/SdUsers/profile.ctp:69
 msgid "Date"
 msgstr "Date"
 
-#: Plugin/SdUsers/View/SdUsers/profile.ctp:70
+#: View/SdUsers/profile.ctp:70
 msgid "Creator"
 msgstr "Créateur"
 
-#: Plugin/SdUsers/View/SdUsers/profile.ctp:71
+#: View/SdUsers/profile.ctp:71
 msgid "Rights"
 msgstr "Droits"
 
-#: Plugin/SdUsers/View/SdUsers/profile.ctp:72
+#: View/SdUsers/profile.ctp:72
 msgid "Notifications"
 msgstr "Alertes"
 
