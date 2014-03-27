@@ -62,6 +62,7 @@ class SdUsersController extends SdUsersAppController {
 	}
 
 	public function edit($userId) {
+		$returnUrl = array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse');
 		if ($this->request->data) {
 			if ($this->SdUser->editCollaborator($this->request->data, $this->Auth->user('id'))) {
 				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur a été mis à jour'), 'default', array('class' => 'success'));
@@ -74,6 +75,13 @@ class SdUsersController extends SdUsersAppController {
 				'conditions' => array('User.' . $this->SdUser->primaryKey => $userId),
 				'noRoleChecking' => true
 			));
+
+			if ($this->Auth->user('role_id') == SdUser::ROLE_UTILISATEUR_ID) {
+				$this->Session->setFlash(__d('sd_users', 'You cannot access this page'));
+				$this->redirect($returnUrl, 403);
+			}
+
+			$this->__preventAdminToEditSuperiorRole($this->request->data['User'], __d('sd_users', 'You don\'t have the rights to edit this user'), $returnUrl);
 		}
 		$this->set('roles', $this->SdUser->Role->find('list'));
 	}
@@ -99,6 +107,15 @@ class SdUsersController extends SdUsersAppController {
 		$this->redirect(array('action' => 'index'), $httpCode);
 	}
 
+	private function __preventAdminToEditSuperiorRole($user, $message, $returnUrl) {
+		if ($this->Auth->user('role_id') == SdUser::ROLE_ADMIN_ID && (
+			$user['role_id'] == SdUser::ROLE_SUPERADMIN_ID ||
+			$user['role_id'] == SdUser::ROLE_OCCITECH_ID)) {
+			$this->Session->setFlash($message);
+			$this->redirect($returnUrl, 403);
+		}
+	}
+
 	public function profile($id) {
 		$this->set('title_for_layout', __d('sd_users', 'Your Profile'));
 		$this->helpers[] = 'Uploader.UploaderAcl';
@@ -106,7 +123,6 @@ class SdUsersController extends SdUsersAppController {
 		$user = $this->SdUser->find('first', array('conditions' => array('User.id' => $id),'noRoleChecking' => true));
 		$returnUrl = array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse');
 		$isAdmin = $this->Auth->user('role_id') != SdUser::ROLE_UTILISATEUR_ID;
-
 
 		if (empty($user)) {
 			$this->Session->setFlash(__d('sd_users', 'User #%s Not Found', $id));
@@ -117,6 +133,9 @@ class SdUsersController extends SdUsersAppController {
 			$this->Session->setFlash(__d('sd_users', 'You cannot access others users profiles'));
 			$this->redirect($returnUrl, 403);
 		}
+
+		$this->__preventAdminToEditSuperiorRole($user['User'], __d('sd_users', 'You don\'t have the rights to edit this profile'), $returnUrl);
+
 		if ($this->request->is('post') || $this->request->is('put')) {
 			if ($this->SdUser->saveAssociated($this->request->data)) {
 				$flashMessage = __d('sd_users', 'User informations successfully updated');
