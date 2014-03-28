@@ -60,6 +60,7 @@
 			<?= $this->element('SynchroDossier.createFolderModal'); ?>
 			<?= $this->element('SynchroDossier.formCommentModal'); ?>
 			<?= $this->element('SynchroDossier.formFileTagsModal'); ?>
+			<?= $this->element('SdUsers.deleteAdminModal'); ?>
 		</div>
 		<?=	$this->fetch('script'); ?>
 		<?= $this->Html->script('Uploader.app'); ?>
