@@ -345,62 +345,6 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$event->result['message'] = 'really ?';
 	}
 
-	public function testUpload_EventAfterUploadFailed_CorrectlyLaunched() {
-		$user = array('id' => 1, 'role_id' => 4);
-		$data = array(
-			'file' => array(
-				'name' => 'Fraise.jpg',
-				'type' => 'text/x-gettext-translation',
-				'tmp_name' => '/tmp/phpTmnlQd',
-				'error' => 0,
-				'size' => 71881000000000
-			)
-		);
-
-		$this->UploadedFile->getEventManager()->attach(
-			array($this, 'listener_SetHasErrorToTrue'),
-			'Model.UploadedFile.beforeUpload'
-		);
-
-		$expectedArray = array(
-			'data' => $data,
-			'user' => $user,
-			'beforeUploadResult' => array (
-				'hasError' => true,
-				'message' => 'really ?'
-			)
-		);
-
-		$callbackForNewMessage = $this->expectEventDispatched(
-			'Model.UploadedFile.afterUploadFailed',
-			$this->isInstanceOf($this->UploadedFile),
-			$this->logicalAnd($this->equalTo($expectedArray))
-		);
-
-		$this->UploadedFile->upload($data, $user, 3);
-	}
-
-	public function testUpload_EventBeforeUpload_CorrectlyLaunched() {
-		$user = array('id' => 1, 'role_id' => 4);
-		$data = array(
-			'file' => array(
-				'name' => 'Fraise.jpg',
-				'type' => 'text/x-gettext-translation',
-				'tmp_name' => '/tmp/phpTmnlQd',
-				'error' => 0,
-				'size' => 71881
-			)
-		);
-
-		$callbackForNewMessage = $this->expectEventDispatched(
-			'Model.UploadedFile.beforeUpload',
-			$this->isInstanceOf($this->UploadedFile),
-			$this->logicalAnd($this->equalTo(array('data' => $data, 'user' => $user)))
-		);
-
-		$this->UploadedFile->upload($data, $user, 3);
-	}
-
 	public function testUpload_AfterUploadSucces_CorrectlyLaunched() {
 		$user = array('id' => 1, 'role_id' => 4);
 		$data = array(

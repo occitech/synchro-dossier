@@ -14,30 +14,10 @@ class SdQuotaManager implements CakeEventListener {
 
 	public function implementedEvents() {
 		return array(
-			'Model.UploadedFile.beforeUpload' => 'checkUploadAllowed',
 			'Model.UploadedFile.afterUploadFailed' => 'sendInsufficientQuotaNotification',
 			'Model.UploadedFile.afterUploadSuccess' => 'updateCurrentQuota',
 			'Model.UploadedFile.afterRemoveData' => 'updateCurrentQuota'
 		);
-	}
-
-	public function checkUploadAllowed($event) {
-		$SdInformationModel = ClassRegistry::init('SynchroDossier.SdInformation');
-		$maxSizeKb = $SdInformationModel->remainingQuota() * 1024;
-
-		$messages = array(
-			Configure::read('sd.Occitech.roleId') => __d('synchro_dossier', 'Il n\'y a plus de place pour ce dossier'),
-			Configure::read('sd.Utilisateur.roleId') => __d('synchro_dossier', 'Il n\'y a plus suffisamment de place pour ajouter ce fichier, un administrateur a été prévenu.'),
-			Configure::read('sd.Admin.roleId') => __d('synchro_dossier', 'Vous ne disposez plus de suffisamment de place pour ajouter ce fichier, contactez le responsable de l\'application pour commander de l\'espace supplémentaire ou supprimez d\'anciens fichiers.'),
-			Configure::read('sd.SuperAdmin.roleId') => __d('synchro_dossier', 'Vous ne disposez plus de suffisamment de place pour ajouter ce fichier. Merci de contactez Occitech afin d\'augmenter votre quota d\'espace disque ou libérez de l\'espace en supprimant des fichiers.')
-		);
-
-		$event->result['hasError'] = false;
-		$filesizeKb = $event->data['data']['file']['size'] / 1024;
-		if ($maxSizeKb < $filesizeKb) {
-			$event->result['hasError'] = true;
-			$event->result['message'] = $messages[$event->data['user']['role_id']];
-		}
 	}
 
 	public function sendInsufficientQuotaNotification($event) {
