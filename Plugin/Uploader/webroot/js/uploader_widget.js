@@ -51,15 +51,27 @@ uploaderWidget = function() {
 		});
 
 		$('body').on('click', 'a[data-remove-file]', function(event) {
-					var index =  $(event.currentTarget).data('remove-file');
+			var index =  $(event.currentTarget).data('remove-file');
 
-					event.preventDefault();
-					$(event.currentTarget).parent().remove();
-					uploader.splice(index, 1);
-					if (uploader.files.length === 0) {
-						__resetFilesPopover();
-					}
+			event.preventDefault();
+			$(event.currentTarget).parent().remove();
+			uploader.splice(index, 1);
+			if (uploader.files.length === 0) {
+				__resetFilesPopover();
+			}
+		});
+
+		uploader.bind('Error', function(up, err) {
+			if (err.code === -600) {
+				$.ajax({
+					type: "POST",
+					url: "/uploader/files/ajaxPluploadQuotaExceeded",
+					data: { filename: err.file.name, filesize: err.file.size }
+				}).success(function(data) {
+					alert(data.message);
 				});
+			}
+		});
 
 		uploader.bind('UploadProgress', function(up, file, response) {
 			$(__progressBarElt).css('width', up.total.percent + '%');
