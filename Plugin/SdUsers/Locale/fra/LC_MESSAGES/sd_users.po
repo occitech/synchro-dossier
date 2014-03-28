@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Synchro Dossier\n"
-"POT-Creation-Date: 2014-03-27 16:13+0100\n"
-"PO-Revision-Date: 2014-03-27 16:17+0100\n"
+"POT-Creation-Date: 2014-03-28 11:54+0100\n"
+"PO-Revision-Date: 2014-03-28 11:56+0100\n"
 "Last-Translator: \n"
 "Language-Team: Occitech <conctact@occitech.fr>\n"
 "Language: fr_FR\n"
@@ -15,95 +15,95 @@ msgstr ""
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.6.4\n"
 
-#: Controller/SdUsersController.php:55
+#: Controller/SdUsersController.php:63
 msgid "Un utilisateur avec la même adresse email existe déjà, il a été ajouté à votre liste"
 msgstr "Un utilisateur avec la même adresse email existe déjà, il a été ajouté à votre liste"
 
-#: Controller/SdUsersController.php:56
+#: Controller/SdUsersController.php:64
 msgid "Un utilisateur avec la même adresse email est déjà présent dans votre liste"
 msgstr "Un utilisateur avec la même adresse email est déjà présent dans votre liste"
 
-#: Controller/SdUsersController.php:58
+#: Controller/SdUsersController.php:66
 msgid "L'utilisateur a été enregistré"
 msgstr "L'utilisateur a été enregistré"
 
-#: Controller/SdUsersController.php:59
+#: Controller/SdUsersController.php:67
 msgid "L'utilisateur ne peux pas être ajouté"
 msgstr "L'utilisateur ne peux pas être ajouté"
 
-#: Controller/SdUsersController.php:68
+#: Controller/SdUsersController.php:76
 msgid "L'utilisateur a été mis à jour"
 msgstr "L'utilisateur a été mis à jour"
 
-#: Controller/SdUsersController.php:71
+#: Controller/SdUsersController.php:79
 msgid "L'utilisateur ne peux pas être modifié"
 msgstr "L'utilisateur ne peux pas être modifié"
 
-#: Controller/SdUsersController.php:80
+#: Controller/SdUsersController.php:88
 msgid "You cannot access this page"
 msgstr "Vous ne pouvez pas accéder à cette page"
 
-#: Controller/SdUsersController.php:84
+#: Controller/SdUsersController.php:92
 msgid "You don't have the rights to edit this user"
 msgstr "Vous n'avez pas les droits nécessaires pour éditer cet utilisateur"
 
-#: Controller/SdUsersController.php:102
+#: Controller/SdUsersController.php:110;132
 msgid "L'utilisateur a été supprimé"
 msgstr "L'utilisateur a été supprimé"
 
-#: Controller/SdUsersController.php:104
+#: Controller/SdUsersController.php:112;134
 msgid "L'utilisateur ne peux pas être supprimé"
 msgstr "L'utilisateur ne peux pas être supprimé"
 
-#: Controller/SdUsersController.php:120
+#: Controller/SdUsersController.php:150
 msgid "Your Profile"
 msgstr "Votre Profil"
 
-#: Controller/SdUsersController.php:128
+#: Controller/SdUsersController.php:158
 msgid "User #%s Not Found"
 msgstr "Impossible de trouver l'utilisateur #%s"
 
-#: Controller/SdUsersController.php:133
+#: Controller/SdUsersController.php:163
 msgid "You cannot access others users profiles"
 msgstr "Vous ne pouvez accéder au profil d'autres utilisateurs"
 
-#: Controller/SdUsersController.php:137
+#: Controller/SdUsersController.php:167
 msgid "You don't have the rights to edit this profile"
 msgstr "Vous n'avez pas les droits nécessaires pour accéder à ce profil utilisateur"
 
-#: Controller/SdUsersController.php:141
+#: Controller/SdUsersController.php:171
 msgid "User informations successfully updated"
 msgstr "Succès de la mise à jour des informations utilisateur"
 
-#: Controller/SdUsersController.php:144
+#: Controller/SdUsersController.php:174
 msgid "A problem occurs when updating user informations. Please retry."
 msgstr "Il y a eu un problème lors de la mise à jour des informations de l'utilisateur. Veuillez réessayer."
 
-#: Controller/SdUsersController.php:178
+#: Controller/SdUsersController.php:208
 msgid "You are successfully subscribed to email alert for folder %s (#%s)"
 msgstr "Vous venez de vous inscrire aux alertes email pour le dossier %s (#%s)"
 
-#: Controller/SdUsersController.php:180
+#: Controller/SdUsersController.php:210
 msgid "You have successfully cancel your subscription to folder %s (#%s)"
 msgstr "Vous ne recevrez plus d'alertes email pour le dossier %s (#%s)"
 
-#: Controller/SdUsersController.php:185
+#: Controller/SdUsersController.php:215
 msgid "Something went wrong when subscribing to folder %s (#%s)"
 msgstr "Une erreur s'est produite lors de la souscription aux alertes email pour le dossier %s (#%s)"
 
-#: Controller/SdUsersController.php:187
+#: Controller/SdUsersController.php:217
 msgid "Something went wrong when canceling your subscription to folder %s (#%s)"
 msgstr "Une erreur s'est produite lors de la désinscription aux alertes email pour le dossier %s (#%s)"
 
-#: Controller/SdUsersController.php:206
+#: Controller/SdUsersController.php:236
 msgid "Password has been successfully changed"
 msgstr "Le mot de passe a été mis à jour avec succès"
 
-#: Controller/SdUsersController.php:209
+#: Controller/SdUsersController.php:239
 msgid "Something went wrong when updating password"
 msgstr "Une erreur s'est produite lors de la mise à jour du mot de passe"
 
-#: Controller/SdUsersController.php:246
+#: Controller/SdUsersController.php:276
 msgid "%s - Reset Password"
 msgstr "%s - Réinitialiser le mot de passe"
 
@@ -111,33 +111,57 @@ msgstr "%s - Réinitialiser le mot de passe"
 msgid "Ce champ ne peut pas être laissé vide"
 msgstr "Ce champ ne peut pas être laissé vide"
 
-#: Model/SdUser.php:58
+#: Model/SdUser.php:59
 msgid "Please provide a valid email address."
 msgstr "Veuillez saisir une adresse mail valide."
 
-#: Model/SdUser.php:63
+#: Model/SdUser.php:64
 msgid "Email address already in use."
 msgstr "L'adresse mail est déjà utilisée"
 
-#: Model/SdUser.php:70
+#: Model/SdUser.php:71
 msgid "Passwords must be at least 6 characters long."
 msgstr "Les mots de passe doivent avoir au moins 6 caractères"
 
-#: Model/SdUser.php:120
+#: Model/SdUser.php:121
 msgid "The role %s cannot create users with role %s"
 msgstr "Le rôle %s ne peut pas créer d'utilisateur ayant le rôle %s"
 
-#: Model/SdUser.php:210
+#: Model/SdUser.php:211
 msgid "The user %s is not collaborator with %s"
 msgstr "L'utilisateur %s n'est pas un collaborateur de %s"
 
-#: Model/SdUser.php:286
+#: Model/SdUser.php:296
 msgid "User #%s was not found"
 msgstr "L'utilisateur #%s est introuvable"
 
-#: Model/SdUser.php:290
+#: Model/SdUser.php:300
 msgid "Empty password is not allowed"
 msgstr "Un mot de passe vide n'est pas autorisé"
+
+#: View/Elements/deleteAdminModal.ctp:5
+msgid "Supprimer un admin"
+msgstr "Supprimer un admin"
+
+#: View/Elements/deleteAdminModal.ctp:9
+msgid "Veuillez choisir un nouvel admin à qui transmettre les dossiers de l'admin que vous voulez supprimer."
+msgstr "Veuillez choisir un nouvel admin à qui transmettre les dossiers de l'admin que vous voulez supprimer."
+
+#: View/Elements/deleteAdminModal.ctp:19
+msgid "Select user"
+msgstr "Sélectionner un utilisateur"
+
+#: View/Elements/deleteAdminModal.ctp:24
+msgid "Supprimer"
+msgstr "Supprimer"
+
+#: View/Elements/deleteAdminModal.ctp:29
+msgid "Cet administrateur est le dernier disponible, vous ne pouvez pas transmettre ses dossiers à un autre administrateur."
+msgstr "Cet administrateur est le dernier disponible, vous ne pouvez pas transmettre ses dossiers à un autre administrateur."
+
+#: View/Elements/deleteAdminModal.ctp:32
+msgid "Fermer"
+msgstr "Fermer"
 
 #: View/Emails/html/forgot_password.ctp:2
 msgid "réinitialiser votre mot de passe"
@@ -289,15 +313,15 @@ msgstr "Envoyer un email à cet utilisateur"
 msgid "Modifier cet utilisateur"
 msgstr "Modifier cet utilisateur"
 
-#: View/SdUsers/index.ctp:40
+#: View/SdUsers/index.ctp:41;54
 msgid "Supprimer cet utilisateur"
 msgstr "Supprimer cet utilisateur"
 
-#: View/SdUsers/index.ctp:44
+#: View/SdUsers/index.ctp:58
 msgid "Are you sure?"
 msgstr "Êtes vous sûr ?"
 
-#: View/SdUsers/index.ctp:65
+#: View/SdUsers/index.ctp:80
 msgid "No users found"
 msgstr "Aucun utilisateur trouvé"
 
