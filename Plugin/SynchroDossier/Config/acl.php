@@ -40,6 +40,7 @@ $uploaderAcls = array(
 	'Uploader/Files/createFolder' => $EVERYONE,
 	'Uploader/Files/downloadZipFolder' => $EVERYONE,
 	'Uploader/Files/addTags' => $EVERYONE,
+	'Uploader/Files/ajaxPluploadQuotaExceeded' => $EVERYONE,
 );
 
 $usersAcl = array(

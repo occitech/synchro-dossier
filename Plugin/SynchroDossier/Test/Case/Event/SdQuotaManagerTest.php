@@ -26,32 +26,6 @@ class SdQuotaManagerTest extends CroogoTestCase {
 		parent::tearDown();
 	}
 
-	public function testCheckUploadAllowed_NoError() {
-		$event = $this->getMockBuilder('CakeEvent')
-			->disableOriginalConstructor()
-			->getMock();
-
-		$event->data['data']['file']['size'] = 100;
-		$event->data['user']['role_id'] = 4;
-
-		$this->SdQuotaManager->checkUploadAllowed($event);
-
-		$this->assertFalse($event->result['hasError']);
-	}
-
-	public function testCheckUploadAllowed_QuotaExceeded() {
-		$event = $this->getMockBuilder('CakeEvent')
-			->disableOriginalConstructor()
-			->getMock();
-
-		$event->data['data']['file']['size'] = 1000000000000;
-		$event->data['user']['role_id'] = 4;
-
-		$this->SdQuotaManager->checkUploadAllowed($event);
-
-		$this->assertTrue($event->result['hasError']);
-	}
-
 	public function testSendInsufficientQuotaNotification_NoMailSend_WhenUserIsSuperAdmin() {
 		$event = $this->getMockBuilder('CakeEvent')
 			->disableOriginalConstructor()

@@ -71,7 +71,7 @@ class FilesController extends UploaderAppController {
 				Configure::read('Site.email')
 			);
 		}
-		$this->Security->unlockedActions = array('upload', 'rename', 'find', 'browse', 'allFilesUploadedInBatch');
+		$this->Security->unlockedActions = array('upload', 'rename', 'find', 'browse', 'allFilesUploadedInBatch', 'ajaxPluploadQuotaExceeded');
 	}
 
 	public function beforeRender() {
@@ -96,6 +96,8 @@ class FilesController extends UploaderAppController {
 			$folderId
 		));
 
+		$SdInformationModel = ClassRegistry::init('SynchroDossier.SdInformation');
+		$maxSizeMb = $SdInformationModel->remainingQuota();
 		$this->Plupload->setUploaderOptions(array(
 			'locale' => 'fr',
 			'runtimes' => 'html5',
@@ -103,9 +105,39 @@ class FilesController extends UploaderAppController {
 			'browse_button' => 'browse',
 			'drop_element' => 'drop-area',
 			'container' => 'plupload',
+			'max_file_size' => $maxSizeMb . 'mb',
 			'url' => $uploadUrl,
 			'callback_url' => Router::url(array('action' => 'allFilesUploadedInBatch', $folderId))
 		));
+	}
+
+	public function ajaxPluploadQuotaExceeded() {
+		if ($this->request->is('ajax')) {
+			$messages = array(
+				Configure::read('sd.Occitech.roleId') => __d('synchro_dossier', 'Il n\'y a plus de place pour ce dossier'),
+				Configure::read('sd.Utilisateur.roleId') => __d('synchro_dossier', 'Il n\'y a plus suffisamment de place pour ajouter ce fichier, un administrateur a été prévenu.'),
+				Configure::read('sd.Admin.roleId') => __d('synchro_dossier', 'Vous ne disposez plus de suffisamment de place pour ajouter ce fichier, contactez le responsable de l\'application pour commander de l\'espace supplémentaire ou supprimez d\'anciens fichiers.'),
+				Configure::read('sd.SuperAdmin.roleId') => __d('synchro_dossier', 'Vous ne disposez plus de suffisamment de place pour ajouter ce fichier. Merci de contactez Occitech afin d\'augmenter votre quota d\'espace disque ou libérez de l\'espace en supprimant des fichiers.')
+			);
+			$message = $messages[$this->Auth->user('role_id')];
+
+			$data = array(
+				'file' => array(
+					'name' => $this->request->data('filename'),
+					'size' => $this->request->data('filesize'),
+				)
+			);
+
+			$this->getEventManager()->dispatch(new CakeEvent(
+				'Model.UploadedFile.afterUploadFailed',
+				$this,
+				array('data' => $data, 'user' => $this->Auth->user())
+			));
+
+			$this->viewClass = 'Json';
+			$this->set('message', $message);
+			$this->set('_serialize', array('message'));
+		}
 	}
 
 	public function rights($folderId) {
