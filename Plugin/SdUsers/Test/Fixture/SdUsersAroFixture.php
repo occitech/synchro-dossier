@@ -113,6 +113,24 @@ class SdUsersAroFixture extends CakeTestFixture {
 			'lft' => '10',
 			'rght' => '11'
 		),
+		array(
+			'id' => '10',
+			'parent_id' => '6',
+			'model' => 'User',
+			'foreign_key' => '4',
+			'alias' => 'adm1',
+			'lft' => '19',
+			'rght' => '20'
+		),
+		array(
+			'id' => '11',
+			'parent_id' => '6',
+			'model' => 'User',
+			'foreign_key' => '5',
+			'alias' => 'adm2',
+			'lft' => '21',
+			'rght' => '22'
+		),
 	);
 
 }

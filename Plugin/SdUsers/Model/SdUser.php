@@ -19,7 +19,8 @@ class SdUser extends User {
 
 	public $findMethods = array(
 		'visibleBy' =>  true,
-		'superAdmin' => true
+		'superAdmin' => true,
+		'admin' => true
 	);
 
 	public $belongsTo = array(
@@ -250,6 +251,15 @@ class SdUser extends User {
 		return $results;
 	}
 
+	protected function _findAdmin($state, $query, $results = array()) {
+		if ($state == 'before') {
+			$query['conditions'][$this->alias . '.role_id'] = Configure::read('sd.Admin.roleId');
+			$query['contain'] = array('Profile', 'Role');
+			return $query;
+		}
+		return $results;
+	}
+
 	public function getAllRights($userId) {
 
 		$result = $this->find('first', array(
@@ -299,6 +309,33 @@ class SdUser extends User {
 			}
 		}
 		return $success;
+	}
+
+	public function transmitRight($oldAdminId, $newAdminId) {
+		$ArosAcoModel = ClassRegistry::init('ArosAco');
+
+		$oldAro = $this->Aro->find('first', array(
+			'fields' => array('id'),
+			'recursive' => -1,
+			'conditions' => array(
+				'foreign_key' => $oldAdminId,
+				'model' => 'User'
+			)
+		));
+		$newAro = $this->Aro->find('first', array(
+			'fields' => array('id'),
+			'recursive' => -1,
+			'conditions' => array(
+				'foreign_key' => $newAdminId,
+				'model' => 'User'
+			)
+		));
+
+		$saved = $ArosAcoModel->updateAll(
+			array('aro_id' => $newAro['Aro']['id']),
+			array('aro_id' => $oldAro['Aro']['id'])
+		);
+		return $saved;
 	}
 
 	private function __markAsCollaboratorOf($userId, $collaboratorId) {

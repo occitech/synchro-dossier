@@ -67,6 +67,15 @@ class SdUsersArosAcoFixture extends CakeTestFixture {
 			'_update' => '1',
 			'_delete' => '1'
 		),
+		array(
+			'id' => '5',
+			'aro_id' => '10',
+			'aco_id' => '4',
+			'_create' => '1',
+			'_read' => '1',
+			'_update' => '1',
+			'_delete' => '1'
+		),
 	);
 
 }

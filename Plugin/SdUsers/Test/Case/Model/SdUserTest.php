@@ -164,7 +164,7 @@ class SdUserTest extends CroogoTestCase {
 		$this->SdUser->addCollaborator($data, $creatorId);
 		$result = $this->Aro->find('first', array('order' => 'id DESC'));
 		$expected = array(
-			'id' => '10',
+			'id' => '12',
 			'parent_id' => '5',
 			'model' => 'User',
 			'foreign_key' => $this->__usersCount + 1,
@@ -353,6 +353,15 @@ class SdUserTest extends CroogoTestCase {
 		$this->SdUser->removeCollaborator($userId, $parentId);
 		$this->assertFalse($this->ArosAco->hasAny(array('id' => 3)));
 		$this->assertFalse($this->ArosAco->hasAny(array('id' => 4)));
+	}
+
+	public function testTransmitRightShouldSetRightForTheNewAdmin() {
+		$adminToDeleteId = 4;
+		$adminGettingRights = 5;
+		$this->SdUser->transmitRight($adminToDeleteId, $adminGettingRights);
+
+		$adminAcoAro = $this->ArosAco->read(null, 5);
+		$this->assertEquals(11, $adminAcoAro['ArosAco']['aro_id']);
 	}
 
 	private $__userData = array(
