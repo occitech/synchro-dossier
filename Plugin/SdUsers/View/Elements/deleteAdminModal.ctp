@@ -27,9 +27,18 @@
 		<?php else : ?>
 			<div class="modal-body">
 				<p><?= __d('sd_users', 'Cet administrateur est le dernier disponible, vous ne pouvez pas transmettre ses dossiers à un autre administrateur.');?></p>
+				<?= $this->Form->create('User', array(
+					'url' =>array(
+						'controller' => 'sd_users',
+						'action' => 'delete',
+						key($admins)),
+					'type' => 'GET'),
+					array('class' => 'form-inline')
+				);?>
 			</div>
 			<div class="modal-footer">
-				<button type="button" class="btn" data-dismiss="modal" aria-hidden="true"><?= __d('sd_users', 'Fermer'); ?></button>
+				<?= $this->Form->submit(__d('sd_users', 'Supprimer'), array('class' => 'btn')); ?>
+				<?= $this->Form->end(); ?>
 			</div>
 		<?php endif; ?>
 	<?php endif; ?>
