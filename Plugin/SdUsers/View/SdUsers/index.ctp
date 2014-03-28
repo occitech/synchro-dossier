@@ -32,17 +32,32 @@
 							array('action' => 'edit', $user['User']['id']),
 							array('icon' => 'pencil', 'tooltip' => __d('sd_users', 'Modifier cet utilisateur'))
 						);
-						$actions .= ' ' . $this->Form->postLink(
-							'',
-							array('action' => 'delete',	$user['User']['id']),
-							array(
-								'icon' => 'remove',
-								'tooltip' => __d('sd_users', 'Supprimer cet utilisateur'),
-								'class' => 'red',
-								'escape' => false
-							),
-							__d('sd_users', 'Are you sure?')
-						);
+						if ($user['User']['role_id'] == SdUser::ROLE_ADMIN_ID) {
+							$actions .= ' ' . $this->Html->link(
+								'',
+								'#deleteAdminModal',
+								array(
+									'icon' => 'remove',
+									'tooltip' => __d('sd_users', 'Supprimer cet utilisateur'),
+									'class' => 'red open-deleteAdminModal',
+									'escape' => false,
+									'data-toggle' => 'modal',
+									'data-admin-id' => $user['User']['id']
+								)
+							);
+						} else {
+							$actions .= ' ' . $this->Form->postLink(
+								'',
+								array('action' => 'delete',	$user['User']['id']),
+								array(
+									'icon' => 'remove',
+									'tooltip' => __d('sd_users', 'Supprimer cet utilisateur'),
+									'class' => 'red',
+									'escape' => false
+								),
+								__d('sd_users', 'Are you sure?')
+							);
+						}
 
 					endif;
 

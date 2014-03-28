@@ -6,20 +6,25 @@ App::uses('UplaodedFile', 'Uploader.Model');
 class SdUsersController extends SdUsersAppController {
 
 	public $uses = array('SdUsers.SdUser', 'Uploader.UploadedFile');
-	public $components = array('SdUsers.Roles');
+	public $components = array('SdUsers.Roles','Security');
 	public $paginate;
 	public $helpers = array(
 		'Form' => array('className' => 'Croogo.CroogoForm'),
 		'Html' => array('className' => 'Croogo.CroogoHtml')
 	);
 
+	public function beforeFilter() {
+		parent::beforeFilter();
+		$this->Security->unlockedActions = array_merge($this->Security->unlockedActions, array('deleteAdmin'));
+	}
+
 	public function beforeRender() {
 		$this->helpers[] = 'Uploader.UploaderAcl';
-
 		$userRights = array();
 		if ($this->Auth->user('id')) {
 			$userRights = $this->SdUser->getAllRights($this->Auth->user('id'));
 		}
+
 		$this->set(compact('userRights'));
 	}
 
@@ -32,7 +37,10 @@ class SdUsersController extends SdUsersAppController {
 		$this->paginate['limit'] = 10;
 
 		$users = $this->paginate();
-		$this->set(compact('users', 'can'));
+		$admins = $this->SdUser->find('admin');
+		$admins = Hash::combine($this->SdUser->find('admin'), '{n}.User.id', '{n}.User.username');
+
+		$this->set(compact('users', 'can', 'admins'));
 	}
 
 	public function add() {
@@ -86,13 +94,35 @@ class SdUsersController extends SdUsersAppController {
 		$this->set('roles', $this->SdUser->Role->find('list'));
 	}
 
+	public function deleteAdmin() {
+		if ($this->request->is('post')) {
+			$httpCode = null;
+			$this->SdUser->id = $this->request->data['User']['old_admin_id'];
+			$success = true;
+			if ($this->SdUser->field('role_id') == SdUser::ROLE_ADMIN_ID){
+				$this->SdUser->transmitRight($this->request->data['User']['old_admin_id'], $this->request->data['User']['new_admin_id']);
+				$success = $this->SdUser->delete();
+			} else {
+				$success = false;
+			}
+
+			if ($success) {
+				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur a été supprimé'), 'default', array('class' => 'success'));
+			} else {
+				$this->Session->setFlash(__d('sd_users', 'L\'utilisateur ne peux pas être supprimé'), 'default', array('class' => 'error'));
+			}
+		}
+		$this->redirect(array('action' => 'index'), $httpCode);
+	}
+
 	public function delete($id = null) {
 		$httpCode = null;
 		if (is_null($id)) {
 			$httpCode = 404;
 		} else {
 			$success = true;
-			if($this->Auth->user('role_id') == SdUser::ROLE_ADMIN_ID){
+
+			if($this->Auth->user('role_id') == SdUser::ROLE_ADMIN_ID && $this->SdUser->field('role_id') == SdUser::ROLE_UTILISATEUR_ID){
 				$success = $this->SdUser->removeCollaborator($id, $this->Auth->user('id'));
 			} else {
 				$success = $this->SdUser->delete($id);
