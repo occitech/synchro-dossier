@@ -45,6 +45,7 @@ $uploaderAcls = array(
 $usersAcl = array(
 	'SdUsers/SdUsers/add' => $ADMINISTRATORS,
 	'SdUsers/SdUsers/delete' => $ADMINISTRATORS,
+	'SdUsers/SdUsers/deleteAdmin' => array($ROLE_SUPER_ADMIN),
 
 	'SdUsers/SdUsers/index' => $EVERYONE,
 	'SdUsers/SdUsers/edit' => $EVERYONE,
