@@ -100,7 +100,9 @@ class SdUsersController extends SdUsersAppController {
 			$this->SdUser->id = $this->request->data['User']['old_admin_id'];
 			$success = true;
 			if ($this->SdUser->field('role_id') == SdUser::ROLE_ADMIN_ID){
-				$this->SdUser->transmitRight($this->request->data['User']['old_admin_id'], $this->request->data['User']['new_admin_id']);
+				if (!empty($this->request->data['User']['new_admin_id'])) {
+					$this->SdUser->transmitRight($this->request->data['User']['old_admin_id'], $this->request->data['User']['new_admin_id']);
+				}
 				$success = $this->SdUser->delete();
 			} else {
 				$success = false;
