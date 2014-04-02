@@ -31,7 +31,7 @@ class SdQuotaManagerTest extends CroogoTestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$methods = array('template', 'emailFormat', 'helpers', 'from', 'to', 'subject', 'viewVars', 'send');
+		$methods = array('template', 'theme', 'emailFormat', 'helpers', 'from', 'to', 'subject', 'viewVars', 'send');
 
 		$this->SdQuotaManager->cakeEmail = $this->getMockBuilder('CakeEmail')
 			->disableOriginalConstructor()
@@ -60,7 +60,7 @@ class SdQuotaManagerTest extends CroogoTestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$methods = array('template', 'emailFormat', 'helpers', 'from', 'to', 'subject', 'viewVars', 'send');
+		$methods = array('template', 'theme', 'emailFormat', 'helpers', 'from', 'to', 'subject', 'viewVars', 'send');
 
 		$this->SdQuotaManager->cakeEmail = $this->getMockBuilder('CakeEmail')
 			->disableOriginalConstructor()
@@ -95,7 +95,7 @@ class SdQuotaManagerTest extends CroogoTestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$methods = array('template', 'emailFormat', 'helpers', 'from', 'to', 'subject', 'viewVars', 'send');
+		$methods = array('template', 'theme', 'emailFormat', 'helpers', 'from', 'to', 'subject', 'viewVars', 'send');
 
 		$this->SdQuotaManager->cakeEmail = $this->getMockBuilder('CakeEmail')
 			->disableOriginalConstructor()
@@ -126,7 +126,7 @@ class SdQuotaManagerTest extends CroogoTestCase {
 			->disableOriginalConstructor()
 			->getMock();
 
-		$methods = array('template', 'emailFormat', 'helpers', 'from', 'to', 'subject', 'viewVars', 'send');
+		$methods = array('template', 'theme', 'emailFormat', 'helpers', 'from', 'to', 'subject', 'viewVars', 'send');
 
 		$this->SdQuotaManager->cakeEmail = $this->getMockBuilder('CakeEmail')
 			->disableOriginalConstructor()

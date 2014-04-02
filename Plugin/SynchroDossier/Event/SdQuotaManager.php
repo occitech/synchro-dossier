@@ -39,6 +39,7 @@ class SdQuotaManager implements CakeEventListener {
 				$this->cakeEmail->reset();
 				$this->cakeEmail
 					->template('SynchroDossier.quota_exceeded', 'SynchroDossier.default')
+					->theme(Configure::read('Site.theme'))
 					->emailFormat('both')
 					->helpers(array('Uploader.File'))
 					->from(Configure::read('sd.mail.quotaExceeded.from'))
