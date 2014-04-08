@@ -1,0 +1,8 @@
+{
+	"name": "Demo Theme",
+	"description": "Theme for Demo",
+	"screenshot": "header.jpg",
+	"author": "Occitech",
+
+	"regions" : {}
+}
