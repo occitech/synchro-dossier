@@ -181,6 +181,20 @@
 									)
 								); ?>
 								<?= $this->Html->link(
+									'<i class="icon-pencil"></i>',
+									'#renameFileModal',
+									array(
+										'rel' => 'tooltip',
+										'title' => __d('uploader', 'Renommer le fichier'),
+										'role' => 'button',
+										'data-toggle' => 'modal',
+										'class' => 'rename-file',
+										'data-id' => $file['UploadedFile']['id'],
+										'data-filename' => $file['UploadedFile']['filename'],
+										'escape' => false
+									)
+								); ?>
+								<?= $this->Html->link(
 									'<i class="icon-plus-sign"></i>',
 									'#addNewVersion',
 									array(

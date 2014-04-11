@@ -816,6 +816,21 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->assertEquals(3, $uploadedFile['FileStorage'][0]['file_version']);
 	}
 
+	public function testFileCanBeRenamed() {
+		$this->UploadedFile->id = 2;
+
+		$data = array(
+			'UploadedFile' => array(
+				'id' => 1,
+				'filename' => 'aftername'
+			)
+		);
+
+		$this->UploadedFile->rename($data);
+		$file = $this->UploadedFile->read();
+		$this->assertEquals('aftername',  $file['UploadedFile']['filename']);
+	}
+
 	private function __getLatestUploadedFiled()
 	{
 		return $this->UploadedFile->find('first', array(
