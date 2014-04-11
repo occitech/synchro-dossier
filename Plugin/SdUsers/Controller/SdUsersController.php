@@ -266,7 +266,7 @@ class SdUsersController extends SdUsersAppController {
 			$user = $this->SdUser->findByEmail($this->request->data['User']['email']);
 			if (!isset($user['User']['id'])) {
 				$this->Session->setFlash(__d('croogo', 'Invalid email.'), 'default', array('class' => 'error'));
-				$this->redirect(array('action' => 'login'));
+				$this->redirect(array('action' => 'forgot'));
 			}
 
 			$this->SdUser->id = $user['User']['id'];
