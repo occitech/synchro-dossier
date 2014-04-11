@@ -58,7 +58,7 @@
 			<?php foreach ($files as $file): ?>
 				<?php if ($this->UploaderAcl->userCan($file['Aco'], 'read')): ?>
 					<?php if (!$file['UploadedFile']['is_folder']): ?>
-						<?php $lastVersion = $file['FileStorage'][sizeof($file['FileStorage']) - 1]; ?>
+						<?php $lastVersion = $file['FileStorage'][0]; ?>
 					<?php endif ?>
 					<tr>
 						<td>
