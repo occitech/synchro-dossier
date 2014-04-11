@@ -107,160 +107,162 @@
 						</td>
 
 						<td>
-							<?php if ($file['UploadedFile']['is_folder']): ?>
-								<?php if (!empty($file['ChildUploadedFile'])):?>
-									<?php  if (empty($file['UploadedFile']['downloadable'])): ?>
-									<?=
-										$this->Html->tag('i', '', array(
+							<?php if (!isset($isFind)): ?>
+								<?php if ($file['UploadedFile']['is_folder']): ?>
+									<?php if (!empty($file['ChildUploadedFile'])):?>
+										<?php  if (empty($file['UploadedFile']['downloadable'])): ?>
+										<?=
+											$this->Html->tag('i', '', array(
+												'rel' => 'tooltip',
+												'class' => 'icon-download-alt not-allowed',
+												'title' => __d('uploader', 'Folder size limit exceeded')
+											))
+										?>
+										<?php else: ?>
+											<?= $this->Html->link(
+												__d('uploader', '<i class="icon-download-alt"></i>'),
+												array('controller' => 'files', 'action' => 'downloadZipFolder', $file['UploadedFile']['id']),
+												array(
+													'rel' => 'tooltip',
+													'title' => __d('uploader', 'Download folder as zipfile'),
+													'escape' => false
+												)
+											); ?>
+										<?php endif ?>
+									<?php endif ?>
+									<?= $this->Html->link(
+										'<i class="icon-pencil"></i>',
+										'#renameFolderModal',
+										array(
 											'rel' => 'tooltip',
-											'class' => 'icon-download-alt not-allowed',
-											'title' => __d('uploader', 'Folder size limit exceeded')
-										))
-									?>
-									<?php else: ?>
+											'title' => __d('uploader', 'Renommer le dossier'),
+											'role' => 'button',
+											'data-toggle' => 'modal',
+											'class' => 'rename-folder',
+											'data-id' => $file['UploadedFile']['id'],
+											'data-filename' => $file['UploadedFile']['filename'],
+											'escape' => false
+										)
+									); ?>
+									<?php if (is_null($folderId) && $this->UploaderAcl->userCan($file['Aco'], 'change_right')): ?>
 										<?= $this->Html->link(
-											__d('uploader', '<i class="icon-download-alt"></i>'),
-											array('controller' => 'files', 'action' => 'downloadZipFolder', $file['UploadedFile']['id']),
+											__d('uploader', '<i class="icon-user"></i>'),
+											array('controller' => 'files', 'action' => 'rights', $file['UploadedFile']['id']),
 											array(
 												'rel' => 'tooltip',
-												'title' => __d('uploader', 'Download folder as zipfile'),
+												'title' => __d('uploader', 'Gérer les droits'),
 												'escape' => false
 											)
 										); ?>
 									<?php endif ?>
-								<?php endif ?>
-								<?= $this->Html->link(
-									'<i class="icon-pencil"></i>',
-									'#renameFolderModal',
-									array(
-										'rel' => 'tooltip',
-										'title' => __d('uploader', 'Renommer le dossier'),
-										'role' => 'button',
-										'data-toggle' => 'modal',
-										'class' => 'rename-folder',
-										'data-id' => $file['UploadedFile']['id'],
-										'data-filename' => $file['UploadedFile']['filename'],
-										'escape' => false
-									)
-								); ?>
-								<?php if (is_null($folderId) && $this->UploaderAcl->userCan($file['Aco'], 'change_right')): ?>
+									<?php if (!$this->SynchroDossier->hasUserRole(CakeSession::read('Auth.User.role_id')) && $this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
+										<?= $this->Html->link(
+											__d('uploader', '<i class="icon-remove"></i>'),
+											array('controller' => 'files', 'action' => 'deleteFolder', $file['UploadedFile']['id']),
+											array(
+												'rel' => 'tooltip',
+												'title' => __d('uploader', 'Supprimer le dossier'),
+												'escape' => false
+											),
+											__d('uploader', 'You are about to delete folder "%s". Are you sure ?', $file['UploadedFile']['filename'])
+										); ?>
+									<?php endif ?>
+								<?php else: ?>
 									<?= $this->Html->link(
-										__d('uploader', '<i class="icon-user"></i>'),
-										array('controller' => 'files', 'action' => 'rights', $file['UploadedFile']['id']),
+										'<i class="icon-download-alt"></i>',
+										array(
+											'controller' => 'files',
+											'action' => 'download',
+											$lastVersion['id']
+										),
 										array(
 											'rel' => 'tooltip',
-											'title' => __d('uploader', 'Gérer les droits'),
+											'title' => __d('uploader', 'Download'),
 											'escape' => false
 										)
 									); ?>
-								<?php endif ?>
-								<?php if (!$this->SynchroDossier->hasUserRole(CakeSession::read('Auth.User.role_id')) && $this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
 									<?= $this->Html->link(
-										__d('uploader', '<i class="icon-remove"></i>'),
-										array('controller' => 'files', 'action' => 'deleteFolder', $file['UploadedFile']['id']),
+										'<i class="icon-pencil"></i>',
+										'#renameFileModal',
 										array(
 											'rel' => 'tooltip',
-											'title' => __d('uploader', 'Supprimer le dossier'),
+											'title' => __d('uploader', 'Renommer le fichier'),
+											'role' => 'button',
+											'data-toggle' => 'modal',
+											'class' => 'rename-file',
+											'data-id' => $file['UploadedFile']['id'],
+											'data-filename' => $file['UploadedFile']['filename'],
 											'escape' => false
-										),
-										__d('uploader', 'You are about to delete folder "%s". Are you sure ?', $file['UploadedFile']['filename'])
+										)
 									); ?>
-								<?php endif ?>
-							<?php else: ?>
-								<?= $this->Html->link(
-									'<i class="icon-download-alt"></i>',
-									array(
-										'controller' => 'files',
-										'action' => 'download',
-										$lastVersion['id']
-									),
-									array(
-										'rel' => 'tooltip',
-										'title' => __d('uploader', 'Download'),
-										'escape' => false
-									)
-								); ?>
-								<?= $this->Html->link(
-									'<i class="icon-pencil"></i>',
-									'#renameFileModal',
-									array(
-										'rel' => 'tooltip',
-										'title' => __d('uploader', 'Renommer le fichier'),
-										'role' => 'button',
-										'data-toggle' => 'modal',
-										'class' => 'rename-file',
-										'data-id' => $file['UploadedFile']['id'],
-										'data-filename' => $file['UploadedFile']['filename'],
-										'escape' => false
-									)
-								); ?>
-								<?= $this->Html->link(
-									'<i class="icon-plus-sign"></i>',
-									'#addNewVersion',
-									array(
-										'action' => $this->Html->url(array(
-											'plugin' => 'uploader',
-											'controller' => 'files',
-											'action' => 'upload',
-											is_null($folderId) ? 'null' : $folderId,
-											$this->File->customEncodeBase64($file['UploadedFile']['filename'])
-										)),
-										'rel' => 'tooltip',
-										'title' => __d('uploader', 'New version'),
-										'role' => 'button',
-										'data-toggle' => 'modal',
-										'data-filename' => $file['UploadedFile']['filename'],
-										'class' => 'add-new-version',
-										'escape' => false
-									)
-								); ?>
-								<?= $this->Html->link(
-									'<i class="icon-comment"></i>',
-									'#formCommentModal',
-									array(
-										'ajax-url' => $this->Html->url(array(
-											'controller' => 'comments',
-											'action' => 'add',
-											$file['UploadedFile']['id'],
-										)),
-										'rel' => 'tooltip',
-										'role' => 'button',
-										'data-toggle' => 'modal',
-										'title' => __d('uploader', 'Commentaires'),
-										'class' => 'comments',
-										'escape' => false
-									)
-								); ?>
-								<?= $this->Html->link(
-									'<i class="icon-tags"></i>',
-									'#formFileTagsModal',
-									array(
-										'ajax-url' => $this->Html->url(array(
-											'controller' => 'files',
-											'action' => 'addTags',
-											$file['UploadedFile']['id'],
-										)),
-										'rel' => 'tooltip',
-										'role' => 'button',
-										'data-toggle' => 'modal',
-										'title' => __d('uploader', 'File Tags'),
-										'class' => 'comments',
-										'escape' => false
-									)
-								); ?>
-								<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
 									<?= $this->Html->link(
-										__d('uploader', '<i class="icon-remove"></i>'),
-										array('controller' => 'files', 'action' => 'deleteFile', $file['UploadedFile']['id'], $lastVersion['id']),
+										'<i class="icon-plus-sign"></i>',
+										'#addNewVersion',
 										array(
+											'action' => $this->Html->url(array(
+												'plugin' => 'uploader',
+												'controller' => 'files',
+												'action' => 'upload',
+												is_null($folderId) ? 'null' : $folderId,
+												$this->File->customEncodeBase64($file['UploadedFile']['filename'])
+											)),
 											'rel' => 'tooltip',
-											'title' => __d('uploader', 'Supprimer le fichier'),
+											'title' => __d('uploader', 'New version'),
+											'role' => 'button',
+											'data-toggle' => 'modal',
+											'data-filename' => $file['UploadedFile']['filename'],
+											'class' => 'add-new-version',
 											'escape' => false
-										),
-										__d('uploader', 'You are about to delete file "%s". Are you sure ?', $file['UploadedFile']['filename'])
+										)
 									); ?>
-								<?php endif ?>
+									<?= $this->Html->link(
+										'<i class="icon-comment"></i>',
+										'#formCommentModal',
+										array(
+											'ajax-url' => $this->Html->url(array(
+												'controller' => 'comments',
+												'action' => 'add',
+												$file['UploadedFile']['id'],
+											)),
+											'rel' => 'tooltip',
+											'role' => 'button',
+											'data-toggle' => 'modal',
+											'title' => __d('uploader', 'Commentaires'),
+											'class' => 'comments',
+											'escape' => false
+										)
+									); ?>
+									<?= $this->Html->link(
+										'<i class="icon-tags"></i>',
+										'#formFileTagsModal',
+										array(
+											'ajax-url' => $this->Html->url(array(
+												'controller' => 'files',
+												'action' => 'addTags',
+												$file['UploadedFile']['id'],
+											)),
+											'rel' => 'tooltip',
+											'role' => 'button',
+											'data-toggle' => 'modal',
+											'title' => __d('uploader', 'File Tags'),
+											'class' => 'comments',
+											'escape' => false
+										)
+									); ?>
+									<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
+										<?= $this->Html->link(
+											__d('uploader', '<i class="icon-remove"></i>'),
+											array('controller' => 'files', 'action' => 'deleteFile', $file['UploadedFile']['id'], $lastVersion['id']),
+											array(
+												'rel' => 'tooltip',
+												'title' => __d('uploader', 'Supprimer le fichier'),
+												'escape' => false
+											),
+											__d('uploader', 'You are about to delete file "%s". Are you sure ?', $file['UploadedFile']['filename'])
+										); ?>
+									<?php endif ?>
 
+								<?php endif; ?>
 							<?php endif; ?>
 						</td>
 					</tr>
