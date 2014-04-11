@@ -56,6 +56,12 @@
 		<div>
 			<?= $this->element('SynchroDossier.addSharingModal'); ?>
 			<?= $this->element('SynchroDossier.addNewVersionModal'); ?>
+<<<<<<< HEAD
+=======
+			<?= $this->element('SynchroDossier.renameFolderModal'); ?>
+			<?= $this->element('SynchroDossier.renameFileModal'); ?>
+			<?= $this->element('SynchroDossier.createFolderModal'); ?>
+>>>>>>> develop
 			<?= $this->element('SynchroDossier.formCommentModal'); ?>
 			<?= $this->element('SynchroDossier.formFileTagsModal'); ?>
 			<?= $this->element('SdUsers.deleteAdminModal'); ?>

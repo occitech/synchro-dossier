@@ -334,10 +334,6 @@ class UploadedFile extends UploaderAppModel {
 	public function rename($data) {
 		$fileInfos = $this->findById($data[$this->alias]['id']);
 
-		if (!$fileInfos['UploadedFile']['is_folder']) {
-			return false;
-		}
-
 		$data['UploadedFile'] = array_merge($fileInfos['UploadedFile'], $data['UploadedFile']);
 
 		return $this->save($data);

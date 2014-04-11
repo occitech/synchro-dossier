@@ -91,7 +91,7 @@
 				<?php foreach ($superAdmins as $superAdmin): ?>
 				<li>
 					<?= $this->Html->link(
-						$superAdmin['User']['username'],
+						$superAdmin['User']['name'],
 						array(
 							'plugin' => 'sd_users',
 							'controller' => 'sd_users',
