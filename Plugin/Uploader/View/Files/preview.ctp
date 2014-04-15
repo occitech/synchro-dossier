@@ -1,0 +1,1 @@
+<?= $this->File->preview($content, $mimeType); ?>

@@ -1,0 +1,9 @@
+{
+	"name": "SdLogs",
+	"description": "Log actions in database for traceability",
+
+	"dependencies": {
+		"plugins": [
+		]
+	}
+}

@@ -1,0 +1,390 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+#, fuzzy
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-03-28 11:54+0100\n"
+"PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
+"Last-Translator: NAME <EMAIL@ADDRESS>\n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=utf-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
+
+#: Controller/SdUsersController.php:63
+msgid "Un utilisateur avec la même adresse email existe déjà, il a été ajouté à votre liste"
+msgstr ""
+
+#: Controller/SdUsersController.php:64
+msgid "Un utilisateur avec la même adresse email est déjà présent dans votre liste"
+msgstr ""
+
+#: Controller/SdUsersController.php:66
+msgid "L'utilisateur a été enregistré"
+msgstr ""
+
+#: Controller/SdUsersController.php:67
+msgid "L'utilisateur ne peux pas être ajouté"
+msgstr ""
+
+#: Controller/SdUsersController.php:76
+msgid "L'utilisateur a été mis à jour"
+msgstr ""
+
+#: Controller/SdUsersController.php:79
+msgid "L'utilisateur ne peux pas être modifié"
+msgstr ""
+
+#: Controller/SdUsersController.php:88
+msgid "You cannot access this page"
+msgstr ""
+
+#: Controller/SdUsersController.php:92
+msgid "You don't have the rights to edit this user"
+msgstr ""
+
+#: Controller/SdUsersController.php:110;132
+msgid "L'utilisateur a été supprimé"
+msgstr ""
+
+#: Controller/SdUsersController.php:112;134
+msgid "L'utilisateur ne peux pas être supprimé"
+msgstr ""
+
+#: Controller/SdUsersController.php:150
+msgid "Your Profile"
+msgstr ""
+
+#: Controller/SdUsersController.php:158
+msgid "User #%s Not Found"
+msgstr ""
+
+#: Controller/SdUsersController.php:163
+msgid "You cannot access others users profiles"
+msgstr ""
+
+#: Controller/SdUsersController.php:167
+msgid "You don't have the rights to edit this profile"
+msgstr ""
+
+#: Controller/SdUsersController.php:171
+msgid "User informations successfully updated"
+msgstr ""
+
+#: Controller/SdUsersController.php:174
+msgid "A problem occurs when updating user informations. Please retry."
+msgstr ""
+
+#: Controller/SdUsersController.php:208
+msgid "You are successfully subscribed to email alert for folder %s (#%s)"
+msgstr ""
+
+#: Controller/SdUsersController.php:210
+msgid "You have successfully cancel your subscription to folder %s (#%s)"
+msgstr ""
+
+#: Controller/SdUsersController.php:215
+msgid "Something went wrong when subscribing to folder %s (#%s)"
+msgstr ""
+
+#: Controller/SdUsersController.php:217
+msgid "Something went wrong when canceling your subscription to folder %s (#%s)"
+msgstr ""
+
+#: Controller/SdUsersController.php:236
+msgid "Password has been successfully changed"
+msgstr ""
+
+#: Controller/SdUsersController.php:239
+msgid "Something went wrong when updating password"
+msgstr ""
+
+#: Controller/SdUsersController.php:276
+msgid "%s - Reset Password"
+msgstr ""
+
+#: Model/Profile.php:30
+msgid "Ce champ ne peut pas être laissé vide"
+msgstr ""
+
+#: Model/SdUser.php:59
+msgid "Please provide a valid email address."
+msgstr ""
+
+#: Model/SdUser.php:64
+msgid "Email address already in use."
+msgstr ""
+
+#: Model/SdUser.php:71
+msgid "Passwords must be at least 6 characters long."
+msgstr ""
+
+#: Model/SdUser.php:121
+msgid "The role %s cannot create users with role %s"
+msgstr ""
+
+#: Model/SdUser.php:211
+msgid "The user %s is not collaborator with %s"
+msgstr ""
+
+#: Model/SdUser.php:296
+msgid "User #%s was not found"
+msgstr ""
+
+#: Model/SdUser.php:300
+msgid "Empty password is not allowed"
+msgstr ""
+
+#: View/Elements/deleteAdminModal.ctp:5
+msgid "Supprimer un admin"
+msgstr ""
+
+#: View/Elements/deleteAdminModal.ctp:9
+msgid "Veuillez choisir un nouvel admin à qui transmettre les dossiers de l'admin que vous voulez supprimer."
+msgstr ""
+
+#: View/Elements/deleteAdminModal.ctp:19
+msgid "Select user"
+msgstr ""
+
+#: View/Elements/deleteAdminModal.ctp:24
+msgid "Supprimer"
+msgstr ""
+
+#: View/Elements/deleteAdminModal.ctp:29
+msgid "Cet administrateur est le dernier disponible, vous ne pouvez pas transmettre ses dossiers à un autre administrateur."
+msgstr ""
+
+#: View/Elements/deleteAdminModal.ctp:32
+msgid "Fermer"
+msgstr ""
+
+#: View/Emails/html/forgot_password.ctp:2
+msgid "réinitialiser votre mot de passe"
+msgstr ""
+
+#: View/Emails/html/forgot_password.ctp:10
+msgid "l'administrateur du site"
+msgstr ""
+
+#: View/Emails/html/forgot_password.ctp:18
+#: View/Emails/text/forgot_password.ctp:16
+msgid "Bonjour %s,"
+msgstr ""
+
+#: View/Emails/html/forgot_password.ctp:24
+msgid "Une demande de nouveau mot de passe a été envoyé depuis %s"
+msgstr ""
+
+#: View/Emails/html/forgot_password.ctp:30
+msgid "Si vous n'avez pas demander à changer de mot de passe, ignorez ce message et contactez %s"
+msgstr ""
+
+#: View/Emails/html/forgot_password.ctp:36
+msgid "Vous devez suivre le lien pour %s"
+msgstr ""
+
+#: View/Emails/html/forgot_password.ctp:43
+#: View/Emails/text/forgot_password.ctp:41
+msgid "Vous pourrez ensuite personnaliser votre mot de passe dans votre compte."
+msgstr ""
+
+#: View/Emails/html/forgot_password.ctp:45
+#: View/Emails/text/forgot_password.ctp:43
+msgid "Merci,"
+msgstr ""
+
+#: View/Emails/text/forgot_password.ctp:22
+msgid "Une demande de nouveau mot de passe a été envoyé depuis %s (%s)"
+msgstr ""
+
+#: View/Emails/text/forgot_password.ctp:29
+msgid "Si vous n'avez pas demander à changer de mot de passe, ignorez ce message et contactez l'administrateur du site %s"
+msgstr ""
+
+#: View/Emails/text/forgot_password.ctp:35
+msgid "Vous devez suivre le lien suivant pour réinitialiser votre mot de passe : %s"
+msgstr ""
+
+#: View/Helper/SdUsersHelper.php:76
+msgid "Lastname"
+msgstr ""
+
+#: View/Helper/SdUsersHelper.php:85
+msgid "Firstname"
+msgstr ""
+
+#: View/Helper/SdUsersHelper.php:94
+msgid "Society"
+msgstr ""
+
+#: View/Helper/SdUsersHelper.php:103
+#: View/SdUsers/edit.ctp:17
+#: View/SdUsers/index.ctp:16
+msgid "Email"
+msgstr ""
+
+#: View/Helper/SdUsersHelper.php:125
+msgid "Language:"
+msgstr ""
+
+#: View/Helper/SdUsersHelper.php:139
+msgid "Name:"
+msgstr ""
+
+#: View/Helper/SdUsersHelper.php:143
+msgid "Firstname:"
+msgstr ""
+
+#: View/Helper/SdUsersHelper.php:147
+msgid "Society:"
+msgstr ""
+
+#: View/Helper/SdUsersHelper.php:151
+msgid "Email:"
+msgstr ""
+
+#: View/SdUsers/add.ctp:4
+#: View/SdUsers/edit.ctp:21
+#: View/SdUsers/login.ctp:7
+msgid "Mot de passe"
+msgstr ""
+
+#: View/SdUsers/edit.ctp:11
+msgid "User Login"
+msgstr ""
+
+#: View/SdUsers/edit.ctp:16
+#: View/SdUsers/index.ctp:17
+msgid "Role"
+msgstr ""
+
+#: View/SdUsers/edit.ctp:27
+msgid "Profile"
+msgstr ""
+
+#: View/SdUsers/edit.ctp:32
+#: View/SdUsers/index.ctp:14
+msgid "Nom"
+msgstr ""
+
+#: View/SdUsers/edit.ctp:33
+#: View/SdUsers/index.ctp:15
+msgid "Prénom"
+msgstr ""
+
+#: View/SdUsers/edit.ctp:34
+msgid "Société"
+msgstr ""
+
+#: View/SdUsers/edit.ctp:36
+msgid "Language"
+msgstr ""
+
+#: View/SdUsers/edit.ctp:45
+msgid "Publishing"
+msgstr ""
+
+#: View/SdUsers/edit.ctp:46
+msgid "Sauver"
+msgstr ""
+
+#: View/SdUsers/edit.ctp:47
+msgid "Annuler"
+msgstr ""
+
+#: View/SdUsers/index.ctp:7
+msgid "Créer un utilisateur"
+msgstr ""
+
+#: View/SdUsers/index.ctp:18
+msgid "Actions"
+msgstr ""
+
+#: View/SdUsers/index.ctp:26
+msgid "Envoyer un email à cet utilisateur"
+msgstr ""
+
+#: View/SdUsers/index.ctp:33
+msgid "Modifier cet utilisateur"
+msgstr ""
+
+#: View/SdUsers/index.ctp:41;54
+msgid "Supprimer cet utilisateur"
+msgstr ""
+
+#: View/SdUsers/index.ctp:58
+msgid "Are you sure?"
+msgstr ""
+
+#: View/SdUsers/index.ctp:80
+msgid "No users found"
+msgstr ""
+
+#: View/SdUsers/login.ctp:2
+msgid "Connexion utilisateur"
+msgstr ""
+
+#: View/SdUsers/login.ctp:6
+msgid "Adresse email"
+msgstr ""
+
+#: View/SdUsers/login.ctp:11
+msgid "Se connecter"
+msgstr ""
+
+#: View/SdUsers/login.ctp:16
+msgid "Mot de passe oublié ?"
+msgstr ""
+
+#: View/SdUsers/profile.ctp:10
+msgid "Personal Information:"
+msgstr ""
+
+#: View/SdUsers/profile.ctp:31
+msgid "Update user informations"
+msgstr ""
+
+#: View/SdUsers/profile.ctp:41;59
+msgid "Change your password"
+msgstr ""
+
+#: View/SdUsers/profile.ctp:45
+msgid "Old password"
+msgstr ""
+
+#: View/SdUsers/profile.ctp:50
+msgid "New password"
+msgstr ""
+
+#: View/SdUsers/profile.ctp:55
+msgid "Confirm new password"
+msgstr ""
+
+#: View/SdUsers/profile.ctp:64
+msgid "Your Folders"
+msgstr ""
+
+#: View/SdUsers/profile.ctp:68
+msgid "Dossier"
+msgstr ""
+
+#: View/SdUsers/profile.ctp:69
+msgid "Date"
+msgstr ""
+
+#: View/SdUsers/profile.ctp:70
+msgid "Creator"
+msgstr ""
+
+#: View/SdUsers/profile.ctp:71
+msgid "Rights"
+msgstr ""
+
+#: View/SdUsers/profile.ctp:72
+msgid "Notifications"
+msgstr ""
+

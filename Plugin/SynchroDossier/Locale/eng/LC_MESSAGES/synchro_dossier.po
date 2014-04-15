@@ -1,0 +1,338 @@
+# LANGUAGE translation of CakePHP Application
+# Copyright YEAR NAME <EMAIL@ADDRESS>
+#
+msgid ""
+msgstr ""
+"Project-Id-Version: PROJECT VERSION\n"
+"POT-Creation-Date: 2014-03-20 14:29+0100\n"
+"PO-Revision-Date: 2014-03-28 17:55+0100\n"
+"Last-Translator: \n"
+"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"Language: \n"
+"MIME-Version: 1.0\n"
+"Content-Type: text/plain; charset=UTF-8\n"
+"Content-Transfer-Encoding: 8bit\n"
+"Plural-Forms: nplurals=2; plural=(n > 1);\n"
+
+#: Plugin/SynchroDossier/Config/bootstrap.php:27
+msgid "SynchroDossier"
+msgstr "SynchroDossier"
+
+#: Plugin/SynchroDossier/Config/bootstrap.php:36
+#: Plugin/SynchroDossier/View/SdInformations/admin_quota.ctp:7
+msgid "Quota"
+msgstr "Quota"
+
+#: Plugin/SynchroDossier/Controller/SdInformationsController.php:9
+msgid "Quota mis à jour"
+msgstr "Quota updated"
+
+#: Plugin/SynchroDossier/Controller/Component/SynchroDossierComponent.php:15
+msgid "Pour accéder à cette page vous devez vous connecter"
+msgstr "To access this page you have to log in"
+
+#: Plugin/SynchroDossier/Event/SdQuotaManager.php:29
+msgid "Il n'y a plus de place pour ce dossier"
+msgstr "There is no more free space for this folder. "
+
+#: Plugin/SynchroDossier/Event/SdQuotaManager.php:30
+msgid "Il n'y a plus suffisamment de place pour ajouter ce fichier, un administrateur a été prévenu."
+msgstr "You don't have enough free space to store this file, an administrator has been contacted."
+
+#: Plugin/SynchroDossier/Event/SdQuotaManager.php:31
+msgid "Vous ne disposez plus de suffisamment de place pour ajouter ce fichier, contactez le responsable de l'application pour commander de l'espace supplémentaire ou supprimez d'anciens fichiers."
+msgstr "You don't have enough free space to store this file. Please contact an administrator to order more space or delete old files. "
+
+#: Plugin/SynchroDossier/Event/SdQuotaManager.php:32
+msgid "Vous ne disposez plus de suffisamment de place pour ajouter ce fichier. Merci de contactez Occitech afin d'augmenter votre quota d'espace disque ou libérez de l'espace en supprimant des fichiers."
+msgstr "You don't have enough available free space to store this file. Please contact Occitech to increase you space quota or free space by deleting existing files."
+
+#: Plugin/SynchroDossier/Model/SdInformation.php:18
+msgid "Quota must be highter than 0"
+msgstr "Quota must be highter than 0"
+
+#: Plugin/SynchroDossier/View/Elements/addNewVersionModal.ctp:4
+msgid "Ajouter une nouvelle version de"
+msgstr "Add a new version of"
+
+#: Plugin/SynchroDossier/View/Elements/addNewVersionModal.ctp:14
+msgid "Ajouter une nouvelle version"
+msgstr "Add a new version"
+
+#: Plugin/SynchroDossier/View/Elements/addSharingModal.ctp:4;29
+#: Plugin/SynchroDossier/View/Elements/sidebar.ctp:66
+msgid "Créer un dossier"
+msgstr "Create a folder"
+
+#: Plugin/SynchroDossier/View/Elements/addSharingModal.ctp:16
+msgid "Nom du dossier"
+msgstr "Folder name"
+
+#: Plugin/SynchroDossier/View/Elements/createFolderModal.ctp:4
+#: Plugin/SynchroDossier/View/Elements/sidebar.ctp:36
+msgid "Créer un sous dossier"
+msgstr "Create a subfolder"
+
+#: Plugin/SynchroDossier/View/Elements/createFolderModal.ctp:20
+msgid "Nom du sous dossier"
+msgstr "Subfolder name"
+
+#: Plugin/SynchroDossier/View/Elements/createFolderModal.ctp:26
+msgid "Créer le sous dossier"
+msgstr "Create the subfolder"
+
+#: Plugin/SynchroDossier/View/Elements/formCommentModal.ctp:4
+msgid "Commentaires"
+msgstr "Comments"
+
+#: Plugin/SynchroDossier/View/Elements/formFileTagsModal.ctp:4
+msgid "File tags"
+msgstr "File tags"
+
+#: Plugin/SynchroDossier/View/Elements/navbar.ctp:4
+msgid "Espace client"
+msgstr "Customer area"
+
+#: Plugin/SynchroDossier/View/Elements/navbar.ctp:9
+msgid "Accueil"
+msgstr "Home"
+
+#: Plugin/SynchroDossier/View/Elements/navbar.ctp:16
+msgid "Liste des Utilisateurs"
+msgstr "Users list"
+
+#: Plugin/SynchroDossier/View/Elements/navbar.ctp:27
+msgid "Bonjour %s"
+msgstr "Welcome %s"
+
+#: Plugin/SynchroDossier/View/Elements/navbar.ctp:39
+msgid "Profil"
+msgstr "Profile"
+
+#: Plugin/SynchroDossier/View/Elements/navbar.ctp:47
+msgid "Déconnexion"
+msgstr "Logout"
+
+#: Plugin/SynchroDossier/View/Elements/navbar.ctp:51
+msgid "Connexion"
+msgstr "Login"
+
+#: Plugin/SynchroDossier/View/Elements/paging.ctp:38
+msgid "%s matching result"
+msgid_plural "%s matching results"
+msgstr[0] "%s matching result"
+msgstr[1] "%s matching results"
+
+#: Plugin/SynchroDossier/View/Elements/renameFolderModal.ctp:4
+msgid "Renommer le dossier"
+msgstr "Rename the folder"
+
+#: Plugin/SynchroDossier/View/Elements/renameFolderModal.ctp:26
+msgid "Renommer"
+msgstr "Rename"
+
+#: Plugin/SynchroDossier/View/Elements/sidebar.ctp:4
+msgid "Votre Quota"
+msgstr "Your Quota"
+
+#: Plugin/SynchroDossier/View/Elements/sidebar.ctp:12
+msgid "Mes Dossiers"
+msgstr "My Folders"
+
+#: Plugin/SynchroDossier/View/Elements/sidebar.ctp:30
+msgid "Actions"
+msgstr "Actions"
+
+#: Plugin/SynchroDossier/View/Elements/sidebar.ctp:50
+msgid "Partager ce dossier"
+msgstr "Share this folder"
+
+#: Plugin/SynchroDossier/View/Elements/sidebar.ctp:80
+msgid "Recherche"
+msgstr "Search"
+
+#: Plugin/SynchroDossier/View/Elements/sidebar.ctp:89
+msgid "Super Administrateurs"
+msgstr "Super Administrator"
+
+#: Plugin/SynchroDossier/View/Emails/html/alert_email_folder_invitation.ctp:1
+#: Plugin/SynchroDossier/View/Emails/html/quota_exceeded.ctp:1
+#: Plugin/SynchroDossier/View/Emails/text/alert_email_folder_invitation.ctp:1
+#: Plugin/SynchroDossier/View/Emails/text/quota_exceeded.ctp:1
+msgid "Bonjour,"
+msgstr "Welcome,"
+
+#: Plugin/SynchroDossier/View/Emails/html/alert_email_folder_invitation.ctp:3
+#: Plugin/SynchroDossier/View/Emails/text/alert_email_folder_invitation.ctp:3
+msgid "Vous avez été invité sur le dossier %s"
+msgstr "You have been invited to the folder %s"
+
+#: Plugin/SynchroDossier/View/Emails/html/alert_email_folder_invitation.ctp:11
+#: Plugin/SynchroDossier/View/Emails/text/alert_email_folder_invitation.ctp:12
+msgid "Vous pouvez accéder au dossier en visitant ce lien : %s"
+msgstr "You can access to folder by visiting this link : %s"
+
+#: Plugin/SynchroDossier/View/Emails/html/alert_email_folder_invitation.ctp:14
+#: Plugin/SynchroDossier/View/Emails/html/quota_exceeded.ctp:19
+#: Plugin/SynchroDossier/View/Emails/text/alert_email_folder_invitation.ctp:15
+#: Plugin/SynchroDossier/View/Emails/text/quota_exceeded.ctp:18
+msgid "Cordialement"
+msgstr "Cordially"
+
+#: Plugin/SynchroDossier/View/Emails/html/alert_email_new_upload.ctp:1
+#: Plugin/SynchroDossier/View/Emails/text/alert_email_new_upload.ctp:1
+msgid "Bonjour %s,"
+msgstr "Welcome %s"
+
+#: Plugin/SynchroDossier/View/Emails/html/alert_email_new_upload.ctp:3
+#: Plugin/SynchroDossier/View/Emails/text/alert_email_new_upload.ctp:3
+msgid "De nouveaux fichiers ont été envoyés par %s dans le dossier %s :"
+msgstr "New files has been uploaded by %s in folder %s :"
+
+#: Plugin/SynchroDossier/View/Emails/html/alert_email_new_upload.ctp:18
+#: Plugin/SynchroDossier/View/Emails/text/alert_email_new_upload.ctp:17
+msgid "Vous recevez cet email car vous êtes abonné aux alertes sur le dossier '%s' du site %s"
+msgstr "You receive this email because you have subscribe to email alerts on folder '%s' of site %s"
+
+#: Plugin/SynchroDossier/View/Emails/html/quota_exceeded.ctp:3
+#: Plugin/SynchroDossier/View/Emails/text/quota_exceeded.ctp:3
+msgid ""
+"L'un de vos utilisateurs (dont l'adresse email est '%s')\n"
+"a essayé d'envoyer un fichier dont la taille dépasse le quota restant dans votre\n"
+"espace de stockage."
+msgstr ""
+"One of your users (which email address is '%s')\n"
+" just try to send a file which size exceeded remaining quota\n"
+" in your storage."
+
+#: Plugin/SynchroDossier/View/Emails/html/quota_exceeded.ctp:8
+#: Plugin/SynchroDossier/View/Emails/text/quota_exceeded.ctp:8
+msgid "Voici les informations du fichier que l'utilisateur a essayé d'envoyer :"
+msgstr "Here are file informations that user try to sent :"
+
+#: Plugin/SynchroDossier/View/Emails/html/quota_exceeded.ctp:11
+#: Plugin/SynchroDossier/View/Emails/text/quota_exceeded.ctp:10
+msgid "Nom : "
+msgstr "Name :"
+
+#: Plugin/SynchroDossier/View/Emails/html/quota_exceeded.ctp:13
+#: Plugin/SynchroDossier/View/Emails/text/quota_exceeded.ctp:12
+msgid "Taille : "
+msgstr "Size :"
+
+#: Plugin/SynchroDossier/View/Emails/html/quota_exceeded.ctp:16
+#: Plugin/SynchroDossier/View/Emails/text/quota_exceeded.ctp:15
+#, fuzzy
+msgid "Pour que vos utilisateurs puissent de nouveau envoyer des fichiers vous devez augmenter votre quota ou supprimer des fichiers."
+msgstr ""
+"In order that your users could send files again, you have to\n"
+" increase your quota or delete some files."
+
+#: Plugin/SynchroDossier/View/Helper/SynchroDossierHelper.php:70
+msgid "Read"
+msgstr "Read"
+
+#: Plugin/SynchroDossier/View/Helper/SynchroDossierHelper.php:71
+msgid "Write"
+msgstr "Write"
+
+#: Plugin/SynchroDossier/View/Helper/SynchroDossierHelper.php:72
+msgid "Delete"
+msgstr "Delete"
+
+#: Plugin/SynchroDossier/View/Helper/SynchroDossierHelper.php:73
+msgid "Create"
+msgstr "Create"
+
+#: Plugin/SynchroDossier/View/Helper/SynchroDossierHelper.php:74
+msgid "Change Right"
+msgstr "Change Right"
+
+#: Plugin/SynchroDossier/View/Helper/SynchroDossierHelper.php:96
+msgid "Subscribe to email alert"
+msgstr "Subscribe to email alert"
+
+#: Plugin/SynchroDossier/View/Helper/SynchroDossierHelper.php:100
+msgid "Unsubscribe to email alert"
+msgstr "Unsubscribe to email alert"
+
+#: Plugin/SynchroDossier/View/Helper/SynchroDossierHelper.php:123
+msgid "You're about to %s to email alert for folder %s. Are you sure ?"
+msgstr "You're about to %s to email alert for folder %s. Are you sure ?"
+
+#: Plugin/SynchroDossier/View/Helper/SynchroDossierHelper.php:126
+msgid "subscribe"
+msgstr "subscribe"
+
+#: Plugin/SynchroDossier/View/Helper/SynchroDossierHelper.php:126
+msgid "unsubscribe"
+msgstr "unsubscribe"
+
+#: Plugin/SynchroDossier/View/Layouts/default.ctp:69
+#: Plugin/SynchroDossier/View/Layouts/login.ctp:46
+msgid "Propulsé par"
+msgstr "Powered by"
+
+#: Plugin/SynchroDossier/View/SdInformations/admin_quota.ctp:15
+msgid "Quota (Mo) : "
+msgstr "Quota (Mo) : "
+
+#: Plugin/SynchroDossier/View/SdInformations/admin_quota.ctp:16
+msgid "Quota utilisé : "
+msgstr "Quota used:"
+
+#: Plugin/SynchroDossier/View/SdInformations/admin_quota.ctp:25
+msgid "Publishing"
+msgstr "Publishing"
+
+#: Plugin/SynchroDossier/View/SdInformations/admin_quota.ctp:26
+msgid "Sauver"
+msgstr "Save"
+
+#: Plugin/SynchroDossier/View/SdInformations/admin_quota.ctp:27
+msgid "Annuler"
+msgstr "Cancel"
+
+#~ msgid "%s: ajouté le %s"
+#~ msgstr "%s: added at %s"
+
+#~ msgid "Synchro-Dossier - Quota dépassé"
+#~ msgstr "Synchro-Dossier - Quota exceeded"
+
+#~ msgid "Synchro-Dossier - Nouveaux fichiers envoyés"
+#~ msgstr "Synchro-Dossier - New files sent."
+
+#~ msgid "Désolé, l'envoie de fichier n'est actuellement pas disponible."
+#~ msgstr "Sorry, file sending is not available."
+
+#~ msgid ""
+#~ "Le quota est atteint, vous devez contacter un SuperAdmin, ou supprimer "
+#~ "des fichiers."
+#~ msgstr ""
+#~ "Quota reached, you have to contact a SuperAdmin, or delete some files."
+
+#~ msgid ""
+#~ "Le quota est atteint, vous devez commander plus de quota ou supprimer des "
+#~ "fichiers."
+#~ msgstr ""
+#~ "Quota reached, you have to order quota increase or delete some files."
+
+#~ msgid "Ajouter un dossier"
+#~ msgstr "Add a folder"
+
+#~ msgid "Créer un utilisateur"
+#~ msgstr "Create a user"
+
+#~ msgid "Utilisateurs du dossier"
+#~ msgstr "Folder users"
+
+#~ msgid ""
+#~ "L'un de vos utilisateurs %s %s (dont l'adresse email est '%s') vient "
+#~ "d'envoyer de nouveaux fichiers dans le dossier '%s' de votre espace de "
+#~ "stockage"
+#~ msgstr ""
+#~ "One of your users %s %s (which email address is '%s') just send new files "
+#~ "in folder '%s' of your storage"
+
+#~ msgid "Voici la liste des fichiers envoyés"
+#~ msgstr "Here is the list of files sent "

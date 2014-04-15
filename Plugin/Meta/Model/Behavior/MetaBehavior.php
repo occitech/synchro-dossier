@@ -1,11 +1,12 @@
 <?php
+
+App::uses('ModelBehavior', 'Model');
+
 /**
  * Meta Behavior
  *
- * PHP version 5
- *
  * @category Behavior
- * @package  Croogo
+ * @package  Croogo.Meta.Model.Behavior
  * @version  1.0
  * @author   Fahad Ibnay Heylaal <contact@fahad19.com>
  * @license  http://www.opensource.org/licenses/mit-license.php The MIT License
@@ -36,19 +37,19 @@ class MetaBehavior extends ModelBehavior {
  * @param boolean $primary
  * @return array
  */
-	public function afterFind(Model $model, $results, $primary) {
+	public function afterFind(Model $model, $results, $primary = false) {
 		if ($primary && isset($results[0][$model->alias])) {
 			foreach ($results as $i => $result) {
 				$customFields = array();
 				if (isset($result['Meta']) && count($result['Meta']) > 0) {
-					$customFields = Set::combine($result, 'Meta.{n}.key', 'Meta.{n}.value');
+					$customFields = Hash::combine($result, 'Meta.{n}.key', 'Meta.{n}.value');
 				}
 				$results[$i]['CustomFields'] = $customFields;
 			}
 		} elseif (isset($results[$model->alias])) {
 			$customFields = array();
 			if (isset($results['Meta']) && count($results['Meta']) > 0) {
-				$customFields = Set::combine($results, 'Meta.{n}.key', 'Meta.{n}.value');
+				$customFields = Hash::combine($results, 'Meta.{n}.key', 'Meta.{n}.value');
 			}
 			$results['CustomFields'] = $customFields;
 		}
@@ -68,9 +69,9 @@ class MetaBehavior extends ModelBehavior {
 	}
 
 /**
- * Private method for MetaBehavior::prepareData()
+ * Protected method for MetaBehavior::prepareData()
  *
- * @param Model$model
+ * @param Model $model
  * @param array $data
  * @return array
  */
@@ -78,7 +79,7 @@ class MetaBehavior extends ModelBehavior {
 		if (isset($data['Meta']) &&
 			is_array($data['Meta']) &&
 			count($data['Meta']) > 0 &&
-			!Set::numeric(array_keys($data['Meta']))) {
+			!Hash::numeric(array_keys($data['Meta']))) {
 			$meta = $data['Meta'];
 			$data['Meta'] = array();
 			$i = 0;

@@ -1,9 +1,10 @@
 # App
 Config/database.php
+Config/email.php
 Config/settings.json
 Vendor/Simpletest/
-View/Themed/
 webroot/uploads/
+uploads/
 *.bak
 *.swp
 
@@ -12,10 +13,27 @@ tmp/
 
 # Others
 .DS_Store
-./Plugin/*
-!./Plugin/Acl
-!./Plugin/Extensions
-!./Plugin/Example
-!./Plugin/Install
-!./Plugin/Tinymce
-!./Plugin/Translate
+uploads/
+Config/croogo.php
+
+# plugins
+Plugin/Ckeditor/
+Plugin/Migrations/
+Plugin/Search/
+Plugin/Plupload/
+Plugin/FileStorage/
+Plugin/DebugKit/
+Plugin/Chosen/
+Plugin/SynchroDossier/webroot/bootstrap
+
+# composer
+Vendor/autoload.php
+Vendor/bin/
+Vendor/composer/
+Vendor/phpunit/
+Vendor/symfony/
+Vendor/cakephp/
+Vendor/croogo/
+Vendor/knplabs/
+Vendor/occitech/
+Vendor/twbs/

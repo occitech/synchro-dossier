@@ -1,4 +1,13 @@
 <?php
+// Load Composer autoload.
+require APP . '/Vendor/autoload.php';
+
+// Remove and re-prepend CakePHP's autoloader as Composer thinks it is the
+// most important.
+// See: http://goo.gl/kKVJO7
+spl_autoload_unregister(array('App', 'load'));
+spl_autoload_register(array('App', 'load'), true, true);
+
 /**
  * This file is loaded automatically by the app/webroot/index.php file after the core bootstrap.php
  *
@@ -48,39 +57,25 @@
  * Inflector::rules('plural', array('rules' => array(), 'irregular' => array(), 'uninflected' => array()));
  *
  */
-	App::uses('CakeLog', 'Log');
-	App::uses('CroogoPlugin', 'Extensions.Lib');
-	App::uses('CroogoEventManager', 'Event');
-	App::uses('Croogo', 'Lib');
-	App::uses('CroogoNav', 'Lib');
-	CakePlugin::load(array('Extensions'), array('bootstrap' => true));
-	require_once 'croogo_bootstrap.php';
+App::build(array(
+	'Plugin' => array(APP . 'Vendor' . DS . 'croogo' . DS . 'croogo' . DS ),
+	'Locale' => array(APP . 'Vendor' . DS . 'croogo' . DS . 'locale' . DS ),
+), App::APPEND);
 
-	// Load Install plugin
-	if (Configure::read('Security.salt') == 'f78b12a5c38e9e5c6ae6fbd0ff1f46c77a1e3' ||
-		Configure::read('Security.cipherSeed') == '60170779348589376') {
-		$_securedInstall = false;
-	}
-	Configure::write('Install.secured', !isset($_securedInstall));
-	Configure::write('Install.installed',
-		file_exists(APP . 'Config' . DS . 'database.php') &&
-		file_exists(APP . 'Config' . DS . 'settings.json') &&
-		file_exists(APP . 'Config' . DS . 'croogo.php')
-	);
-	if (!Configure::read('Install.installed') || !Configure::read('Install.secured')) {
-		CakePlugin::load('Install', array('routes' => true));
-	}
-	Configure::write('Dispatcher.filters', array(
-		'AssetDispatcher',
-		'CacheDispatcher'
-	));
-	CakeLog::config('debug', array(
-		'engine' => 'FileLog',
-		'types' => array('notice', 'info', 'debug'),
-		'file' => 'debug',
-		));
-	CakeLog::config('error', array(
-		'engine' => 'FileLog',
-		'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
-		'file' => 'error',
-		));
+CakePlugin::load('Croogo', array('bootstrap' => true));
+CakePlugin::load('DebugKit');
+
+Configure::write('Dispatcher.filters', array(
+	'AssetDispatcher',
+	'CacheDispatcher'
+));
+CakeLog::config('debug', array(
+	'engine' => 'FileLog',
+	'types' => array('notice', 'info', 'debug'),
+	'file' => 'debug',
+));
+CakeLog::config('error', array(
+	'engine' => 'FileLog',
+	'types' => array('warning', 'error', 'critical', 'alert', 'emergency'),
+	'file' => 'error',
+));
