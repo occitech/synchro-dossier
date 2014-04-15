@@ -1,6 +1,6 @@
 {
 	"name": "Uploader",
-	"description": "",
+	"description": "Handle file uploads using a file system abstraction",
 
 	"dependencies": {
 		"plugins": [

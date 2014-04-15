@@ -56,12 +56,17 @@
 		<div>
 			<?= $this->element('SynchroDossier.addSharingModal'); ?>
 			<?= $this->element('SynchroDossier.addNewVersionModal'); ?>
-			<?= $this->element('SynchroDossier.renameFolderModal'); ?>
 			<?= $this->element('SynchroDossier.renameFileModal'); ?>
-			<?= $this->element('SynchroDossier.createFolderModal'); ?>
 			<?= $this->element('SynchroDossier.formCommentModal'); ?>
 			<?= $this->element('SynchroDossier.formFileTagsModal'); ?>
 			<?= $this->element('SdUsers.deleteAdminModal'); ?>
+
+			<?php
+				if (!empty($folderId)) :
+					echo $this->element('SynchroDossier.createFolderModal');
+					echo $this->element('SynchroDossier.renameFolderModal');
+				endif;
+			?>
 		</div>
 		<?=	$this->fetch('script'); ?>
 		<?= $this->Html->script('Uploader.app'); ?>
@@ -72,5 +77,6 @@
 				<?= $this->element('SynchroDossier.version'); ?>
 			</p>
 		</footer>
+	<?= $this->element('google_analytics'); ?>
 	</body>
 </html>
