@@ -169,7 +169,9 @@ class SdUsersController extends SdUsersAppController {
 		$this->__preventAdminToEditSuperiorRole($user['User'], __d('sd_users', 'You don\'t have the rights to edit this profile'), $returnUrl);
 
 		if ($this->request->is('post') || $this->request->is('put')) {
+			$this->request->data['User']['name'] = sprintf('%s %s', $this->request->data['Profile']['firstname'], $this->request->data['Profile']['name']);
 			if ($this->SdUser->saveAssociated($this->request->data)) {
+				$this->Session->write('Auth', $this->SdUser->read(null, $this->Auth->User('id')));
 				$flashMessage = __d('sd_users', 'User informations successfully updated');
 				$class = array('class' => 'success');
 			} else {
@@ -264,7 +266,7 @@ class SdUsersController extends SdUsersAppController {
 			$user = $this->SdUser->findByEmail($this->request->data['User']['email']);
 			if (!isset($user['User']['id'])) {
 				$this->Session->setFlash(__d('croogo', 'Invalid email.'), 'default', array('class' => 'error'));
-				$this->redirect(array('action' => 'login'));
+				$this->redirect(array('action' => 'forgot'));
 			}
 
 			$this->SdUser->id = $user['User']['id'];

@@ -36,6 +36,11 @@ jQuery(document).ready(function($) {
 		$('#renameFolderModal').find('#UploadedFileId').val($(this).attr('data-id'));
 	});
 
+	$('.rename-file').on('click', function() {
+		$('#renameFileModal').find('#UploadedFileFilename').val($(this).attr('data-filename'));
+		$('#renameFileModal').find('#UploadedFileId').val($(this).attr('data-id'));
+	});
+
 	/**
 	 * Activate tooltip
 	 */

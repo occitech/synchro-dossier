@@ -135,7 +135,7 @@ class SdUser extends User {
 		if (empty($data[$this->alias]['username'])) {
 			$data[$this->alias]['username'] = strtolower(sprintf('%s%s', $data['Profile']['name'], $data['Profile']['firstname']));
 		}
-		$data[$this->alias]['name'] = sprintf('%s %s', $data['Profile']['name'], $data['Profile']['firstname']);
+		$data[$this->alias]['name'] = sprintf('%s %s', $data['Profile']['firstname'], $data['Profile']['name']);
 		return $this->saveAssociated($data);
 	}
 

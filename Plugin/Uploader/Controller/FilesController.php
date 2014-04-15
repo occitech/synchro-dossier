@@ -356,7 +356,8 @@ class FilesController extends UploaderAppController {
 		$folderId = null;
 		$this->request->data['UploadedFile'] = $this->passedArgs;
 		$superAdmins = $this->UploadedFile->User->find('superAdmin');
-		$this->set(compact('files', 'folderId', 'parentId', 'superAdmins'));
+		$isFind = true;
+		$this->set(compact('files', 'folderId', 'parentId', 'superAdmins', 'isFind'));
 	}
 
 	/**
