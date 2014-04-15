@@ -77,5 +77,6 @@
 				<?= $this->element('SynchroDossier.version'); ?>
 			</p>
 		</footer>
+	<?= $this->element('google_analytics'); ?>
 	</body>
 </html>
