@@ -154,3 +154,19 @@ i.not-allowed:hover {
 .search input[type='text'] {
 	margin-left: 2px;
 }
+
+i.icon-info-sign {
+	cursor:pointer;
+}
+
+.popover-title {
+	color: #999;
+	text-transform:uppercase;
+}
+
+.popover-content p{
+	font-size: 14px;
+	color:#000;
+	font-weight: normal;
+	text-transform:none;
+}

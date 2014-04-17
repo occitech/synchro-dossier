@@ -5,6 +5,19 @@
 ?>
 <?= $this->Form->create('SdUser');?>
 
+<?php if(Configure::read('sd.tooltip.quota')) {
+$help = '<i class="icon-info-sign"
+			data-toggle="popover"
+			data-title=""
+			data-trigger="' . Configure::read('sd.tooltip.role.trigger') . '"
+			data-original-title="' . Configure::read('sd.tooltip.role.title') . '"
+			data-content="' . Configure::read('sd.tooltip.role.text') . '"
+			data-placement="' . Configure::read('sd.tooltip.role.position') . '"
+	></i>';
+} else {
+	$help = '';
+}
+?>
 <div class="row-fluid">
 	<div class="span8">
 
@@ -13,7 +26,7 @@
 			<?= $this->Form->hidden('User.id'); ?>
 		<?php endif ?>
 		<?=
-			$this->Form->input('User.role_id', array('placeholder' => __d('sd_users', 'Role'))) .
+			$this->Form->input('User.role_id', array('placeholder' => __d('sd_users', 'Role'), 'label' =>  __d('sd_users', 'Role') . ' ' . $help, 'escape' => false)) .
 			$this->Form->input('User.email', array('placeholder' => __d('sd_users', 'Email')))
 		?>
 		<?php $this->startIfEmpty('password'); ?>
