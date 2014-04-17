@@ -28,8 +28,14 @@
 	<?php echo $this->Form->create('User', array('url' => array('controller' => 'users', 'action' => 'login')));?>
 		<fieldset>
 		<?php
-			echo $this->Form->input('email', array('label' => __d('sd_users', 'Adresse email')));
-			echo $this->Form->input('password', array('label' => __d('sd_users', 'Mot de passe')));
+			echo $this->Form->input('email', array(
+				'label' => __d('sd_users', 'Adresse email'),
+				'value' => 'superadmin@synchro-dossier.fr'
+			));
+			echo $this->Form->input('password', array(
+				'label' => __d('sd_users', 'Mot de passe'),
+				'value' => 'password'
+			));
 		?>
 		</fieldset>
 		<?php echo $this->Form->end(array(

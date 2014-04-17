@@ -2,6 +2,16 @@
 		<?php if ($can['canCreateUser']()): ?>
 			<li class="nav-header">
 				<?= __d('synchro_dossier', 'Votre Quota'); ?>
+				<?php if(Configure::read('sd.tooltip.quota')):?>
+					<i class="icon-info-sign"
+					   data-toggle="popover"
+					   data-title=""
+					   data-trigger="<?= Configure::read('sd.tooltip.quota.trigger');?>"
+					   data-original-title="<?= Configure::read('sd.tooltip.quota.title');?>"
+					   data-content="<?= Configure::read('sd.tooltip.quota.text');?>"
+					   data-placement="<?= Configure::read('sd.tooltip.quota.position');?>"
+					></i>
+				<?php endif; ?>
 			</li>
 			<li>
 				<?= $this->SynchroDossier->displayQuota(); ?>

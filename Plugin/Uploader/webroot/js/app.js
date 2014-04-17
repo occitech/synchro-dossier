@@ -48,6 +48,9 @@ jQuery(document).ready(function($) {
 		delay: 200
 	});
 
+	$('i.icon-info-sign[data-toggle="popover"]').popover({
+		html: true
+	});
 	/**
 	 * New version
 	 */
