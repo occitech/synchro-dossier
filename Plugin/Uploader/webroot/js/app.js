@@ -1,4 +1,6 @@
 jQuery(document).ready(function($) {
+	eventTracking();
+
 	$('.show-versions').click(function(event) {
 		event.preventDefault();
 		id = $(this).attr('id');

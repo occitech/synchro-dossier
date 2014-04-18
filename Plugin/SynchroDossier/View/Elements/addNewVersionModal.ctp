@@ -11,7 +11,7 @@
 		</div>
 	</div>
 	<div class="modal-footer">
-		<?= $this->Form->submit(__d('synchro_dossier', 'Ajouter une nouvelle version'), array('class' => 'btn')); ?>
+		<?= $this->Form->submit(__d('synchro_dossier', 'Ajouter une nouvelle version'), array('class' => 'btn', 'data-event' => 'ga', 'data-category' => 'Nouvelle version', 'data-action' => 'click',)); ?>
 		<?= $this->Form->end(); ?>
 	</div>
 </div>

@@ -17,7 +17,7 @@
 	?>
 	<?php foreach ($folderTree as $id => $folderName): ?>
 		<?php $isLastElement = ++$i == $folderCount; ?>
-		<li <?php if ($isLastElement) echo 'class="active"'; ?>>
+		<li <?php if ($isLastElement) echo 'class="active"'; ?> data-event = "ga" data-category = "Fil d'ariane" data-action = 'click'>
 			<?php
 				if ($id === 0) {
 					$url = '/';
@@ -72,7 +72,7 @@
 								<?php endif; ?>
 								<?= $this->Html->link(
 									$file['UploadedFile']['filename'],
-									array('controller' => 'files', 'action' => 'download', $lastVersion['id'])
+									array('controller' => 'files', 'action' => 'download', $lastVersion['id']), array('data-event' => 'ga', 'data-category' => 'Télécharger', 'data-action' => 'click')
 								); ?>
 							<?php else: ?>
 								<?= $this->Html->link(
@@ -123,6 +123,9 @@
 												__d('uploader', '<i class="icon-download-alt"></i>'),
 												array('controller' => 'files', 'action' => 'downloadZipFolder', $file['UploadedFile']['id']),
 												array(
+													'data-event' => 'ga',
+													'data-category' => 'Télécharger',
+													'data-action' => 'click',
 													'rel' => 'tooltip',
 													'title' => __d('uploader', 'Download folder as zipfile'),
 													'escape' => false
@@ -141,7 +144,7 @@
 											'class' => 'rename-folder',
 											'data-id' => $file['UploadedFile']['id'],
 											'data-filename' => $file['UploadedFile']['filename'],
-											'escape' => false
+											'escape' => false,
 										)
 									); ?>
 									<?php if (is_null($folderId) && $this->UploaderAcl->userCan($file['Aco'], 'change_right')): ?>
@@ -162,7 +165,10 @@
 											array(
 												'rel' => 'tooltip',
 												'title' => __d('uploader', 'Supprimer le dossier'),
-												'escape' => false
+												'escape' => false,
+												'data-event' => 'ga',
+												'data-category' => 'Supprimer',
+												'data-action' => 'click',
 											),
 											__d('uploader', 'You are about to delete folder "%s". Are you sure ?', $file['UploadedFile']['filename'])
 										); ?>
@@ -178,7 +184,10 @@
 										array(
 											'rel' => 'tooltip',
 											'title' => __d('uploader', 'Download'),
-											'escape' => false
+											'escape' => false,
+											'data-event' => 'ga',
+											'data-category' => 'Télécharger',
+											'data-action' => 'click'
 										)
 									); ?>
 									<?= $this->Html->link(
@@ -192,7 +201,7 @@
 											'class' => 'rename-file',
 											'data-id' => $file['UploadedFile']['id'],
 											'data-filename' => $file['UploadedFile']['filename'],
-											'escape' => false
+											'escape' => false,
 										)
 									); ?>
 									<?= $this->Html->link(
@@ -212,7 +221,7 @@
 											'data-toggle' => 'modal',
 											'data-filename' => $file['UploadedFile']['filename'],
 											'class' => 'add-new-version',
-											'escape' => false
+											'escape' => false,
 										)
 									); ?>
 									<?= $this->Html->link(
@@ -229,7 +238,10 @@
 											'data-toggle' => 'modal',
 											'title' => __d('uploader', 'Commentaires'),
 											'class' => 'comments',
-											'escape' => false
+											'escape' => false,
+											'data-event' => 'ga',
+											'data-category' => 'Commentaires',
+											'data-action' => 'click',
 										)
 									); ?>
 									<?= $this->Html->link(
@@ -246,7 +258,10 @@
 											'data-toggle' => 'modal',
 											'title' => __d('uploader', 'File Tags'),
 											'class' => 'comments',
-											'escape' => false
+											'escape' => false,
+											'data-event' => 'ga',
+											'data-category' => 'Mots-clefs',
+											'data-action' => 'click',
 										)
 									); ?>
 									<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
@@ -256,7 +271,10 @@
 											array(
 												'rel' => 'tooltip',
 												'title' => __d('uploader', 'Supprimer le fichier'),
-												'escape' => false
+												'escape' => false,
+												'data-event' => 'ga',
+												'data-category' => 'Supprimer',
+												'data-action' => 'click',
 											),
 											__d('uploader', 'You are about to delete file "%s". Are you sure ?', $file['UploadedFile']['filename'])
 										); ?>
@@ -279,6 +297,11 @@
 											'controller' => 'files',
 											'action' => 'download',
 											$fileVersion['id']
+										),
+										array(
+											'data-event' => 'ga',
+											'data-category' => 'Télécharger',
+											'data-action' => 'click'
 										)
 									); ?>
 								</td>
@@ -294,7 +317,10 @@
 											array(
 												'rel' => 'tooltip',
 												'title' => __d('uploader', 'Supprimer le fichier'),
-												'escape' => false
+												'escape' => false,
+												'data-event' => 'ga',
+												'data-category' => 'Supprimer',
+												'data-action' => 'click',
 											),
 											__d('uploader', 'You are about to delete file "%s". Are you sure ?', $file['UploadedFile']['filename'])
 										); ?>
