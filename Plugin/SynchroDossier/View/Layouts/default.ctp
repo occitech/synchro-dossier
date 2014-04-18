@@ -18,6 +18,7 @@
 			'/croogo/js/croogo-bootstrap.js',
 			'SynchroDossier._lib/jquery.cookie',
 			'SynchroDossier.jquery.jstree',
+			'SynchroDossier.jquery.ga-event',
 		));
 
 		echo $this->Layout->js();

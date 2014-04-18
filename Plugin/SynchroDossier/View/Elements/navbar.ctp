@@ -17,6 +17,10 @@
 					'plugin' => 'sd_users',
 					'controller' => 'sd_users',
 					'action' => 'index'
+				), array(
+					'data-event' => 'ga',
+					'data-category' => 'Liste des utilisateurs',
+					'data-action' => 'click',
 				)); ?></li>
 			<?php endif ?>
 		</ul>
@@ -30,18 +34,30 @@
 								'controller' => 'sd_users',
 								'action' => 'profile',
 								$this->Session->read('Auth.User.id')
+							), array(
+								'data-event' => 'ga',
+								'data-category' => 'Lien profil',
+								'data-action' => 'click',
 							)
 						);
 					 ?>
 					</a>
 				</li>
 				<li>
-					<?php echo $this->Html->link(__d('synchro_dossier', "Profil"), array(
-						'plugin' => 'sd_users',
-						'controller' => 'sd_users',
-						'action' => 'profile',
-						$this->Session->read('Auth.User.id')
-					)); ?>
+					<?php echo $this->Html->link(__d('synchro_dossier', "Profil"),
+						array(
+							'plugin' => 'sd_users',
+							'controller' => 'sd_users',
+							'action' => 'profile',
+							$this->Session->read('Auth.User.id'
+						)),
+						array(
+							'data-event' => 'ga',
+							'data-category' => 'Lien profil',
+							'data-action' => 'click',
+						)
+
+					); ?>
 				</li>
 				<li>
 					<?php echo $this->Html->link(__d('synchro_dossier', "Déconnexion"), array('plugin' => 'users', 'controller' => 'users', 'action' => 'logout')); ?>
