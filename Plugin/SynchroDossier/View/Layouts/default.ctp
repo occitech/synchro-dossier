@@ -27,6 +27,7 @@
 		echo $this->fetch('css');
 
 		?>
+		<?= $this->element('google_analytics'); ?>
 	</head>
 	<body>
 		<header>
@@ -78,6 +79,5 @@
 				<?= $this->element('SynchroDossier.version'); ?>
 			</p>
 		</footer>
-	<?= $this->element('google_analytics'); ?>
 	</body>
 </html>
