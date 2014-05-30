@@ -241,10 +241,14 @@
 												'action' => 'addTags',
 												$file['UploadedFile']['id'],
 											)),
+											'ajax-tag-list-url' => $this->Html->url(array(
+												'controller' => 'files',
+												'action' => 'getTags',
+												$file['UploadedFile']['id'],
+											)),
 											'rel' => 'tooltip',
 											'role' => 'button',
 											'data-toggle' => 'modal',
-											'title' => __d('uploader', 'File Tags'),
 											'class' => 'comments',
 											'escape' => false
 										)
