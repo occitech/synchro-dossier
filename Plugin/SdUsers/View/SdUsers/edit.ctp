@@ -30,9 +30,9 @@ $help = '<i class="icon-info-sign"
 			$this->Form->input('User.email', array('placeholder' => __d('sd_users', 'Email')))
 		?>
 		<?php $this->startIfEmpty('password'); ?>
-		<?=
-			$this->Form->input('User.password', array('required' => false, 'value' => '', 'placeholder' => __d('sd_users', 'Mot de passe')));
-		?>
+			<?=
+				$this->Form->input('User.password', array('required' => false, 'value' => '', 'placeholder' => __d('sd_users', 'Mot de passe'), 'label' =>  __d('sd_users', 'Mot de passe')));
+			?>
 		<?php $this->end(); ?>
 		<?= $this->fetch('password'); ?>
 	<?= $this->Html->endBox();?>
