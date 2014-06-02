@@ -232,7 +232,7 @@
 											'rel' => 'tooltip',
 											'role' => 'button',
 											'data-toggle' => 'modal',
-											'title' => __d('uploader', 'File Tags'),
+											'title' => __d('uploader', 'File Tags') . (!empty($file['FileTag']) ? sprintf(' : %s', implode(', ', Hash::extract($file['FileTag'], '{n}.Term.title'))) : null),
 											'class' => 'comments',
 											'escape' => false
 										)

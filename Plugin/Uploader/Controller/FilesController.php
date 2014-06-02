@@ -314,7 +314,8 @@ class FilesController extends UploaderAppController {
 					'Aco',
 					'FileStorage' => array(
 						'order' => array('FileStorage.file_version DESC'),
-					)
+					),
+					'FileTag.Term',
 				),
 				'group' => 'Aco.foreign_key'
 			);
@@ -349,7 +350,7 @@ class FilesController extends UploaderAppController {
 			'Aco',
 			'FileStorage' => array(
 				'order' => array('FileStorage.file_version DESC'),
-			)
+			),
 		);
 		$files = $this->paginate();
 		$parentId = null;
