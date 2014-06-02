@@ -489,7 +489,7 @@ class FilesController extends UploaderAppController {
 	public function deleteFolder($folderId) {
 		$this->UploadedFile->id = $folderId;
 		$folderName = $this->UploadedFile->field('filename');
-		$folderParentId = $this->UploadedFile->f<ield('parent_id');
+		$folderParentId = $this->UploadedFile->field('parent_id');
 		if ($this->UploadedFile->removeFolder($folderId, $this->Auth->user('id'))) {
 			$messageFlash = __d('uploader', 'Folder "%s" was successfully deleted', $folderName);
 			$class = array('class' => 'success');
@@ -589,26 +589,4 @@ class FilesController extends UploaderAppController {
 		}
 	}
 
-	public function getTags($fileId) {
-		if ($this->request->is('ajax')) {
-			$this->layout = 'ajax';
-			$this->autoRender = false;
-
-			$file = $this->UploadedFile->find('first', array(
-				'contain' => array('FileTag', 'FileTag.Term'),
-				'conditions' => array(
-					$this->UploadedFile->escapeField() => $fileId
-				)
-			));
-
-			$tags = implode(', ', Hash::extract($file, 'FileTag.{n}.Term.title'));
-			if (empty($tags)) {
-				$tags = __d('uploader', 'File Tags');
-			} else {
-				$tags = __d('uploader', 'File Tags') .' : ' . $tags;
-			}
-
-			return $tags;
-		}
-	}
 }

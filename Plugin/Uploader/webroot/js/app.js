@@ -68,15 +68,6 @@ jQuery(document).ready(function($) {
 		getModalContent($(this), $(this).attr('href'));
 	});
 
-	$('.comments').on('mouseenter', function(){
-		var that = $(this);
-		$.ajax({
-			url: that.attr('ajax-tag-list-url')
-		}).done(function(data) {
-			that.attr('data-original-title', data)
-		});
-	});
-
 	function getModalContent(popOverLink, modalElt) {
 		$.ajax({
 			url: popOverLink.attr('ajax-url')
