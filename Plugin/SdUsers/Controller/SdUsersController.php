@@ -148,14 +148,7 @@ class SdUsersController extends SdUsersAppController {
 		}
 	}
 
-	public function profile($id) {
-		$this->set('title_for_layout', __d('sd_users', 'Your Profile'));
-		$this->helpers[] = 'Uploader.UploaderAcl';
-
-		$user = $this->SdUser->find('first', array('conditions' => array('User.id' => $id),'noRoleChecking' => true));
-		$returnUrl = array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse');
-		$isAdmin = $this->Auth->user('role_id') != SdUser::ROLE_UTILISATEUR_ID;
-
+	private function __preventUserToAccessNotAllowedPersonnalpages($user, $returnUrl) {
 		if (empty($user)) {
 			$this->Session->setFlash(__d('sd_users', 'User #%s Not Found', $id));
 			$this->redirect($returnUrl, 404);
@@ -165,7 +158,36 @@ class SdUsersController extends SdUsersAppController {
 			$this->Session->setFlash(__d('sd_users', 'You cannot access others users profiles'));
 			$this->redirect($returnUrl, 403);
 		}
+	}
 
+	public function alert($id) {
+		$this->set('title_for_layout', __d('sd_users', 'Notifications'));
+
+		$user = $this->SdUser->find('first', array('conditions' => array('User.id' => $id),'noRoleChecking' => true));
+		$returnUrl = array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse');
+
+		$this->__preventUserToAccessNotAllowedPersonnalpages($user, $returnUrl);
+		$this->__preventAdminToEditSuperiorRole($user['User'], __d('sd_users', 'You don\'t have the rights to edit this profile'), $returnUrl);
+
+		$this->paginate = array(
+			'conditions' => array('UploadedFile.is_folder' => true, 'UploadedFile.parent_id' => null),
+			'recursive' => -1,
+			'contain' => array('Aco.Aro.Permission')
+		);
+
+		$folders = $this->paginate('UploadedFile');
+		$emailsAlerts = $this->__getUserAlertEmails($user['User']['id'] , $folders);
+		$this->set(compact('user', 'folders', 'emailsAlerts'));
+	}
+
+	public function profile($id) {
+		$this->set('title_for_layout', __d('sd_users', 'Your Profile'));
+		$this->helpers[] = 'Uploader.UploaderAcl';
+
+		$user = $this->SdUser->find('first', array('conditions' => array('User.id' => $id),'noRoleChecking' => true));
+		$returnUrl = array('plugin' => 'uploader', 'controller' => 'files', 'action' => 'browse');
+
+		$this->__preventUserToAccessNotAllowedPersonnalpages($user, $returnUrl);
 		$this->__preventAdminToEditSuperiorRole($user['User'], __d('sd_users', 'You don\'t have the rights to edit this profile'), $returnUrl);
 
 		if ($this->request->is('post') || $this->request->is('put')) {
@@ -182,16 +204,10 @@ class SdUsersController extends SdUsersAppController {
 			$this->redirect(array('action' => 'profile', $id));
 		}
 
-		$this->paginate = array(
-			'conditions' => array('UploadedFile.is_folder' => true, 'UploadedFile.parent_id' => null),
-			'recursive' => -1,
-			'contain' => array('Aco.Aro.Permission')
-		);
-		$folders = $this->paginate('UploadedFile');
-
-		$emailsAlerts = $this->__getUserAlertEmails($user['User']['id'] , $folders);
-		$this->set(compact('isAdmin', 'user', 'folders', 'emailsAlerts'));
+		$this->set(compact('user'));
 	}
+
+
 
 	public function manageAlertEmail($userId, $folderId, $register = true) {
 		$SdAlertEmail = ClassRegistry::init('SynchroDossier.sdAlertEmail');
@@ -224,7 +240,7 @@ class SdUsersController extends SdUsersAppController {
 
 
 		$this->Session->setFlash($messageFlash, 'default', $class);
-		$this->redirect(array('action' => 'profile', $userId));
+		$this->redirect(array('action' => 'alert', $userId));
 	}
 
 	public function changeUserPassword() {

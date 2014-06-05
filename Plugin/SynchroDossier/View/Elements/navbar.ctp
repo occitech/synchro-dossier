@@ -26,15 +26,43 @@
 				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= __d('synchro_dossier', 'Bonjour %s', $this->Session->read('Auth.User.name')); ?> <b class="caret"></b></a>
 				<ul class="dropdown-menu">
 					<li>
-						<?php echo $this->Html->link(__d('synchro_dossier', "Profil"), array(
-							'plugin' => 'sd_users',
-							'controller' => 'sd_users',
-							'action' => 'profile',
-							$this->Session->read('Auth.User.id')
-						)); ?>
+						<?php echo $this->Html->link('<i class="icon-pencil"></i> ' . __d('synchro_dossier', "Profil"),
+							array(
+								'plugin' => 'sd_users',
+								'controller' => 'sd_users',
+								'action' => 'profile',
+								$this->Session->read('Auth.User.id')
+							),
+							array(
+								'escape' => false
+							)
+						); ?>
 					</li>
 					<li>
-						<?php echo $this->Html->link(__d('synchro_dossier', "Déconnexion"), array('plugin' => 'users', 'controller' => 'users', 'action' => 'logout')); ?>
+						<?php echo $this->Html->link('<i class="icon-envelope"></i> ' . __d('synchro_dossier', "Alertes"),
+							array(
+								'plugin' => 'sd_users',
+								'controller' => 'sd_users',
+								'action' => 'alert',
+								$this->Session->read('Auth.User.id')
+							),
+							array(
+								'escape' => false
+							)
+						); ?>
+					</li>
+					<li>
+
+						<?php echo $this->Html->link('<i class="icon-off"></i> ' . __d('synchro_dossier', "Déconnexion"),
+							array(
+								'plugin' => 'users',
+								'controller' => 'users',
+								'action' => 'logout'
+							),
+							array(
+								'escape' => false
+							)
+						); ?>
 					</li>
 				</ul>
 			</li>
