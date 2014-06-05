@@ -316,6 +316,7 @@ class FilesController extends UploaderAppController {
 						'order' => array('FileStorage.file_version DESC'),
 					),
 					'FileTag.Term',
+					'Comment' => array('limit' => 1),
 				),
 				'group' => 'Aco.foreign_key'
 			);

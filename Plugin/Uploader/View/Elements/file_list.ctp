@@ -203,23 +203,39 @@
 											'escape' => false
 										)
 									); ?>
-									<?= $this->Html->link(
-										'<i class="icon-comment"></i>',
-										'#formCommentModal',
-										array(
-											'ajax-url' => $this->Html->url(array(
-												'controller' => 'comments',
-												'action' => 'add',
-												$file['UploadedFile']['id'],
-											)),
-											'rel' => 'tooltip',
-											'role' => 'button',
-											'data-toggle' => 'modal',
-											'title' => __d('uploader', 'Commentaires'),
-											'class' => 'comments',
-											'escape' => false
-										)
-									); ?>
+									<?php
+										$commentsIconClass = 'icon-comment';
+										if (empty($file['Comment'])) {
+											$commentsIconClass .= ' icon-white';
+											$commentsTitle = __d('uploader', 'Ajouter un commentaire');
+										} else {
+											$commentsTitle = __d(
+												'uploader',
+												'Dernier commentaire le %s à %s par %s',
+												date('d/m/Y', strtotime($file['Comment'][0]['created'])),
+												date('H:i', strtotime($file['Comment'][0]['created'])),
+												$file['Comment'][0]['name']
+											);
+										}
+
+										echo $this->Html->link(
+											'<i class="'. $commentsIconClass . '"></i>',
+											'#formCommentModal',
+											array(
+												'ajax-url' => $this->Html->url(array(
+													'controller' => 'comments',
+													'action' => 'add',
+													$file['UploadedFile']['id'],
+												)),
+												'rel' => 'tooltip',
+												'role' => 'button',
+												'data-toggle' => 'modal',
+												'title' => $commentsTitle,
+												'class' => 'comments',
+												'escape' => false
+											)
+										);
+									?>
 									<?= $this->Html->link(
 										'<i class="icon-tags"></i>',
 										'#formFileTagsModal',
