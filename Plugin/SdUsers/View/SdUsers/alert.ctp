@@ -30,7 +30,7 @@ if (Configure::check('sd.tooltip.email_alert')) {
 ?>
 <div class="users">
 
-	<h3><?= __d('sd_users', 'Your Folders') ?></h3>
+	<h3><?= __d('sd_users', 'Your Alerts') ?></h3>
 	<?php if (!empty($folders)): ?>
 		<table class="table table-stripped">
 			<thead>
