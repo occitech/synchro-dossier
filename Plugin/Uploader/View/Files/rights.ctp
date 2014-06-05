@@ -34,6 +34,7 @@
 			<td><?= __d('uploader', 'Lecture') ?></td>
 			<td><?= __d('uploader', 'Upload') ?></td>
 			<td><?= __d('uploader', 'Suppression') ?></td>
+			<td><?= __d('uploader', 'Renommer') ?></td>
 			<td><?= __d('uploader', 'Toggle mail') ?></td>
 			<td><?= __d('uploader', 'Actions') ?></td>
 		</tr>
@@ -120,6 +121,22 @@
 					<td>
 						<?php if ($hasRightToChangeRight): ?>
 							<?= $this->Html->link(
+								$this->Layout->status($aro['ArosAco']['_update']),
+								array(
+									'action' => 'toggleRight',
+									$acos['Aco']['foreign_key'],
+									$aro['foreign_key'],
+									'update'
+								),
+								array('escape' => false)
+							); ?>
+						<?php else: ?>
+							<?= $this->Layout->status($aro['ArosAco']['_update']) ?>
+						<?php endif ?>
+					</td>
+					<td>
+						<?php if ($hasRightToChangeRight): ?>
+							<?= $this->Html->link(
 								$this->Layout->status(array_key_exists($aro['User']['id'], $userRegisteredToAlert)),
 								array(
 									'action' => 'toggleEmailSubscription',
@@ -132,6 +149,7 @@
 							<?= $this->Layout->status(array_key_exists($aro['User']['id'], $userRegisteredToAlert)) ?>
 						<?php endif ?>
 					</td>
+
 					<td>
 						<?php if ($hasRightToChangeRight): ?>
 							<?= $this->Html->link(
