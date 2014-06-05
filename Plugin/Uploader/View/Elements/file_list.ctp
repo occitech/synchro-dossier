@@ -118,7 +118,7 @@
 											); ?>
 										<?php endif ?>
 									<?php endif ?>
-									<?php if(!is_null($folderId) && $this->UploaderAcl->userCan($file['Aco'], 'create')): ?>
+									<?php if(!is_null($folderId) && $this->UploaderAcl->userCan($file['Aco'], 'update')): ?>
 									<?= $this->Html->link(
 										'<i class="icon-pencil"></i>',
 										'#renameFolderModal',

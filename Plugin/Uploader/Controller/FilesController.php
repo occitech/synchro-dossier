@@ -22,7 +22,7 @@ class FilesController extends UploaderAppController {
 					'delete' 					=> 'delete',
 					'deleteFile'				=> 'delete',
 					'deleteFolder'				=> 'delete',
-					'rename' 					=> 'create',
+					'rename' 					=> 'update',
 					'downloadZipFolder' 		=> 'read',
 					'upload' 					=> 'create',
 					'addTags' 					=> 'read',
