@@ -118,6 +118,7 @@
 											); ?>
 										<?php endif ?>
 									<?php endif ?>
+									<?php if(!is_null($folderId) && $this->UploaderAcl->userCan($file['Aco'], 'create')): ?>
 									<?= $this->Html->link(
 										'<i class="icon-pencil"></i>',
 										'#renameFolderModal',
@@ -132,6 +133,7 @@
 											'escape' => false
 										)
 									); ?>
+									<?php endif;?>
 									<?php if (is_null($folderId) && $this->UploaderAcl->userCan($file['Aco'], 'change_right')): ?>
 										<?= $this->Html->link(
 											__d('uploader', '<i class="icon-user"></i>'),
