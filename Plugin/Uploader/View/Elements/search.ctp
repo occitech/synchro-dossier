@@ -27,8 +27,11 @@ $this->Form->input(
 <a data-toggle="collapse" href="#advancedSearch" data-event = "ga" data-category = "Recherche avancée", data-action = "click">
 	<?= __d('uploader', 'Recherche avancée'); ?>
 </a>
-
+<?php if (isset($isAdvancedSearch) && $isAdvancedSearch): ?>
+<div id="advancedSearch" class="accordion-body in collapse">
+<?php else: ?>
 <div id="advancedSearch" class="accordion-body collapse">
+<?php endif; ?>
 	<?php if ($can['canCreateUser']()): ?>
 	<?=
 	$this->Form->input(

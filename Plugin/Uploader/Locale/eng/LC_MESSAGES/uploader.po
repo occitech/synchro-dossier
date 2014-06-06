@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Uploader\n"
-"POT-Creation-Date: 2014-06-06 16:28+0200\n"
-"PO-Revision-Date: 2014-06-06 16:40+0100\n"
+"POT-Creation-Date: 2014-06-06 17:43+0200\n"
+"PO-Revision-Date: 2014-06-06 17:44+0100\n"
 "Last-Translator: \n"
 "Language-Team: Occitech\n"
 "Language: en\n"
@@ -54,40 +54,40 @@ msgstr "Given information are incorrect"
 msgid "Home"
 msgstr "Home"
 
-#: Controller/FilesController.php:374;390
+#: Controller/FilesController.php:383;399
 msgid "Le dossier a correctement été créé"
 msgstr "Directory has been created successfully"
 
-#: Controller/FilesController.php:381;392
+#: Controller/FilesController.php:390;401
 msgid "Il y a des erreurs dans les données du formulaire"
 msgstr "There are errors with submitted data"
 
-#: Controller/FilesController.php:401
+#: Controller/FilesController.php:410
 msgid ""
 "Vous n'avez pas les droits nécessaires pour renommer le dossier ou fichier"
 msgstr ""
 
-#: Controller/FilesController.php:500
+#: Controller/FilesController.php:508
 msgid "Folder \"%s\" was successfully deleted"
 msgstr "Folder \"%s\" was successfully deleted"
 
-#: Controller/FilesController.php:503
+#: Controller/FilesController.php:511
 msgid "You cannot delete folder \"%s\""
 msgstr "You cannot delete folder \"%s\""
 
-#: Controller/FilesController.php:523
+#: Controller/FilesController.php:531
 msgid "The file \"%s\" was successfully deleted"
 msgstr "The file \"%s\" was successfully deleted"
 
-#: Controller/FilesController.php:526
+#: Controller/FilesController.php:534
 msgid "You cannot delete file \"%s\""
 msgstr "You cannot delete file \"%s\""
 
-#: Controller/FilesController.php:574
+#: Controller/FilesController.php:582
 msgid "There was an error while tagging the file"
 msgstr "There was an error while tagging the file"
 
-#: Controller/FilesController.php:571
+#: Controller/FilesController.php:579
 msgid "Tag successfully added to file"
 msgid_plural "Tags successfully added to file"
 msgstr[0] "Tag successfully added to file"
@@ -167,81 +167,85 @@ msgstr "Size"
 msgid "Type"
 msgstr "Type"
 
-#: View/Elements/file_table.ctp:9 View/Elements/folder_table.ctp:8
+#: View/Elements/file_table.ctp:10 View/Elements/folder_table.ctp:8
 #: View/Files/rights.ctp:39
 msgid "Actions"
 msgstr "Actions"
 
-#: View/Elements/file_table.ctp:75 View/Elements/folder_table.ctp:43
+#: View/Elements/file_table.ctp:77 View/Elements/folder_table.ctp:42
 msgid "Folder size limit exceeded"
 msgstr "Folder size limit exceeded"
 
-#: View/Elements/file_table.ctp:80 View/Elements/folder_table.ctp:48
+#: View/Elements/file_table.ctp:82 View/Elements/folder_table.ctp:47
 msgid "<i class=\"icon-download-alt\"></i>"
 msgstr "<i class=\"icon-download-alt\"></i>"
 
-#: View/Elements/file_table.ctp:87 View/Elements/folder_table.ctp:55
+#: View/Elements/file_table.ctp:89 View/Elements/folder_table.ctp:54
 msgid "Download folder as zipfile"
 msgstr "Download folder as zipfile"
 
-#: View/Elements/file_table.ctp:103 View/Elements/folder_table.ctp:71
+#: View/Elements/file_table.ctp:105 View/Elements/folder_table.ctp:70
 msgid "Renommer le dossier"
 msgstr "Rename directory"
 
-#: View/Elements/file_table.ctp:115 View/Elements/folder_table.ctp:83
+#: View/Elements/file_table.ctp:117 View/Elements/folder_table.ctp:82
 msgid "<i class=\"icon-user\"></i>"
 msgstr "<i class=\"icon-user\"></i>"
 
-#: View/Elements/file_table.ctp:119 View/Elements/folder_table.ctp:87
+#: View/Elements/file_table.ctp:121 View/Elements/folder_table.ctp:86
 msgid "Gérer les droits"
 msgstr "Manage rights"
 
-#: View/Elements/file_table.ctp:126;245;291
-#: View/Elements/folder_table.ctp:94;213
+#: View/Elements/file_table.ctp:128;247;293
 msgid "<i class=\"icon-trash\"></i>"
 msgstr "<i class=\"icon-trash\"></i>"
 
-#: View/Elements/file_table.ctp:130 View/Elements/folder_table.ctp:98
+#: View/Elements/file_table.ctp:132 View/Elements/folder_table.ctp:97
 msgid "Supprimer le dossier"
 msgstr "Delete folder"
 
-#: View/Elements/file_table.ctp:136 View/Elements/folder_table.ctp:104
+#: View/Elements/file_table.ctp:138 View/Elements/folder_table.ctp:103
 msgid "You are about to delete folder \"%s\". Are you sure ?"
 msgstr "You are about to delete folder \"%s\". Are you sure ?"
 
-#: View/Elements/file_table.ctp:149 View/Elements/folder_table.ctp:117
-#: View/Files/view.ctp:37
+#: View/Elements/file_table.ctp:151 View/Files/view.ctp:37
 msgid "Download"
 msgstr "Download"
 
-#: View/Elements/file_table.ctp:161 View/Elements/folder_table.ctp:129
+#: View/Elements/file_table.ctp:163
 msgid "Renommer le fichier"
 msgstr "Rename file"
 
-#: View/Elements/file_table.ctp:182 View/Elements/folder_table.ctp:150
+#: View/Elements/file_table.ctp:184
 msgid "New version"
 msgstr "New version"
 
-#: View/Elements/file_table.ctp:194 View/Elements/folder_table.ctp:162
+#: View/Elements/file_table.ctp:196
 #, fuzzy
 msgid "Ajouter un commentaire"
 msgstr "Post a comment"
 
-#: View/Elements/file_table.ctp:196 View/Elements/folder_table.ctp:164
+#: View/Elements/file_table.ctp:198
 msgid "Dernier commentaire le %s à %s par %s"
 msgstr "Last comment on %s at %s by %s"
 
-#: View/Elements/file_table.ctp:235 View/Elements/folder_table.ctp:203
+#: View/Elements/file_table.ctp:237
 msgid "File Tags"
 msgstr "File Tags"
 
-#: View/Elements/file_table.ctp:249;295 View/Elements/folder_table.ctp:217
+#: View/Elements/file_table.ctp:251;297
 msgid "Supprimer le fichier"
 msgstr "Delete file"
 
-#: View/Elements/file_table.ctp:255;301 View/Elements/folder_table.ctp:223
+#: View/Elements/file_table.ctp:257;303
 msgid "You are about to delete file \"%s\". Are you sure ?"
 msgstr "You are about to delete file \"%s\". Are you sure ?"
+
+#: View/Elements/file_table.ctp:315
+msgid ""
+"Aucun résultat pour cette recherche, veuillez mettre à jour votre recherche "
+"et réessayer"
+msgstr "No results, please update your search filters and try agian."
 
 #: View/Elements/folder_table.ctp:4
 msgid "Partages"
@@ -287,39 +291,39 @@ msgstr "Ext"
 msgid "Recherche avancée"
 msgstr "Advanced search"
 
-#: View/Elements/search.ctp:36
+#: View/Elements/search.ctp:39
 msgid "Auteur du fichier"
 msgstr "File author"
 
-#: View/Elements/search.ctp:36
+#: View/Elements/search.ctp:39
 msgid "Utilisateur"
 msgstr "User"
 
-#: View/Elements/search.ctp:36
+#: View/Elements/search.ctp:39
 msgid "Tous"
 msgstr "All"
 
-#: View/Elements/search.ctp:43
+#: View/Elements/search.ctp:46
 msgid "1 Mo"
 msgstr "1 Mo"
 
-#: View/Elements/search.ctp:47
+#: View/Elements/search.ctp:50
 msgid "5 Mo"
 msgstr "5 Mo"
 
-#: View/Elements/search.ctp:51
+#: View/Elements/search.ctp:54
 msgid "Date min"
 msgstr "Min date"
 
-#: View/Elements/search.ctp:55
+#: View/Elements/search.ctp:58
 msgid "Date max"
 msgstr "Max date"
 
-#: View/Elements/search.ctp:60
+#: View/Elements/search.ctp:63
 msgid "File tags"
 msgstr "File tags"
 
-#: View/Elements/search.ctp:65
+#: View/Elements/search.ctp:68
 msgid "Rechercher"
 msgstr "Search"
 

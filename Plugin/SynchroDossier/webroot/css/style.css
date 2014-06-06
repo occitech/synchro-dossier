@@ -5,6 +5,10 @@
 	overflow-y: visible;
 }
 
+.text-center {
+	text-align: center;
+}
+
 /**
  * Layout
  */

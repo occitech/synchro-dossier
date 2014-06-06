@@ -346,7 +346,16 @@ class FilesController extends UploaderAppController {
 	}
 
 	public function find() {
+		$advancedSearchFilters = array('username', 'size_min', 'size_max', 'created_min', 'created_max', 'tags');
 		$this->Prg->commonProcess();
+		$isAdvancedSearch = false;
+		foreach ($advancedSearchFilters as $filter) {
+			if (!empty($this->passedArgs[$filter])) {
+				$isAdvancedSearch = true;
+				break;
+			}
+		}
+
 		$this->paginate['conditions'] = array($this->UploadedFile->parseCriteria($this->passedArgs));
 		$this->paginate['contain'] = array(
 			'User',
@@ -362,7 +371,7 @@ class FilesController extends UploaderAppController {
 		$superAdmins = $this->UploadedFile->User->find('superAdmin');
 		$isFind = true;
 		$isRootFolder = false;
-		$this->set(compact('isRootFolder', 'files', 'folderId', 'parentId', 'superAdmins', 'isFind'));
+		$this->set(compact('isAdvancedSearch', 'isRootFolder', 'files', 'folderId', 'parentId', 'superAdmins', 'isFind'));
 	}
 
 	/**

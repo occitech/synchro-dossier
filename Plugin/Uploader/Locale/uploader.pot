@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-06-06 16:28+0200\n"
+"POT-Creation-Date: 2014-06-06 17:43+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -39,39 +39,39 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: Controller/FilesController.php:374;390
+#: Controller/FilesController.php:383;399
 msgid "Le dossier a correctement été créé"
 msgstr ""
 
-#: Controller/FilesController.php:381;392
+#: Controller/FilesController.php:390;401
 msgid "Il y a des erreurs dans les données du formulaire"
 msgstr ""
 
-#: Controller/FilesController.php:401
+#: Controller/FilesController.php:410
 msgid "Vous n'avez pas les droits nécessaires pour renommer le dossier ou fichier"
 msgstr ""
 
-#: Controller/FilesController.php:500
+#: Controller/FilesController.php:508
 msgid "Folder \"%s\" was successfully deleted"
 msgstr ""
 
-#: Controller/FilesController.php:503
+#: Controller/FilesController.php:511
 msgid "You cannot delete folder \"%s\""
 msgstr ""
 
-#: Controller/FilesController.php:523
+#: Controller/FilesController.php:531
 msgid "The file \"%s\" was successfully deleted"
 msgstr ""
 
-#: Controller/FilesController.php:526
+#: Controller/FilesController.php:534
 msgid "You cannot delete file \"%s\""
 msgstr ""
 
-#: Controller/FilesController.php:574
+#: Controller/FilesController.php:582
 msgid "There was an error while tagging the file"
 msgstr ""
 
-#: Controller/FilesController.php:571
+#: Controller/FilesController.php:579
 msgid "Tag successfully added to file"
 msgid_plural "Tags successfully added to file"
 msgstr[0] ""
@@ -152,96 +152,91 @@ msgstr ""
 msgid "Type"
 msgstr ""
 
-#: View/Elements/file_table.ctp:9
+#: View/Elements/file_table.ctp:10
 #: View/Elements/folder_table.ctp:8
 #: View/Files/rights.ctp:39
 msgid "Actions"
 msgstr ""
 
-#: View/Elements/file_table.ctp:75
-#: View/Elements/folder_table.ctp:43
+#: View/Elements/file_table.ctp:77
+#: View/Elements/folder_table.ctp:42
 msgid "Folder size limit exceeded"
 msgstr ""
 
-#: View/Elements/file_table.ctp:80
-#: View/Elements/folder_table.ctp:48
+#: View/Elements/file_table.ctp:82
+#: View/Elements/folder_table.ctp:47
 msgid "<i class=\"icon-download-alt\"></i>"
 msgstr ""
 
-#: View/Elements/file_table.ctp:87
-#: View/Elements/folder_table.ctp:55
+#: View/Elements/file_table.ctp:89
+#: View/Elements/folder_table.ctp:54
 msgid "Download folder as zipfile"
 msgstr ""
 
-#: View/Elements/file_table.ctp:103
-#: View/Elements/folder_table.ctp:71
+#: View/Elements/file_table.ctp:105
+#: View/Elements/folder_table.ctp:70
 msgid "Renommer le dossier"
 msgstr ""
 
-#: View/Elements/file_table.ctp:115
-#: View/Elements/folder_table.ctp:83
+#: View/Elements/file_table.ctp:117
+#: View/Elements/folder_table.ctp:82
 msgid "<i class=\"icon-user\"></i>"
 msgstr ""
 
-#: View/Elements/file_table.ctp:119
-#: View/Elements/folder_table.ctp:87
+#: View/Elements/file_table.ctp:121
+#: View/Elements/folder_table.ctp:86
 msgid "Gérer les droits"
 msgstr ""
 
-#: View/Elements/file_table.ctp:126;245;291
-#: View/Elements/folder_table.ctp:94;213
+#: View/Elements/file_table.ctp:128;247;293
 msgid "<i class=\"icon-trash\"></i>"
 msgstr ""
 
-#: View/Elements/file_table.ctp:130
-#: View/Elements/folder_table.ctp:98
+#: View/Elements/file_table.ctp:132
+#: View/Elements/folder_table.ctp:97
 msgid "Supprimer le dossier"
 msgstr ""
 
-#: View/Elements/file_table.ctp:136
-#: View/Elements/folder_table.ctp:104
+#: View/Elements/file_table.ctp:138
+#: View/Elements/folder_table.ctp:103
 msgid "You are about to delete folder \"%s\". Are you sure ?"
 msgstr ""
 
-#: View/Elements/file_table.ctp:149
-#: View/Elements/folder_table.ctp:117
+#: View/Elements/file_table.ctp:151
 #: View/Files/view.ctp:37
 msgid "Download"
 msgstr ""
 
-#: View/Elements/file_table.ctp:161
-#: View/Elements/folder_table.ctp:129
+#: View/Elements/file_table.ctp:163
 msgid "Renommer le fichier"
 msgstr ""
 
-#: View/Elements/file_table.ctp:182
-#: View/Elements/folder_table.ctp:150
+#: View/Elements/file_table.ctp:184
 msgid "New version"
 msgstr ""
 
-#: View/Elements/file_table.ctp:194
-#: View/Elements/folder_table.ctp:162
+#: View/Elements/file_table.ctp:196
 msgid "Ajouter un commentaire"
 msgstr ""
 
-#: View/Elements/file_table.ctp:196
-#: View/Elements/folder_table.ctp:164
+#: View/Elements/file_table.ctp:198
 msgid "Dernier commentaire le %s à %s par %s"
 msgstr ""
 
-#: View/Elements/file_table.ctp:235
-#: View/Elements/folder_table.ctp:203
+#: View/Elements/file_table.ctp:237
 msgid "File Tags"
 msgstr ""
 
-#: View/Elements/file_table.ctp:249;295
-#: View/Elements/folder_table.ctp:217
+#: View/Elements/file_table.ctp:251;297
 msgid "Supprimer le fichier"
 msgstr ""
 
-#: View/Elements/file_table.ctp:255;301
-#: View/Elements/folder_table.ctp:223
+#: View/Elements/file_table.ctp:257;303
 msgid "You are about to delete file \"%s\". Are you sure ?"
+msgstr ""
+
+#: View/Elements/file_table.ctp:315
+msgid "Aucun résultat pour cette recherche, veuillez mettre à jour votre recherche et réessayer"
 msgstr ""
 
 #: View/Elements/folder_table.ctp:4
@@ -288,39 +283,39 @@ msgstr ""
 msgid "Recherche avancée"
 msgstr ""
 
-#: View/Elements/search.ctp:36
+#: View/Elements/search.ctp:39
 msgid "Auteur du fichier"
 msgstr ""
 
-#: View/Elements/search.ctp:36
+#: View/Elements/search.ctp:39
 msgid "Utilisateur"
 msgstr ""
 
-#: View/Elements/search.ctp:36
+#: View/Elements/search.ctp:39
 msgid "Tous"
 msgstr ""
 
-#: View/Elements/search.ctp:43
+#: View/Elements/search.ctp:46
 msgid "1 Mo"
 msgstr ""
 
-#: View/Elements/search.ctp:47
+#: View/Elements/search.ctp:50
 msgid "5 Mo"
 msgstr ""
 
-#: View/Elements/search.ctp:51
+#: View/Elements/search.ctp:54
 msgid "Date min"
 msgstr ""
 
-#: View/Elements/search.ctp:55
+#: View/Elements/search.ctp:58
 msgid "Date max"
 msgstr ""
 
-#: View/Elements/search.ctp:60
+#: View/Elements/search.ctp:63
 msgid "File tags"
 msgstr ""
 
-#: View/Elements/search.ctp:65
+#: View/Elements/search.ctp:68
 msgid "Rechercher"
 msgstr ""
 
