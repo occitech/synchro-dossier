@@ -928,7 +928,6 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->assertEquals('aftername',  $file['UploadedFile']['filename']);
 	}
 
-
 	private function __getLatestUploadedFiled()
 	{
 		return $this->UploadedFile->find('first', array(
