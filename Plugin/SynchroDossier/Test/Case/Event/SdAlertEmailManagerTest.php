@@ -83,7 +83,7 @@ class SdAlertEmailManagerTest extends CroogoTestCase {
 
 	private function __mockCakeEmailAndCheckSendCount($numberOfEmailToBeSend, $extraMethods = array()) {
 		$methods = array_merge(
-			array('template', 'theme', 'emailFormat', 'from', 'to', 'subject', 'viewVars', 'send'),
+			array('config', 'template', 'theme', 'emailFormat', 'from', 'to', 'subject', 'viewVars', 'send'),
 			$extraMethods
 		);
 
