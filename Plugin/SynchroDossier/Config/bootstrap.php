@@ -59,6 +59,8 @@ Configure::write('Asset.timestamp', 'force');
 
 CakePlugin::load('DbMigration');
 
+Configure::write('sd.chosen.no_results_text', __d('synchro_dossier', 'Aucun résultat trouvé pour'));
+
 Configure::write('sd.tooltip', array(
 	'quota' => array(
 		'trigger' => 'hover',
