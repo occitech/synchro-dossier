@@ -53,7 +53,7 @@ msgstr "L'information fournie est incorrecte"
 #: Controller/FilesController.php:337
 #: Test/Case/Controller/FilesControllerTest.php:143
 msgid "Home"
-msgstr "Racine"
+msgstr "Accueil"
 
 #: Controller/FilesController.php:371;387
 msgid "Le dossier a correctement été créé"

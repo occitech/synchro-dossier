@@ -302,10 +302,11 @@ class FilesController extends UploaderAppController {
 				)
 			)
 		));
-
+		$isRootFolder = false;
 		$this->UploadedFile->order = 'UploadedFile.is_folder DESC';
 		if (is_null($folderId)) {
 			$this->paginate = array('findType' => 'rootDirectories');
+			$isRootFolder = true;
 		} else {
 			$this->paginate = array(
 				'conditions' => array('UploadedFile.parent_id' => $folderId),
@@ -340,7 +341,7 @@ class FilesController extends UploaderAppController {
 			'{n}.UploadedFile.filename'
 		);
 
-		$this->set(compact('files', 'folderId', 'parentId', 'superAdmins', 'folderTree'));
+		$this->set(compact('files', 'folderId', 'parentId', 'superAdmins', 'folderTree', 'isRootFolder'));
 	}
 
 	public function find() {
