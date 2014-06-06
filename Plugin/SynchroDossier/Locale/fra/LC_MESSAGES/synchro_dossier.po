@@ -1,9 +1,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: \n"
-"POT-Creation-Date: 2014-06-06 09:32+0200\n"
+"POT-Creation-Date: 2014-06-06 16:32+0200\n"
 "PO-Revision-Date: \n"
-"Last-Translator: Damien Biasotto <damien.biasotto@gmail.com>\n"
+"Last-Translator: \n"
 "Language-Team: \n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
@@ -132,7 +132,7 @@ msgstr "Ajouter une nouvelle version de"
 msgid "Ajouter une nouvelle version"
 msgstr "Ajouter une nouvelle version"
 
-#: View/Elements/addSharingModal.ctp:4;29 View/Elements/sidebar.ctp:76
+#: View/Elements/addSharingModal.ctp:4;29 View/Elements/sidebar.ctp:80
 msgid "Créer un dossier"
 msgstr "Créer un dossier"
 
@@ -140,7 +140,7 @@ msgstr "Créer un dossier"
 msgid "Nom du dossier"
 msgstr "Nom du dossier"
 
-#: View/Elements/createFolderModal.ctp:4 View/Elements/sidebar.ctp:46
+#: View/Elements/createFolderModal.ctp:4 View/Elements/sidebar.ctp:50
 msgid "Créer un sous dossier"
 msgstr "Créer un sous dossier"
 
@@ -160,36 +160,29 @@ msgstr "Commentaires"
 msgid "File tags"
 msgstr "Mots-clés"
 
-#: View/Elements/navbar.ctp:4
-msgid "Espace client"
-msgstr "Espace client"
-
-#: View/Elements/navbar.ctp:9
+#: View/Elements/navbar.ctp:14
 msgid "Accueil"
 msgstr "Accueil"
 
-#: View/Elements/navbar.ctp:16
-msgid "Liste des Utilisateurs"
+#: View/Elements/navbar.ctp:21
+#, fuzzy
+msgid "Utilisateurs"
 msgstr "Liste des Utilisateurs"
 
-#: View/Elements/navbar.ctp:26
-msgid "Bonjour %s"
-msgstr "Bonjour %s"
-
-#: View/Elements/navbar.ctp:29
+#: View/Elements/navbar.ctp:38
 msgid "Profil"
 msgstr "Profil"
 
-#: View/Elements/navbar.ctp:42
+#: View/Elements/navbar.ctp:53
 #, fuzzy
 msgid "Alertes"
 msgstr "Alertes"
 
-#: View/Elements/navbar.ctp:56
+#: View/Elements/navbar.ctp:67
 msgid "Déconnexion"
 msgstr "Déconnexion"
 
-#: View/Elements/navbar.ctp:71
+#: View/Elements/navbar.ctp:82
 msgid "Connexion"
 msgstr "Connexion"
 
@@ -216,23 +209,23 @@ msgstr "Renommer"
 msgid "Votre Quota"
 msgstr "Votre Quota"
 
-#: View/Elements/sidebar.ctp:22
-msgid "Mes Dossiers"
-msgstr "Mes Dossiers"
+#: View/Elements/sidebar.ctp:26
+msgid "Partages"
+msgstr "Partages"
 
-#: View/Elements/sidebar.ctp:40
+#: View/Elements/sidebar.ctp:44
 msgid "Actions"
 msgstr "Actions"
 
-#: View/Elements/sidebar.ctp:60
+#: View/Elements/sidebar.ctp:64
 msgid "Partager ce dossier"
 msgstr "Partager ce dossier"
 
-#: View/Elements/sidebar.ctp:90
+#: View/Elements/sidebar.ctp:94
 msgid "Recherche"
 msgstr "Recherche"
 
-#: View/Elements/sidebar.ctp:99
+#: View/Elements/sidebar.ctp:103
 msgid "Super Administrateurs"
 msgstr "Super Administrateurs"
 
@@ -362,7 +355,7 @@ msgstr "S'abonner"
 msgid "unsubscribe"
 msgstr "Se désabonner"
 
-#: View/Layouts/default.ctp:74 View/Layouts/login.ctp:46
+#: View/Layouts/default.ctp:76 View/Layouts/login.ctp:46
 msgid "Propulsé par"
 msgstr "Propulsé par"
 
@@ -385,6 +378,15 @@ msgstr "Sauver"
 #: View/SdInformations/admin_quota.ctp:27
 msgid "Annuler"
 msgstr "Annuler"
+
+#~ msgid "Espace client"
+#~ msgstr "Espace client"
+
+#~ msgid "Bonjour %s"
+#~ msgstr "Bonjour %s"
+
+#~ msgid "Mes Dossiers"
+#~ msgstr "Mes Dossiers"
 
 #~ msgid "Il n'y a plus de place pour ce dossier"
 #~ msgstr "Il n'y a plus de place pour ce dossier"

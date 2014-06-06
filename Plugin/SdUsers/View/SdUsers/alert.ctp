@@ -34,9 +34,9 @@ if (Configure::check('sd.tooltip.email_alert')) {
 	<?php if (!empty($folders)): ?>
 		<table class="table table-stripped">
 			<thead>
-				<th><?= $this->Paginator->sort('filename', __d('sd_users', 'Dossier')); ?></th>
-				<th><?= $this->Paginator->sort('created', __d('sd_users', 'Date')) ?></th>
-				<th><?= $this->Paginator->sort('uploader_name', __d('sd_users', 'Creator')) ?></th>
+				<th><?= $this->Paginator->sort('filename', __d('sd_users', 'Partages')); ?></th>
+				<th><?= $this->Paginator->sort('created', __d('sd_users', 'Dernière modification')) ?></th>
+				<th><?= $this->Paginator->sort('uploader_name', __d('sd_users', 'Ajouté par')) ?></th>
 				<th><?= __d('sd_users', 'Rights') . ' ' . $rightHelp?> </th>
 				<th><?= __d('sd_users', 'Notifications') . ' ' . $alertHelp?></th>
 			</thead>
@@ -45,7 +45,7 @@ if (Configure::check('sd.tooltip.email_alert')) {
 			<?php if ($this->UploaderAcl->userCan($folder['Aco'],'read')): ?>
 				<tr>
 					<td><?= $folder['UploadedFile']['filename']; ?></td>
-					<td><?= $folder['UploadedFile']['created']; ?></td>
+					<td><?= $folder['UploadedFile']['modified']; ?></td>
 					<td><?= $folder['UploadedFile']['uploader_name']; ?></td>
 					<td><?= $this->SynchroDossier->displayRights($folder['Aco']['Aro'])?></td>
 					<td><?php echo $this->SynchroDossier->displaySubscriptionInput($folder, $user['User']['id'], $emailsAlerts);?></td>

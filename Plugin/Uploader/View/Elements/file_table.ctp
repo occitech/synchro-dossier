@@ -1,8 +1,8 @@
 <table class="table table-hover">
 	<thead>
 		<tr>
-			<th><?= $this->Paginator->sort('filename', __d('uploader', 'Fichier')); ?></th>
-			<th><?= $this->Paginator->sort('uploader_name', __d('uploader', 'Auteur')); ?></th>
+			<th><?= $this->Paginator->sort('filename', __d('uploader', 'Nom')); ?></th>
+			<th><?= $this->Paginator->sort('uploader_name', __d('uploader', 'Ajouté par')); ?></th>
 			<th><?= $this->Paginator->sort('created', __d('uploader', 'Dernière modification')) ?></th>
 			<th><?= $this->Paginator->sort('size', __d('uploader', 'Taille')) ?></th>
 			<th><?= $this->Paginator->sort('mime_type', __d('uploader', 'Type')) ?></th>
@@ -123,7 +123,7 @@
 								<?php endif ?>
 								<?php if (!$this->SynchroDossier->hasUserRole(CakeSession::read('Auth.User.role_id')) && $this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
 									<?= $this->Html->link(
-										__d('uploader', '<i class="icon-remove"></i>'),
+										__d('uploader', '<i class="icon-trash"></i>'),
 										array('controller' => 'files', 'action' => 'deleteFolder', $file['UploadedFile']['id']),
 										array(
 											'rel' => 'tooltip',
@@ -242,7 +242,7 @@
 								); ?>
 								<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
 									<?= $this->Html->link(
-										__d('uploader', '<i class="icon-remove"></i>'),
+										__d('uploader', '<i class="icon-trash"></i>'),
 										array('controller' => 'files', 'action' => 'deleteFile', $file['UploadedFile']['id'], $lastVersion['id']),
 										array(
 											'rel' => 'tooltip',
@@ -288,7 +288,7 @@
 							<td>
 								<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
 									<?= $this->Html->link(
-										__d('uploader', '<i class="icon-remove"></i>'),
+										__d('uploader', '<i class="icon-trash"></i>'),
 										array('controller' => 'files', 'action' => 'deleteFile', $file['UploadedFile']['id'], $fileVersion['id']),
 										array(
 											'rel' => 'tooltip',

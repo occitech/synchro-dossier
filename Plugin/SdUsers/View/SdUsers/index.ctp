@@ -50,7 +50,7 @@
 								'',
 								array('action' => 'delete',	$user['User']['id']),
 								array(
-									'icon' => 'remove',
+									'icon' => 'trash',
 									'tooltip' => __d('sd_users', 'Supprimer cet utilisateur'),
 									'class' => 'red',
 									'escape' => false

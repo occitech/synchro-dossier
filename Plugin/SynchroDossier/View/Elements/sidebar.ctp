@@ -23,7 +23,7 @@
 		<?php endif ?>
 		<li class="nav-header">
 			<?= $this->Html->link(
-				__d('synchro_dossier', 'Mes Dossiers'),
+				__d('synchro_dossier', 'Partages'),
 				array(
 					'plugin' => 'uploader',
 					'controller' => 'files',

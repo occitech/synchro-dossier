@@ -7,7 +7,6 @@
 <div class="navbar">
 	<div class="navbar-inner">
 		<ul class="nav">
-			<li><?= $this->Html->link(__d('synchro_dossier', 'Espace client'), '/', array('class' => 'brand')); ?></li>
 			<li <?php if($this->SynchroDossier->routeIsActive(array(
 				'plugin' => 'uploader',
 				'controller' => 'files',
@@ -19,13 +18,13 @@
 					'plugin' => 'sd_users',
 					'controller' => 'sd_users',
 					'action' => 'index'
-				))) {echo 'class="active"';}?>><?= $this->Html->link(__d('synchro_dossier', 'Liste des Utilisateurs'), array(
+				))) {echo 'class="active"';}?>><?= $this->Html->link(__d('synchro_dossier', 'Utilisateurs'), array(
 					'plugin' => 'sd_users',
 					'controller' => 'sd_users',
 					'action' => 'index'
 				), array(
 					'data-event' => 'ga',
-					'data-category' => 'Liste des utilisateurs',
+					'data-category' => 'Utilisateurs',
 					'data-action' => 'click',
 				)); ?></li>
 			<?php endif ?>

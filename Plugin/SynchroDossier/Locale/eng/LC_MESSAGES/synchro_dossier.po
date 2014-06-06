@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-06-05 18:18+0200\n"
-"PO-Revision-Date: 2014-06-05 18:20+0100\n"
+"POT-Creation-Date: 2014-06-06 16:32+0200\n"
+"PO-Revision-Date: 2014-06-06 16:33+0100\n"
 "Last-Translator: \n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
 "MIME-Version: 1.0\n"
@@ -64,6 +64,8 @@ msgid ""
 "consulter ce dossier.<br/><br/>\n"
 "\t\t\t<strong><em>Lecture : &nbsp;</em></strong>Peut voir et consulter le "
 "contenu du dossier.<br/><br/>\n"
+"\t\t\t<strong><em>Renommage : &nbsp;</em></strong>Permet de renommer les "
+"fichiers et dossiers.<br/><br/>\n"
 "\t\t\t<strong><em>Création / Envoi : &nbsp;</em></strong>Peut envoyer des "
 "fichiers dans la boite d'envoi et créer des répertoires.<br/><br/>\n"
 "\t\t\t<strong><em>Suppression : &nbsp;</em></strong>Peut supprimer des "
@@ -72,11 +74,11 @@ msgid ""
 "droits des utilisateurs de la boite d'envoi.<br/><br/>"
 msgstr ""
 
-#: Config/bootstrap.php:98
+#: Config/bootstrap.php:99
 msgid "Qu'est-ce qu'une alerte email ?"
 msgstr ""
 
-#: Config/bootstrap.php:99
+#: Config/bootstrap.php:100
 msgid ""
 "<strong><em>Alerte Email : &nbsp;</em></strong> Vous envoie un E-mail "
 "d'alerte automatique et instantané dès qu'un nouveau fichier est envoyé par "
@@ -103,7 +105,7 @@ msgstr "Add a new version of"
 msgid "Ajouter une nouvelle version"
 msgstr "Add a new version"
 
-#: View/Elements/addSharingModal.ctp:4;29 View/Elements/sidebar.ctp:76
+#: View/Elements/addSharingModal.ctp:4;29 View/Elements/sidebar.ctp:80
 msgid "Créer un dossier"
 msgstr "Create a folder"
 
@@ -111,7 +113,7 @@ msgstr "Create a folder"
 msgid "Nom du dossier"
 msgstr "Folder name"
 
-#: View/Elements/createFolderModal.ctp:4 View/Elements/sidebar.ctp:46
+#: View/Elements/createFolderModal.ctp:4 View/Elements/sidebar.ctp:50
 msgid "Créer un sous dossier"
 msgstr "Create a subfolder"
 
@@ -131,35 +133,27 @@ msgstr "Comments"
 msgid "File tags"
 msgstr "File tags"
 
-#: View/Elements/navbar.ctp:4
-msgid "Espace client"
-msgstr "Customer area"
-
-#: View/Elements/navbar.ctp:9
+#: View/Elements/navbar.ctp:14
 msgid "Accueil"
 msgstr "Home"
 
-#: View/Elements/navbar.ctp:16
-msgid "Liste des Utilisateurs"
-msgstr "Users list"
+#: View/Elements/navbar.ctp:21
+msgid "Utilisateurs"
+msgstr "Users"
 
-#: View/Elements/navbar.ctp:26
-msgid "Bonjour %s"
-msgstr "Welcome %s"
-
-#: View/Elements/navbar.ctp:29
+#: View/Elements/navbar.ctp:38
 msgid "Profil"
 msgstr "Profile"
 
-#: View/Elements/navbar.ctp:42
+#: View/Elements/navbar.ctp:53
 msgid "Alertes"
 msgstr "Alerts"
 
-#: View/Elements/navbar.ctp:56
+#: View/Elements/navbar.ctp:67
 msgid "Déconnexion"
 msgstr "Logout"
 
-#: View/Elements/navbar.ctp:71
+#: View/Elements/navbar.ctp:82
 msgid "Connexion"
 msgstr "Login"
 
@@ -186,23 +180,23 @@ msgstr "Rename"
 msgid "Votre Quota"
 msgstr "Your Quota"
 
-#: View/Elements/sidebar.ctp:22
-msgid "Mes Dossiers"
-msgstr "My Folders"
+#: View/Elements/sidebar.ctp:26
+msgid "Partages"
+msgstr "Sharings"
 
-#: View/Elements/sidebar.ctp:40
+#: View/Elements/sidebar.ctp:44
 msgid "Actions"
 msgstr "Actions"
 
-#: View/Elements/sidebar.ctp:60
+#: View/Elements/sidebar.ctp:64
 msgid "Partager ce dossier"
 msgstr "Share this folder"
 
-#: View/Elements/sidebar.ctp:90
+#: View/Elements/sidebar.ctp:94
 msgid "Recherche"
 msgstr "Search"
 
-#: View/Elements/sidebar.ctp:99
+#: View/Elements/sidebar.ctp:103
 msgid "Super Administrateurs"
 msgstr "Super Administrator"
 
@@ -298,30 +292,34 @@ msgid "Delete"
 msgstr "Delete"
 
 #: View/Helper/SynchroDossierHelper.php:77
+msgid "Rename"
+msgstr "Rename"
+
+#: View/Helper/SynchroDossierHelper.php:78
 msgid "Create"
 msgstr "Create"
 
-#: View/Helper/SynchroDossierHelper.php:78
+#: View/Helper/SynchroDossierHelper.php:79
 msgid "Change Right"
 msgstr "Change Right"
 
-#: View/Helper/SynchroDossierHelper.php:100
+#: View/Helper/SynchroDossierHelper.php:101
 msgid "Subscribe to email alert"
 msgstr "Subscribe to email alert"
 
-#: View/Helper/SynchroDossierHelper.php:104
+#: View/Helper/SynchroDossierHelper.php:105
 msgid "Unsubscribe to email alert"
 msgstr "Unsubscribe to email alert"
 
-#: View/Helper/SynchroDossierHelper.php:127
+#: View/Helper/SynchroDossierHelper.php:128
 msgid "You're about to %s to email alert for folder %s. Are you sure ?"
 msgstr "You're about to %s to email alert for folder %s. Are you sure ?"
 
-#: View/Helper/SynchroDossierHelper.php:130
+#: View/Helper/SynchroDossierHelper.php:131
 msgid "subscribe"
 msgstr "subscribe"
 
-#: View/Helper/SynchroDossierHelper.php:130
+#: View/Helper/SynchroDossierHelper.php:131
 msgid "unsubscribe"
 msgstr "unsubscribe"
 
@@ -348,6 +346,15 @@ msgstr "Save"
 #: View/SdInformations/admin_quota.ctp:27
 msgid "Annuler"
 msgstr "Cancel"
+
+#~ msgid "Espace client"
+#~ msgstr "Customer area"
+
+#~ msgid "Bonjour %s"
+#~ msgstr "Welcome %s"
+
+#~ msgid "Mes Dossiers"
+#~ msgstr "My Folders"
 
 #~ msgid "Il n'y a plus de place pour ce dossier"
 #~ msgstr "There is no more free space for this folder. "

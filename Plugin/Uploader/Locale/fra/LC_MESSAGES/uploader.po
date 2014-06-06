@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Uploader\n"
-"POT-Creation-Date: 2014-06-06 15:32+0200\n"
-"PO-Revision-Date: 2014-06-06 15:33+0100\n"
+"POT-Creation-Date: 2014-06-06 16:28+0200\n"
+"PO-Revision-Date: 2014-06-06 16:32+0100\n"
 "Last-Translator: \n"
 "Language-Team: Occitech <contact@occitech.fr>\n"
 "Language: fr_FR\n"
@@ -51,7 +51,7 @@ msgid "Given information are incorrect"
 msgstr "L'information fournie est incorrecte"
 
 #: Controller/FilesController.php:339
-#: Test/Case/Controller/FilesControllerTest.php:143
+#: Test/Case/Controller/FilesControllerTest.php:195
 msgid "Home"
 msgstr "Accueil"
 
@@ -113,35 +113,35 @@ msgstr "Numéro d'utilisateur invalide : %s"
 msgid "Invalid folder or file with id #%s"
 msgstr "Numéro de dossier ou fichier invalide : %s"
 
-#: Model/UploadedFile.php:407;472
+#: Model/UploadedFile.php:409;474
 msgid "Invalid user with id#%s"
 msgstr "Numéro d'utilisateur invalide : %s"
 
-#: Model/UploadedFile.php:410
+#: Model/UploadedFile.php:412
 msgid "Invalid Folder with id#%s"
 msgstr "Numéro de dossier invalide : %s"
 
-#: Model/UploadedFile.php:413
+#: Model/UploadedFile.php:415
 msgid "Current id %s is not a folder"
 msgstr "Le numéro %s n'est pas un dossier"
 
-#: Model/UploadedFile.php:475
+#: Model/UploadedFile.php:477
 msgid "Invalid File with id#%s"
 msgstr "Numéro de fichier invalide : %s"
 
-#: Model/UploadedFile.php:581
+#: Model/UploadedFile.php:583
 msgid "Le fichier doit avoir la même extension que le fichier d'origine"
 msgstr "Le fichier doit avoir la même extension que le fichier d'origine"
 
-#: Model/UploadedFile.php:624
+#: Model/UploadedFile.php:626
 msgid "La taille du fichier dépasse la limite autorisée"
 msgstr "La taille du fichier dépasse la limite autorisée"
 
-#: Model/UploadedFile.php:627
+#: Model/UploadedFile.php:629
 msgid "Aucun fichier n'a été uploadé"
 msgstr "Aucun fichier n'a été uploadé"
 
-#: Model/UploadedFile.php:630
+#: Model/UploadedFile.php:632
 msgid "Il y a eu une erreur pendant l'upload de votre fichier"
 msgstr "Il y a eu une erreur pendant l'upload de votre fichier"
 
@@ -150,12 +150,12 @@ msgid "Poster votre commentaire"
 msgstr "Poster votre commentaire"
 
 #: View/Elements/file_table.ctp:4
-msgid "Fichier"
-msgstr "Fichier"
+msgid "Nom"
+msgstr "Nom"
 
 #: View/Elements/file_table.ctp:5 View/Elements/folder_table.ctp:5
-msgid "Auteur"
-msgstr "Auteur"
+msgid "Ajouté par"
+msgstr "Ajouté par"
 
 #: View/Elements/file_table.ctp:6 View/Elements/folder_table.ctp:6
 msgid "Dernière modification"
@@ -200,8 +200,9 @@ msgstr "Gérer les droits"
 
 #: View/Elements/file_table.ctp:126;245;291
 #: View/Elements/folder_table.ctp:94;213
-msgid "<i class=\"icon-remove\"></i>"
-msgstr "<i class=\"icon-remove\"></i>"
+#, fuzzy
+msgid "<i class=\"icon-trash\"></i>"
+msgstr "<i class=\"icon-user\"></i>"
 
 #: View/Elements/file_table.ctp:130 View/Elements/folder_table.ctp:98
 msgid "Supprimer le dossier"
@@ -353,32 +354,33 @@ msgid "Rename"
 msgstr "Renommer"
 
 #: View/Files/rights.ctp:14
-msgid "Share the folder \"%s\" with other people"
-msgstr "Partager le dossier \"%s\" avec d'autres personnes"
+msgid "Share \"%s\""
+msgstr "Partager \"%s\""
 
 #: View/Files/rights.ctp:25
 msgid "Select user"
 msgstr "Choisir un utilisateur"
 
 #: View/Files/rights.ctp:27
-msgid "Share folder"
-msgstr "Partager le dossier"
+msgid "Share"
+msgstr "Partager"
 
 #: View/Files/rights.ctp:33
 msgid "Name"
 msgstr "Nom"
 
 #: View/Files/rights.ctp:34
-msgid "Lecture"
-msgstr "Lecture"
+msgid "Lire"
+msgstr "Lire"
 
 #: View/Files/rights.ctp:35
-msgid "Upload"
-msgstr "Envoi"
+msgid "Écrire"
+msgstr "Écrire"
 
 #: View/Files/rights.ctp:36
-msgid "Suppression"
-msgstr "Suppression"
+#, fuzzy
+msgid "Supprimer"
+msgstr "Supprimer le dossier"
 
 #: View/Files/rights.ctp:37
 msgid "Renommer"
@@ -392,9 +394,9 @@ msgstr "Activer/Désactiver l'alerte email"
 msgid "This User has all rights on this folder"
 msgstr "Cet utilisateur a tous les droits sur ce dossier"
 
-#: View/Files/rights.ctp:156
-msgid "Supprimer l'utilisateur de ce dossier"
-msgstr "Supprimer l'utilisateur de ce dossier"
+#: View/Files/rights.ctp:166
+msgid "Ne plus partager avec cet utilisateur"
+msgstr "Ne plus partager avec cet utilisateur"
 
 #: View/Files/upload.ctp:13
 msgid ""
@@ -427,6 +429,33 @@ msgstr "Ce champs ne peut être laissé vide"
 #: Model/UploadedFile.php:validation for field filename
 msgid "Ce nom est déjà utilisé par un autre fichier"
 msgstr "Ce nom est déjà utilisé par un autre fichier"
+
+#~ msgid "Fichier"
+#~ msgstr "Fichier"
+
+#~ msgid "Auteur"
+#~ msgstr "Auteur"
+
+#~ msgid "<i class=\"icon-remove\"></i>"
+#~ msgstr "<i class=\"icon-remove\"></i>"
+
+#~ msgid "Share the folder \"%s\" with other people"
+#~ msgstr "Partager le dossier \"%s\" avec d'autres personnes"
+
+#~ msgid "Share folder"
+#~ msgstr "Partager le dossier"
+
+#~ msgid "Lecture"
+#~ msgstr "Lecture"
+
+#~ msgid "Upload"
+#~ msgstr "Envoi"
+
+#~ msgid "Suppression"
+#~ msgstr "Suppression"
+
+#~ msgid "Supprimer l'utilisateur de ce dossier"
+#~ msgstr "Supprimer l'utilisateur de ce dossier"
 
 #~ msgid "Date"
 #~ msgstr "Date"

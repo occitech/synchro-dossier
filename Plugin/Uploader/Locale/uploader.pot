@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-06-06 15:32+0200\n"
+"POT-Creation-Date: 2014-06-06 16:28+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -35,7 +35,7 @@ msgid "Given information are incorrect"
 msgstr ""
 
 #: Controller/FilesController.php:339
-#: Test/Case/Controller/FilesControllerTest.php:143
+#: Test/Case/Controller/FilesControllerTest.php:195
 msgid "Home"
 msgstr ""
 
@@ -93,35 +93,35 @@ msgstr ""
 msgid "Invalid folder or file with id #%s"
 msgstr ""
 
-#: Model/UploadedFile.php:407;472
+#: Model/UploadedFile.php:409;474
 msgid "Invalid user with id#%s"
 msgstr ""
 
-#: Model/UploadedFile.php:410
+#: Model/UploadedFile.php:412
 msgid "Invalid Folder with id#%s"
 msgstr ""
 
-#: Model/UploadedFile.php:413
+#: Model/UploadedFile.php:415
 msgid "Current id %s is not a folder"
 msgstr ""
 
-#: Model/UploadedFile.php:475
+#: Model/UploadedFile.php:477
 msgid "Invalid File with id#%s"
 msgstr ""
 
-#: Model/UploadedFile.php:581
+#: Model/UploadedFile.php:583
 msgid "Le fichier doit avoir la même extension que le fichier d'origine"
 msgstr ""
 
-#: Model/UploadedFile.php:624
+#: Model/UploadedFile.php:626
 msgid "La taille du fichier dépasse la limite autorisée"
 msgstr ""
 
-#: Model/UploadedFile.php:627
+#: Model/UploadedFile.php:629
 msgid "Aucun fichier n'a été uploadé"
 msgstr ""
 
-#: Model/UploadedFile.php:630
+#: Model/UploadedFile.php:632
 msgid "Il y a eu une erreur pendant l'upload de votre fichier"
 msgstr ""
 
@@ -130,12 +130,12 @@ msgid "Poster votre commentaire"
 msgstr ""
 
 #: View/Elements/file_table.ctp:4
-msgid "Fichier"
+msgid "Nom"
 msgstr ""
 
 #: View/Elements/file_table.ctp:5
 #: View/Elements/folder_table.ctp:5
-msgid "Auteur"
+msgid "Ajouté par"
 msgstr ""
 
 #: View/Elements/file_table.ctp:6
@@ -190,7 +190,7 @@ msgstr ""
 
 #: View/Elements/file_table.ctp:126;245;291
 #: View/Elements/folder_table.ctp:94;213
-msgid "<i class=\"icon-remove\"></i>"
+msgid "<i class=\"icon-trash\"></i>"
 msgstr ""
 
 #: View/Elements/file_table.ctp:130
@@ -355,7 +355,7 @@ msgid "Rename"
 msgstr ""
 
 #: View/Files/rights.ctp:14
-msgid "Share the folder \"%s\" with other people"
+msgid "Share \"%s\""
 msgstr ""
 
 #: View/Files/rights.ctp:25
@@ -363,7 +363,7 @@ msgid "Select user"
 msgstr ""
 
 #: View/Files/rights.ctp:27
-msgid "Share folder"
+msgid "Share"
 msgstr ""
 
 #: View/Files/rights.ctp:33
@@ -371,15 +371,15 @@ msgid "Name"
 msgstr ""
 
 #: View/Files/rights.ctp:34
-msgid "Lecture"
+msgid "Lire"
 msgstr ""
 
 #: View/Files/rights.ctp:35
-msgid "Upload"
+msgid "Écrire"
 msgstr ""
 
 #: View/Files/rights.ctp:36
-msgid "Suppression"
+msgid "Supprimer"
 msgstr ""
 
 #: View/Files/rights.ctp:37
@@ -394,8 +394,8 @@ msgstr ""
 msgid "This User has all rights on this folder"
 msgstr ""
 
-#: View/Files/rights.ctp:156
-msgid "Supprimer l'utilisateur de ce dossier"
+#: View/Files/rights.ctp:166
+msgid "Ne plus partager avec cet utilisateur"
 msgstr ""
 
 #: View/Files/upload.ctp:13

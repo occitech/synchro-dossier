@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Uploader\n"
-"POT-Creation-Date: 2014-06-06 15:32+0200\n"
-"PO-Revision-Date: 2014-06-06 15:34+0100\n"
+"POT-Creation-Date: 2014-06-06 16:28+0200\n"
+"PO-Revision-Date: 2014-06-06 16:40+0100\n"
 "Last-Translator: \n"
 "Language-Team: Occitech\n"
 "Language: en\n"
@@ -50,7 +50,7 @@ msgid "Given information are incorrect"
 msgstr "Given information are incorrect"
 
 #: Controller/FilesController.php:339
-#: Test/Case/Controller/FilesControllerTest.php:143
+#: Test/Case/Controller/FilesControllerTest.php:195
 msgid "Home"
 msgstr "Home"
 
@@ -111,35 +111,35 @@ msgstr "Invalid user with id#%s"
 msgid "Invalid folder or file with id #%s"
 msgstr "Invalid Folder with id#%s"
 
-#: Model/UploadedFile.php:407;472
+#: Model/UploadedFile.php:409;474
 msgid "Invalid user with id#%s"
 msgstr "Invalid user with id#%s"
 
-#: Model/UploadedFile.php:410
+#: Model/UploadedFile.php:412
 msgid "Invalid Folder with id#%s"
 msgstr "Invalid Folder with id#%s"
 
-#: Model/UploadedFile.php:413
+#: Model/UploadedFile.php:415
 msgid "Current id %s is not a folder"
 msgstr "Current id %s is not a folder"
 
-#: Model/UploadedFile.php:475
+#: Model/UploadedFile.php:477
 msgid "Invalid File with id#%s"
 msgstr "Invalid File with id#%s"
 
-#: Model/UploadedFile.php:581
+#: Model/UploadedFile.php:583
 msgid "Le fichier doit avoir la même extension que le fichier d'origine"
 msgstr "The file must have the same extension than the original one"
 
-#: Model/UploadedFile.php:624
+#: Model/UploadedFile.php:626
 msgid "La taille du fichier dépasse la limite autorisée"
 msgstr "File size exceeds the authorized limit"
 
-#: Model/UploadedFile.php:627
+#: Model/UploadedFile.php:629
 msgid "Aucun fichier n'a été uploadé"
 msgstr "No file was uploaded"
 
-#: Model/UploadedFile.php:630
+#: Model/UploadedFile.php:632
 msgid "Il y a eu une erreur pendant l'upload de votre fichier"
 msgstr "There was an error while uploading your file"
 
@@ -148,12 +148,12 @@ msgid "Poster votre commentaire"
 msgstr "Post a comment"
 
 #: View/Elements/file_table.ctp:4
-msgid "Fichier"
-msgstr "File"
+msgid "Nom"
+msgstr "Name"
 
 #: View/Elements/file_table.ctp:5 View/Elements/folder_table.ctp:5
-msgid "Auteur"
-msgstr "Author"
+msgid "Ajouté par"
+msgstr "Added by"
 
 #: View/Elements/file_table.ctp:6 View/Elements/folder_table.ctp:6
 msgid "Dernière modification"
@@ -198,8 +198,8 @@ msgstr "Manage rights"
 
 #: View/Elements/file_table.ctp:126;245;291
 #: View/Elements/folder_table.ctp:94;213
-msgid "<i class=\"icon-remove\"></i>"
-msgstr "<i class=\"icon-remove\"></i>"
+msgid "<i class=\"icon-trash\"></i>"
+msgstr "<i class=\"icon-trash\"></i>"
 
 #: View/Elements/file_table.ctp:130 View/Elements/folder_table.ctp:98
 msgid "Supprimer le dossier"
@@ -352,32 +352,33 @@ msgid "Rename"
 msgstr "Rename"
 
 #: View/Files/rights.ctp:14
-msgid "Share the folder \"%s\" with other people"
-msgstr "Share the folder \"%s\" with other people"
+msgid "Share \"%s\""
+msgstr "Share \"%s\""
 
 #: View/Files/rights.ctp:25
 msgid "Select user"
 msgstr "Select user"
 
 #: View/Files/rights.ctp:27
-msgid "Share folder"
-msgstr "Share folder"
+msgid "Share"
+msgstr "Share"
 
 #: View/Files/rights.ctp:33
 msgid "Name"
 msgstr "Name"
 
 #: View/Files/rights.ctp:34
-msgid "Lecture"
+msgid "Lire"
 msgstr "Read"
 
 #: View/Files/rights.ctp:35
-msgid "Upload"
-msgstr "Upload"
+msgid "Écrire"
+msgstr "Write"
 
 #: View/Files/rights.ctp:36
-msgid "Suppression"
-msgstr "Delete"
+#, fuzzy
+msgid "Supprimer"
+msgstr "Delete folder"
 
 #: View/Files/rights.ctp:37
 msgid "Renommer"
@@ -391,9 +392,9 @@ msgstr "Toggle mail"
 msgid "This User has all rights on this folder"
 msgstr "This User has all rights on this folder"
 
-#: View/Files/rights.ctp:156
-msgid "Supprimer l'utilisateur de ce dossier"
-msgstr "Delete this user from this directory"
+#: View/Files/rights.ctp:166
+msgid "Ne plus partager avec cet utilisateur"
+msgstr "Unshare"
 
 #: View/Files/upload.ctp:13
 msgid ""
@@ -426,6 +427,33 @@ msgstr "This field cannot be left empty"
 #: Model/UploadedFile.php:validation for field filename
 msgid "Ce nom est déjà utilisé par un autre fichier"
 msgstr "This name is already in use for another directory"
+
+#~ msgid "Fichier"
+#~ msgstr "File"
+
+#~ msgid "Auteur"
+#~ msgstr "Author"
+
+#~ msgid "<i class=\"icon-remove\"></i>"
+#~ msgstr "<i class=\"icon-remove\"></i>"
+
+#~ msgid "Share the folder \"%s\" with other people"
+#~ msgstr "Share the folder \"%s\" with other people"
+
+#~ msgid "Share folder"
+#~ msgstr "Share folder"
+
+#~ msgid "Lecture"
+#~ msgstr "Read"
+
+#~ msgid "Upload"
+#~ msgstr "Upload"
+
+#~ msgid "Suppression"
+#~ msgstr "Delete"
+
+#~ msgid "Supprimer l'utilisateur de ce dossier"
+#~ msgstr "Delete this user from this directory"
 
 #~ msgid "Date"
 #~ msgstr "Date"

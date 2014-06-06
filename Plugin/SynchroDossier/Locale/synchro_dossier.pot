@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-06-06 09:32+0200\n"
+"POT-Creation-Date: 2014-06-06 16:32+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -76,7 +76,7 @@ msgid "Ajouter une nouvelle version"
 msgstr ""
 
 #: View/Elements/addSharingModal.ctp:4;29
-#: View/Elements/sidebar.ctp:76
+#: View/Elements/sidebar.ctp:80
 msgid "Créer un dossier"
 msgstr ""
 
@@ -85,7 +85,7 @@ msgid "Nom du dossier"
 msgstr ""
 
 #: View/Elements/createFolderModal.ctp:4
-#: View/Elements/sidebar.ctp:46
+#: View/Elements/sidebar.ctp:50
 msgid "Créer un sous dossier"
 msgstr ""
 
@@ -105,35 +105,27 @@ msgstr ""
 msgid "File tags"
 msgstr ""
 
-#: View/Elements/navbar.ctp:4
-msgid "Espace client"
-msgstr ""
-
-#: View/Elements/navbar.ctp:9
+#: View/Elements/navbar.ctp:14
 msgid "Accueil"
 msgstr ""
 
-#: View/Elements/navbar.ctp:16
-msgid "Liste des Utilisateurs"
+#: View/Elements/navbar.ctp:21
+msgid "Utilisateurs"
 msgstr ""
 
-#: View/Elements/navbar.ctp:26
-msgid "Bonjour %s"
-msgstr ""
-
-#: View/Elements/navbar.ctp:29
+#: View/Elements/navbar.ctp:38
 msgid "Profil"
 msgstr ""
 
-#: View/Elements/navbar.ctp:42
+#: View/Elements/navbar.ctp:53
 msgid "Alertes"
 msgstr ""
 
-#: View/Elements/navbar.ctp:56
+#: View/Elements/navbar.ctp:67
 msgid "Déconnexion"
 msgstr ""
 
-#: View/Elements/navbar.ctp:71
+#: View/Elements/navbar.ctp:82
 msgid "Connexion"
 msgstr ""
 
@@ -159,23 +151,23 @@ msgstr ""
 msgid "Votre Quota"
 msgstr ""
 
-#: View/Elements/sidebar.ctp:22
-msgid "Mes Dossiers"
+#: View/Elements/sidebar.ctp:26
+msgid "Partages"
 msgstr ""
 
-#: View/Elements/sidebar.ctp:40
+#: View/Elements/sidebar.ctp:44
 msgid "Actions"
 msgstr ""
 
-#: View/Elements/sidebar.ctp:60
+#: View/Elements/sidebar.ctp:64
 msgid "Partager ce dossier"
 msgstr ""
 
-#: View/Elements/sidebar.ctp:90
+#: View/Elements/sidebar.ctp:94
 msgid "Recherche"
 msgstr ""
 
-#: View/Elements/sidebar.ctp:99
+#: View/Elements/sidebar.ctp:103
 msgid "Super Administrateurs"
 msgstr ""
 
@@ -287,7 +279,7 @@ msgstr ""
 msgid "unsubscribe"
 msgstr ""
 
-#: View/Layouts/default.ctp:74
+#: View/Layouts/default.ctp:76
 #: View/Layouts/login.ctp:46
 msgid "Propulsé par"
 msgstr ""
