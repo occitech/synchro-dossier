@@ -73,21 +73,19 @@
 					?>
 				</li>
 			<?php endif ?>
-		<?php else: ?>
-			<?php if ($this->UploaderAcl->userCanCreateSharing()): ?>
-				<li>
-					<?= $this->Html->link(
-						__d('synchro_dossier', 'Créer un dossier'),
-						'#addSharingModal',
-						array(
-							'class' => 'btn',
-							'role' => 'button',
-							'data-toggle' => 'modal',
-						)
-					);
-					?>
-				</li>
-			<?php endif ?>
+		<?php elseif ($this->UploaderAcl->userCanCreateSharing()): ?>
+			<li>
+				<?= $this->Html->link(
+					__d('synchro_dossier', 'Créer un dossier'),
+					'#addSharingModal',
+					array(
+						'class' => 'btn',
+						'role' => 'button',
+						'data-toggle' => 'modal',
+					)
+				);
+				?>
+			</li>
 		<?php endif ?>
 
 		<li class="nav-header">
