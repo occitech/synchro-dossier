@@ -44,7 +44,7 @@
 								?>
 								<?php else: ?>
 									<?= $this->Html->link(
-										__d('uploader', '<i class="icon-download-alt"></i>'),
+										'<i class="icon-download-alt"></i>',
 										array('controller' => 'files', 'action' => 'downloadZipFolder', $file['UploadedFile']['id']),
 										array(
 											'data-event' => 'ga',
@@ -79,7 +79,7 @@
 							<?php endif;?>
 							<?php if ($this->UploaderAcl->userCan($file['Aco'], 'change_right')): ?>
 								<?= $this->Html->link(
-									__d('uploader', '<i class="icon-user"></i>'),
+									'<i class="icon-user"></i>',
 									array('controller' => 'files', 'action' => 'rights', $file['UploadedFile']['id']),
 									array(
 										'rel' => 'tooltip',

@@ -79,7 +79,7 @@
 									?>
 									<?php else: ?>
 										<?= $this->Html->link(
-											__d('uploader', '<i class="icon-download-alt"></i>'),
+											'<i class="icon-download-alt"></i>',
 											array('controller' => 'files', 'action' => 'downloadZipFolder', $file['UploadedFile']['id']),
 											array(
 												'data-event' => 'ga',
@@ -114,7 +114,7 @@
 								<?php endif;?>
 								<?php if (is_null($folderId) && $this->UploaderAcl->userCan($file['Aco'], 'change_right')): ?>
 									<?= $this->Html->link(
-										__d('uploader', '<i class="icon-user"></i>'),
+										'<i class="icon-user"></i>',
 										array('controller' => 'files', 'action' => 'rights', $file['UploadedFile']['id']),
 										array(
 											'rel' => 'tooltip',
@@ -125,7 +125,7 @@
 								<?php endif ?>
 								<?php if (!$this->SynchroDossier->hasUserRole(CakeSession::read('Auth.User.role_id')) && $this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
 									<?= $this->Html->link(
-										__d('uploader', '<i class="icon-trash"></i>'),
+										'<i class="icon-trash"></i>',
 										array('controller' => 'files', 'action' => 'deleteFolder', $file['UploadedFile']['id']),
 										array(
 											'rel' => 'tooltip',
@@ -244,7 +244,7 @@
 								); ?>
 								<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
 									<?= $this->Html->link(
-										__d('uploader', '<i class="icon-trash"></i>'),
+										'<i class="icon-trash"></i>',
 										array('controller' => 'files', 'action' => 'deleteFile', $file['UploadedFile']['id'], $lastVersion['id']),
 										array(
 											'rel' => 'tooltip',
@@ -290,7 +290,7 @@
 							<td>
 								<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
 									<?= $this->Html->link(
-										__d('uploader', '<i class="icon-trash"></i>'),
+										'<i class="icon-trash"></i>',
 										array('controller' => 'files', 'action' => 'deleteFile', $file['UploadedFile']['id'], $fileVersion['id']),
 										array(
 											'rel' => 'tooltip',
