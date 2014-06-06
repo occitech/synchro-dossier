@@ -70,7 +70,6 @@ msgid "Quels sont les différents droits ?"
 msgstr "Quels sont les différents droits ?"
 
 #: Config/bootstrap.php:87
-#, fuzzy
 msgid ""
 "\n"
 "\t\t\t<strong><em>Aucun droit : &nbsp;</em></strong>Ne peut ni voir ni "
@@ -91,6 +90,8 @@ msgstr ""
 "consulter ce dossier.<br/><br/>\n"
 "\t\t\t<strong><em>Lecture : &nbsp;</em></strong>Peut voir et consulter le "
 "contenu du dossier.<br/><br/>\n"
+"\t\t\t<strong><em>Renommage : &nbsp;</em></strong>Permet de renommer les "
+"fichiers et dossiers.<br/><br/>\n"
 "\t\t\t<strong><em>Création / Envoi : &nbsp;</em></strong>Peut envoyer des "
 "fichiers dans la boite d'envoi et créer des répertoires.<br/><br/>\n"
 "\t\t\t<strong><em>Suppression : &nbsp;</em></strong>Peut supprimer des "

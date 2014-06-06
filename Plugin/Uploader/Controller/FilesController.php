@@ -40,7 +40,7 @@ class FilesController extends UploaderAppController {
 	public $presetVars;
 
 	private $__messageFlashDownloadNotAvailable;
-	private $__listRights = array('read', 'create', 'delete', 'update');
+	private $__listRights = array('read', 'update', 'create', 'delete');
 
 	public function __construct($request = null, $response = null) {
 		parent::__construct($request, $response);
@@ -239,7 +239,7 @@ class FilesController extends UploaderAppController {
 	}
 
 	public function toggleRight($uploadedFileId, $userId = null, $action = 'read') {
-		$listRights = array('read', 'create', 'delete', 'update');
+		$listRights = array('read', 'update', 'create', 'delete');
 
 		$isNewUserRight = false;
 		if (isset($this->request->query['user_id'])) {
@@ -482,7 +482,6 @@ class FilesController extends UploaderAppController {
 		$this->response->download($filename);
 		$this->response->body($content);
 		$this->response->type($mimeType);
-		$this->response->send();
 		return $this->response;
 	}
 
