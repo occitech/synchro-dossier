@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-06-06 18:15+0200\n"
+"POT-Creation-Date: 2014-06-06 17:51+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -14,19 +14,24 @@ msgstr ""
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=INTEGER; plural=EXPRESSION;\n"
 
-#: Controller/FilesController.php:68
+#: Plugin/SynchroDossier/View/Elements/addSharingModal.ctp:23
+#: Plugin/Uploader/View/Files/create_sharing.ctp:12
+msgid "Inscription aux Alertes email"
+msgstr ""
+
+#: Plugin/Uploader/Controller/FilesController.php:68
 msgid "You cannot download this folder as a zip archive (Max Size Exceeded).<br>Please fill an email to %s to get an access to your zip archive."
 msgstr ""
 
-#: Controller/FilesController.php:85
+#: Plugin/Uploader/Controller/FilesController.php:85
 msgid "Ce dossier n'existe pas"
 msgstr ""
 
-#: Controller/FilesController.php:165
+#: Plugin/Uploader/Controller/FilesController.php:165
 msgid "Vous ne pouvez pas donner de droit à un sous dossier. Nous vous avons donc redirigé sur la page permettant de donner les droits au dossier racine. Les droits s'appliqueront aussi au sous dossier"
 msgstr ""
 
-#: Controller/FilesController.php:236
+#: Plugin/Uploader/Controller/FilesController.php:236
 msgid "There was an error while deleting the right. Thank you try again or contact an administrator"
 msgstr ""
 
@@ -34,380 +39,390 @@ msgstr ""
 msgid "Please select an user"
 msgstr ""
 
-#: Controller/FilesController.php:286
+#: Plugin/Uploader/Controller/FilesController.php:284
 msgid "Given information are incorrect"
 msgstr ""
 
-#: Controller/FilesController.php:343
-#: Test/Case/Controller/FilesControllerTest.php:195
+#: Plugin/Uploader/Controller/FilesController.php:339
+#: Plugin/Uploader/Test/Case/Controller/FilesControllerTest.php:195
 msgid "Home"
 msgstr ""
 
-#: Controller/FilesController.php:387;403
+#: Plugin/Uploader/Controller/FilesController.php:383;399
 msgid "Le dossier a correctement été créé"
 msgstr ""
 
-#: Controller/FilesController.php:394;405
+#: Plugin/Uploader/Controller/FilesController.php:390;401
 msgid "Il y a des erreurs dans les données du formulaire"
 msgstr ""
 
-#: Controller/FilesController.php:414
+#: Plugin/Uploader/Controller/FilesController.php:410
 msgid "Vous n'avez pas les droits nécessaires pour renommer le dossier ou fichier"
 msgstr ""
 
-#: Controller/FilesController.php:512
+#: Plugin/Uploader/Controller/FilesController.php:508
 msgid "Folder \"%s\" was successfully deleted"
 msgstr ""
 
-#: Controller/FilesController.php:515
+#: Plugin/Uploader/Controller/FilesController.php:511
 msgid "You cannot delete folder \"%s\""
 msgstr ""
 
-#: Controller/FilesController.php:535
+#: Plugin/Uploader/Controller/FilesController.php:531
 msgid "The file \"%s\" was successfully deleted"
 msgstr ""
 
-#: Controller/FilesController.php:538
+#: Plugin/Uploader/Controller/FilesController.php:534
 msgid "You cannot delete file \"%s\""
 msgstr ""
 
-#: Controller/FilesController.php:586
+#: Plugin/Uploader/Controller/FilesController.php:582
 msgid "There was an error while tagging the file"
 msgstr ""
 
-#: Controller/FilesController.php:583
+#: Plugin/Uploader/Controller/FilesController.php:579
 msgid "Tag successfully added to file"
 msgid_plural "Tags successfully added to file"
 msgstr[0] ""
 msgstr[1] ""
 
-#: Model/UploadedFile.php:301
+#: Plugin/Uploader/Model/UploadedFile.php:301
 msgid "Invalid Folder Id #%s"
 msgstr ""
 
-#: Model/UploadedFile.php:305
+#: Plugin/Uploader/Model/UploadedFile.php:305
 msgid "You Cannot download a file as Zip archive"
 msgstr ""
 
-#: Model/UploadedFile.php:349
+#: Plugin/Uploader/Model/UploadedFile.php:349
 msgid "Invalid user with id #%s"
 msgstr ""
 
-#: Model/UploadedFile.php:353
+#: Plugin/Uploader/Model/UploadedFile.php:353
 msgid "Invalid folder or file with id #%s"
 msgstr ""
 
-#: Model/UploadedFile.php:409;474
+#: Plugin/Uploader/Model/UploadedFile.php:409;474
 msgid "Invalid user with id#%s"
 msgstr ""
 
-#: Model/UploadedFile.php:412
+#: Plugin/Uploader/Model/UploadedFile.php:412
 msgid "Invalid Folder with id#%s"
 msgstr ""
 
-#: Model/UploadedFile.php:415
+#: Plugin/Uploader/Model/UploadedFile.php:415
 msgid "Current id %s is not a folder"
 msgstr ""
 
-#: Model/UploadedFile.php:477
+#: Plugin/Uploader/Model/UploadedFile.php:477
 msgid "Invalid File with id#%s"
 msgstr ""
 
-#: Model/UploadedFile.php:583
+#: Plugin/Uploader/Model/UploadedFile.php:583
 msgid "Le fichier doit avoir la même extension que le fichier d'origine"
 msgstr ""
 
-#: Model/UploadedFile.php:626
+#: Plugin/Uploader/Model/UploadedFile.php:626
 msgid "La taille du fichier dépasse la limite autorisée"
 msgstr ""
 
-#: Model/UploadedFile.php:629
+#: Plugin/Uploader/Model/UploadedFile.php:629
 msgid "Aucun fichier n'a été uploadé"
 msgstr ""
 
-#: Model/UploadedFile.php:632
+#: Plugin/Uploader/Model/UploadedFile.php:632
 msgid "Il y a eu une erreur pendant l'upload de votre fichier"
 msgstr ""
 
-#: View/Comments/add.ctp:5
+#: Plugin/Uploader/View/Comments/add.ctp:5
 msgid "Poster votre commentaire"
 msgstr ""
 
-#: View/Elements/file_table.ctp:4
+#: Plugin/Uploader/View/Elements/file_table.ctp:4
 msgid "Nom"
 msgstr ""
 
-#: View/Elements/file_table.ctp:5
-#: View/Elements/folder_table.ctp:5
+#: Plugin/Uploader/View/Elements/file_table.ctp:5
+#: Plugin/Uploader/View/Elements/folder_table.ctp:5
 msgid "Ajouté par"
 msgstr ""
 
-#: View/Elements/file_table.ctp:6
-#: View/Elements/folder_table.ctp:6
+#: Plugin/Uploader/View/Elements/file_table.ctp:6
+#: Plugin/Uploader/View/Elements/folder_table.ctp:6
 msgid "Dernière modification"
 msgstr ""
 
-#: View/Elements/file_table.ctp:7
-#: View/Elements/folder_table.ctp:7
+#: Plugin/Uploader/View/Elements/file_table.ctp:7
+#: Plugin/Uploader/View/Elements/folder_table.ctp:7
 msgid "Taille"
 msgstr ""
 
-#: View/Elements/file_table.ctp:8
+#: Plugin/Uploader/View/Elements/file_table.ctp:8
 msgid "Type"
 msgstr ""
 
-#: View/Elements/file_table.ctp:10
-#: View/Elements/folder_table.ctp:8
-#: View/Files/rights.ctp:39
+#: Plugin/Uploader/View/Elements/file_table.ctp:10
+#: Plugin/Uploader/View/Elements/folder_table.ctp:8
+#: Plugin/Uploader/View/Files/rights.ctp:39
 msgid "Actions"
 msgstr ""
 
-#: View/Elements/file_table.ctp:77
-#: View/Elements/folder_table.ctp:42
+#: Plugin/Uploader/View/Elements/file_table.ctp:77
+#: Plugin/Uploader/View/Elements/folder_table.ctp:42
 msgid "Folder size limit exceeded"
 msgstr ""
 
-#: View/Elements/file_table.ctp:89
-#: View/Elements/folder_table.ctp:54
+#: Plugin/Uploader/View/Elements/file_table.ctp:82
+#: Plugin/Uploader/View/Elements/folder_table.ctp:47
+msgid "<i class=\"icon-download-alt\"></i>"
+msgstr "<i class=\"icon-download-alt\"></i>"
+
+#: Plugin/Uploader/View/Elements/file_table.ctp:89
+#: Plugin/Uploader/View/Elements/folder_table.ctp:54
 msgid "Download folder as zipfile"
 msgstr ""
 
-#: View/Elements/file_table.ctp:105
-#: View/Elements/folder_table.ctp:70
+#: Plugin/Uploader/View/Elements/file_table.ctp:105
+#: Plugin/Uploader/View/Elements/folder_table.ctp:70
 msgid "Renommer le dossier"
 msgstr ""
 
-#: View/Elements/file_table.ctp:121
-#: View/Elements/folder_table.ctp:86
+#: Plugin/Uploader/View/Elements/file_table.ctp:117
+#: Plugin/Uploader/View/Elements/folder_table.ctp:82
+msgid "<i class=\"icon-user\"></i>"
+msgstr "<i class=\"icon-user\"></i>"
+
+#: Plugin/Uploader/View/Elements/file_table.ctp:121
+#: Plugin/Uploader/View/Elements/folder_table.ctp:86
 msgid "Gérer les droits"
 msgstr ""
 
-#: View/Elements/file_table.ctp:132
-#: View/Elements/folder_table.ctp:97
+#: Plugin/Uploader/View/Elements/file_table.ctp:128;247;293
+msgid "<i class=\"icon-trash\"></i>"
+msgstr ""
+
+#: Plugin/Uploader/View/Elements/file_table.ctp:132
+#: Plugin/Uploader/View/Elements/folder_table.ctp:97
 msgid "Supprimer le dossier"
 msgstr ""
 
-#: View/Elements/file_table.ctp:138
-#: View/Elements/folder_table.ctp:103
+#: Plugin/Uploader/View/Elements/file_table.ctp:138
+#: Plugin/Uploader/View/Elements/folder_table.ctp:103
 msgid "You are about to delete folder \"%s\". Are you sure ?"
 msgstr ""
 
-#: View/Elements/file_table.ctp:151
-#: View/Files/view.ctp:37
+#: Plugin/Uploader/View/Elements/file_table.ctp:151
+#: Plugin/Uploader/View/Files/view.ctp:37
 msgid "Download"
 msgstr ""
 
-#: View/Elements/file_table.ctp:163
+#: Plugin/Uploader/View/Elements/file_table.ctp:163
 msgid "Renommer le fichier"
 msgstr ""
 
-#: View/Elements/file_table.ctp:184
+#: Plugin/Uploader/View/Elements/file_table.ctp:184
 msgid "New version"
 msgstr ""
 
-#: View/Elements/file_table.ctp:196
+#: Plugin/Uploader/View/Elements/file_table.ctp:196
 msgid "Ajouter un commentaire"
 msgstr ""
 
-#: View/Elements/file_table.ctp:198
+#: Plugin/Uploader/View/Elements/file_table.ctp:198
 msgid "Dernier commentaire le %s à %s par %s"
 msgstr ""
 
-#: View/Elements/file_table.ctp:237
+#: Plugin/Uploader/View/Elements/file_table.ctp:237
 msgid "File Tags"
 msgstr ""
 
-#: View/Elements/file_table.ctp:251;297
+#: Plugin/Uploader/View/Elements/file_table.ctp:251;297
 msgid "Supprimer le fichier"
 msgstr ""
 
-#: View/Elements/file_table.ctp:257;303
+#: Plugin/Uploader/View/Elements/file_table.ctp:257;303
 msgid "You are about to delete file \"%s\". Are you sure ?"
 msgstr ""
 
-#: View/Elements/file_table.ctp:315
+#: Plugin/Uploader/View/Elements/file_table.ctp:315
 msgid "Aucun résultat pour cette recherche, veuillez mettre à jour votre recherche et réessayer"
 msgstr ""
 
-#: View/Elements/folder_table.ctp:4
+#: Plugin/Uploader/View/Elements/folder_table.ctp:4
 msgid "Partages"
 msgstr ""
 
-#: View/Elements/plupload_widget.ctp:13
+#: Plugin/Uploader/View/Elements/plupload_widget.ctp:13
 msgid "Glissez/Déposez vos fichiers ici"
 msgstr ""
 
-#: View/Elements/plupload_widget.ctp:14
+#: Plugin/Uploader/View/Elements/plupload_widget.ctp:14
 msgid "ou"
 msgstr ""
 
-#: View/Elements/plupload_widget.ctp:15
+#: Plugin/Uploader/View/Elements/plupload_widget.ctp:15
 msgid "Parcourir"
 msgstr ""
 
-#: View/Elements/plupload_widget.ctp:26
+#: Plugin/Uploader/View/Elements/plupload_widget.ctp:26
 msgid "Fichiers dans la file d'attente"
 msgstr ""
 
-#: View/Elements/plupload_widget.ctp:31
+#: Plugin/Uploader/View/Elements/plupload_widget.ctp:31
 msgid "Envoyer"
 msgstr ""
 
-#: View/Elements/plupload_widget.ctp:32
+#: Plugin/Uploader/View/Elements/plupload_widget.ctp:32
 msgid "Annuler"
 msgstr ""
 
-#: View/Elements/search.ctp:12
+#: Plugin/Uploader/View/Elements/search.ctp:12
 msgid "Rechercher dans ce dossier"
 msgstr ""
 
-#: View/Elements/search.ctp:20
+#: Plugin/Uploader/View/Elements/search.ctp:20
 msgid "Nom du fichier"
 msgstr ""
 
-#: View/Elements/search.ctp:24
+#: Plugin/Uploader/View/Elements/search.ctp:24
 msgid "Ext"
 msgstr ""
 
-#: View/Elements/search.ctp:28
+#: Plugin/Uploader/View/Elements/search.ctp:28
 msgid "Recherche avancée"
 msgstr ""
 
-#: View/Elements/search.ctp:39
+#: Plugin/Uploader/View/Elements/search.ctp:39
 msgid "Auteur du fichier"
 msgstr ""
 
-#: View/Elements/search.ctp:39
+#: Plugin/Uploader/View/Elements/search.ctp:39
 msgid "Utilisateur"
 msgstr ""
 
-#: View/Elements/search.ctp:39
+#: Plugin/Uploader/View/Elements/search.ctp:39
 msgid "Tous"
 msgstr ""
 
-#: View/Elements/search.ctp:46
+#: Plugin/Uploader/View/Elements/search.ctp:46
 msgid "1 Mo"
 msgstr ""
 
-#: View/Elements/search.ctp:50
+#: Plugin/Uploader/View/Elements/search.ctp:50
 msgid "5 Mo"
 msgstr ""
 
-#: View/Elements/search.ctp:54
+#: Plugin/Uploader/View/Elements/search.ctp:54
 msgid "Date min"
 msgstr ""
 
-#: View/Elements/search.ctp:58
+#: Plugin/Uploader/View/Elements/search.ctp:58
 msgid "Date max"
 msgstr ""
 
-#: View/Elements/search.ctp:63
+#: Plugin/Uploader/View/Elements/search.ctp:63
 msgid "File tags"
 msgstr ""
 
-#: View/Elements/search.ctp:68
+#: Plugin/Uploader/View/Elements/search.ctp:68
 msgid "Rechercher"
 msgstr ""
 
-#: View/Files/add_tags.ctp:2
+#: Plugin/Uploader/View/Files/add_tags.ctp:2
 msgid "Tags list (separated by commas)"
 msgstr ""
 
-#: View/Files/add_tags.ctp:3
+#: Plugin/Uploader/View/Files/add_tags.ctp:3
 msgid "Submit tags"
 msgstr ""
 
-#: View/Files/create_folder.ctp:4
-#: View/Files/create_sharing.ctp:6
+#: Plugin/Uploader/View/Files/create_folder.ctp:4
+#: Plugin/Uploader/View/Files/create_sharing.ctp:6
 msgid "Folder name"
 msgstr ""
 
-#: View/Files/create_folder.ctp:6
-#: View/Files/create_sharing.ctp:17
+#: Plugin/Uploader/View/Files/create_folder.ctp:6
+#: Plugin/Uploader/View/Files/create_sharing.ctp:17
 msgid "Create"
 msgstr ""
 
-#: View/Files/create_sharing.ctp:12
-msgid "Inscription aux Alertes email"
-msgstr ""
-
-#: View/Files/find.ctp:1
+#: Plugin/Uploader/View/Files/find.ctp:1
 msgid "Résultats de la recherche"
 msgstr ""
 
-#: View/Files/rename.ctp:7
+#: Plugin/Uploader/View/Files/rename.ctp:7
 msgid "Rename"
 msgstr ""
 
-#: View/Files/rights.ctp:14
+#: Plugin/Uploader/View/Files/rights.ctp:14
 msgid "Share \"%s\""
 msgstr ""
 
-#: View/Files/rights.ctp:25
+#: Plugin/Uploader/View/Files/rights.ctp:25
 msgid "Select user"
 msgstr ""
 
-#: View/Files/rights.ctp:27
+#: Plugin/Uploader/View/Files/rights.ctp:27
 msgid "Share"
 msgstr ""
 
-#: View/Files/rights.ctp:33
+#: Plugin/Uploader/View/Files/rights.ctp:33
 msgid "Name"
 msgstr ""
 
-#: View/Files/rights.ctp:34
+#: Plugin/Uploader/View/Files/rights.ctp:34
 msgid "Lire"
 msgstr ""
 
-#: View/Files/rights.ctp:35
+#: Plugin/Uploader/View/Files/rights.ctp:35
 msgid "Écrire"
 msgstr ""
 
-#: View/Files/rights.ctp:36
+#: Plugin/Uploader/View/Files/rights.ctp:36
 msgid "Supprimer"
 msgstr ""
 
-#: View/Files/rights.ctp:37
+#: Plugin/Uploader/View/Files/rights.ctp:37
 msgid "Renommer"
 msgstr ""
 
-#: View/Files/rights.ctp:38
+#: Plugin/Uploader/View/Files/rights.ctp:38
 msgid "Toggle mail"
 msgstr ""
 
-#: View/Files/rights.ctp:49
+#: Plugin/Uploader/View/Files/rights.ctp:49
 msgid "This User has all rights on this folder"
 msgstr ""
 
-#: View/Files/rights.ctp:166
+#: Plugin/Uploader/View/Files/rights.ctp:166
 msgid "Ne plus partager avec cet utilisateur"
 msgstr ""
 
-#: View/Files/upload.ctp:13
+#: Plugin/Uploader/View/Files/upload.ctp:13
 msgid "You browser doesn't have Flash, Silverlight, Gears, BrowserPlus or HTML5 support."
 msgstr ""
 
-#: View/Files/view.ctp:4
+#: Plugin/Uploader/View/Files/view.ctp:4
 msgid ".."
 msgstr ""
 
-#: View/Files/view.ctp:9
+#: Plugin/Uploader/View/Files/view.ctp:9
 msgid "Ajouter une version"
 msgstr ""
 
-#: View/Helper/FileHelper.php:55
+#: Plugin/Uploader/View/Helper/FileHelper.php:55
 msgid "Chargement en cours de l'image. Merci de patienter ..."
 msgstr ""
 
-#: View/Helper/FileHelper.php:74
+#: Plugin/Uploader/View/Helper/FileHelper.php:74
 msgid "Pas de prévisualisation possible pour ce document."
 msgstr ""
 
-#: Model/UploadedFile.php:validation for field filename
+#: Plugin/Uploader/Model/UploadedFile.php:validation for field filename
 msgid "Ce champs ne peut être laissé vide"
 msgstr ""
 
-#: Model/UploadedFile.php:validation for field filename
+#: Plugin/Uploader/Model/UploadedFile.php:validation for field filename
 msgid "Ce nom est déjà utilisé par un autre fichier"
 msgstr ""
 

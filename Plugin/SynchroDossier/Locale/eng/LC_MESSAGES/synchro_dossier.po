@@ -3,16 +3,17 @@
 #
 msgid ""
 msgstr ""
-"Project-Id-Version: PROJECT VERSION\n"
+"Project-Id-Version: Synchro Dossier\n"
 "POT-Creation-Date: 2014-06-06 17:37+0200\n"
-"PO-Revision-Date: 2014-06-06 17:41+0100\n"
+"PO-Revision-Date: 2014-06-06 18:23+0100\n"
 "Last-Translator: Hadrien Collongues <hadrien@occitech.fr>\n"
-"Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
+"Language-Team: Occitech <contact@occitech.fr>\n"
 "MIME-Version: 1.0\n"
 "Content-Type: text/plain; charset=UTF-8\n"
 "Content-Transfer-Encoding: 8bit\n"
 "Plural-Forms: nplurals=2; plural=(n > 1);\n"
 "X-Generator: Poedit 1.6.5\n"
+"Language: en\n"
 
 #: Plugin/SynchroDossier/Config/bootstrap.php:27
 msgid "SynchroDossier"
@@ -25,7 +26,7 @@ msgstr "Quota"
 
 #: Plugin/SynchroDossier/Config/bootstrap.php:66
 msgid "Qu'est-ce que le quota ?"
-msgstr ""
+msgstr "What is quota?"
 
 #: Plugin/SynchroDossier/Config/bootstrap.php:67
 msgid ""
@@ -35,10 +36,15 @@ msgid ""
 "commander de l'espace supplémentaire.\n"
 "\t\t(rappel : le quota n'est pas affiché aux utilisateurs)"
 msgstr ""
+"Each file sent uses space on disk.<br/><br/>\n"
+"\t\tHere is the state of used and available disk space .<br/><br/>\n"
+"\t\tWhen your disk space is full,  you can delete some files or order more "
+"disk space.\n"
+"\t\t(reminder : quota is not visible by users)"
 
 #: Plugin/SynchroDossier/Config/bootstrap.php:76
 msgid "Quels sont les différents rôles ?"
-msgstr ""
+msgstr "What are the different roles?"
 
 #: Plugin/SynchroDossier/Config/bootstrap.php:77
 msgid ""
@@ -53,10 +59,18 @@ msgid ""
 "utilisateurs, et commander de l'espace supplémentaire si nécessaire.<br/><br/"
 ">"
 msgstr ""
+"\n"
+"\t\t\t<strong><em>User:&nbsp;</em></strong>can only browse folder shared by "
+"an Administrator or Super-Administrator.<br/><br/>\n"
+"\t\t\t<strong><em>Administrator:&nbsp;</em></strong>can create folders and "
+"users for his own folders.<br/><br/>\n"
+"\t\t\t<strong><em>Super administrator :&nbsp;</em></strong>can see any "
+"folder, create folders, create Administrators and Users, and order "
+"additional disk space if needed.<br/><br/>"
 
 #: Plugin/SynchroDossier/Config/bootstrap.php:86
 msgid "Quels sont les différents droits ?"
-msgstr ""
+msgstr "Where are the different permissions?"
 
 #: Plugin/SynchroDossier/Config/bootstrap.php:87
 msgid ""
@@ -74,10 +88,23 @@ msgid ""
 "\t\t\t<strong><em>Changer les droits : &nbsp;</em></strong>Peut changer les "
 "droits des utilisateurs de la boite d'envoi.<br/><br/>"
 msgstr ""
+"\n"
+"\t\t\t<strong><em>No permission: &nbsp;</em></strong>Can not see or browse "
+"folder.<br/><br/>\n"
+"\t\t\t<strong><em>Read: &nbsp;</em></strong>Can see and browse folder.<br/"
+"><br/>\n"
+"\t\t\t<strong><em>Rename : &nbsp;</em></strong>Can rename files and folders."
+"<br/><br/>\n"
+"\t\t\t<strong><em>Write / Upload: &nbsp;</em></strong>Can upload files to "
+"and create directories in the inbox.<br/><br/>\n"
+"\t\t\t<strong><em>Delete: &nbsp;</em></strong>Can delete files from the "
+"inbox.<br/><br/>\n"
+"\t\t\t<strong><em>Permissions change: &nbsp;</em></strong>Can change "
+"permissions of the inbox uses.<br/><br/>"
 
 #: Plugin/SynchroDossier/Config/bootstrap.php:99
 msgid "Qu'est-ce qu'une alerte email ?"
-msgstr ""
+msgstr "What is an email alert?"
 
 #: Plugin/SynchroDossier/Config/bootstrap.php:100
 msgid ""
@@ -85,6 +112,9 @@ msgid ""
 "d'alerte automatique et instantané dès qu'un nouveau fichier est envoyé par "
 "un autre utilisateur dans ce dossier."
 msgstr ""
+"<strong><em>Email alert: &nbsp;</em></strong> Send you an automatic and "
+"instant email as soon as a new file is uploaded by another user in this "
+"folder."
 
 #: Plugin/SynchroDossier/Controller/SdInformationsController.php:9
 msgid "Quota mis à jour"
@@ -275,13 +305,12 @@ msgstr "Size :"
 
 #: Plugin/SynchroDossier/View/Emails/html/quota_exceeded.ctp:16
 #: Plugin/SynchroDossier/View/Emails/text/quota_exceeded.ctp:15
-#, fuzzy
 msgid ""
 "Pour que vos utilisateurs puissent de nouveau envoyer des fichiers vous "
 "devez augmenter votre quota ou supprimer des fichiers."
 msgstr ""
-"In order that your users could send files again, you have to\n"
-" increase your quota or delete some files."
+"In order that your users could send files again, you have to increase your "
+"quota or delete some files."
 
 #: Plugin/SynchroDossier/View/Helper/SynchroDossierHelper.php:74
 msgid "Read"
@@ -316,15 +345,14 @@ msgid "Unsubscribe to email alert"
 msgstr "Unsubscribe to email alert"
 
 #: Plugin/SynchroDossier/View/Helper/SynchroDossierHelper.php:118
-#, fuzzy
 msgid "You're about to subscribe to email alert for folder %s. Are you sure ?"
-msgstr "You're about to %s to email alert for folder %s. Are you sure ?"
+msgstr "You're about to subscribe to email alert for folder %s. Are you sure ?"
 
 #: Plugin/SynchroDossier/View/Helper/SynchroDossierHelper.php:120
-#, fuzzy
 msgid ""
 "You're about to unsubscribe to email alert for folder %s. Are you sure ?"
-msgstr "You're about to %s to email alert for folder %s. Are you sure ?"
+msgstr ""
+"You're about to unsubscribe to email alert for folder %s. Are you sure ?"
 
 #: Plugin/SynchroDossier/View/Layouts/default.ctp:76
 #: Plugin/SynchroDossier/View/Layouts/login.ctp:46

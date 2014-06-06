@@ -1,7 +1,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Synchro Dossier\n"
-"POT-Creation-Date: 2014-06-06 17:37+0200\n"
+"POT-Creation-Date: 2014-06-06 17:51+0200\n"
 "PO-Revision-Date: \n"
 "Last-Translator: Hadrien Collongues <hadrien@occitech.fr>\n"
 "Language-Team: \n"
@@ -21,15 +21,15 @@ msgstr "SynchroDossier"
 msgid "Quota"
 msgstr "Quota"
 
-#: Config/bootstrap.php:62
+#: Plugin/SynchroDossier/Config/bootstrap.php:62
 msgid "Aucun résultat trouvé pour"
 msgstr "Aucun résultat trouvé pour"
 
-#: Plugin/SynchroDossier/Config/bootstrap.php:66
+#: Plugin/SynchroDossier/Config/bootstrap.php:68
 msgid "Qu'est-ce que le quota ?"
 msgstr "Qu'est-ce que le quota ?"
 
-#: Plugin/SynchroDossier/Config/bootstrap.php:67
+#: Plugin/SynchroDossier/Config/bootstrap.php:69
 msgid ""
 "Chaque fichier envoyé occupe de l'espace sur le disque.<br/><br/>\n"
 "\t\tVoici un état de la place occupée et disponible.<br/><br/>\n"
@@ -43,11 +43,11 @@ msgstr ""
 "commander de l'espace supplémentaire.\n"
 "\t\t(rappel : le quota n'est pas affiché aux utilisateurs)"
 
-#: Plugin/SynchroDossier/Config/bootstrap.php:76
+#: Plugin/SynchroDossier/Config/bootstrap.php:78
 msgid "Quels sont les différents rôles ?"
 msgstr "Quels sont les différents rôles ?"
 
-#: Plugin/SynchroDossier/Config/bootstrap.php:77
+#: Plugin/SynchroDossier/Config/bootstrap.php:79
 msgid ""
 "\n"
 "\t\t\t<strong><em>Utilisateur :&nbsp;</em></strong>peut uniquement entrer "
@@ -71,11 +71,11 @@ msgstr ""
 "utilisateurs, et commander de l'espace supplémentaire si nécessaire.<br/><br/"
 ">"
 
-#: Plugin/SynchroDossier/Config/bootstrap.php:86
+#: Plugin/SynchroDossier/Config/bootstrap.php:88
 msgid "Quels sont les différents droits ?"
 msgstr "Quels sont les différents droits ?"
 
-#: Plugin/SynchroDossier/Config/bootstrap.php:87
+#: Plugin/SynchroDossier/Config/bootstrap.php:89
 msgid ""
 "\n"
 "\t\t\t<strong><em>Aucun droit : &nbsp;</em></strong>Ne peut ni voir ni "
@@ -105,11 +105,11 @@ msgstr ""
 "\t\t\t<strong><em>Changer les droits : &nbsp;</em></strong>Peut changer les "
 "droits des utilisateurs de la boite d'envoi.<br/><br/>"
 
-#: Plugin/SynchroDossier/Config/bootstrap.php:99
+#: Plugin/SynchroDossier/Config/bootstrap.php:101
 msgid "Qu'est-ce qu'une alerte email ?"
 msgstr "Qu'est-ce qu'une alerte email ?"
 
-#: Plugin/SynchroDossier/Config/bootstrap.php:100
+#: Plugin/SynchroDossier/Config/bootstrap.php:102
 msgid ""
 "<strong><em>Alerte Email : &nbsp;</em></strong> Vous envoie un E-mail "
 "d'alerte automatique et instantané dès qu'un nouveau fichier est envoyé par "
