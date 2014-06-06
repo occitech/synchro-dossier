@@ -44,7 +44,7 @@
 			<?= __d('synchro_dossier', 'Actions') ?>
 		</li>
 		<?php if (isset($folderId)): ?>
-			<?php if ($this->UploaderAcl->userCan($folderAco['Aco'], 'create')): ?>
+			<?php if ($this->UploaderAcl->userCanCreateSubdirectory($folderAco)): ?>
 				<li>
 					<?= $this->Html->link(
 						__d('synchro_dossier', 'Créer un sous dossier'),
@@ -58,7 +58,7 @@
 					?>
 				</li>
 			<?php endif ?>
-			<?php if (!$this->SynchroDossier->hasUserRole(CakeSession::read('Auth.User.role_id')) && $this->UploaderAcl->userCan($folderAco['Aco'], 'change_right')): ?>
+			<?php if (!$this->SynchroDossier->hasUserRole(CakeSession::read('Auth.User.role_id')) && $this->UploaderAcl->userCanShareDirectory($folderAco)): ?>
 				<li>
 					<?= $this->Html->link(
 						__d('synchro_dossier', 'Partager ce dossier'),

@@ -52,4 +52,13 @@ class UploaderAclHelper extends Helper {
 
 		return $userCan;
 	}
+
+	public function userCanCreateSubdirectory($uploadedFileAco) {
+		return $this->userCan($uploadedFileAco['Aco'], 'create');
+	}
+
+	public function userCanShareDirectory($uploadedFileAco) {
+		return $this->userCan($uploadedFileAco['Aco'], 'change_right');
+	}
+
 }
