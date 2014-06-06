@@ -482,7 +482,6 @@ class FilesController extends UploaderAppController {
 		$this->response->download($filename);
 		$this->response->body($content);
 		$this->response->type($mimeType);
-		$this->response->send();
 		return $this->response;
 	}
 
