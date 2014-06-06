@@ -4,8 +4,8 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Uploader\n"
-"POT-Creation-Date: 2014-06-06 17:43+0200\n"
-"PO-Revision-Date: 2014-06-06 17:44+0100\n"
+"POT-Creation-Date: 2014-06-06 18:15+0200\n"
+"PO-Revision-Date: 2014-06-06 18:16+0100\n"
 "Last-Translator: \n"
 "Language-Team: Occitech\n"
 "Language: en\n"
@@ -45,49 +45,53 @@ msgstr ""
 "There was an error while deleting the right. Thank you try again or contact "
 "an administrator"
 
-#: Controller/FilesController.php:284
+#: Controller/FilesController.php:243
+msgid "Please select an user"
+msgstr "Please select an user"
+
+#: Controller/FilesController.php:286
 msgid "Given information are incorrect"
 msgstr "Given information are incorrect"
 
-#: Controller/FilesController.php:339
+#: Controller/FilesController.php:343
 #: Test/Case/Controller/FilesControllerTest.php:195
 msgid "Home"
 msgstr "Home"
 
-#: Controller/FilesController.php:383;399
+#: Controller/FilesController.php:387;403
 msgid "Le dossier a correctement été créé"
 msgstr "Directory has been created successfully"
 
-#: Controller/FilesController.php:390;401
+#: Controller/FilesController.php:394;405
 msgid "Il y a des erreurs dans les données du formulaire"
 msgstr "There are errors with submitted data"
 
-#: Controller/FilesController.php:410
+#: Controller/FilesController.php:414
 msgid ""
 "Vous n'avez pas les droits nécessaires pour renommer le dossier ou fichier"
 msgstr ""
 
-#: Controller/FilesController.php:508
+#: Controller/FilesController.php:512
 msgid "Folder \"%s\" was successfully deleted"
 msgstr "Folder \"%s\" was successfully deleted"
 
-#: Controller/FilesController.php:511
+#: Controller/FilesController.php:515
 msgid "You cannot delete folder \"%s\""
 msgstr "You cannot delete folder \"%s\""
 
-#: Controller/FilesController.php:531
+#: Controller/FilesController.php:535
 msgid "The file \"%s\" was successfully deleted"
 msgstr "The file \"%s\" was successfully deleted"
 
-#: Controller/FilesController.php:534
+#: Controller/FilesController.php:538
 msgid "You cannot delete file \"%s\""
 msgstr "You cannot delete file \"%s\""
 
-#: Controller/FilesController.php:582
+#: Controller/FilesController.php:586
 msgid "There was an error while tagging the file"
 msgstr "There was an error while tagging the file"
 
-#: Controller/FilesController.php:579
+#: Controller/FilesController.php:583
 msgid "Tag successfully added to file"
 msgid_plural "Tags successfully added to file"
 msgstr[0] "Tag successfully added to file"
@@ -176,10 +180,6 @@ msgstr "Actions"
 msgid "Folder size limit exceeded"
 msgstr "Folder size limit exceeded"
 
-#: View/Elements/file_table.ctp:82 View/Elements/folder_table.ctp:47
-msgid "<i class=\"icon-download-alt\"></i>"
-msgstr "<i class=\"icon-download-alt\"></i>"
-
 #: View/Elements/file_table.ctp:89 View/Elements/folder_table.ctp:54
 msgid "Download folder as zipfile"
 msgstr "Download folder as zipfile"
@@ -188,17 +188,9 @@ msgstr "Download folder as zipfile"
 msgid "Renommer le dossier"
 msgstr "Rename directory"
 
-#: View/Elements/file_table.ctp:117 View/Elements/folder_table.ctp:82
-msgid "<i class=\"icon-user\"></i>"
-msgstr "<i class=\"icon-user\"></i>"
-
 #: View/Elements/file_table.ctp:121 View/Elements/folder_table.ctp:86
 msgid "Gérer les droits"
 msgstr "Manage rights"
-
-#: View/Elements/file_table.ctp:128;247;293
-msgid "<i class=\"icon-trash\"></i>"
-msgstr "<i class=\"icon-trash\"></i>"
 
 #: View/Elements/file_table.ctp:132 View/Elements/folder_table.ctp:97
 msgid "Supprimer le dossier"
@@ -431,6 +423,15 @@ msgstr "This field cannot be left empty"
 #: Model/UploadedFile.php:validation for field filename
 msgid "Ce nom est déjà utilisé par un autre fichier"
 msgstr "This name is already in use for another directory"
+
+#~ msgid "<i class=\"icon-download-alt\"></i>"
+#~ msgstr "<i class=\"icon-download-alt\"></i>"
+
+#~ msgid "<i class=\"icon-user\"></i>"
+#~ msgstr "<i class=\"icon-user\"></i>"
+
+#~ msgid "<i class=\"icon-trash\"></i>"
+#~ msgstr "<i class=\"icon-trash\"></i>"
 
 #~ msgid "Fichier"
 #~ msgstr "File"

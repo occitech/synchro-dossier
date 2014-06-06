@@ -239,50 +239,54 @@ class FilesController extends UploaderAppController {
 	}
 
 	public function toggleRight($uploadedFileId, $userId = null, $action = 'read') {
-		$listRights = array('read', 'update', 'create', 'delete');
-
-		$isNewUserRight = false;
-		if (isset($this->request->query['user_id'])) {
-			$userId = $this->request->query['user_id'];
-			$isNewUserRight = true;
-			$folder = array();
-			$folder['id'] = $this->UploadedFile->getRootFolderId($uploadedFileId);
-			$folder['name'] =  $this->UploadedFile->field('filename', array('id' => $folder['id']));
-			$this->getEventManager()->dispatch(new CakeEvent(
-				'Controller.FilesController.newUserRight',
-				$this,
-				array(
-					'user' => array('id' => $userId),
-					'folder' => $folder
-				)
-			));
-		}
-
-		if ($this->UploadedFile->exists($uploadedFileId) &&
-			$this->UploadedFile->User->exists($userId)) {
-
-			$isRightActive = $this->_checkRight($uploadedFileId, $userId, $action);
-
-			if (!($isNewUserRight && $isRightActive)) {
-				$method = ($isRightActive) ? '_denyRight' : '_allowRight';
-
-				$this->{$method}($uploadedFileId, $userId, $action);
-
+		if ($userId === null) {
+			$this->Session->setFlash(__d('uploader', 'Please select an user'), 'default', array('class' => 'alert alert-danger'));
+		} else {
+			$listRights = array('read', 'update', 'create', 'delete');
+			$isNewUserRight = false;
+			if (isset($this->request->query['user_id'])) {
+				$userId = $this->request->query['user_id'];
+				$isNewUserRight = true;
+				$folder = array();
+				$folder['id'] = $this->UploadedFile->getRootFolderId($uploadedFileId);
+				$folder['name'] =  $this->UploadedFile->field('filename', array('id' => $folder['id']));
 				$this->getEventManager()->dispatch(new CakeEvent(
-					'Controller.FilesController.afterChangeRight',
+					'Controller.FilesController.newUserRight',
 					$this,
 					array(
-						'method' => $method,
 						'user' => array('id' => $userId),
-						'model' => 'Permission',
-						'foreign_key' => $this->Permission->id
+						'folder' => $folder
 					)
 				));
 			}
 
-		} else {
-			$this->Session->setFlash(__d('uploader', 'Given information are incorrect'), 'default', array('class' => 'alert alert-danger'));
+			if ($this->UploadedFile->exists($uploadedFileId) &&
+				$this->UploadedFile->User->exists($userId)) {
+
+				$isRightActive = $this->_checkRight($uploadedFileId, $userId, $action);
+
+				if (!($isNewUserRight && $isRightActive)) {
+					$method = ($isRightActive) ? '_denyRight' : '_allowRight';
+
+					$this->{$method}($uploadedFileId, $userId, $action);
+
+					$this->getEventManager()->dispatch(new CakeEvent(
+						'Controller.FilesController.afterChangeRight',
+						$this,
+						array(
+							'method' => $method,
+							'user' => array('id' => $userId),
+							'model' => 'Permission',
+							'foreign_key' => $this->Permission->id
+						)
+					));
+				}
+
+			} else {
+				$this->Session->setFlash(__d('uploader', 'Given information are incorrect'), 'default', array('class' => 'alert alert-danger'));
+			}
 		}
+
 		$this->redirect($this->referer());
 	}
 

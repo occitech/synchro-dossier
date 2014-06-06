@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-06-06 17:43+0200\n"
+"POT-Creation-Date: 2014-06-06 18:15+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -30,48 +30,52 @@ msgstr ""
 msgid "There was an error while deleting the right. Thank you try again or contact an administrator"
 msgstr ""
 
-#: Controller/FilesController.php:284
+#: Controller/FilesController.php:243
+msgid "Please select an user"
+msgstr ""
+
+#: Controller/FilesController.php:286
 msgid "Given information are incorrect"
 msgstr ""
 
-#: Controller/FilesController.php:339
+#: Controller/FilesController.php:343
 #: Test/Case/Controller/FilesControllerTest.php:195
 msgid "Home"
 msgstr ""
 
-#: Controller/FilesController.php:383;399
+#: Controller/FilesController.php:387;403
 msgid "Le dossier a correctement été créé"
 msgstr ""
 
-#: Controller/FilesController.php:390;401
+#: Controller/FilesController.php:394;405
 msgid "Il y a des erreurs dans les données du formulaire"
 msgstr ""
 
-#: Controller/FilesController.php:410
+#: Controller/FilesController.php:414
 msgid "Vous n'avez pas les droits nécessaires pour renommer le dossier ou fichier"
 msgstr ""
 
-#: Controller/FilesController.php:508
+#: Controller/FilesController.php:512
 msgid "Folder \"%s\" was successfully deleted"
 msgstr ""
 
-#: Controller/FilesController.php:511
+#: Controller/FilesController.php:515
 msgid "You cannot delete folder \"%s\""
 msgstr ""
 
-#: Controller/FilesController.php:531
+#: Controller/FilesController.php:535
 msgid "The file \"%s\" was successfully deleted"
 msgstr ""
 
-#: Controller/FilesController.php:534
+#: Controller/FilesController.php:538
 msgid "You cannot delete file \"%s\""
 msgstr ""
 
-#: Controller/FilesController.php:582
+#: Controller/FilesController.php:586
 msgid "There was an error while tagging the file"
 msgstr ""
 
-#: Controller/FilesController.php:579
+#: Controller/FilesController.php:583
 msgid "Tag successfully added to file"
 msgid_plural "Tags successfully added to file"
 msgstr[0] ""
@@ -163,11 +167,6 @@ msgstr ""
 msgid "Folder size limit exceeded"
 msgstr ""
 
-#: View/Elements/file_table.ctp:82
-#: View/Elements/folder_table.ctp:47
-msgid "<i class=\"icon-download-alt\"></i>"
-msgstr ""
-
 #: View/Elements/file_table.ctp:89
 #: View/Elements/folder_table.ctp:54
 msgid "Download folder as zipfile"
@@ -178,18 +177,9 @@ msgstr ""
 msgid "Renommer le dossier"
 msgstr ""
 
-#: View/Elements/file_table.ctp:117
-#: View/Elements/folder_table.ctp:82
-msgid "<i class=\"icon-user\"></i>"
-msgstr ""
-
 #: View/Elements/file_table.ctp:121
 #: View/Elements/folder_table.ctp:86
 msgid "Gérer les droits"
-msgstr ""
-
-#: View/Elements/file_table.ctp:128;247;293
-msgid "<i class=\"icon-trash\"></i>"
 msgstr ""
 
 #: View/Elements/file_table.ctp:132
