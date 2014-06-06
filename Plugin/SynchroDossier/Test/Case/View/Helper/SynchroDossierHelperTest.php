@@ -49,8 +49,8 @@ class SynchroDossierHelperTest extends CakeTestCase {
 
 		$elementExpectedParams = array(
 			'toPrint' => true,
-			'quota' => 9.77,
-			'currentQuota' => 0.24,
+			'quota' => 10000.0,
+			'currentQuota' => 245.0,
 			'usedPercent' => 2.45
 		);
 
