@@ -367,6 +367,8 @@ class UploadedFile extends UploaderAppModel {
 
 		if ($canRename || $fileInfos[$this->alias]['user_id'] == $userId) {
 			$data['UploadedFile'] = array_merge($fileInfos[$this->alias], $data[$this->alias]);
+			$this->unbindModel(array('hasOne' => array('Aco')));
+			$this->Behaviors->detach('Tree');
 			$result = $this->save($data);
 		}
 

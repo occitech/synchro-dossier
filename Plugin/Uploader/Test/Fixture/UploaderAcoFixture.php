@@ -41,7 +41,7 @@ class UploaderAcoFixture extends CakeTestFixture {
 							'id' => 3,
 							'model' => 'UploadedFile',
 							'foreign_key' => 3,
-							'alias' => null,
+							'alias' => 'UplaodedFile.3',
 							'children' => array(
 								array(
 									'id' => 4,

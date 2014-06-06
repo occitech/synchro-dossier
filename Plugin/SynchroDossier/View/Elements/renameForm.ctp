@@ -1,4 +1,4 @@
-*<div class="modal-body no-overflow-y">
+<div class="modal-body no-overflow-y">
 	<div class="uploader">
 		<?= $this->Form->create('UploadedFile',	array(
 			'type' => 'put',
