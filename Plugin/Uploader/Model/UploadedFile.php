@@ -354,13 +354,12 @@ class UploadedFile extends UploaderAppModel {
 			'update'
 		);
 
-		if ($canRename) {
-			$data['UploadedFile'] = array_merge($fileInfos['UploadedFile'], $data['UploadedFile']);
+		if ($canRename || $fileInfos[$this->alias]['user_id'] == $userId) {
+			$data['UploadedFile'] = array_merge($fileInfos[$this->alias], $data[$this->alias]);
 			$result = $this->save($data);
 		}
 
 		return $result;
-
 	}
 
 	public function removeFolder($folderId, $userId) {

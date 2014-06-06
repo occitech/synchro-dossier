@@ -909,6 +909,26 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->assertNotEquals('aftername',  $file['UploadedFile']['filename']);
 	}
 
+/**
+ * @group rename
+ */
+	public function testRenameIfUserIdIsOwnerShouldRenameFolderEvenIfUserHasNotUpdateRight() {
+		$this->UploadedFile->id = 1;
+		$this->UploadedFile->saveField('user_id', 4);
+
+		$data = array(
+			'UploadedFile' => array(
+				'id' => '1',
+				'filename' => 'aftername'
+			)
+		);
+
+		$this->UploadedFile->rename($data, 4);
+		$file = $this->UploadedFile->read();
+		$this->assertEquals('aftername',  $file['UploadedFile']['filename']);
+	}
+
+
 	private function __getLatestUploadedFiled()
 	{
 		return $this->UploadedFile->find('first', array(
