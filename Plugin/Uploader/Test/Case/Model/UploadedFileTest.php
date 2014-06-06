@@ -933,7 +933,7 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$sizeOfChild3ForParent1 = 0;
 		$sizeOfChild4ForParent3 = 34639;
 		$sizeOfChild5ForParent3 = 4385;
-		$expected = $sizeOfChild3ForParent1 + $sizeOfChild4ForParent1 + $sizeOfChild5ForParent1;
+		$expected = $sizeOfChild3ForParent1 + $sizeOfChild4ForParent3 + $sizeOfChild5ForParent3;
 
 		$this->assertEquals($expected, $folderSize);
 	}
