@@ -14,6 +14,6 @@
 		</div>
 	</div>
 	<div class="quota">
-		<?= $currentQuota . 'Go / ' . $quota . 'Go'; ?>
+		<?= $this->File->size($currentQuota, 'Mo') . ' / ' . $this->File->size($quota, 'Mo'); ?>
 	</div >
 <?php endif ?>

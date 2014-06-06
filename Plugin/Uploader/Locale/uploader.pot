@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-06-06 09:25+0200\n"
+"POT-Creation-Date: 2014-06-06 15:32+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -34,94 +34,94 @@ msgstr ""
 msgid "Given information are incorrect"
 msgstr ""
 
-#: Controller/FilesController.php:337
+#: Controller/FilesController.php:339
 #: Test/Case/Controller/FilesControllerTest.php:143
 msgid "Home"
 msgstr ""
 
-#: Controller/FilesController.php:371;387
+#: Controller/FilesController.php:374;390
 msgid "Le dossier a correctement été créé"
 msgstr ""
 
-#: Controller/FilesController.php:378;389
+#: Controller/FilesController.php:381;392
 msgid "Il y a des erreurs dans les données du formulaire"
 msgstr ""
 
-#: Controller/FilesController.php:398
+#: Controller/FilesController.php:401
 msgid "Vous n'avez pas les droits nécessaires pour renommer le dossier ou fichier"
 msgstr ""
 
-#: Controller/FilesController.php:497
+#: Controller/FilesController.php:500
 msgid "Folder \"%s\" was successfully deleted"
 msgstr ""
 
-#: Controller/FilesController.php:500
+#: Controller/FilesController.php:503
 msgid "You cannot delete folder \"%s\""
 msgstr ""
 
-#: Controller/FilesController.php:520
+#: Controller/FilesController.php:523
 msgid "The file \"%s\" was successfully deleted"
 msgstr ""
 
-#: Controller/FilesController.php:523
+#: Controller/FilesController.php:526
 msgid "You cannot delete file \"%s\""
 msgstr ""
 
-#: Controller/FilesController.php:571
+#: Controller/FilesController.php:574
 msgid "There was an error while tagging the file"
 msgstr ""
 
-#: Controller/FilesController.php:568
+#: Controller/FilesController.php:571
 msgid "Tag successfully added to file"
 msgid_plural "Tags successfully added to file"
 msgstr[0] ""
 msgstr[1] ""
 
-#: Model/UploadedFile.php:290
+#: Model/UploadedFile.php:301
 msgid "Invalid Folder Id #%s"
 msgstr ""
 
-#: Model/UploadedFile.php:294
+#: Model/UploadedFile.php:305
 msgid "You Cannot download a file as Zip archive"
 msgstr ""
 
-#: Model/UploadedFile.php:338
+#: Model/UploadedFile.php:349
 msgid "Invalid user with id #%s"
 msgstr ""
 
-#: Model/UploadedFile.php:342
+#: Model/UploadedFile.php:353
 msgid "Invalid folder or file with id #%s"
 msgstr ""
 
-#: Model/UploadedFile.php:396;461
+#: Model/UploadedFile.php:407;472
 msgid "Invalid user with id#%s"
 msgstr ""
 
-#: Model/UploadedFile.php:399
+#: Model/UploadedFile.php:410
 msgid "Invalid Folder with id#%s"
 msgstr ""
 
-#: Model/UploadedFile.php:402
+#: Model/UploadedFile.php:413
 msgid "Current id %s is not a folder"
 msgstr ""
 
-#: Model/UploadedFile.php:464
+#: Model/UploadedFile.php:475
 msgid "Invalid File with id#%s"
 msgstr ""
 
-#: Model/UploadedFile.php:570
+#: Model/UploadedFile.php:581
 msgid "Le fichier doit avoir la même extension que le fichier d'origine"
 msgstr ""
 
-#: Model/UploadedFile.php:613
+#: Model/UploadedFile.php:624
 msgid "La taille du fichier dépasse la limite autorisée"
 msgstr ""
 
-#: Model/UploadedFile.php:616
+#: Model/UploadedFile.php:627
 msgid "Aucun fichier n'a été uploadé"
 msgstr ""
 
-#: Model/UploadedFile.php:619
+#: Model/UploadedFile.php:630
 msgid "Il y a eu une erreur pendant l'upload de votre fichier"
 msgstr ""
 
@@ -129,98 +129,123 @@ msgstr ""
 msgid "Poster votre commentaire"
 msgstr ""
 
-#: View/Elements/file_list.ctp:37
+#: View/Elements/file_table.ctp:4
 msgid "Fichier"
 msgstr ""
 
-#: View/Elements/file_list.ctp:38
+#: View/Elements/file_table.ctp:5
+#: View/Elements/folder_table.ctp:5
 msgid "Auteur"
 msgstr ""
 
-#: View/Elements/file_list.ctp:39
-msgid "Date"
+#: View/Elements/file_table.ctp:6
+#: View/Elements/folder_table.ctp:6
+msgid "Dernière modification"
 msgstr ""
 
-#: View/Elements/file_list.ctp:40
+#: View/Elements/file_table.ctp:7
+#: View/Elements/folder_table.ctp:7
 msgid "Taille"
 msgstr ""
 
-#: View/Elements/file_list.ctp:41
+#: View/Elements/file_table.ctp:8
 msgid "Type"
 msgstr ""
 
-#: View/Elements/file_list.ctp:42
+#: View/Elements/file_table.ctp:9
+#: View/Elements/folder_table.ctp:8
 #: View/Files/rights.ctp:39
 msgid "Actions"
 msgstr ""
 
-#: View/Elements/file_list.ctp:106
+#: View/Elements/file_table.ctp:75
+#: View/Elements/folder_table.ctp:43
 msgid "Folder size limit exceeded"
 msgstr ""
 
-#: View/Elements/file_list.ctp:111
+#: View/Elements/file_table.ctp:80
+#: View/Elements/folder_table.ctp:48
 msgid "<i class=\"icon-download-alt\"></i>"
 msgstr ""
 
-#: View/Elements/file_list.ctp:115
+#: View/Elements/file_table.ctp:87
+#: View/Elements/folder_table.ctp:55
 msgid "Download folder as zipfile"
 msgstr ""
 
-#: View/Elements/file_list.ctp:131
+#: View/Elements/file_table.ctp:103
+#: View/Elements/folder_table.ctp:71
 msgid "Renommer le dossier"
 msgstr ""
 
-#: View/Elements/file_list.ctp:143
+#: View/Elements/file_table.ctp:115
+#: View/Elements/folder_table.ctp:83
 msgid "<i class=\"icon-user\"></i>"
 msgstr ""
 
-#: View/Elements/file_list.ctp:147
+#: View/Elements/file_table.ctp:119
+#: View/Elements/folder_table.ctp:87
 msgid "Gérer les droits"
 msgstr ""
 
-#: View/Elements/file_list.ctp:154;264;302
+#: View/Elements/file_table.ctp:126;245;291
+#: View/Elements/folder_table.ctp:94;213
 msgid "<i class=\"icon-remove\"></i>"
 msgstr ""
 
-#: View/Elements/file_list.ctp:158
+#: View/Elements/file_table.ctp:130
+#: View/Elements/folder_table.ctp:98
 msgid "Supprimer le dossier"
 msgstr ""
 
-#: View/Elements/file_list.ctp:161
+#: View/Elements/file_table.ctp:136
+#: View/Elements/folder_table.ctp:104
 msgid "You are about to delete folder \"%s\". Are you sure ?"
 msgstr ""
 
-#: View/Elements/file_list.ctp:174
+#: View/Elements/file_table.ctp:149
+#: View/Elements/folder_table.ctp:117
 #: View/Files/view.ctp:37
 msgid "Download"
 msgstr ""
 
-#: View/Elements/file_list.ctp:183
+#: View/Elements/file_table.ctp:161
+#: View/Elements/folder_table.ctp:129
 msgid "Renommer le fichier"
 msgstr ""
 
-#: View/Elements/file_list.ctp:204
+#: View/Elements/file_table.ctp:182
+#: View/Elements/folder_table.ctp:150
 msgid "New version"
 msgstr ""
 
-#: View/Elements/file_list.ctp:216
+#: View/Elements/file_table.ctp:194
+#: View/Elements/folder_table.ctp:162
 msgid "Ajouter un commentaire"
 msgstr ""
 
-#: View/Elements/file_list.ctp:218
+#: View/Elements/file_table.ctp:196
+#: View/Elements/folder_table.ctp:164
 msgid "Dernier commentaire le %s à %s par %s"
 msgstr ""
 
-#: View/Elements/file_list.ctp:257
+#: View/Elements/file_table.ctp:235
+#: View/Elements/folder_table.ctp:203
 msgid "File Tags"
 msgstr ""
 
-#: View/Elements/file_list.ctp:268;306
+#: View/Elements/file_table.ctp:249;295
+#: View/Elements/folder_table.ctp:217
 msgid "Supprimer le fichier"
 msgstr ""
 
-#: View/Elements/file_list.ctp:271;309
+#: View/Elements/file_table.ctp:255;301
+#: View/Elements/folder_table.ctp:223
 msgid "You are about to delete file \"%s\". Are you sure ?"
+msgstr ""
+
+#: View/Elements/folder_table.ctp:4
+msgid "Partages"
 msgstr ""
 
 #: View/Elements/plupload_widget.ctp:13

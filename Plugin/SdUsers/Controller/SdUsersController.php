@@ -257,7 +257,7 @@ class SdUsersController extends SdUsersAppController {
 				$class = array('class' => 'success');
 			} else {
 				$messageFlash = __d('sd_users', 'Something went wrong when updating password');
-				$class = array('class' => 'success');
+				$class = array('class' => 'error');
 			}
 
 			$this->Session->setFlash($messageFlash, 'default', $class);

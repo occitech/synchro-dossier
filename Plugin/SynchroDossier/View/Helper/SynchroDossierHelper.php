@@ -34,8 +34,8 @@ class SynchroDossierHelper extends AppHelper {
 		if (!empty($quota)) {
 			$vars = array(
 				'toPrint' => true,
-				'quota' => round($quota['quota_mb'] / 1024, 2),
-				'currentQuota' => round($quota['current_quota_mb'] / 1024, 2),
+				'quota' => round($quota['quota_mb']),
+				'currentQuota' => round($quota['current_quota_mb']),
 				'usedPercent' => $quota['current_quota_mb'] / $quota['quota_mb'] * 100
 			);
 		}

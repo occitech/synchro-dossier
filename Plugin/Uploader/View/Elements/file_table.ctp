@@ -3,7 +3,7 @@
 		<tr>
 			<th><?= $this->Paginator->sort('filename', __d('uploader', 'Fichier')); ?></th>
 			<th><?= $this->Paginator->sort('uploader_name', __d('uploader', 'Auteur')); ?></th>
-			<th><?= $this->Paginator->sort('created', __d('uploader', 'Date')) ?></th>
+			<th><?= $this->Paginator->sort('created', __d('uploader', 'Dernière modification')) ?></th>
 			<th><?= $this->Paginator->sort('size', __d('uploader', 'Taille')) ?></th>
 			<th><?= $this->Paginator->sort('mime_type', __d('uploader', 'Type')) ?></th>
 			<th><?= __d('uploader', 'Actions') ?></th>
@@ -38,21 +38,23 @@
 					</td>
 
 					<td>
-						<?php if (!$file['UploadedFile']['is_folder']): ?>
-							<?= $file['UploadedFile']['uploader_name']; ?>
-						<?php endif ?>
+						<?= $file['UploadedFile']['uploader_name']; ?>
 					</td>
 
 					<td>
 						<?php if (!$file['UploadedFile']['is_folder']): ?>
-							<?=  $this->Time->format('j/m/Y H:i', $lastVersion['created']); ?>
-						<?php endif ?>
+							<?=  $this->Time->format('j/m/Y H:i', $lastVersion['modified']); ?>
+						<?php else: ?>
+							<?=  $this->Time->format('j/m/Y H:i', $file['UploadedFile']['modified']); ?>
+						<?php endif; ?>
 					</td>
 
 					<td>
 						<?php if (!$file['UploadedFile']['is_folder']): ?>
-							<?= $this->File->size($lastVersion['filesize'], 'o'); ?>
-						<?php endif ?>
+							<?= $this->File->size($lastVersion['filesize']); ?>
+						<?php else: ?>
+							<?= $this->File->size($file['UploadedFile']['size']); ?>
+						<?php endif; ?>
 					</td>
 
 					<td>

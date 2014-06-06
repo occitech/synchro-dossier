@@ -328,6 +328,7 @@ class FilesController extends UploaderAppController {
 		foreach ($files as &$file) {
 			if ($file['UploadedFile']['is_folder']) {
 				$file['UploadedFile']['downloadable'] = $this->UploadedFile->canDownloadFolderAsZip($file['UploadedFile']['id']);
+				$file['UploadedFile']['size'] = $this->UploadedFile->getFolderSize($file['UploadedFile']['id']);
 			}
 		}
 
@@ -360,7 +361,8 @@ class FilesController extends UploaderAppController {
 		$this->request->data['UploadedFile'] = $this->passedArgs;
 		$superAdmins = $this->UploadedFile->User->find('superAdmin');
 		$isFind = true;
-		$this->set(compact('files', 'folderId', 'parentId', 'superAdmins', 'isFind'));
+		$isRootFolder = false;
+		$this->set(compact('isRootFolder', 'files', 'folderId', 'parentId', 'superAdmins', 'isFind'));
 	}
 
 	/**
