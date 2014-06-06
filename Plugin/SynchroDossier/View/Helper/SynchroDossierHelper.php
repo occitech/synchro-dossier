@@ -74,6 +74,7 @@ class SynchroDossierHelper extends AppHelper {
 			'_read' => __d('synchro_dossier', 'Read'),
 			'_write' => __d('synchro_dossier', 'Write'),
 			'_delete' => __d('synchro_dossier', 'Delete'),
+			'_update' => __d('synchro_dossier', 'Rename'),
 			'_create' => __d('synchro_dossier', 'Create'),
 			'_change_right' => __d('synchro_dossier', 'Change Right')
 		);
