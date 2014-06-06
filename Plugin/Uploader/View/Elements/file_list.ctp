@@ -118,7 +118,11 @@
 											); ?>
 										<?php endif ?>
 									<?php endif ?>
-									<?php if(!is_null($folderId) && $this->UploaderAcl->userCan($file['Aco'], 'update')): ?>
+									<?php
+									// Allow root sharing rename and owner renaming ...
+									if($this->UploaderAcl->userCan($file['Aco'], 'update') ||
+										CakeSession::read('Auth.User.user_id') == $file['UploadedFile']['user_id']
+									): ?>
 									<?= $this->Html->link(
 										'<i class="icon-pencil"></i>',
 										'#renameFolderModal',
