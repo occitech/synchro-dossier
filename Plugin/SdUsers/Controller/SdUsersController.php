@@ -365,7 +365,7 @@ class SdUsersController extends SdUsersAppController {
 
 			try {
 
-				$email = new CakeEmail();
+				$email = new CakeEmail('default');
 				$email->from($from[1], $from[0]);
 				$email->to($to);
 				$email->emailFormat('both');
