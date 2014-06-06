@@ -245,7 +245,7 @@ msgstr "You are about to delete file \"%s\". Are you sure ?"
 msgid ""
 "Aucun résultat pour cette recherche, veuillez mettre à jour votre recherche "
 "et réessayer"
-msgstr "No results, please update your search filters and try agian."
+msgstr "No results, please update your search filters and try again."
 
 #: View/Elements/folder_table.ctp:4
 msgid "Partages"

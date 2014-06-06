@@ -6,12 +6,6 @@ App::uses('CakeEmail', 'Network/Email');
 
 class SdRightsManager implements CakeEventListener {
 
-	public $cakeEmail = null;
-
-	public function __construct() {
-		$this->cakeEmail = new CakeEmail();
-	}
-
 	public function implementedEvents() {
 		return array(
 			'Controller.FilesController.afterChangeRight' => 'setAdminAllRights'

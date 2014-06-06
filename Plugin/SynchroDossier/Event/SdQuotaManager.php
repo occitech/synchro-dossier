@@ -38,6 +38,7 @@ class SdQuotaManager implements CakeEventListener {
 
 				$this->cakeEmail->reset();
 				$this->cakeEmail
+					->config('default')
 					->template('SynchroDossier.quota_exceeded', 'SynchroDossier.default')
 					->theme(Configure::read('Site.theme'))
 					->emailFormat('both')
@@ -72,4 +73,5 @@ class SdQuotaManager implements CakeEventListener {
 		$SdInformationModel->id = $sdInfo['SdInformation']['id'];
 		$SdInformationModel->saveField('current_quota_mb', round($currentQuotaMb, 0));
 	}
+
 }
