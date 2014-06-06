@@ -4,9 +4,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Uploader\n"
-"POT-Creation-Date: 2014-06-06 15:11+0200\n"
-"PO-Revision-Date: 2014-06-06 15:15+0100\n"
-"Last-Translator: Damien Biasotto <damien.biasotto@gmail.com>\n"
+"POT-Creation-Date: 2014-06-06 15:32+0200\n"
+"PO-Revision-Date: 2014-06-06 15:33+0100\n"
+"Last-Translator: \n"
 "Language-Team: Occitech <contact@occitech.fr>\n"
 "Language: fr_FR\n"
 "MIME-Version: 1.0\n"
@@ -55,42 +55,42 @@ msgstr "L'information fournie est incorrecte"
 msgid "Home"
 msgstr "Accueil"
 
-#: Controller/FilesController.php:373;389
+#: Controller/FilesController.php:374;390
 msgid "Le dossier a correctement été créé"
 msgstr "Le dossier a correctement été créé"
 
-#: Controller/FilesController.php:380;391
+#: Controller/FilesController.php:381;392
 msgid "Il y a des erreurs dans les données du formulaire"
 msgstr "Il y a des erreurs dans les données du formulaire"
 
-#: Controller/FilesController.php:400
+#: Controller/FilesController.php:401
 msgid ""
 "Vous n'avez pas les droits nécessaires pour renommer le dossier ou fichier"
 msgstr ""
 "Vous n'avez pas les droits nécessaires pour renommer le dossier ou fichier"
 
-#: Controller/FilesController.php:499
+#: Controller/FilesController.php:500
 msgid "Folder \"%s\" was successfully deleted"
 msgstr "Le dossier \"%s\" a été supprimé avec succès"
 
-#: Controller/FilesController.php:502
+#: Controller/FilesController.php:503
 msgid "You cannot delete folder \"%s\""
 msgstr "Vous ne pouvez pas supprimer le dossier \"%s\""
 
-#: Controller/FilesController.php:522
+#: Controller/FilesController.php:523
 msgid "The file \"%s\" was successfully deleted"
 msgstr "Le fichier \"%s\" a été supprimé avec succès"
 
-#: Controller/FilesController.php:525
+#: Controller/FilesController.php:526
 msgid "You cannot delete file \"%s\""
 msgstr "Vous ne pouvez pas supprimer le fichier \"%s\""
 
-#: Controller/FilesController.php:573
+#: Controller/FilesController.php:574
 msgid "There was an error while tagging the file"
 msgstr ""
 "Une erreur s'est produite lors de l'association des mots-clés au fichier"
 
-#: Controller/FilesController.php:570
+#: Controller/FilesController.php:571
 msgid "Tag successfully added to file"
 msgid_plural "Tags successfully added to file"
 msgstr[0] "Mot-clé ajouté au fichier"
@@ -158,8 +158,8 @@ msgid "Auteur"
 msgstr "Auteur"
 
 #: View/Elements/file_table.ctp:6 View/Elements/folder_table.ctp:6
-msgid "Date"
-msgstr "Date"
+msgid "Dernière modification"
+msgstr "Dernière modification"
 
 #: View/Elements/file_table.ctp:7 View/Elements/folder_table.ctp:7
 msgid "Taille"
@@ -427,6 +427,9 @@ msgstr "Ce champs ne peut être laissé vide"
 #: Model/UploadedFile.php:validation for field filename
 msgid "Ce nom est déjà utilisé par un autre fichier"
 msgstr "Ce nom est déjà utilisé par un autre fichier"
+
+#~ msgid "Date"
+#~ msgstr "Date"
 
 #~ msgid "Commentaires"
 #~ msgstr "Commentaires"

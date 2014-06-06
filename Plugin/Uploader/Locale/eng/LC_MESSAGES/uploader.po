@@ -4,9 +4,9 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: Uploader\n"
-"POT-Creation-Date: 2014-06-06 15:11+0200\n"
-"PO-Revision-Date: 2014-06-06 15:13+0100\n"
-"Last-Translator: Hadrien Collongues <hadrien@occitech.fr>\n"
+"POT-Creation-Date: 2014-06-06 15:32+0200\n"
+"PO-Revision-Date: 2014-06-06 15:34+0100\n"
+"Last-Translator: \n"
 "Language-Team: Occitech\n"
 "Language: en\n"
 "MIME-Version: 1.0\n"
@@ -54,40 +54,40 @@ msgstr "Given information are incorrect"
 msgid "Home"
 msgstr "Home"
 
-#: Controller/FilesController.php:373;389
+#: Controller/FilesController.php:374;390
 msgid "Le dossier a correctement été créé"
 msgstr "Directory has been created successfully"
 
-#: Controller/FilesController.php:380;391
+#: Controller/FilesController.php:381;392
 msgid "Il y a des erreurs dans les données du formulaire"
 msgstr "There are errors with submitted data"
 
-#: Controller/FilesController.php:400
+#: Controller/FilesController.php:401
 msgid ""
 "Vous n'avez pas les droits nécessaires pour renommer le dossier ou fichier"
 msgstr ""
 
-#: Controller/FilesController.php:499
+#: Controller/FilesController.php:500
 msgid "Folder \"%s\" was successfully deleted"
 msgstr "Folder \"%s\" was successfully deleted"
 
-#: Controller/FilesController.php:502
+#: Controller/FilesController.php:503
 msgid "You cannot delete folder \"%s\""
 msgstr "You cannot delete folder \"%s\""
 
-#: Controller/FilesController.php:522
+#: Controller/FilesController.php:523
 msgid "The file \"%s\" was successfully deleted"
 msgstr "The file \"%s\" was successfully deleted"
 
-#: Controller/FilesController.php:525
+#: Controller/FilesController.php:526
 msgid "You cannot delete file \"%s\""
 msgstr "You cannot delete file \"%s\""
 
-#: Controller/FilesController.php:573
+#: Controller/FilesController.php:574
 msgid "There was an error while tagging the file"
 msgstr "There was an error while tagging the file"
 
-#: Controller/FilesController.php:570
+#: Controller/FilesController.php:571
 msgid "Tag successfully added to file"
 msgid_plural "Tags successfully added to file"
 msgstr[0] "Tag successfully added to file"
@@ -156,8 +156,8 @@ msgid "Auteur"
 msgstr "Author"
 
 #: View/Elements/file_table.ctp:6 View/Elements/folder_table.ctp:6
-msgid "Date"
-msgstr "Date"
+msgid "Dernière modification"
+msgstr "Modified"
 
 #: View/Elements/file_table.ctp:7 View/Elements/folder_table.ctp:7
 msgid "Taille"
@@ -426,6 +426,9 @@ msgstr "This field cannot be left empty"
 #: Model/UploadedFile.php:validation for field filename
 msgid "Ce nom est déjà utilisé par un autre fichier"
 msgstr "This name is already in use for another directory"
+
+#~ msgid "Date"
+#~ msgstr "Date"
 
 #~ msgid "Commentaires"
 #~ msgstr "Comments"

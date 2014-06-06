@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-06-06 15:11+0200\n"
+"POT-Creation-Date: 2014-06-06 15:32+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -39,39 +39,39 @@ msgstr ""
 msgid "Home"
 msgstr ""
 
-#: Controller/FilesController.php:373;389
+#: Controller/FilesController.php:374;390
 msgid "Le dossier a correctement été créé"
 msgstr ""
 
-#: Controller/FilesController.php:380;391
+#: Controller/FilesController.php:381;392
 msgid "Il y a des erreurs dans les données du formulaire"
 msgstr ""
 
-#: Controller/FilesController.php:400
+#: Controller/FilesController.php:401
 msgid "Vous n'avez pas les droits nécessaires pour renommer le dossier ou fichier"
 msgstr ""
 
-#: Controller/FilesController.php:499
+#: Controller/FilesController.php:500
 msgid "Folder \"%s\" was successfully deleted"
 msgstr ""
 
-#: Controller/FilesController.php:502
+#: Controller/FilesController.php:503
 msgid "You cannot delete folder \"%s\""
 msgstr ""
 
-#: Controller/FilesController.php:522
+#: Controller/FilesController.php:523
 msgid "The file \"%s\" was successfully deleted"
 msgstr ""
 
-#: Controller/FilesController.php:525
+#: Controller/FilesController.php:526
 msgid "You cannot delete file \"%s\""
 msgstr ""
 
-#: Controller/FilesController.php:573
+#: Controller/FilesController.php:574
 msgid "There was an error while tagging the file"
 msgstr ""
 
-#: Controller/FilesController.php:570
+#: Controller/FilesController.php:571
 msgid "Tag successfully added to file"
 msgid_plural "Tags successfully added to file"
 msgstr[0] ""
@@ -140,7 +140,7 @@ msgstr ""
 
 #: View/Elements/file_table.ctp:6
 #: View/Elements/folder_table.ctp:6
-msgid "Date"
+msgid "Dernière modification"
 msgstr ""
 
 #: View/Elements/file_table.ctp:7

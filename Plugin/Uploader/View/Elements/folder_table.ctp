@@ -3,7 +3,7 @@
 		<tr>
 			<th><?= $this->Paginator->sort('filename', __d('uploader', 'Partages')); ?></th>
 			<th><?= $this->Paginator->sort('uploader_name', __d('uploader', 'Auteur')); ?></th>
-			<th><?= $this->Paginator->sort('created', __d('uploader', 'Date')) ?></th>
+			<th><?= $this->Paginator->sort('created', __d('uploader', 'Dernière modification')) ?></th>
 			<th><?= $this->Paginator->sort('size', __d('uploader', 'Taille')) ?></th>
 			<th><?= __d('uploader', 'Actions') ?></th>
 		</tr>
@@ -24,7 +24,7 @@
 					</td>
 
 					<td>
-						<?=  $this->Time->format('j/m/Y H:i', $file['UploadedFile']['created']); ?>
+						<?=  $this->Time->format('j/m/Y H:i', $file['UploadedFile']['modified']); ?>
 					</td>
 
 					<td>
