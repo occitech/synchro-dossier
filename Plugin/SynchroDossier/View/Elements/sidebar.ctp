@@ -10,6 +10,10 @@
 					   data-original-title="<?= Configure::read('sd.tooltip.quota.title');?>"
 					   data-content="<?= Configure::read('sd.tooltip.quota.text');?>"
 					   data-placement="<?= Configure::read('sd.tooltip.quota.position');?>"
+					   data-event="ga"
+					   data-category="Infobulles"
+					   data-action="hover"
+					   data-label="Quota"
 					></i>
 				<?php endif; ?>
 			</li>

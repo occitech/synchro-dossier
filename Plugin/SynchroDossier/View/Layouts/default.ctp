@@ -18,6 +18,7 @@
 			'/croogo/js/croogo-bootstrap.js',
 			'SynchroDossier._lib/jquery.cookie',
 			'SynchroDossier.jquery.jstree',
+			'SynchroDossier.jquery.ga-event',
 		));
 
 		echo $this->Layout->js();
@@ -26,6 +27,7 @@
 		echo $this->fetch('css');
 
 		?>
+		<?= $this->element('google_analytics'); ?>
 	</head>
 	<body>
 		<header>
@@ -75,6 +77,5 @@
 				<?= $this->element('SynchroDossier.version'); ?>
 			</p>
 		</footer>
-	<?= $this->element('google_analytics'); ?>
 	</body>
 </html>

@@ -13,6 +13,10 @@ $help = '<i class="icon-info-sign"
 			data-original-title="' . Configure::read('sd.tooltip.role.title') . '"
 			data-content="' . Configure::read('sd.tooltip.role.text') . '"
 			data-placement="' . Configure::read('sd.tooltip.role.position') . '"
+			data-event="ga"
+			data-category="Infobulles"
+			data-action="hover"
+			data-label="Rôles"
 	></i>';
 } else {
 	$help = '';
