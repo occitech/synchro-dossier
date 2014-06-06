@@ -328,6 +328,7 @@ class FilesController extends UploaderAppController {
 		foreach ($files as &$file) {
 			if ($file['UploadedFile']['is_folder']) {
 				$file['UploadedFile']['downloadable'] = $this->UploadedFile->canDownloadFolderAsZip($file['UploadedFile']['id']);
+				$file['UploadedFile']['size'] = $this->UploadedFile->getFolderSize($file['UploadedFile']['id']);
 			}
 		}
 

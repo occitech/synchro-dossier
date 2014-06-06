@@ -38,21 +38,23 @@
 					</td>
 
 					<td>
-						<?php if (!$file['UploadedFile']['is_folder']): ?>
-							<?= $file['UploadedFile']['uploader_name']; ?>
-						<?php endif ?>
+						<?= $file['UploadedFile']['uploader_name']; ?>
 					</td>
 
 					<td>
 						<?php if (!$file['UploadedFile']['is_folder']): ?>
 							<?=  $this->Time->format('j/m/Y H:i', $lastVersion['created']); ?>
-						<?php endif ?>
+						<?php else: ?>
+							<?=  $this->Time->format('j/m/Y H:i', $file['UploadedFile']['created']); ?>
+						<?php endif; ?>
 					</td>
 
 					<td>
 						<?php if (!$file['UploadedFile']['is_folder']): ?>
-							<?= $this->File->size($lastVersion['filesize'], 'o'); ?>
-						<?php endif ?>
+							<?= $this->File->size($lastVersion['filesize']); ?>
+						<?php else: ?>
+							<?= $this->File->size($file['UploadedFile']['size']); ?>
+						<?php endif; ?>
 					</td>
 
 					<td>

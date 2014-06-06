@@ -249,6 +249,17 @@ class UploadedFile extends UploaderAppModel {
 		return $folder;
 	}
 
+	public function getFolderSize($folderId) {
+		$childSizes = Hash::extract($this->children($folderId, false, array('size')), '{n}.UploadedFile.size');
+
+		$folderSize = 0;
+		foreach ($childSizes as $size) {
+			$folderSize += $size;
+		}
+
+		return $folderSize;
+	}
+
 	protected function _getFoldersPath($folderId) {
 		$parentFolder = $this->findById($folderId);
 		if (empty($parentFolder) || !$parentFolder['UploadedFile']['is_folder']) {

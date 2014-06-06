@@ -28,9 +28,7 @@
 					</td>
 
 					<td>
-						<?php if (!$file['UploadedFile']['is_folder']): ?>
-							<?= $this->File->size($lastVersion['filesize'], 'o'); ?>
-						<?php endif ?>
+						<?= $this->File->size($file['UploadedFile']['size']); ?>
 					</td>
 
 					<td>

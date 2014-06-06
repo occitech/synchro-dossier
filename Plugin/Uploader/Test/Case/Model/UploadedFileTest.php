@@ -928,6 +928,16 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->assertEquals('aftername',  $file['UploadedFile']['filename']);
 	}
 
+	public function testgetFolderSize() {
+		$folderSize = $this->UploadedFile->getFolderSize(1);
+		$sizeOfChild3ForParent1 = 0;
+		$sizeOfChild4ForParent3 = 34639;
+		$sizeOfChild5ForParent3 = 4385;
+		$expected = $sizeOfChild3ForParent1 + $sizeOfChild4ForParent1 + $sizeOfChild5ForParent1;
+
+		$this->assertEquals($expected, $folderSize);
+	}
+
 
 	private function __getLatestUploadedFiled()
 	{
