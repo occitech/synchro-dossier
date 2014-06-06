@@ -1,0 +1,9 @@
+/**
+ * General configuration file for CasperJS testsuite
+ */
+var config = {
+	// Base url to run scripts from WITHOUT a trailing slash
+	url_base: 'http://example.com',
+	// Relative path WITHOUT a trailing slash where screenshots will be stored in case of failure
+	failure_screenshot_path: 'tmp/test-failures'
+};

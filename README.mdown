@@ -8,10 +8,12 @@
 ## Installation
   * git clone git@bitbucket.org:occitech/synchro-dossier.git
   * Run `composer install` (and `composer update` if needed)
+  * Development only: run `npm install` for CasperJS acceptance tests
 
   * `app/Config/database.php.install` to `database.php`, and edit the details.
   * `app/Config/croogo.php.install` to `croogo.php`, and edit the details.
   * `app/Config/settings.json.install` to `settings.json`
+  * `app/Config/occitest.js.default` to `occitest.js` and edit it to be able to execute acceptance tests
 
   * Run `Vendor/bin/cake Install.install`
   * Run `chmod -R 777 tmp/`

@@ -37,3 +37,7 @@ Vendor/croogo/
 Vendor/knplabs/
 Vendor/occitech/
 Vendor/twbs/
+
+# npm / acceptance tests
+node_modules/
+Config/occitest.js

@@ -1,0 +1,24 @@
+{
+  "name": "synchro-dossier",
+  "description": "Synchro Dossier",
+  "main": "index.js",
+  "directories": {
+    "test": "Test/Acceptance"
+  },
+  "scripts": {
+    "test": "./node_modules/.bin/casperjs test $npm_config_files --includes=./Config/occitest.js"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git@git.occi-tech.com:occitech/synchro-dossier.git"
+  },
+  "keywords": [
+    "cakephp"
+  ],
+  "author": "Occitech",
+  "license": "MIT",
+  "devDependencies": {
+    "casperjs": "~1.1",
+    "phantomjs": "~1.9.2"
+  }
+}
