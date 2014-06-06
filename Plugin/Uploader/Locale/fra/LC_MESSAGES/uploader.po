@@ -58,7 +58,7 @@ msgstr "L'information fournie est incorrecte"
 #: Plugin/Uploader/Controller/FilesController.php:337
 #: Plugin/Uploader/Test/Case/Controller/FilesControllerTest.php:143
 msgid "Home"
-msgstr "Racine"
+msgstr "Accueil"
 
 #: Plugin/Uploader/Controller/FilesController.php:371;387
 msgid "Le dossier a correctement été créé"
