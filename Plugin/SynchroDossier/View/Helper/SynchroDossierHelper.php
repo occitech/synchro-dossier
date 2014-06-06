@@ -114,6 +114,12 @@ class SynchroDossierHelper extends AppHelper {
 			}
 		}
 
+		if ($options['value']) {
+			$confirmMessage = __d('synchro_dossier', 'You\'re about to subscribe to email alert for folder %s. Are you sure ?');
+		} else {
+			$confirmMessage = __d('synchro_dossier', 'You\'re about to unsubscribe to email alert for folder %s. Are you sure ?');
+		}
+
 		return $this->Html->link(
 			$options['label'],
 			array(
@@ -125,10 +131,8 @@ class SynchroDossierHelper extends AppHelper {
 				$options['value']
 			),
 			$options,
-			__d(
-				'synchro_dossier',
-				'You\'re about to %s to email alert for folder %s. Are you sure ?',
-				$options['value'] ? __d('synchro_dossier', 'subscribe') : __d('synchro_dossier', 'unsubscribe'),
+			sprintf(
+				$confirmMessage,
 				$folderData['UploadedFile']['filename']
 			)
 		);
