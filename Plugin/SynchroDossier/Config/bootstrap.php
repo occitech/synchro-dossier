@@ -82,11 +82,12 @@ Configure::write('sd.tooltip', array(
 	),
 	'rights' => array(
 		'trigger' => 'hover',
-		'position' => 'top',
+		'position' => 'bottom',
 		'title' => __d('synchro_dossier', 'Quels sont les différents droits ?'),
 		'text' => __d('synchro_dossier', '
 			<strong><em>Aucun droit : &nbsp;</em></strong>Ne peut ni voir ni consulter ce dossier.<br/><br/>
 			<strong><em>Lecture : &nbsp;</em></strong>Peut voir et consulter le contenu du dossier.<br/><br/>
+			<strong><em>Renommage : &nbsp;</em></strong>Permet de renommer les fichiers et dossiers.<br/><br/>
 			<strong><em>Création / Envoi : &nbsp;</em></strong>Peut envoyer des fichiers dans la boite d\'envoi et créer des répertoires.<br/><br/>
 			<strong><em>Suppression : &nbsp;</em></strong>Peut supprimer des fichiers de la boite d\'envoi.<br/><br/>
 			<strong><em>Changer les droits : &nbsp;</em></strong>Peut changer les droits des utilisateurs de la boite d\'envoi.<br/><br/>'

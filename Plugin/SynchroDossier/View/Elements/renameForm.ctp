@@ -1,4 +1,4 @@
-<div class="modal-body no-overflow-y">
+*<div class="modal-body no-overflow-y">
 	<div class="uploader">
 		<?= $this->Form->create('UploadedFile',	array(
 			'type' => 'put',
@@ -18,6 +18,6 @@
 	</div>
 </div>
 <div class="modal-footer">
-	<?= $this->Form->submit(__d('synchro_dossier', 'Renommer'), array('class' => 'btn')); ?>
+	<?= $this->Form->submit(__d('synchro_dossier', 'Renommer'), array('class' => 'btn', 'data-event' => 'ga', 'data-category' => 'Renommer', 'data-action' => 'click')); ?>
 	<?= $this->Form->end(); ?>
 </div>

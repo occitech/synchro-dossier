@@ -18,6 +18,7 @@
 			'/croogo/js/croogo-bootstrap.js',
 			'SynchroDossier._lib/jquery.cookie',
 			'SynchroDossier.jquery.jstree',
+			'SynchroDossier.jquery.ga-event',
 		));
 
 		echo $this->Layout->js();
@@ -26,6 +27,7 @@
 		echo $this->fetch('css');
 
 		?>
+		<?= $this->element('google_analytics'); ?>
 	</head>
 	<body>
 		<header>
@@ -57,16 +59,14 @@
 			<?= $this->element('SynchroDossier.addSharingModal'); ?>
 			<?= $this->element('SynchroDossier.addNewVersionModal'); ?>
 			<?= $this->element('SynchroDossier.renameFileModal'); ?>
+			<?= $this->element('SynchroDossier.renameFolderModal'); ?>
 			<?= $this->element('SynchroDossier.formCommentModal'); ?>
 			<?= $this->element('SynchroDossier.formFileTagsModal'); ?>
 			<?= $this->element('SdUsers.deleteAdminModal'); ?>
 
-			<?php
-				if (!empty($folderId)) :
-					echo $this->element('SynchroDossier.createFolderModal');
-					echo $this->element('SynchroDossier.renameFolderModal');
-				endif;
-			?>
+			<?php if (!empty($folderId)) :?>
+				<?= $this->element('SynchroDossier.createFolderModal'); ?>
+			<?php endif; ?>
 		</div>
 		<?=	$this->fetch('script'); ?>
 		<?= $this->Html->script('Uploader.app'); ?>
@@ -77,6 +77,5 @@
 				<?= $this->element('SynchroDossier.version'); ?>
 			</p>
 		</footer>
-	<?= $this->element('google_analytics'); ?>
 	</body>
 </html>

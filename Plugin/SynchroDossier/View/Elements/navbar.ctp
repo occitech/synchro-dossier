@@ -1,3 +1,9 @@
+<?php
+	$loginRoute = array('plugin' => 'users', 'controller' => 'users', 'action' => 'login');
+	if ($this->SynchroDossier->routeIsActive($loginRoute)) :
+		return;
+	endif;
+?>
 <div class="navbar">
 	<div class="navbar-inner">
 		<ul class="nav">
@@ -17,6 +23,10 @@
 					'plugin' => 'sd_users',
 					'controller' => 'sd_users',
 					'action' => 'index'
+				), array(
+					'data-event' => 'ga',
+					'data-category' => 'Liste des utilisateurs',
+					'data-action' => 'click',
 				)); ?></li>
 			<?php endif ?>
 		</ul>
@@ -32,9 +42,11 @@
 								'controller' => 'sd_users',
 								'action' => 'profile',
 								$this->Session->read('Auth.User.id')
-							),
-							array(
-								'escape' => false
+							), array(
+								'data-event' => 'ga',
+								'data-category' => 'Lien profil',
+								'data-action' => 'click',
+								'escape' => false,
 							)
 						); ?>
 					</li>
@@ -66,9 +78,9 @@
 					</li>
 				</ul>
 			</li>
-			<?php else: ?>
+			<?php else : ?>
 				<li>
-					<?php echo $this->Html->link(__d('synchro_dossier', "Connexion"), array('plugin' => 'users', 'controller' => 'users', 'action' => 'login')); ?>
+					<?php echo $this->Html->link(__d('synchro_dossier', "Connexion"), $loginRoute); ?>
 				</li>
 			<?php endif ?>
 		</ul>

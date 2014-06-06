@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-06-05 18:18+0200\n"
+"POT-Creation-Date: 2014-06-06 09:32+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -44,14 +44,14 @@ msgid "Quels sont les différents droits ?"
 msgstr ""
 
 #: Config/bootstrap.php:87
-msgid "\n\t\t\t<strong><em>Aucun droit : &nbsp;</em></strong>Ne peut ni voir ni consulter ce dossier.<br/><br/>\n\t\t\t<strong><em>Lecture : &nbsp;</em></strong>Peut voir et consulter le contenu du dossier.<br/><br/>\n\t\t\t<strong><em>Création / Envoi : &nbsp;</em></strong>Peut envoyer des fichiers dans la boite d'envoi et créer des répertoires.<br/><br/>\n\t\t\t<strong><em>Suppression : &nbsp;</em></strong>Peut supprimer des fichiers de la boite d'envoi.<br/><br/>\n\t\t\t<strong><em>Changer les droits : &nbsp;</em></strong>Peut changer les droits des utilisateurs de la boite d'envoi.<br/><br/>"
-msgstr ""
-
-#: Config/bootstrap.php:98
-msgid "Qu'est-ce qu'une alerte email ?"
+msgid "\n\t\t\t<strong><em>Aucun droit : &nbsp;</em></strong>Ne peut ni voir ni consulter ce dossier.<br/><br/>\n\t\t\t<strong><em>Lecture : &nbsp;</em></strong>Peut voir et consulter le contenu du dossier.<br/><br/>\n\t\t\t<strong><em>Renommage : &nbsp;</em></strong>Permet de renommer les fichiers et dossiers.<br/><br/>\n\t\t\t<strong><em>Création / Envoi : &nbsp;</em></strong>Peut envoyer des fichiers dans la boite d'envoi et créer des répertoires.<br/><br/>\n\t\t\t<strong><em>Suppression : &nbsp;</em></strong>Peut supprimer des fichiers de la boite d'envoi.<br/><br/>\n\t\t\t<strong><em>Changer les droits : &nbsp;</em></strong>Peut changer les droits des utilisateurs de la boite d'envoi.<br/><br/>"
 msgstr ""
 
 #: Config/bootstrap.php:99
+msgid "Qu'est-ce qu'une alerte email ?"
+msgstr ""
+
+#: Config/bootstrap.php:100
 msgid "<strong><em>Alerte Email : &nbsp;</em></strong> Vous envoie un E-mail d'alerte automatique et instantané dès qu'un nouveau fichier est envoyé par un autre utilisateur dans ce dossier."
 msgstr ""
 
@@ -256,34 +256,38 @@ msgid "Delete"
 msgstr ""
 
 #: View/Helper/SynchroDossierHelper.php:77
-msgid "Create"
+msgid "Rename"
 msgstr ""
 
 #: View/Helper/SynchroDossierHelper.php:78
+msgid "Create"
+msgstr ""
+
+#: View/Helper/SynchroDossierHelper.php:79
 msgid "Change Right"
 msgstr ""
 
-#: View/Helper/SynchroDossierHelper.php:100
+#: View/Helper/SynchroDossierHelper.php:101
 msgid "Subscribe to email alert"
 msgstr ""
 
-#: View/Helper/SynchroDossierHelper.php:104
+#: View/Helper/SynchroDossierHelper.php:105
 msgid "Unsubscribe to email alert"
 msgstr ""
 
-#: View/Helper/SynchroDossierHelper.php:127
+#: View/Helper/SynchroDossierHelper.php:128
 msgid "You're about to %s to email alert for folder %s. Are you sure ?"
 msgstr ""
 
-#: View/Helper/SynchroDossierHelper.php:130
+#: View/Helper/SynchroDossierHelper.php:131
 msgid "subscribe"
 msgstr ""
 
-#: View/Helper/SynchroDossierHelper.php:130
+#: View/Helper/SynchroDossierHelper.php:131
 msgid "unsubscribe"
 msgstr ""
 
-#: View/Layouts/default.ctp:76
+#: View/Layouts/default.ctp:74
 #: View/Layouts/login.ctp:46
 msgid "Propulsé par"
 msgstr ""

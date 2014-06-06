@@ -22,7 +22,7 @@ class FilesController extends UploaderAppController {
 					'delete' 					=> 'delete',
 					'deleteFile'				=> 'delete',
 					'deleteFolder'				=> 'delete',
-					'rename' 					=> 'create',
+					'rename' 					=> 'update',
 					'downloadZipFolder' 		=> 'read',
 					'upload' 					=> 'create',
 					'addTags' 					=> 'read',
@@ -40,7 +40,7 @@ class FilesController extends UploaderAppController {
 	public $presetVars;
 
 	private $__messageFlashDownloadNotAvailable;
-	private $__listRights = array('read', 'create', 'delete');
+	private $__listRights = array('read', 'create', 'delete', 'update');
 
 	public function __construct($request = null, $response = null) {
 		parent::__construct($request, $response);
@@ -239,7 +239,7 @@ class FilesController extends UploaderAppController {
 	}
 
 	public function toggleRight($uploadedFileId, $userId = null, $action = 'read') {
-		$listRights = array('read', 'create', 'delete');
+		$listRights = array('read', 'create', 'delete', 'update');
 
 		$isNewUserRight = false;
 		if (isset($this->request->query['user_id'])) {
@@ -395,7 +395,8 @@ class FilesController extends UploaderAppController {
 
 	public function rename($parentId = null, $id = null) {
 		if ($this->request->is('put')) {
-			if ($this->UploadedFile->rename($this->request->data)) {
+			if (!$this->UploadedFile->rename($this->request->data, $this->Auth->user('id'))) {
+				$this->Session->setFlash(__d('uploader', 'Vous n\'avez pas les droits nécessaires pour renommer le dossier ou fichier'), 'default', array('class' => 'alert alert-danger'));
 			}
 		}
 		$this->redirect(array('action' => 'browse', $parentId));

@@ -78,6 +78,9 @@
 											__d('uploader', '<i class="icon-download-alt"></i>'),
 											array('controller' => 'files', 'action' => 'downloadZipFolder', $file['UploadedFile']['id']),
 											array(
+												'data-event' => 'ga',
+												'data-category' => 'Télécharger',
+												'data-action' => 'click',
 												'rel' => 'tooltip',
 												'title' => __d('uploader', 'Download folder as zipfile'),
 												'escape' => false
@@ -85,6 +88,11 @@
 										); ?>
 									<?php endif ?>
 								<?php endif ?>
+								<?php
+								// Allow root sharing rename and owner renaming ...
+								if($this->UploaderAcl->userCan($file['Aco'], 'update') ||
+									CakeSession::read('Auth.User.user_id') == $file['UploadedFile']['user_id']
+								): ?>
 								<?= $this->Html->link(
 									'<i class="icon-pencil"></i>',
 									'#renameFolderModal',
@@ -99,6 +107,7 @@
 										'escape' => false
 									)
 								); ?>
+								<?php endif;?>
 								<?php if (is_null($folderId) && $this->UploaderAcl->userCan($file['Aco'], 'change_right')): ?>
 									<?= $this->Html->link(
 										__d('uploader', '<i class="icon-user"></i>'),
@@ -117,7 +126,10 @@
 										array(
 											'rel' => 'tooltip',
 											'title' => __d('uploader', 'Supprimer le dossier'),
-											'escape' => false
+											'escape' => false,
+											'data-event' => 'ga',
+											'data-category' => 'Supprimer',
+											'data-action' => 'click',
 										),
 										__d('uploader', 'You are about to delete folder "%s". Are you sure ?', $file['UploadedFile']['filename'])
 									); ?>
@@ -133,7 +145,10 @@
 									array(
 										'rel' => 'tooltip',
 										'title' => __d('uploader', 'Download'),
-										'escape' => false
+										'escape' => false,
+										'data-event' => 'ga',
+										'data-category' => 'Télécharger',
+										'data-action' => 'click'
 									)
 								); ?>
 								<?= $this->Html->link(
@@ -217,7 +232,10 @@
 										'data-toggle' => 'modal',
 										'title' => __d('uploader', 'File Tags') . (!empty($file['FileTag']) ? sprintf(' : %s', implode(', ', Hash::extract($file['FileTag'], '{n}.Term.title'))) : null),
 										'class' => 'comments',
-										'escape' => false
+										'escape' => false,
+										'data-event' => 'ga',
+										'data-category' => 'Mots-clefs',
+										'data-action' => 'click',
 									)
 								); ?>
 								<?php if ($this->UploaderAcl->userCan($file['Aco'], 'delete')): ?>
@@ -227,7 +245,10 @@
 										array(
 											'rel' => 'tooltip',
 											'title' => __d('uploader', 'Supprimer le fichier'),
-											'escape' => false
+											'escape' => false,
+											'data-event' => 'ga',
+											'data-category' => 'Supprimer',
+											'data-action' => 'click',
 										),
 										__d('uploader', 'You are about to delete file "%s". Are you sure ?', $file['UploadedFile']['filename'])
 									); ?>
@@ -250,6 +271,11 @@
 										'controller' => 'files',
 										'action' => 'download',
 										$fileVersion['id']
+									),
+									array(
+										'data-event' => 'ga',
+										'data-category' => 'Télécharger',
+										'data-action' => 'click'
 									)
 								); ?>
 							</td>
@@ -265,7 +291,10 @@
 										array(
 											'rel' => 'tooltip',
 											'title' => __d('uploader', 'Supprimer le fichier'),
-											'escape' => false
+											'escape' => false,
+											'data-event' => 'ga',
+											'data-category' => 'Supprimer',
+											'data-action' => 'click',
 										),
 										__d('uploader', 'You are about to delete file "%s". Are you sure ?', $file['UploadedFile']['filename'])
 									); ?>
@@ -274,7 +303,6 @@
 						</tr>
 					<?php endforeach ?>
 				<?php endif ?>
-
 			<?php endif ?>
 		<?php endforeach; ?>
 	</tbody>

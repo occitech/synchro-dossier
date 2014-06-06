@@ -30,7 +30,6 @@
 
 <h2><?= $this->fetch('browse_title'); ?></h2>
 
-
 <div class="uploader">
 	<?php if ($isRootFolder): ?>
 		<?= $this->element('Uploader.folder_table'); ?>
