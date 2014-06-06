@@ -1,3 +1,9 @@
+<?php
+	$loginRoute = array('plugin' => 'users', 'controller' => 'users', 'action' => 'login');
+	if ($this->SynchroDossier->routeIsActive($loginRoute)) :
+		return;
+	endif;
+?>
 <div class="navbar">
 	<div class="navbar-inner">
 		<ul class="nav">
@@ -66,9 +72,9 @@
 					</li>
 				</ul>
 			</li>
-			<?php else: ?>
+			<?php else : ?>
 				<li>
-					<?php echo $this->Html->link(__d('synchro_dossier', "Connexion"), array('plugin' => 'users', 'controller' => 'users', 'action' => 'login')); ?>
+					<?php echo $this->Html->link(__d('synchro_dossier', "Connexion"), $loginRoute); ?>
 				</li>
 			<?php endif ?>
 		</ul>
