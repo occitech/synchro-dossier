@@ -342,37 +342,12 @@ class UploadedFile extends UploaderAppModel {
 		return iconv('UTF-8', 'ASCII//TRANSLIT', $name);
 	}
 
-	public function rename($data, $userId = null) {
-		$result = false;
-
-		if (!$this->User->exists($userId)) {
-			throw new NotFoundException(__d('uploader', 'Invalid user with id #%s', $userId));
-		}
-
-		if (!$this->exists($data[$this->alias]['id'])) {
-			throw new NotFoundException(__d('uploader', 'Invalid folder or file with id #%s', $data[$this->alias]['id']));
-		}
-
+	public function rename($data) {
 		$fileInfos = $this->findById($data[$this->alias]['id']);
-		$userData = $this->User->find('first', array(
-			'conditions' => array('User.id' => $userId),
-			'noRoleChecking' => true
-		));
 
-		$canRename = ClassRegistry::init('Permission')->check(
-			array('model' => 'User', 'foreign_key' => $userId),
-			array('model' => 'UploadedFile', 'foreign_key' => $data[$this->alias]['id']),
-			'update'
-		);
+		$data['UploadedFile'] = array_merge($fileInfos['UploadedFile'], $data['UploadedFile']);
 
-		if ($canRename || $fileInfos[$this->alias]['user_id'] == $userId) {
-			$data['UploadedFile'] = array_merge($fileInfos[$this->alias], $data[$this->alias]);
-			$this->unbindModel(array('hasOne' => array('Aco')));
-			$this->Behaviors->detach('Tree');
-			$result = $this->save($data);
-		}
-
-		return $result;
+		return $this->save($data);
 	}
 
 	public function removeFolder($folderId, $userId) {

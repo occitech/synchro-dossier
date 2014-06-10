@@ -816,9 +816,6 @@ class UploadedFileTest extends OccitechCakeTestCase {
 		$this->assertEquals(3, $uploadedFile['FileStorage'][0]['file_version']);
 	}
 
-/**
- * @group rename
- */
 	public function testFileCanBeRenamed() {
 		$this->UploadedFile->id = 2;
 
@@ -829,115 +826,10 @@ class UploadedFileTest extends OccitechCakeTestCase {
 			)
 		);
 
-		$this->UploadedFile->rename($data, 1);
+		$this->UploadedFile->rename($data);
 		$file = $this->UploadedFile->read();
 		$this->assertEquals('aftername',  $file['UploadedFile']['filename']);
 	}
-
-/**
- * @group rename
- */
-	public function testRenameShouldReturnFalseIfUserHasNotUpdatePermission() {
-		$this->UploadedFile->id = 2;
-
-		$data = array(
-			'UploadedFile' => array(
-				'id' => 1,
-				'filename' => 'aftername'
-			)
-		);
-
-		$renamed = $this->UploadedFile->rename($data, 4);
-		$this->assertFalse($renamed);
-	}
-
-/**
- * @group rename
- */
-	public function testRenameShouldNotRenameFolderIfUserHasNotCreatePermission() {
-		$this->UploadedFile->id = 2;
-
-		$data = array(
-			'UploadedFile' => array(
-				'id' => 1,
-				'filename' => 'aftername'
-			)
-		);
-
-		$renamed = $this->UploadedFile->rename($data, 4);
-		$file = $this->UploadedFile->read();
-		$this->assertNotEquals('aftername',  $file['UploadedFile']['filename']);
-	}
-
-/**
- * @group rename
- */
-	public function testRenameShouldThrowExceptionIfInvalidUserId() {
-		$this->UploadedFile->id = 2;
-
-		$data = array(
-			'UploadedFile' => array(
-				'id' => 1,
-				'filename' => 'aftername'
-			)
-		);
-
-		$this->setExpectedException('NotFoundException');
-
-		$this->UploadedFile->rename($data, 'invalid');
-		$file = $this->UploadedFile->read();
-		$this->assertNotEquals('aftername',  $file['UploadedFile']['filename']);
-	}
-
-/**
- * @group rename
- */
-	public function testRenameShouldThrowExceptionIfInvalidFolderId() {
-		$this->UploadedFile->id = 2;
-
-		$data = array(
-			'UploadedFile' => array(
-				'id' => 'no-Way-Youcantfindme',
-				'filename' => 'aftername'
-			)
-		);
-
-		$this->setExpectedException('NotFoundException');
-
-		$this->UploadedFile->rename($data, 4);
-		$file = $this->UploadedFile->read();
-		$this->assertNotEquals('aftername',  $file['UploadedFile']['filename']);
-	}
-
-/**
- * @group rename
- */
-	public function testRenameIfUserIdIsOwnerShouldRenameFolderEvenIfUserHasNotUpdateRight() {
-		$this->UploadedFile->id = 1;
-		$this->UploadedFile->saveField('user_id', 4);
-
-		$data = array(
-			'UploadedFile' => array(
-				'id' => '1',
-				'filename' => 'aftername'
-			)
-		);
-
-		$this->UploadedFile->rename($data, 4);
-		$file = $this->UploadedFile->read();
-		$this->assertEquals('aftername',  $file['UploadedFile']['filename']);
-	}
-
-	public function testgetFolderSize() {
-		$folderSize = $this->UploadedFile->getFolderSize(1);
-		$sizeOfChild3ForParent1 = 0;
-		$sizeOfChild4ForParent3 = 34639;
-		$sizeOfChild5ForParent3 = 4385;
-		$expected = $sizeOfChild3ForParent1 + $sizeOfChild4ForParent3 + $sizeOfChild5ForParent3;
-
-		$this->assertEquals($expected, $folderSize);
-	}
-
 
 	private function __getLatestUploadedFiled()
 	{
