@@ -41,14 +41,14 @@
 		</div>
 
 		<?php if (
-			(
-				isset($folderId)
+			(!isset($isFind) || $isFind == false)
+			&& ((isset($folderId)
 				&& (
 					$this->UploaderAcl->userCanCreateSubdirectory($folderAco)
 					|| (!$this->SynchroDossier->hasUserRole(CakeSession::read('Auth.User.role_id')) && $this->UploaderAcl->userCanShareDirectory($folderAco))
-				)
+				))
+				|| $this->UploaderAcl->userCanCreateSharing()
 			)
-			|| $this->UploaderAcl->userCanCreateSharing()
 		): ?>
 			<li class="nav-header">
 				<?= __d('synchro_dossier', 'Actions') ?>
