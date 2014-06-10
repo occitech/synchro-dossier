@@ -67,6 +67,11 @@ footer a, a {
 	color: black;
 }
 
+footer a:hover {
+	color: black;
+	text-decoration: underline;
+}
+
 /**
  * Icons
  */
