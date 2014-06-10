@@ -343,7 +343,9 @@ class UploadedFile extends UploaderAppModel {
 	}
 
 	public function rename($data) {
-		$fileInfos = $this->findById($data[$this->alias]['id']);
+		$fileInfos = $this->findById($data[$this->alias][$this->primaryKey]);
+		$this->unbindModel(array('hasOne' => array('Aco')));
+		$this->Behaviors->detach('Tree');
 
 		$data['UploadedFile'] = array_merge($fileInfos['UploadedFile'], $data['UploadedFile']);
 
