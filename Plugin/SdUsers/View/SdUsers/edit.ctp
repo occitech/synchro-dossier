@@ -13,6 +13,10 @@ $help = '<i class="icon-info-sign"
 			data-original-title="' . Configure::read('sd.tooltip.role.title') . '"
 			data-content="' . Configure::read('sd.tooltip.role.text') . '"
 			data-placement="' . Configure::read('sd.tooltip.role.position') . '"
+			data-event="ga"
+			data-category="Infobulles"
+			data-action="hover"
+			data-label="Rôles"
 	></i>';
 } else {
 	$help = '';
@@ -30,9 +34,9 @@ $help = '<i class="icon-info-sign"
 			$this->Form->input('User.email', array('placeholder' => __d('sd_users', 'Email')))
 		?>
 		<?php $this->startIfEmpty('password'); ?>
-		<?=
-			$this->Form->input('User.password', array('required' => false, 'value' => '', 'placeholder' => __d('sd_users', 'Mot de passe')));
-		?>
+			<?=
+				$this->Form->input('User.password', array('required' => false, 'value' => '', 'placeholder' => __d('sd_users', 'Mot de passe'), 'label' =>  __d('sd_users', 'Mot de passe')));
+			?>
 		<?php $this->end(); ?>
 		<?= $this->fetch('password'); ?>
 	<?= $this->Html->endBox();?>

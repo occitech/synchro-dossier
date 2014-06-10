@@ -34,8 +34,8 @@ class SynchroDossierHelper extends AppHelper {
 		if (!empty($quota)) {
 			$vars = array(
 				'toPrint' => true,
-				'quota' => round($quota['quota_mb'] / 1024, 2),
-				'currentQuota' => round($quota['current_quota_mb'] / 1024, 2),
+				'quota' => round($quota['quota_mb']),
+				'currentQuota' => round($quota['current_quota_mb']),
 				'usedPercent' => $quota['current_quota_mb'] / $quota['quota_mb'] * 100
 			);
 		}
@@ -74,6 +74,7 @@ class SynchroDossierHelper extends AppHelper {
 			'_read' => __d('synchro_dossier', 'Read'),
 			'_write' => __d('synchro_dossier', 'Write'),
 			'_delete' => __d('synchro_dossier', 'Delete'),
+			'_update' => __d('synchro_dossier', 'Rename'),
 			'_create' => __d('synchro_dossier', 'Create'),
 			'_change_right' => __d('synchro_dossier', 'Change Right')
 		);
@@ -113,6 +114,12 @@ class SynchroDossierHelper extends AppHelper {
 			}
 		}
 
+		if ($options['value']) {
+			$confirmMessage = __d('synchro_dossier', 'You\'re about to subscribe to email alert for folder %s. Are you sure ?');
+		} else {
+			$confirmMessage = __d('synchro_dossier', 'You\'re about to unsubscribe to email alert for folder %s. Are you sure ?');
+		}
+
 		return $this->Html->link(
 			$options['label'],
 			array(
@@ -124,10 +131,8 @@ class SynchroDossierHelper extends AppHelper {
 				$options['value']
 			),
 			$options,
-			__d(
-				'synchro_dossier',
-				'You\'re about to %s to email alert for folder %s. Are you sure ?',
-				$options['value'] ? __d('synchro_dossier', 'subscribe') : __d('synchro_dossier', 'unsubscribe'),
+			sprintf(
+				$confirmMessage,
 				$folderData['UploadedFile']['filename']
 			)
 		);

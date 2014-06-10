@@ -51,6 +51,7 @@ $usersAcl = array(
 	'SdUsers/SdUsers/index' => $EVERYONE,
 	'SdUsers/SdUsers/edit' => $EVERYONE,
 	'SdUsers/SdUsers/profile' => $EVERYONE,
+	'SdUsers/SdUsers/alert' => $EVERYONE,
 	'SdUsers/SdUsers/manageAlertEmail' => $EVERYONE,
 	'SdUsers/SdUsers/changeUserPassword' => $EVERYONE,
 

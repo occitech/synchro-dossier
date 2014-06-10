@@ -10,6 +10,10 @@
 					   data-original-title="<?= Configure::read('sd.tooltip.quota.title');?>"
 					   data-content="<?= Configure::read('sd.tooltip.quota.text');?>"
 					   data-placement="<?= Configure::read('sd.tooltip.quota.position');?>"
+					   data-event="ga"
+					   data-category="Infobulles"
+					   data-action="hover"
+					   data-label="Quota"
 					></i>
 				<?php endif; ?>
 			</li>
@@ -19,7 +23,7 @@
 		<?php endif ?>
 		<li class="nav-header">
 			<?= $this->Html->link(
-				__d('synchro_dossier', 'Mes Dossiers'),
+				__d('synchro_dossier', 'Partages'),
 				array(
 					'plugin' => 'uploader',
 					'controller' => 'files',
@@ -36,41 +40,50 @@
 			</ul>
 		</div>
 
-		<li class="nav-header">
-			<?= __d('synchro_dossier', 'Actions') ?>
-		</li>
-		<?php if (isset($folderId)): ?>
-			<?php if ($this->UploaderAcl->userCan($folderAco['Aco'], 'create')): ?>
-				<li>
-					<?= $this->Html->link(
-						__d('synchro_dossier', 'Créer un sous dossier'),
-						'#createFolderModal',
-						array(
-							'class' => 'btn',
-							'role' => 'button',
-							'data-toggle' => 'modal',
-						)
-					);
-					?>
-				</li>
-			<?php endif ?>
-			<?php if (!$this->SynchroDossier->hasUserRole(CakeSession::read('Auth.User.role_id')) && $this->UploaderAcl->userCan($folderAco['Aco'], 'change_right')): ?>
-				<li>
-					<?= $this->Html->link(
-						__d('synchro_dossier', 'Partager ce dossier'),
-						array(
-							'plugin' => 'uploader',
-							'controller' => 'files',
-							'action' => 'rights',
-							$folderId
-						),
-						array('class' => 'btn')
-					);
-					?>
-				</li>
-			<?php endif ?>
-		<?php else: ?>
-			<?php if ($this->UploaderAcl->userCanCreateSharing()): ?>
+		<?php if (
+			(!isset($isFind) || $isFind == false)
+			&& ((isset($folderId)
+				&& (
+					$this->UploaderAcl->userCanCreateSubdirectory($folderAco)
+					|| (!$this->SynchroDossier->hasUserRole(CakeSession::read('Auth.User.role_id')) && $this->UploaderAcl->userCanShareDirectory($folderAco))
+				))
+				|| $this->UploaderAcl->userCanCreateSharing()
+			)
+		): ?>
+			<li class="nav-header">
+				<?= __d('synchro_dossier', 'Actions') ?>
+			</li>
+			<?php if (isset($folderId)): ?>
+				<?php if ($this->UploaderAcl->userCanCreateSubdirectory($folderAco)): ?>
+					<li>
+						<?= $this->Html->link(
+							__d('synchro_dossier', 'Créer un sous dossier'),
+							'#createFolderModal',
+							array(
+								'class' => 'btn',
+								'role' => 'button',
+								'data-toggle' => 'modal',
+							)
+						);
+						?>
+					</li>
+				<?php endif ?>
+				<?php if (!$this->SynchroDossier->hasUserRole(CakeSession::read('Auth.User.role_id')) && $this->UploaderAcl->userCanShareDirectory($folderAco)): ?>
+					<li>
+						<?= $this->Html->link(
+							__d('synchro_dossier', 'Partager ce dossier'),
+							array(
+								'plugin' => 'uploader',
+								'controller' => 'files',
+								'action' => 'rights',
+								$folderId
+							),
+							array('class' => 'btn')
+						);
+						?>
+					</li>
+				<?php endif ?>
+			<?php elseif ($this->UploaderAcl->userCanCreateSharing()): ?>
 				<li>
 					<?= $this->Html->link(
 						__d('synchro_dossier', 'Créer un dossier'),

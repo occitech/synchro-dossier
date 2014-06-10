@@ -22,7 +22,7 @@ class FilesController extends UploaderAppController {
 					'delete' 					=> 'delete',
 					'deleteFile'				=> 'delete',
 					'deleteFolder'				=> 'delete',
-					'rename' 					=> 'create',
+					'rename' 					=> 'update',
 					'downloadZipFolder' 		=> 'read',
 					'upload' 					=> 'create',
 					'addTags' 					=> 'read',
@@ -40,7 +40,7 @@ class FilesController extends UploaderAppController {
 	public $presetVars;
 
 	private $__messageFlashDownloadNotAvailable;
-	private $__listRights = array('read', 'create', 'delete');
+	private $__listRights = array('read', 'update', 'create', 'delete');
 
 	public function __construct($request = null, $response = null) {
 		parent::__construct($request, $response);
@@ -239,50 +239,55 @@ class FilesController extends UploaderAppController {
 	}
 
 	public function toggleRight($uploadedFileId, $userId = null, $action = 'read') {
-		$listRights = array('read', 'create', 'delete');
-
-		$isNewUserRight = false;
-		if (isset($this->request->query['user_id'])) {
+		$isNewUserRight = isset($this->request->query['user_id']);
+		if ($isNewUserRight) {
 			$userId = $this->request->query['user_id'];
-			$isNewUserRight = true;
-			$folder = array();
-			$folder['id'] = $this->UploadedFile->getRootFolderId($uploadedFileId);
-			$folder['name'] =  $this->UploadedFile->field('filename', array('id' => $folder['id']));
-			$this->getEventManager()->dispatch(new CakeEvent(
-				'Controller.FilesController.newUserRight',
-				$this,
-				array(
-					'user' => array('id' => $userId),
-					'folder' => $folder
-				)
-			));
 		}
 
-		if ($this->UploadedFile->exists($uploadedFileId) &&
-			$this->UploadedFile->User->exists($userId)) {
-
-			$isRightActive = $this->_checkRight($uploadedFileId, $userId, $action);
-
-			if (!($isNewUserRight && $isRightActive)) {
-				$method = ($isRightActive) ? '_denyRight' : '_allowRight';
-
-				$this->{$method}($uploadedFileId, $userId, $action);
-
+		if (empty($userId)) {
+			$this->Session->setFlash(__d('uploader', 'Please select an user'), 'default', array('class' => 'alert alert-danger'));
+		} else {
+			if ($isNewUserRight) {
+				$folder = array();
+				$folder['id'] = $this->UploadedFile->getRootFolderId($uploadedFileId);
+				$folder['name'] =  $this->UploadedFile->field('filename', array('id' => $folder['id']));
 				$this->getEventManager()->dispatch(new CakeEvent(
-					'Controller.FilesController.afterChangeRight',
+					'Controller.FilesController.newUserRight',
 					$this,
 					array(
-						'method' => $method,
 						'user' => array('id' => $userId),
-						'model' => 'Permission',
-						'foreign_key' => $this->Permission->id
+						'folder' => $folder
 					)
 				));
 			}
 
-		} else {
-			$this->Session->setFlash(__d('uploader', 'Given information are incorrect'), 'default', array('class' => 'alert alert-danger'));
+			if ($this->UploadedFile->exists($uploadedFileId) &&
+				$this->UploadedFile->User->exists($userId)) {
+
+				$isRightActive = $this->_checkRight($uploadedFileId, $userId, $action);
+
+				if (!($isNewUserRight && $isRightActive)) {
+					$method = ($isRightActive) ? '_denyRight' : '_allowRight';
+
+					$this->{$method}($uploadedFileId, $userId, $action);
+
+					$this->getEventManager()->dispatch(new CakeEvent(
+						'Controller.FilesController.afterChangeRight',
+						$this,
+						array(
+							'method' => $method,
+							'user' => array('id' => $userId),
+							'model' => 'Permission',
+							'foreign_key' => $this->Permission->id
+						)
+					));
+				}
+
+			} else {
+				$this->Session->setFlash(__d('uploader', 'Given information are incorrect'), 'default', array('class' => 'alert alert-danger'));
+			}
 		}
+
 		$this->redirect($this->referer());
 	}
 
@@ -302,10 +307,11 @@ class FilesController extends UploaderAppController {
 				)
 			)
 		));
-
+		$isRootFolder = false;
 		$this->UploadedFile->order = 'UploadedFile.is_folder DESC';
 		if (is_null($folderId)) {
 			$this->paginate = array('findType' => 'rootDirectories');
+			$isRootFolder = true;
 		} else {
 			$this->paginate = array(
 				'conditions' => array('UploadedFile.parent_id' => $folderId),
@@ -314,7 +320,9 @@ class FilesController extends UploaderAppController {
 					'Aco',
 					'FileStorage' => array(
 						'order' => array('FileStorage.file_version DESC'),
-					)
+					),
+					'FileTag.Term',
+					'Comment' => array('limit' => 1),
 				),
 				'group' => 'Aco.foreign_key'
 			);
@@ -325,6 +333,7 @@ class FilesController extends UploaderAppController {
 		foreach ($files as &$file) {
 			if ($file['UploadedFile']['is_folder']) {
 				$file['UploadedFile']['downloadable'] = $this->UploadedFile->canDownloadFolderAsZip($file['UploadedFile']['id']);
+				$file['UploadedFile']['size'] = $this->UploadedFile->getFolderSize($file['UploadedFile']['id']);
 			}
 		}
 
@@ -338,18 +347,27 @@ class FilesController extends UploaderAppController {
 			'{n}.UploadedFile.filename'
 		);
 
-		$this->set(compact('files', 'folderId', 'parentId', 'superAdmins', 'folderTree'));
+		$this->set(compact('files', 'folderId', 'parentId', 'superAdmins', 'folderTree', 'isRootFolder'));
 	}
 
 	public function find() {
+		$advancedSearchFilters = array('username', 'size_min', 'size_max', 'created_min', 'created_max', 'tags');
 		$this->Prg->commonProcess();
+		$isAdvancedSearch = false;
+		foreach ($advancedSearchFilters as $filter) {
+			if (!empty($this->passedArgs[$filter])) {
+				$isAdvancedSearch = true;
+				break;
+			}
+		}
+
 		$this->paginate['conditions'] = array($this->UploadedFile->parseCriteria($this->passedArgs));
 		$this->paginate['contain'] = array(
 			'User',
 			'Aco',
 			'FileStorage' => array(
 				'order' => array('FileStorage.file_version DESC'),
-			)
+			),
 		);
 		$files = $this->paginate();
 		$parentId = null;
@@ -357,7 +375,8 @@ class FilesController extends UploaderAppController {
 		$this->request->data['UploadedFile'] = $this->passedArgs;
 		$superAdmins = $this->UploadedFile->User->find('superAdmin');
 		$isFind = true;
-		$this->set(compact('files', 'folderId', 'parentId', 'superAdmins', 'isFind'));
+		$isRootFolder = false;
+		$this->set(compact('isAdvancedSearch', 'isRootFolder', 'files', 'folderId', 'parentId', 'superAdmins', 'isFind'));
 	}
 
 	/**
@@ -392,7 +411,8 @@ class FilesController extends UploaderAppController {
 
 	public function rename($parentId = null, $id = null) {
 		if ($this->request->is('put')) {
-			if ($this->UploadedFile->rename($this->request->data)) {
+			if (!$this->UploadedFile->rename($this->request->data)) {
+				$this->Session->setFlash(__d('uploader', 'Vous n\'avez pas les droits nécessaires pour renommer le dossier ou fichier'), 'default', array('class' => 'alert alert-danger'));
 			}
 		}
 		$this->redirect(array('action' => 'browse', $parentId));
@@ -476,7 +496,6 @@ class FilesController extends UploaderAppController {
 		$this->response->download($filename);
 		$this->response->body($content);
 		$this->response->type($mimeType);
-		$this->response->send();
 		return $this->response;
 	}
 

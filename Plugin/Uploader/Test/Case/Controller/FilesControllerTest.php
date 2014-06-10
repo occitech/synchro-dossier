@@ -28,6 +28,7 @@ class FilesControllerTest extends CroogoControllerTestCase {
 		'plugin.uploader.taxonomies_uploaded_file',
 		'plugin.uploader.file_storage',
 		'plugin.uploader.uploader_comment',
+		'plugin.uploader.users_collaboration',
 		'plugin.taxonomy.model_taxonomy'
 	);
 
@@ -103,6 +104,57 @@ class FilesControllerTest extends CroogoControllerTestCase {
 		$varsAfterTag = $this->testAction('/browse/3', array('method' => 'GET', 'return' => 'vars'));
 
 		$this->assertEquals($varsBeforeTag['files'][0]['Aco'], $varsAfterTag['files'][0]['Aco']);
+	}
+
+	public function testRenameFolderDoesNotUpdateAcoTreePositon() {
+		$this->generate('Uploader.Files', array(
+			'components' => array('Auth' => array('user')))
+		);
+
+		$this->controller->UploadedFile->User = $this->getMockForModel('User', array('exists', 'find'));
+		$this->controller->UploadedFile->User->expects($this->any())
+			->method('exists')
+			->with('2')
+			->will($this->returnValue(true));
+
+		$this->controller->UploadedFile->User->expects($this->any())
+			->method('find')
+			->with('superAdmin')
+			->will($this->returnValue(array()));
+
+		$this->controller->Auth->expects($this->any())
+			->method('user')
+			->with(null)
+			->will($this->returnValue(array(
+				'id' => '2',
+				'role_id' => '6',
+				'username' => 'aymeric',
+				'password' => '935dce4494121f848ffe2d3337ed2c05192526b1',
+				'name' => 'Derbois',
+				'email' => 'aymeric@derbois.com',
+				'website' => '',
+				'activation_key' => 'd6b0ca85517794669b14460dec519714',
+				'image' => null,
+				'bio' => null,
+				'timezone' => '0',
+				'status' => 1,
+				'updated' => '2012-10-31 17:21:32',
+				'created' => '2012-10-31 17:21:32'
+			)));
+
+		$varsBeforeTag = $this->testAction('/browse', array('method' => 'GET', 'return' => 'vars'));
+		$this->testAction('/uploader/files/rename/1/3/2', array(
+			'method' => 'POST',
+			'data' => array(
+				'UploadedFile' => array(
+					'id' => 3,
+					'filename' => 'renamedFruits'
+				),
+			),
+		));
+		$varsAfterTag = $this->testAction('/browse', array('method' => 'GET', 'return' => 'vars'));
+
+		$this->assertEquals($varsBeforeTag['files'][0]['ChildUploadedFile'][0]['Aco'], $varsAfterTag['files'][0]['ChildUploadedFile'][0]['Aco']);
 	}
 
 	public function testFindFunctionShouldReturnSuperAdmin() {

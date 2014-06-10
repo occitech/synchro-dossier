@@ -5,7 +5,7 @@
 msgid ""
 msgstr ""
 "Project-Id-Version: PROJECT VERSION\n"
-"POT-Creation-Date: 2014-03-28 11:54+0100\n"
+"POT-Creation-Date: 2014-06-10 16:34+0200\n"
 "PO-Revision-Date: YYYY-mm-DD HH:MM+ZZZZ\n"
 "Last-Translator: NAME <EMAIL@ADDRESS>\n"
 "Language-Team: LANGUAGE <EMAIL@ADDRESS>\n"
@@ -46,63 +46,68 @@ msgstr ""
 msgid "You don't have the rights to edit this user"
 msgstr ""
 
-#: Controller/SdUsersController.php:110;132
+#: Controller/SdUsersController.php:112;134
 msgid "L'utilisateur a été supprimé"
 msgstr ""
 
-#: Controller/SdUsersController.php:112;134
+#: Controller/SdUsersController.php:114;136
 msgid "L'utilisateur ne peux pas être supprimé"
 msgstr ""
 
-#: Controller/SdUsersController.php:150
-msgid "Your Profile"
-msgstr ""
-
-#: Controller/SdUsersController.php:158
+#: Controller/SdUsersController.php:153
 msgid "User #%s Not Found"
 msgstr ""
 
-#: Controller/SdUsersController.php:163
+#: Controller/SdUsersController.php:158
 msgid "You cannot access others users profiles"
 msgstr ""
 
-#: Controller/SdUsersController.php:167
+#: Controller/SdUsersController.php:164
+#: View/SdUsers/alert.ctp:41
+msgid "Notifications"
+msgstr ""
+
+#: Controller/SdUsersController.php:170;191
 msgid "You don't have the rights to edit this profile"
 msgstr ""
 
-#: Controller/SdUsersController.php:171
+#: Controller/SdUsersController.php:184
+msgid "Your Profile"
+msgstr ""
+
+#: Controller/SdUsersController.php:197
 msgid "User informations successfully updated"
 msgstr ""
 
-#: Controller/SdUsersController.php:174
+#: Controller/SdUsersController.php:200
 msgid "A problem occurs when updating user informations. Please retry."
 msgstr ""
 
-#: Controller/SdUsersController.php:208
+#: Controller/SdUsersController.php:228
 msgid "You are successfully subscribed to email alert for folder %s (#%s)"
 msgstr ""
 
-#: Controller/SdUsersController.php:210
+#: Controller/SdUsersController.php:230
 msgid "You have successfully cancel your subscription to folder %s (#%s)"
 msgstr ""
 
-#: Controller/SdUsersController.php:215
+#: Controller/SdUsersController.php:235
 msgid "Something went wrong when subscribing to folder %s (#%s)"
 msgstr ""
 
-#: Controller/SdUsersController.php:217
+#: Controller/SdUsersController.php:237
 msgid "Something went wrong when canceling your subscription to folder %s (#%s)"
 msgstr ""
 
-#: Controller/SdUsersController.php:236
+#: Controller/SdUsersController.php:256
 msgid "Password has been successfully changed"
 msgstr ""
 
-#: Controller/SdUsersController.php:239
+#: Controller/SdUsersController.php:259
 msgid "Something went wrong when updating password"
 msgstr ""
 
-#: Controller/SdUsersController.php:276
+#: Controller/SdUsersController.php:296
 msgid "%s - Reset Password"
 msgstr ""
 
@@ -150,16 +155,12 @@ msgstr ""
 msgid "Select user"
 msgstr ""
 
-#: View/Elements/deleteAdminModal.ctp:24
+#: View/Elements/deleteAdminModal.ctp:24;40
 msgid "Supprimer"
 msgstr ""
 
 #: View/Elements/deleteAdminModal.ctp:29
 msgid "Cet administrateur est le dernier disponible, vous ne pouvez pas transmettre ses dossiers à un autre administrateur."
-msgstr ""
-
-#: View/Elements/deleteAdminModal.ctp:32
-msgid "Fermer"
 msgstr ""
 
 #: View/Emails/html/forgot_password.ctp:2
@@ -222,7 +223,7 @@ msgid "Society"
 msgstr ""
 
 #: View/Helper/SdUsersHelper.php:103
-#: View/SdUsers/edit.ctp:17
+#: View/SdUsers/edit.ctp:34
 #: View/SdUsers/index.ctp:16
 msgid "Email"
 msgstr ""
@@ -248,51 +249,71 @@ msgid "Email:"
 msgstr ""
 
 #: View/SdUsers/add.ctp:4
-#: View/SdUsers/edit.ctp:21
+#: View/SdUsers/edit.ctp:38
 #: View/SdUsers/login.ctp:7
 msgid "Mot de passe"
 msgstr ""
 
-#: View/SdUsers/edit.ctp:11
+#: View/SdUsers/alert.ctp:33
+msgid "Your Alerts"
+msgstr ""
+
+#: View/SdUsers/alert.ctp:37
+msgid "Partages"
+msgstr ""
+
+#: View/SdUsers/alert.ctp:38
+msgid "Dernière modification"
+msgstr ""
+
+#: View/SdUsers/alert.ctp:39
+msgid "Ajouté par"
+msgstr ""
+
+#: View/SdUsers/alert.ctp:40
+msgid "Rights"
+msgstr ""
+
+#: View/SdUsers/edit.ctp:28
 msgid "User Login"
 msgstr ""
 
-#: View/SdUsers/edit.ctp:16
+#: View/SdUsers/edit.ctp:33
 #: View/SdUsers/index.ctp:17
 msgid "Role"
 msgstr ""
 
-#: View/SdUsers/edit.ctp:27
+#: View/SdUsers/edit.ctp:44
 msgid "Profile"
 msgstr ""
 
-#: View/SdUsers/edit.ctp:32
+#: View/SdUsers/edit.ctp:49
 #: View/SdUsers/index.ctp:14
 msgid "Nom"
 msgstr ""
 
-#: View/SdUsers/edit.ctp:33
+#: View/SdUsers/edit.ctp:50
 #: View/SdUsers/index.ctp:15
 msgid "Prénom"
 msgstr ""
 
-#: View/SdUsers/edit.ctp:34
+#: View/SdUsers/edit.ctp:51
 msgid "Société"
 msgstr ""
 
-#: View/SdUsers/edit.ctp:36
+#: View/SdUsers/edit.ctp:53
 msgid "Language"
 msgstr ""
 
-#: View/SdUsers/edit.ctp:45
+#: View/SdUsers/edit.ctp:62
 msgid "Publishing"
 msgstr ""
 
-#: View/SdUsers/edit.ctp:46
+#: View/SdUsers/edit.ctp:63
 msgid "Sauver"
 msgstr ""
 
-#: View/SdUsers/edit.ctp:47
+#: View/SdUsers/edit.ctp:64
 msgid "Annuler"
 msgstr ""
 
@@ -340,51 +361,27 @@ msgstr ""
 msgid "Mot de passe oublié ?"
 msgstr ""
 
-#: View/SdUsers/profile.ctp:10
+#: View/SdUsers/profile.ctp:45
 msgid "Personal Information:"
 msgstr ""
 
-#: View/SdUsers/profile.ctp:31
+#: View/SdUsers/profile.ctp:57
 msgid "Update user informations"
 msgstr ""
 
-#: View/SdUsers/profile.ctp:41;59
+#: View/SdUsers/profile.ctp:67;85
 msgid "Change your password"
 msgstr ""
 
-#: View/SdUsers/profile.ctp:45
+#: View/SdUsers/profile.ctp:71
 msgid "Old password"
 msgstr ""
 
-#: View/SdUsers/profile.ctp:50
+#: View/SdUsers/profile.ctp:76
 msgid "New password"
 msgstr ""
 
-#: View/SdUsers/profile.ctp:55
+#: View/SdUsers/profile.ctp:81
 msgid "Confirm new password"
-msgstr ""
-
-#: View/SdUsers/profile.ctp:64
-msgid "Your Folders"
-msgstr ""
-
-#: View/SdUsers/profile.ctp:68
-msgid "Dossier"
-msgstr ""
-
-#: View/SdUsers/profile.ctp:69
-msgid "Date"
-msgstr ""
-
-#: View/SdUsers/profile.ctp:70
-msgid "Creator"
-msgstr ""
-
-#: View/SdUsers/profile.ctp:71
-msgid "Rights"
-msgstr ""
-
-#: View/SdUsers/profile.ctp:72
-msgid "Notifications"
 msgstr ""
 

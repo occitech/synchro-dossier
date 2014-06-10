@@ -74,3 +74,9 @@ clean:
 	@echo "Generated files deleted: ${CHECK}"
 
 .PHONY: bootstrap
+
+sd_test:
+	@Vendor/bin/cake test DbMigration Lib/DbMigration
+	@rm -rf tmp/cache/**/*
+	@Vendor/bin/cake test app AllSd
+	@npm run test --files=Test/Acceptance/Feature/login.js

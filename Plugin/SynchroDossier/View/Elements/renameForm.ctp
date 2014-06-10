@@ -18,6 +18,6 @@
 	</div>
 </div>
 <div class="modal-footer">
-	<?= $this->Form->submit(__d('synchro_dossier', 'Renommer'), array('class' => 'btn')); ?>
+	<?= $this->Form->submit(__d('synchro_dossier', 'Renommer'), array('class' => 'btn', 'data-event' => 'ga', 'data-category' => 'Renommer', 'data-action' => 'click')); ?>
 	<?= $this->Form->end(); ?>
 </div>

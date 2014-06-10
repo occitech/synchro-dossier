@@ -24,11 +24,14 @@ $this->Form->input(
 	array('label' => false, 'placeholder' => __d('uploader', 'Ext'), 'class' => 'span3 input-mini', 'div' => false)
 )
 ?>
-<a data-toggle="collapse" href="#advancedSearch">
+<a data-toggle="collapse" href="#advancedSearch" data-event = "ga" data-category = "Recherche avancée", data-action = "click">
 	<?= __d('uploader', 'Recherche avancée'); ?>
 </a>
-
+<?php if (isset($isAdvancedSearch) && $isAdvancedSearch): ?>
+<div id="advancedSearch" class="accordion-body in collapse">
+<?php else: ?>
 <div id="advancedSearch" class="accordion-body collapse">
+<?php endif; ?>
 	<?php if ($can['canCreateUser']()): ?>
 	<?=
 	$this->Form->input(
@@ -62,7 +65,7 @@ $this->Form->input(
 	?>
 </div>
  <?=
-$this->Form->submit(__d('uploader', 'Rechercher'), array('class' => 'btn span12', 'div' => false)) .
+$this->Form->submit(__d('uploader', 'Rechercher'), array('class' => 'btn span12', 'div' => false, 'data-event' => 'ga', 'data-category' => 'Rechercher', 'data-action' => 'click')) .
 $this->Form->end();
 ?>
 

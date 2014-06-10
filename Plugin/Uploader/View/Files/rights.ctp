@@ -11,7 +11,7 @@
 
 
 <div class="rights uploader">
-	<h2><?= __d('uploader', 'Share the folder "%s" with other people', $folder['UploadedFile']['filename']) ?></h2>
+	<h2><?= __d('uploader', 'Share "%s"', $folder['UploadedFile']['filename']) ?></h2>
 	<div class="add-right">
 		<?=
 			$this->Form->create('User', array('url' => array(
@@ -24,16 +24,17 @@
 				$usersNotInFolder,
 				array('data-placeholder' => __d('uploader', 'Select user'))
 			) .
-			$this->Form->submit(__d('uploader', 'Share folder'), array('class' => 'btn')) .
+			$this->Form->submit(__d('uploader', 'Share'), array('class' => 'btn', 'data-event' => 'ga', 'data-category' => 'Partager', 'data-action' => 'click')) .
 			$this->Form->end();
 		?>
 	</div>
 	<table class="table table-hover">
 		<tr>
 			<td><?= __d('uploader', 'Name') ?></td>
-			<td><?= __d('uploader', 'Lecture') ?></td>
-			<td><?= __d('uploader', 'Upload') ?></td>
-			<td><?= __d('uploader', 'Suppression') ?></td>
+			<td><?= __d('uploader', 'Lire') ?></td>
+			<td><?= __d('uploader', 'Écrire') ?></td>
+			<td><?= __d('uploader', 'Supprimer') ?></td>
+			<td><?= __d('uploader', 'Renommer') ?></td>
 			<td><?= __d('uploader', 'Toggle mail') ?></td>
 			<td><?= __d('uploader', 'Actions') ?></td>
 		</tr>
@@ -45,7 +46,7 @@
 					<?= $superAdmin['Role']['title']; ?>
 				</span>
 			</td>
-			<td colspan="5"><?= __d('uploader', 'This User has all rights on this folder'); ?></td>
+			<td colspan="6"><?= __d('uploader', 'This User has all rights on this folder'); ?></td>
 		</tr>
 		<?php endforeach ?>
 
@@ -120,6 +121,22 @@
 					<td>
 						<?php if ($hasRightToChangeRight): ?>
 							<?= $this->Html->link(
+								$this->Layout->status($aro['ArosAco']['_update']),
+								array(
+									'action' => 'toggleRight',
+									$acos['Aco']['foreign_key'],
+									$aro['foreign_key'],
+									'update'
+								),
+								array('escape' => false)
+							); ?>
+						<?php else: ?>
+							<?= $this->Layout->status($aro['ArosAco']['_update']) ?>
+						<?php endif ?>
+					</td>
+					<td>
+						<?php if ($hasRightToChangeRight): ?>
+							<?= $this->Html->link(
 								$this->Layout->status(array_key_exists($aro['User']['id'], $userRegisteredToAlert)),
 								array(
 									'action' => 'toggleEmailSubscription',
@@ -132,15 +149,21 @@
 							<?= $this->Layout->status(array_key_exists($aro['User']['id'], $userRegisteredToAlert)) ?>
 						<?php endif ?>
 					</td>
+
 					<td>
 						<?php if ($hasRightToChangeRight): ?>
 							<?= $this->Html->link(
-								__d('uploader', 'Supprimer l\'utilisateur de ce dossier'),
+								'<i class="icon-trash"></i>',
 								array(
 									'action' => 'removeRight',
 									$folderId,
 									$aro['ArosAco']['aco_id'],
 									$aro['ArosAco']['aro_id']
+								),
+								array(
+									'rel' => 'tooltip',
+									'escape' => false,
+									'title' => __d('uploader', 'Ne plus partager avec cet utilisateur')
 								)
 							); ?>
 						<?php endif ?>

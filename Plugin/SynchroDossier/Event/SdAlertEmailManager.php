@@ -60,6 +60,7 @@ class SdAlertEmailManager implements CakeEventListener {
 			foreach((array) $usersToAlert['to'] as $receiver) {
 				$this->cakeEmail->reset();
 				$this->cakeEmail
+					->config('default')
 					->template('SynchroDossier.alert_email_new_upload', 'SynchroDossier.default')
 					->theme(Configure::read('Site.theme'))
 					->emailFormat('both')
@@ -83,7 +84,9 @@ class SdAlertEmailManager implements CakeEventListener {
 		$username = $user['Profile']['firstname'] . ' ' . $user['Profile']['name'];
 		$to = array($user['User']['email'] => $username);
 
+		$this->cakeEmail->reset();
 		$this->cakeEmail
+			->config('default')
 			->template('SynchroDossier.alert_email_folder_invitation', 'SynchroDossier.default')
 			->theme(Configure::read('Site.theme'))
 			->emailFormat('both')
