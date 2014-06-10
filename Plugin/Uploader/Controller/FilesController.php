@@ -239,13 +239,15 @@ class FilesController extends UploaderAppController {
 	}
 
 	public function toggleRight($uploadedFileId, $userId = null, $action = 'read') {
-		if ($userId === null) {
+		$isNewUserRight = isset($this->request->query['user_id']);
+		if ($isNewUserRight) {
+			$userId = $this->request->query['user_id'];
+		}
+
+		if (empty($userId)) {
 			$this->Session->setFlash(__d('uploader', 'Please select an user'), 'default', array('class' => 'alert alert-danger'));
 		} else {
-			$isNewUserRight = false;
-			if (isset($this->request->query['user_id'])) {
-				$userId = $this->request->query['user_id'];
-				$isNewUserRight = true;
+			if ($isNewUserRight) {
 				$folder = array();
 				$folder['id'] = $this->UploadedFile->getRootFolderId($uploadedFileId);
 				$folder['name'] =  $this->UploadedFile->field('filename', array('id' => $folder['id']));
