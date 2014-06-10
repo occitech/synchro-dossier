@@ -1,0 +1,18 @@
+header {
+	background-color: #B91B06;
+	text-align: left;
+	border-bottom: 8px #FFF solid;
+	height: 120px;
+	overflow: visible;
+	position: relative;
+}
+
+.header--tagline {
+	font-size:1.7em;
+	font-weight: bold;
+	text-transform: uppercase;
+	color: #FFF;
+	position: absolute;
+	bottom: 0.2em;
+	right: 2em;
+}
