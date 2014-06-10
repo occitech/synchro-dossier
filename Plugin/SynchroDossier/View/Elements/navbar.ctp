@@ -32,7 +32,7 @@
 		<ul class="nav pull-right">
 			<?php if ($this->Session->read('Auth.User') != array()): ?>
 			<li>
-				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><?= $this->Session->read('Auth.User.name'); ?> <b class="caret"></b></a>
+				<a href="#" class="dropdown-toggle" data-toggle="dropdown"><i class="icon-user"></i><?= $this->Session->read('Auth.User.name'); ?> <b class="caret"></b></a>
 				<ul class="dropdown-menu">
 					<li>
 						<?php echo $this->Html->link('<i class="icon-pencil"></i> ' . __d('synchro_dossier', "Profil"),
