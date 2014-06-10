@@ -242,7 +242,6 @@ class FilesController extends UploaderAppController {
 		if ($userId === null) {
 			$this->Session->setFlash(__d('uploader', 'Please select an user'), 'default', array('class' => 'alert alert-danger'));
 		} else {
-			$listRights = array('read', 'update', 'create', 'delete');
 			$isNewUserRight = false;
 			if (isset($this->request->query['user_id'])) {
 				$userId = $this->request->query['user_id'];
