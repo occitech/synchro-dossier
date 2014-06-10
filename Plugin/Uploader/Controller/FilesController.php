@@ -409,7 +409,7 @@ class FilesController extends UploaderAppController {
 
 	public function rename($parentId = null, $id = null) {
 		if ($this->request->is('put')) {
-			if (!$this->UploadedFile->rename($this->request->data, $this->Auth->user('id'))) {
+			if (!$this->UploadedFile->rename($this->request->data)) {
 				$this->Session->setFlash(__d('uploader', 'Vous n\'avez pas les droits nécessaires pour renommer le dossier ou fichier'), 'default', array('class' => 'alert alert-danger'));
 			}
 		}
