@@ -233,11 +233,11 @@ class DbMigration {
 			$filePath = $this->__getFilePath($file['hash']);
 
 			$data = array('file' => array(
-					'name' => $file['name'],
-					'tmp_name' => $filePath,
-					'size' => $file['size'],
-					'type' => $this->__cleanMimeType($file['mime']),
-					'error' => 0
+				'name' => $file['name'],
+				'tmp_name' => $filePath,
+				'size' => $file['size'] * 1024, // old SD stored sizes in Ko, the new version in o
+				'type' => $this->__cleanMimeType($file['mime']),
+				'error' => 0
 			));
 
 			$user['id'] = $this->__getNewUserId($file['user_id']);
