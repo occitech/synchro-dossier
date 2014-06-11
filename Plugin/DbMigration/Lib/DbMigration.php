@@ -85,15 +85,9 @@ class DbMigration {
 		$this->__Shell->out('');
 		$this->__Shell->out('User Migration');
 
-		$oldUsersNotSoftDeleted = $this->DbMigrationUsersUser->find('all', array(
-			'fields' => 'DISTINCT user_id',
-			'recursive' => -1
+		$oldUsers = $this->DbMigrationUser->find('all', array(
+			'conditions' => $this->__oldUsersImportConditions()
 		));
-		$conditions = array('OR' => array(
-			'DbMigrationUser.type' => array('root', 'admin', 'superadmin'),
-			'DbMigrationUser.id' => Hash::extract($oldUsersNotSoftDeleted, '{n}.DbMigrationUsersUser.user_id')
-		));
-		$oldUsers = $this->DbMigrationUser->find('all', compact('conditions'));
 
 		$result = true;
 		foreach ($oldUsers as $user) {
@@ -152,6 +146,24 @@ class DbMigration {
 			default:
 				return Configure::read('sd.Utilisateur.roleId');
 		}
+	}
+
+	private function __oldUsersImportConditions() {
+		$oldUsersNotSoftDeleted = $this->DbMigrationUsersUser->find('all', array(
+			'fields' => 'DISTINCT user_id',
+			'recursive' => -1
+		));
+		$oldUsersRelatedToAnOrder = $this->DbMigrationOrdersUser->find('all', array(
+			'fields' => 'DISTINCT user_id',
+			'recursive' => -1
+		));
+		return array('OR' => array(
+			'DbMigrationUser.type' => array('root', 'admin', 'superadmin'),
+			'DbMigrationUser.id' => array_merge(
+				Hash::extract($oldUsersNotSoftDeleted, '{n}.DbMigrationUsersUser.user_id'),
+				Hash::extract($oldUsersRelatedToAnOrder, '{n}.DbMigrationOrdersUser.user_id')
+			)
+		));
 	}
 
 /**
