@@ -37,7 +37,7 @@ class OldUserFixture extends CakeTestFixture {
 			'password' => 'locked',
 			'password_new' => null,
 			'password_code' => null,
-			'type' => 'root',
+			'type' => 'user',
 			'created' => '2010-02-18 14:09:01',
 			'modified' => '2010-02-18 14:09:01',
 			'lastlog' => '2010-02-18 14:09:01'

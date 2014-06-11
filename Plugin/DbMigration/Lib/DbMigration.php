@@ -32,11 +32,18 @@ class DbMigration {
 	public $relationOldFolderNewFolder = array();
 	public $relationOldFileNewFile = array();
 
-	public $oldUploadFolder = '/home/occitechprod/sd/espaceclient/files';
+	public $oldUploadFolder;
 
 	public $isInTest = false;
 
-	public function __construct($Shell) {
+	public function __construct($Shell, $uploadFolder = null) {
+		if (!is_null($uploadFolder)) {
+			$this->oldUploadFolder = $uploadFolder;
+		}
+		if (empty($this->oldUploadFolder)) {
+			throw new RuntimeException('Please configure a path for the old upload folder');
+		}
+
 		$this->__Shell = $Shell;
 		$this->DbMigrationUser = ClassRegistry::init('DbMigration.DbMigrationUser');
 		$this->DbMigrationOrder = ClassRegistry::init('DbMigration.DbMigrationOrder');
@@ -78,15 +85,9 @@ class DbMigration {
 		$this->__Shell->out('');
 		$this->__Shell->out('User Migration');
 
-		$oldUsersNotSoftDeleted = $this->DbMigrationUsersUser->find('all', array(
-			'fields' => 'DISTINCT user_id',
-			'recursive' => -1
+		$oldUsers = $this->DbMigrationUser->find('all', array(
+			'conditions' => $this->__oldUsersImportConditions()
 		));
-		$conditions = array('OR' => array(
-			'DbMigrationUser.type' => array('root', 'admin', 'superadmin'),
-			'DbMigrationUser.id' => Hash::extract($oldUsersNotSoftDeleted, '{n}.DbMigrationUsersUser.user_id')
-		));
-		$oldUsers = $this->DbMigrationUser->find('all', compact('conditions'));
 
 		$result = true;
 		foreach ($oldUsers as $user) {
@@ -145,6 +146,24 @@ class DbMigration {
 			default:
 				return Configure::read('sd.Utilisateur.roleId');
 		}
+	}
+
+	private function __oldUsersImportConditions() {
+		$oldUsersNotSoftDeleted = $this->DbMigrationUsersUser->find('all', array(
+			'fields' => 'DISTINCT user_id',
+			'recursive' => -1
+		));
+		$oldUsersRelatedToAnOrder = $this->DbMigrationOrdersUser->find('all', array(
+			'fields' => 'DISTINCT user_id',
+			'recursive' => -1
+		));
+		return array('OR' => array(
+			'DbMigrationUser.type' => array('root', 'admin', 'superadmin'),
+			'DbMigrationUser.id' => array_merge(
+				Hash::extract($oldUsersNotSoftDeleted, '{n}.DbMigrationUsersUser.user_id'),
+				Hash::extract($oldUsersRelatedToAnOrder, '{n}.DbMigrationOrdersUser.user_id')
+			)
+		));
 	}
 
 /**
