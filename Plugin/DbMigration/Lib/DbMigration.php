@@ -33,7 +33,7 @@ class DbMigration {
 	public $relationOldFileNewFile = array();
 
 	public $oldUploadFolder = '/home/occitechprod/sd/espaceclient/files';
-	
+
 	public $isInTest = false;
 
 	public function __construct($Shell) {
@@ -388,9 +388,14 @@ class DbMigration {
 				'_delete' => $rights['_delete'],
 				'_change_right' => $rights['_change_right'],
 			);
-			$result = $this->Permission->save($newAcl);
-			if (!$result) {
-				break;
+			if (empty($newAcl['aro_id']) || empty($newAcl['aco_id'])) {
+				$this->__Shell->out('Acl Migration weirdness detected');
+				debug($newAcl);
+			} else {
+				$result = $this->Permission->save($newAcl);
+				if (!$result) {
+					break;
+				}
 			}
 		}
 
