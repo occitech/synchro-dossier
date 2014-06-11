@@ -54,7 +54,7 @@ class DbMigrationTest extends CroogoTestCase {
 		Configure::write('Acl.database', 'test');
 		Configure::write('DbMigration.db', 'testold');
 		parent::setUp();
-		$this->DbMigration = new DbMigration(new Shell());
+		$this->DbMigration = new DbMigration(new Shell(), TMP);
 	}
 
 	public function tearDown() {

@@ -32,11 +32,18 @@ class DbMigration {
 	public $relationOldFolderNewFolder = array();
 	public $relationOldFileNewFile = array();
 
-	public $oldUploadFolder = '/home/occitechprod/sd/espaceclient/files';
+	public $oldUploadFolder;
 
 	public $isInTest = false;
 
-	public function __construct($Shell) {
+	public function __construct($Shell, $uploadFolder = null) {
+		if (!is_null($uploadFolder)) {
+			$this->oldUploadFolder = $uploadFolder;
+		}
+		if (empty($this->oldUploadFolder)) {
+			throw new RuntimeException('Please configure a path for the old upload folder');
+		}
+
 		$this->__Shell = $Shell;
 		$this->DbMigrationUser = ClassRegistry::init('DbMigration.DbMigrationUser');
 		$this->DbMigrationOrder = ClassRegistry::init('DbMigration.DbMigrationOrder');
