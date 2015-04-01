@@ -1,8 +1,24 @@
 # Synchro-dossier
 
-**This project is not maintained anymore, and is provided "as is"**
+A CakePHP / Croogo platform for sharing files privately with collaborators, customers and suppliers.
+
+**This project is not maintained anymore, and is provided "as is".** [Post-Mortem (fr)](http://www.occitech.fr/blog/)
 
 ![EOL reached](https://img.shields.io/badge/maintained-no-red.svg)
+
+## Features
+
+* User authentication with group management
+* File management with HTML5 drag & drop
+* Version and history management
+* Comments and notifications
+* Quota limitations
+
+## Screenshots
+
+![File versions](screenshots/versions.jpg)
+
+See more in [/screenshots](/screenshots)
 
 ## Requirements
   * Apache with `mod_rewrite`
