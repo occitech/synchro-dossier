@@ -1,32 +1,55 @@
 # Synchro-dossier
 
+A CakePHP / Croogo platform for sharing files privately with collaborators, customers and suppliers.
+
+**This project is not maintained anymore, and is provided "as is".** [Post-Mortem (fr)](http://www.occitech.fr/blog/fermeture-de-synchrodossier-lanalyse)
+
+![EOL reached](https://img.shields.io/badge/maintained-no-red.svg)
+
+## Features
+
+* User authentication with group management
+* File management with HTML5 drag & drop
+* Version and history management
+* Comments and notifications
+* Quota limitations
+
+## Screenshots
+
+![File versions](screenshots/versions.jpg)
+
+See more in [/screenshots](/screenshots)
+
 ## Requirements
   * Apache with `mod_rewrite`
   * PHP 5.2 or higher
   * MySQL 4.1 or higher
 
 ## Installation
-  * git clone git@bitbucket.org:occitech/synchro-dossier.git
-  * Run `composer install` (and `composer update` if needed)
-  * Development only: run `npm install` for CasperJS acceptance tests
 
-  * `app/Config/database.php.install` to `database.php`, and edit the details.
-  * `app/Config/croogo.php.install` to `croogo.php`, and edit the details.
-  * `app/Config/settings.json.install` to `settings.json`
-  * `app/Config/email.php.default` to `email.php`, and edit the default configuration.
-  * `app/Config/occitest.js.default` to `occitest.js` and edit it to be able to execute acceptance tests
-
-  * Run `Vendor/bin/cake Install.install`
-  * Run `chmod -R 777 tmp/`
-  * Run `chmod 777 Config/settings.json`
-
-  * Go to the admin panel Extensions > Plugins and activate in order :
+* `git clone https://github.com/occitech/synchro-dossier.git`
+* Run `composer install` (and `composer update` if needed)
+* copy `app/Config/database.php.install` to `database.php`, and edit the details.
+* copy `app/Config/croogo.php.install` to `croogo.php`, and edit the details.
+* copy `app/Config/settings.json.install` to `settings.json`
+* copy `app/Config/email.php.default` to `email.php`, and edit the default configuration.
+* copy `app/Config/occitest.js.default` to `occitest.js` and edit it to be able to execute acceptance tests
+* Run `Vendor/bin/cake Install.install`
+* Run `chmod -R 777 tmp/`
+* Run `chmod 777 Config/settings.json`
+* Go to the admin panel Extensions > Plugins and activate in order :
     * SdLogs
     * Translate
     * SdUsers
     * Uploader
     * SynchroDossier
+* Go to the admin panel Extensions > Themes and activate Occitech Theme
+* Finally `Vendor/bin/cake Migrations.migration run all`
 
-  * Go to the admin panel Extensions > Themes and activate Occitech Theme
+## Development
 
-  * Finally `Vendor/bin/cake Migrations.migration run all`
+Run `npm install` for CasperJS acceptance tests (runnable with `npm test`)
+
+## License
+
+MIT License
